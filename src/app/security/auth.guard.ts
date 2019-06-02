@@ -32,6 +32,8 @@ constructor(
       });
     } // if
 
+
+    console.log(`canActivate=true for URL:${this.router.url}`);
     return true;
   }
 }

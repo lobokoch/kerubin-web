@@ -6,9 +6,9 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { HttpClientWithToken } from './../../../security/http-client-token';
+import { HttpClientWithToken } from './../../../../security/http-client-token';
 import { Injectable } from '@angular/core';
-import * as localTranslations from 'src/app/cadastros/fornecedor/i18n/pt-br.json';
+import * as localTranslations from 'src/app/modules/cadastros/fornecedor/i18n/pt-br.json';
 
 @Injectable()
 export class CadastrosFornecedorTranslationService {

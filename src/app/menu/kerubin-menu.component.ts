@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  selector: 'app-kerubin-menu',
+  templateUrl: './kerubin-menu.component.html',
+  styleUrls: ['./kerubin-menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class KerubinMenuComponent implements OnInit {
 
   items: MenuItem[];
 
