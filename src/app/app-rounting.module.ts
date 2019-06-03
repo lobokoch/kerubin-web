@@ -1,9 +1,13 @@
+// Angular
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+
+// Kerubin - BEGIN
 import { ConfirmAccountComponent } from './account/confirmaccount/confirmaccount.component';
 import { NewAccountComponent } from './account/newaccount/newaccount.component';
 import { ConfigNewAccountComponent } from './account/confignewaccount/confignewaccount.component';
 import { LoginComponent } from './security/login/login.component';
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
+// Kerubin - END
 
 const routes: Routes = [
   { path: 'fornecedor', loadChildren: './modules/cadastros/fornecedor/fornecedor/fornecedor.module#FornecedorModule' },

@@ -1,5 +1,3 @@
-import { SecurityModule } from './../security/security.module';
-import { KerubinAccountModule } from './../account/kerubin-account.module';
 // Angular
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -21,11 +19,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 // Kerubin - BEGIN
 import { NavbarComponent } from './../navbar/navbar.component';
-import { KerubinMenuModule } from './../menu/kerubin-menu-module';
+import { KerubinMenuModule } from '../menu/kerubin-menu.module';
 import { FocusDirective } from './../directive/focus.directive';
 import { MessageHandlerService } from './message-handler.service';
 import { HttpClientWithToken } from '../security/http-client-token';
 import { UserAccountService } from '../account/useraccount.service';
+import { SecurityModule } from './../security/security.module';
+import { KerubinAccountModule } from './../account/kerubin-account.module';
 // Kerubin - END
 
 
@@ -77,4 +77,3 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ]
 })
 export class CoreModule { }
-

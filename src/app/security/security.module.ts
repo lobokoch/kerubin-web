@@ -1,15 +1,19 @@
+// Angular
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
+
+// Kerubin - BEGIN
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { AuthGuard } from './auth.guard';
-import { NgModule } from '@angular/core';
-import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { LogoutService } from './logout.service';
+// Kerubin - END
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -40,8 +44,8 @@ export function tokenGetter() {
 
   providers: [
     AuthGuard,
-    LogoutService,
-    AuthService
+    AuthService,
+    LogoutService
   ]
 })
 

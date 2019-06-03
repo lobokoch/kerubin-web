@@ -1,6 +1,5 @@
 import { MenuModule } from 'primeng/menu';
 import { KerubinMenuComponent } from './kerubin-menu.component';
-// import { MenuComponent } from './kerubin-menu.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { NgModule } from '@angular/core';
 
