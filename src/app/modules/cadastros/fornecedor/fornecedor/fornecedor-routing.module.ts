@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
+  // Must add in forRoot
+  // { path: 'fornecedor', loadChildren: './modules/cadastros/fornecedor/fornecedor/fornecedor.module#FornecedorModule' }
   {
     path: '',
     component: FornecedorListComponent,
@@ -21,6 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   }
 ];
+
 
 @NgModule({
 

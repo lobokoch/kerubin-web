@@ -1,4 +1,3 @@
-import { CadastrosFornecedorTranslationService } from './../i18n/cadastros-fornecedor-translation.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FornecedorService } from './fornecedor.service';
@@ -20,6 +19,10 @@ import { SpinnerModule } from 'primeng/spinner';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FornecedorRoutingModule } from './fornecedor-routing.module';
+
+// Kerubin - BEGIN
+import { CadastrosFornecedorTranslationService } from './../i18n/cadastros-fornecedor-translation.service';
+// Kerubin - END
 
 @NgModule({
 

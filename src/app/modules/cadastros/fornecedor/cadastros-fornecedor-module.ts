@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
   ],
 
   declarations: [
+
   ],
 
   exports: [
@@ -16,7 +17,7 @@ import { NgModule } from '@angular/core';
   ],
 
   providers: [
-
+    CadastrosFornecedorTranslationService
   ]
 
 })
