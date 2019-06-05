@@ -1,21 +1,22 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 3.6.2
+Code generated at time stamp: 2019-06-05T06:41:33.818
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
 <app-navbar *ngIf="canShowMenu()"></app-navbar>
-<div class="ui-g">
-  <div class="ui-g-12 ui-fluid">
-    <div class="ui-g-12 ui-fluid ui-md-2">
-      <app-menu *ngIf="canShowMenu()"></app-menu>
-    </div>
 
-    <div class="ui-g-12 ui-fluid ui-md-10">
-      <router-outlet></router-outlet>
-    </div>
+<router-outlet></router-outlet>
 
-    <p-toast></p-toast>
+<p-toast></p-toast>
 
-    <p-confirmDialog header="Confirmação" icon="fa fa-question-circle" #confirmacao>
-      <p-footer>
-        <button type="button" pButton label="Sim" (click)="confirmacao.accept()"></button>
-        <button type="button" pButton label="Não" (click)="confirmacao.reject()"></button>
-      </p-footer>
-    </p-confirmDialog>
-  </div>
-</div>
+<p-confirmDialog header="Confirmação" icon="fa fa-question-circle" #confirmacao>
+    <p-footer>
+      <button type="button" pButton label="Sim" (click)="confirmacao.accept()"></button>
+      <button type="button" pButton label="Não" (click)="confirmacao.reject()"></button>
+    </p-footer>
+  </p-confirmDialog>

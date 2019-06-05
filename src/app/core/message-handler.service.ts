@@ -1,3 +1,11 @@
+/**********************************************************************************************
+Code generated with MKL Plug-in version: 3.6.2
+Code generated at time stamp: 2019-06-05T06:41:33.812
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************/
+
 import { UserNotAuthenticatedError } from './exceptions';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -33,7 +41,7 @@ export class MessageHandlerService {
 
     if (typeof errorResponse === 'string') {
       message = errorResponse;
-    } else if (errorIsResponse && errorResponse.status >= 400 && errorResponse.status <= /*499*/ 500) {
+    } else if (errorIsResponse && errorResponse.status >= 400 && errorResponse.status <= 499) {
       try {
 
         if (errorResponse.error) {

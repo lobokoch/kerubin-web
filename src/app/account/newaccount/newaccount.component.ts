@@ -1,12 +1,25 @@
-import { AuthService } from './../../security/auth.service';
+/**********************************************************************************************
+Code generated with MKL Plug-in version: 3.6.2
+Code generated at time stamp: 2019-06-05T06:41:33.812
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************/
+
+// Angular
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+// PrimeNG
+import { SelectItem } from 'primeng/api';
+
+// Kerubin
+import { AuthService } from './../../security/auth.service';
 import { UserAccountService } from '../useraccount.service';
 import { UserAccount, AccountCreatedDTO } from './useraccount.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 import { LogoutService } from 'src/app/security/logout.service';
-import { SelectItem } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newaccount',
@@ -45,11 +58,7 @@ export class NewAccountComponent implements OnInit {
   validateAllFormFields(form: FormGroup) {
     Object.keys(form.controls).forEach(field => {
       const control = form.get(field);
-      /*if (field === 'accountTypeField' && !control.value) {
-        control.markAsTouched({ onlySelf: true });
-      }*/
       if (control instanceof FormControl) {
-        // control.markAsTouched({ onlySelf: true });
         control.markAsDirty({ onlySelf: true });
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
@@ -112,20 +121,5 @@ export class NewAccountComponent implements OnInit {
       });
   }
 
+}		
 
-  /*private doLoginAnonymous() {
-    const username = 'anonymous@kerubin.com.br';
-    const password = 'Kerubin_Anonymous@!1';
-    this.auth.login(username, password)
-    .then(() => {
-      console.log('Anonymous connected!');
-      this.connected = true;
-    })
-    .catch (error => {
-      this.connected = false;
-      this.messageHandler.showError(error);
-    });
-  }*/
-
-
-}

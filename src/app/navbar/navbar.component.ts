@@ -1,10 +1,18 @@
+/**********************************************************************************************
+Code generated with MKL Plug-in version: 3.6.2
+Code generated at time stamp: 2019-06-05T06:41:33.812
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************/
+
 import { AuthService } from './../security/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { LogoutService } from '../security/logout.service';
 import { MessageHandlerService } from '../core/message-handler.service';
 import { Router } from '@angular/router';
 
-// import { KerubinClientesTranslationService } from './../i18n/kerubin-clientes-translation.service';
+// import { FinanceiroPlanoContasTranslationService } from './../i18n/financeiro-planocontas-translation.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +27,7 @@ export class NavbarComponent implements OnInit {
 	private logoutService: LogoutService,
 	private messageHandler: MessageHandlerService,
 	private router: Router
-  	// private kerubinClientesTranslationService: KerubinClientesTranslationService
+  	// private financeiroPlanoContasTranslationService: FinanceiroPlanoContasTranslationService
   ) { }
 
   ngOnInit() {
@@ -28,7 +36,7 @@ export class NavbarComponent implements OnInit {
   /* 
   // TODO: temporário, só para testes.
   getTranslation(key: string): string {
-  	const value = this.kerubinClientesTranslationService.getTranslation(key);
+  	const value = this.financeiroPlanoContasTranslationService.getTranslation(key);
   	return value;
   	
   	// const result = key.substring(key.lastIndexOf('_') + 1);
