@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.2
-Code generated at time stamp: 2019-06-05T06:43:06.721
+Code generated with MKL Plug-in version: 3.6.3
+Code generated at time stamp: 2019-06-05T23:17:44.681
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,8 @@ import { AccordionModule } from 'primeng/accordion';
 import { SpinnerModule } from 'primeng/spinner';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 // Kerubin - BEGIN
 import { FinanceiroContasPagarTranslationService } from './../i18n/./../i18n/financeiro-contaspagar-translation.service';
@@ -37,21 +39,23 @@ import { FornecedorRoutingModule } from './fornecedor-routing.module';
   imports: [
     // PrimeNG
     CommonModule,
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-    InputTextareaModule,
-    TableModule,
-    TooltipModule,
-    ToastModule,
-    ConfirmDialogModule,
-    AutoCompleteModule,
-    PanelModule,
-    InputSwitchModule,
-    AccordionModule,
-    SpinnerModule,
-    DialogModule,
-    DropdownModule,
+	FormsModule,
+	InputTextModule,
+	ButtonModule,
+	InputTextareaModule,
+	TableModule,
+	TooltipModule,
+	ToastModule,
+	ConfirmDialogModule,
+	AutoCompleteModule,
+	PanelModule,
+	InputSwitchModule,
+	AccordionModule,
+	SpinnerModule,
+	DialogModule,
+	DropdownModule,
+	CalendarModule,
+	CurrencyMaskModule,
 
     // Kerubin
     FornecedorRoutingModule

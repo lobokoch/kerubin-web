@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.2
-Code generated at time stamp: 2019-06-05T06:43:06.721
+Code generated with MKL Plug-in version: 3.6.3
+Code generated at time stamp: 2019-06-05T23:17:44.681
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -33,13 +33,9 @@ import { ContaPagarListComponent } from './list-contapagar.component';
 import { ContaPagarComponent } from './crud-contapagar.component';
 import { ContaPagarRoutingModule } from './contapagar-routing.module';
 import { PlanoContaModule } from '../planoconta/planoconta.module';
-import { BancoModule } from '../banco/banco.module';
 import { ContaBancariaModule } from '../contabancaria/contabancaria.module';
-import { FornecedorModule } from '../fornecedor/fornecedor.module';
-
-import { BandeiraCartaoModule } from '../bandeiracartao/bandeiracartao.module';
 import { CartaoCreditoModule } from '../cartaocredito/cartaocredito.module';
-import { AgenciaBancariaModule } from '../agenciabancaria/agenciabancaria.module';
+import { FornecedorModule } from '../fornecedor/fornecedor.module';
 // Kerubin - END
 
 @NgModule({
@@ -47,33 +43,30 @@ import { AgenciaBancariaModule } from '../agenciabancaria/agenciabancaria.module
   imports: [
     // PrimeNG
     CommonModule,
-    FormsModule,
-    InputTextModule,
-    ButtonModule,
-    InputTextareaModule,
-    TableModule,
-    TooltipModule,
-    ToastModule,
-    ConfirmDialogModule,
-    AutoCompleteModule,
-    PanelModule,
-    InputSwitchModule,
-    AccordionModule,
-    SpinnerModule,
-    DialogModule,
-    DropdownModule,
-    CalendarModule,
-    CurrencyMaskModule,
+	FormsModule,
+	InputTextModule,
+	ButtonModule,
+	InputTextareaModule,
+	TableModule,
+	TooltipModule,
+	ToastModule,
+	ConfirmDialogModule,
+	AutoCompleteModule,
+	PanelModule,
+	InputSwitchModule,
+	AccordionModule,
+	SpinnerModule,
+	DialogModule,
+	DropdownModule,
+	CalendarModule,
+	CurrencyMaskModule,
 
     // Kerubin
     ContaPagarRoutingModule,
-    PlanoContaModule,
-    // BancoModule,
-    ContaBancariaModule,
-    FornecedorModule,
-    // AgenciaBancariaModule,
-    // BandeiraCartaoModule
-    CartaoCreditoModule
+	PlanoContaModule,
+	ContaBancariaModule,
+	CartaoCreditoModule,
+	FornecedorModule
 
   ],
 
@@ -88,7 +81,6 @@ import { AgenciaBancariaModule } from '../agenciabancaria/agenciabancaria.module
 
   providers: [
     ContaPagarService,
-    // PlanoContaService,
     FinanceiroContasPagarTranslationService
   ]
 
