@@ -1,3 +1,4 @@
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:43:06.721
@@ -30,6 +31,7 @@ import { ContaBancariaService } from './contabancaria.service';
 import { ContaBancariaListComponent } from './list-contabancaria.component';
 import { ContaBancariaComponent } from './crud-contabancaria.component';
 import { ContaBancariaRoutingModule } from './contabancaria-routing.module';
+import { CalendarModule } from 'primeng/calendar';
 // Kerubin - END
 
 @NgModule({
@@ -52,6 +54,8 @@ import { ContaBancariaRoutingModule } from './contabancaria-routing.module';
     SpinnerModule,
     DialogModule,
     DropdownModule,
+    CalendarModule,
+    CurrencyMaskModule,
 
     // Kerubin
     ContaBancariaRoutingModule

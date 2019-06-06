@@ -30,6 +30,7 @@ import { AgenciaBancariaService } from './agenciabancaria.service';
 import { AgenciaBancariaListComponent } from './list-agenciabancaria.component';
 import { AgenciaBancariaComponent } from './crud-agenciabancaria.component';
 import { AgenciaBancariaRoutingModule } from './agenciabancaria-routing.module';
+import { BancoModule } from '../banco/banco.module';
 // Kerubin - END
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AgenciaBancariaRoutingModule } from './agenciabancaria-routing.module';
     DropdownModule,
 
     // Kerubin
-    AgenciaBancariaRoutingModule
+    AgenciaBancariaRoutingModule,
+    BancoModule,
 
   ],
 

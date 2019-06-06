@@ -1,3 +1,5 @@
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CalendarModule } from 'primeng/calendar';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:37:56.738
@@ -30,6 +32,8 @@ import { CartaoCreditoService } from './cartaocredito.service';
 import { CartaoCreditoListComponent } from './list-cartaocredito.component';
 import { CartaoCreditoComponent } from './crud-cartaocredito.component';
 import { CartaoCreditoRoutingModule } from './cartaocredito-routing.module';
+import { BancoModule } from '../banco/banco.module';
+import { BandeiraCartaoModule } from './../bandeiracartao/bandeiracartao.module';
 // Kerubin - END
 
 @NgModule({
@@ -52,15 +56,19 @@ import { CartaoCreditoRoutingModule } from './cartaocredito-routing.module';
     SpinnerModule,
     DialogModule,
     DropdownModule,
+    CalendarModule,
+    CurrencyMaskModule,
 
     // Kerubin
-    CartaoCreditoRoutingModule
+    CartaoCreditoRoutingModule,
+    BancoModule,
+    BandeiraCartaoModule
 
   ],
 
   declarations: [
     CartaoCreditoComponent,
-    CartaoCreditoListComponent
+    CartaoCreditoListComponent,
   ],
 
   exports: [

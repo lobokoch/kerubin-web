@@ -1,3 +1,5 @@
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CalendarModule } from 'primeng/calendar';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:43:06.721
@@ -52,6 +54,8 @@ import { CartaoCreditoRoutingModule } from './cartaocredito-routing.module';
     SpinnerModule,
     DialogModule,
     DropdownModule,
+    CalendarModule,
+    CurrencyMaskModule,
 
     // Kerubin
     CartaoCreditoRoutingModule

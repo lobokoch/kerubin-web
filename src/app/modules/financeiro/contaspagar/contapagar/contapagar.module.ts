@@ -32,6 +32,14 @@ import { ContaPagarService } from './contapagar.service';
 import { ContaPagarListComponent } from './list-contapagar.component';
 import { ContaPagarComponent } from './crud-contapagar.component';
 import { ContaPagarRoutingModule } from './contapagar-routing.module';
+import { PlanoContaModule } from '../planoconta/planoconta.module';
+import { BancoModule } from '../banco/banco.module';
+import { ContaBancariaModule } from '../contabancaria/contabancaria.module';
+import { FornecedorModule } from '../fornecedor/fornecedor.module';
+
+import { BandeiraCartaoModule } from '../bandeiracartao/bandeiracartao.module';
+import { CartaoCreditoModule } from '../cartaocredito/cartaocredito.module';
+import { AgenciaBancariaModule } from '../agenciabancaria/agenciabancaria.module';
 // Kerubin - END
 
 @NgModule({
@@ -58,7 +66,14 @@ import { ContaPagarRoutingModule } from './contapagar-routing.module';
     CurrencyMaskModule,
 
     // Kerubin
-    ContaPagarRoutingModule
+    ContaPagarRoutingModule,
+    PlanoContaModule,
+    // BancoModule,
+    ContaBancariaModule,
+    FornecedorModule,
+    // AgenciaBancariaModule,
+    // BandeiraCartaoModule
+    CartaoCreditoModule
 
   ],
 
@@ -73,6 +88,7 @@ import { ContaPagarRoutingModule } from './contapagar-routing.module';
 
   providers: [
     ContaPagarService,
+    // PlanoContaService,
     FinanceiroContasPagarTranslationService
   ]
 
