@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.681
+Code generated with MKL Plug-in version: 3.7.1
+Code generated at time stamp: 2019-06-06T07:12:36.121
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -44,7 +44,7 @@ export class ContaPagarListComponent implements OnInit {
 	
 	contaPagarDescricaoAutoCompleteSuggestions: ContaPagarDescricaoAutoComplete[];
 	
-	contaPagarDataVencimentoIsBetweenOptionsSelected: SelectItem = {label: 'Este ano', value: '6'};
+	contaPagarDataVencimentoIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
 	
 	
 	
@@ -54,12 +54,6 @@ export class ContaPagarListComponent implements OnInit {
 	
 	contaPagarSumFields = new ContaPagarSumFields();
 	
-	/*
-	contaPagar: ContaPagar;
-	totaisFiltroContaPagar = new TotaisFiltroContaPagar(0.0, 0.0);
-	mostrarDialogPagarConta = false;
-	*/
-	
 	constructor(
 	    private contaPagarService: ContaPagarService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
@@ -68,7 +62,7 @@ export class ContaPagarListComponent implements OnInit {
 	) { }
 	
 	ngOnInit() {
-    	this.contaPagarListFilter.sortField = new SortField('planoContas', 1); // asc
+		this.contaPagarDataVencimentoIsBetweenOptionsOnClick(null);
 		this.initializeDateFilterIntervalDropdownItems();
 		
 		
@@ -77,8 +71,6 @@ export class ContaPagarListComponent implements OnInit {
 		
 		this.contaPagarListFilter.dataPagamentoIsNull = true;
 		
-	    // this.contaPagar = new ContaPagar();
-        // this.contaPagar.dataPagamento = moment().toDate();
 	}
 	
 	contaPagarList(pageNumber = 0) {
@@ -128,7 +120,7 @@ export class ContaPagarListComponent implements OnInit {
 	    if (event.sortField) {
 	      this.contaPagarListFilter.sortField = new SortField(event.sortField, event.sortOrder);
 	    } else {
-	      this.contaPagarListFilter.sortField = new SortField('planoContas', 1); // asc
+	      this.contaPagarListFilter.sortField = new SortField('dataVencimento', 1); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.contaPagarList(pageNumber);
@@ -192,6 +184,7 @@ export class ContaPagarListComponent implements OnInit {
 	
 	private initializeDateFilterIntervalDropdownItems() {
 		this.dateFilterIntervalDropdownItems = [
+		    {label: 'Minha competência', value: '12'},
 		    {label: 'Hoje', value: '0'},
 		    {label: 'Amanhã', value: '1'},
 		    {label: 'Esta semana', value: '2'},
@@ -278,6 +271,11 @@ export class ContaPagarListComponent implements OnInit {
 				dateFrom = moment().add(-1, 'year').startOf('year');
 				dateTo = moment().add(-1, 'year').endOf('year');
 				break;
+				
+			case 12: // Minha competência
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
+				break;
 			
 			default:
 				break;
@@ -361,84 +359,4 @@ export class ContaPagarListComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	/*********************
-	getContaCssClass(conta: ContaPagar): string {
-	    const vencimento = conta.dataVencimento;
-	    const emAberto = conta.dataPagamento == null;
-	    const hoje = moment();
-	    if (vencimento && emAberto) {
-	      if (moment(vencimento).isBefore(hoje, 'day')) {
-	        return 'conta-vencida';
-	      }
-	      if (moment(vencimento).isSame(hoje, 'day')) {
-	        return 'conta-vence-hoje';
-	      }
-	      if (moment(vencimento).isSame(moment().add(1, 'day'), 'day')) {
-	        return 'conta-vence-amanha';
-	      }
-	      if (moment(vencimento).isBefore(moment().add(1, 'week').startOf('week'), 'day')) {
-	        return 'conta-vence-essa-semana';
-	      }
-	    }
-	    return 'conta-ok';
-	}
-	
-	get getTotalGeralContasPagar(): number {
-	    const total = this.totaisFiltroContaPagar.totalValorPagar - this.totaisFiltroContaPagar.totalValorPago;
-	    return total ? total : 0.0;
-	}
-	  
-	get getTotalValorPagar(): number {
-	    const total = this.totaisFiltroContaPagar.totalValorPagar;
-	    return total ? total : 0.0;
-	}
-	
-	get getTotalValorPago(): number {
-		const total = this.totaisFiltroContaPagar.totalValorPago;
-		return total ? total : 0.0;
-	}
-	
-	getTotaisFiltroContaPagar() {
-	    this.contasPagarService.getTotaisFiltroContaPagar(this.contaPagarListFilter)
-	    .then(response => {
-	      this.totaisFiltroContaPagar = response;
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao buscar totais:' + erro);
-	    });
-	}
-	
-	mostrarPagarConta(conta: ContaPagar) {
-	    this.contaPagar = new ContaPagar();
-	    this.contaPagar.assign(conta);
-	    // this.contaPagar.dataPagamento = new Date(this.contaPagar.dataPagamento);
-	    const data = this.contaPagar.dataPagamento;
-	    if (data == null) {
-	      this.contaPagar.dataPagamento = moment().toDate();
-	    } else {
-	      this.contaPagar.dataPagamento = moment(this.contaPagar.dataPagamento).toDate();
-	    }
-	    if (!this.contaPagar.valorPago || this.contaPagar.valorPago === 0) {
-	      this.contaPagar.valorPago = conta.valor;
-	    }
-	    this.mostrarDialogPagarConta = true;
-	}
-	
-	cancelarPagarConta() {
-		this.mostrarDialogPagarConta = false;
-	}
-	
-	executarPagarConta() {
-	    this.contasPagarService.update(this.contaPagar)
-	    .then((contaPagar) => {
-	      this.mostrarDialogPagarConta = false;
-	      this.messageHandler.showSuccess(`A conta ${contaPagar.descricao} foi paga.`);
-	      this.contaPagarList(0);
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao pagar a conta: ' + erro);
-	    });
-	}
-	*********************/
 }
