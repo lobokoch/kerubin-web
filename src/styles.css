@@ -165,6 +165,13 @@ a, button {
   background-color: rgb(224, 252, 160) !important;
 }
 
+.kb-conta-legenda {
+  margin-right: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid silver;
+}
+
 .kb-container {
   /*float: left !important;*/
   overflow: auto !important;

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.8.1
-Code generated at time stamp: 2019-06-08T08:28:40.450
+Code generated with MKL Plug-in version: 3.9.0
+Code generated at time stamp: 2019-06-08T10:32:58.550
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -100,6 +100,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="contaPagarListFilter.pageSize" 
 			    [totalRecords]="contaPagarListTotalElements"
 			    [lazy]="true" (onLazyLoad)="contaPagarListOnLazyLoad($event)" >
+			    
+			    <ng-template pTemplate="caption">
+			    	Legenda:
+			    	<span class="kb-conta-vencida kb-conta-legenda">Conta vencida</span>
+			    	<span class="kb-conta-vence-hoje kb-conta-legenda">Conta vence hoje</span>
+			    	<span class="kb-conta-vence-amanha kb-conta-legenda">Conta vence amanhã</span>
+			    	<span class="kb-conta-vence-proximos-3-dias kb-conta-legenda">Conta vence nos próximos 3 dias</span>
+			    	<span class="kb-conta-vence-esta-semana kb-conta-legenda">Conta vence esta semana</span>
+			    	<span class="kb-conta-paga kb-conta-legenda">Conta paga</span>
+			    </ng-template>
 			    
 			    <ng-template pTemplate="header">
 		            <tr>
