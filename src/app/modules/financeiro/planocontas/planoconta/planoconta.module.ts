@@ -7,8 +7,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -37,8 +37,8 @@ import { PlanoContaRoutingModule } from './planoconta-routing.module';
 @NgModule({
 
   imports: [
-    // PrimeNG
-    CommonModule,
+  // PrimeNG
+  CommonModule,
 	FormsModule,
 	InputTextModule,
 	ButtonModule,

@@ -22,7 +22,7 @@ const routes: Routes = [
 
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.plano_contas
-  { path: 'planoconta', loadChildren: './modules/financeiro/planocontas/planoconta/planoconta.module#PlanoContaModule' },
+  { path: 'planoconta', loadChildren: './modules/financeiro/planocontas/planocontas-tree/planocontas-tree.module#PlanoContasTreeModule' },
   // END ENTITIES FOR SERVICE: financeiro.plano_contas
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.contas_pagar
