@@ -72,7 +72,7 @@ export class KerubinMenuComponent implements OnInit {
       			label: 'Contas a pagar',
       			icon: 'pi pi-fw ',
       			items: [
-      				{ label: 'Conta a pagar', icon: 'pi pi-fw', routerLink: '/contapagar' }
+      				{ label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/contapagar' }
       			]
       		}
 

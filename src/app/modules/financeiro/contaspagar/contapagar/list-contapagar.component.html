@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.7.1
-Code generated at time stamp: 2019-06-06T07:12:36.146
+Code generated with MKL Plug-in version: 3.8.1
+Code generated at time stamp: 2019-06-08T08:28:40.450
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -116,29 +116,29 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        </ng-template>
 		        
 			    <ng-template pTemplate="body" let-contaPagar>
-		            <tr [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" [pSelectableRow]="contaPagar">
-		            	<td>
+		            <tr [pSelectableRow]="contaPagar">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{contaPagarPlanoContasAutoCompleteFieldConverter(contaPagar?.planoContas)}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{contaPagar?.descricao}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{contaPagar?.dataVencimento | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td class="kb-field-money">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
 		            		{{contaPagar?.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento' + '_' + contaPagar?.formaPagamento?.toLowerCase()) }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{contaPagar?.dataPagamento | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td class="kb-field-money">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
 		            		{{contaPagar?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
 		            		{{contaPagarFornecedorAutoCompleteFieldConverter(contaPagar?.fornecedor)}}
 		            	</td>
 		              	<td class="kb-actions">

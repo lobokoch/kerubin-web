@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.7.1
-Code generated at time stamp: 2019-06-06T07:12:36.121
+Code generated with MKL Plug-in version: 3.8.1
+Code generated at time stamp: 2019-06-08T08:28:40.433
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -306,6 +306,10 @@ export class ContaPagarListComponent implements OnInit {
 		
 		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isSame(moment().add(1, 'day'), 'day')) {
 			return 'kb-conta-vence-amanha';
+		}
+		
+		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBetween(moment(), moment().add(3, 'day'))) {
+			return 'kb-conta-vence-proximos-3-dias';
 		}
 		
 		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBetween(moment(), moment().endOf('week'))) {

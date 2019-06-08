@@ -138,28 +138,31 @@ a, button {
   color: blue !important;
 }
 
-.kb-conta-vencida :not(:last-child) {
+.kb-conta-vencida {
   background-color:darkred !important;
   color: white !important;
   font-weight: bold;
   /*text-decoration: overline;*/
 }
 
-.kb-conta-vence-hoje :not(:last-child) {
+.kb-conta-vence-hoje /*:not(:last-child)*/ {
   background-color: red !important;
   color:white !important;
   font-weight: bold;
 }
 
-.kb-conta-vence-amanha :not(:last-child) {
+.kb-conta-vence-amanha {
   background-color: orange !important;
   color: white !important;
   font-weight: bold;
 }
 
-.kb-conta-vence-esta-semana :not(:last-child) {
-  color: green !important;
-  /*font-weight: bold;*/
+.kb-conta-vence-proximos-3-dias {
+  background-color: rgb(254, 253, 194) !important;
+}
+
+.kb-conta-vence-esta-semana {
+  background-color: rgb(224, 252, 160) !important;
 }
 
 .kb-container {
