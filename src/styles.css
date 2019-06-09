@@ -141,20 +141,20 @@ a, button {
 .kb-conta-vencida {
   background-color:darkred !important;
   color: white !important;
-  font-weight: bold;
+  /*font-weight: bold;*/
   /*text-decoration: overline;*/
 }
 
 .kb-conta-vence-hoje /*:not(:last-child)*/ {
   background-color: red !important;
-  color:white !important;
-  font-weight: bold;
+  /*color:white !important;*/
+  /*font-weight: bold;*/
 }
 
 .kb-conta-vence-amanha {
   background-color: orange !important;
-  color: white !important;
-  font-weight: bold;
+  /*color: white !important;*/
+  /*font-weight: bold;*/
 }
 
 .kb-conta-vence-proximos-3-dias {
