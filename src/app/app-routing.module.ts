@@ -18,7 +18,8 @@ import { LoginComponent } from './security/login/login.component';
 // Kerubin - END
 
 const routes: Routes = [
-  // ENTITY CHILD ROUTES
+  // Main dashboard
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
 
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.plano_contas
@@ -42,7 +43,7 @@ const routes: Routes = [
   // END ENTITIES FOR SERVICE: cadastros.fornecedor
 
   // *****
-  { path: 'mainmenu', loadChildren: './modules/financeiro/contaspagar/contapagar/contapagar.module#ContaPagarModule' },
+  { path: 'mainmenu', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },

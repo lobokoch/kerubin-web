@@ -29,6 +29,22 @@ export class KerubinMenuComponent implements OnInit {
     this.items = [
 
       {
+      	label: 'Dashboards',
+      	icon: 'pi pi-pw',
+      	items: [
+
+      		{
+      			label: 'Contas a pagar',
+      			icon: 'pi pi-fw ',
+      			items: [
+      				{ label: 'Ano corrente', icon: 'pi pi-fw', routerLink: '/dashboard' },
+      			]
+          }
+
+      	]
+      },
+
+      {
       	label: 'Cadastros',
       	icon: 'pi pi-pw',
       	items: [
