@@ -21,8 +21,7 @@ export class DashboardComponent implements OnInit {
         label: (tooltipItem, data) => {
           const dataset = data.datasets[tooltipItem.datasetIndex];
           const value = dataset.data[tooltipItem.index];
-          const label = dataset.label ? (dataset.label + ': ') : '';
-          // | currency:'BRL':'symbol':'1.2-2':'pt'
+          const label = dataset.label ? (' ' + dataset.label + ': ') : ' ';
           // return label + this.decimalPipe.transform(value, '1.2-2');
           return label + value.toLocaleString('pt', {style: 'currency', currency: 'BRL'});
         }
