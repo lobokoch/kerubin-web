@@ -2,6 +2,7 @@ import { MonthlySum, MonthlySumContasPagar } from './dashboard-model';
 import { MessageHandlerService } from './../../core/message-handler.service';
 import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 import * as moment from 'moment';
 
@@ -14,9 +15,35 @@ export class DashboardComponent implements OnInit {
 
   monthlySumContasPagarData: any;
 
+  options = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          const dataset = data.datasets[tooltipItem.datasetIndex];
+          const value = dataset.data[tooltipItem.index];
+          const label = dataset.label ? (dataset.label + ': ') : '';
+          // | currency:'BRL':'symbol':'1.2-2':'pt'
+          // return label + this.decimalPipe.transform(value, '1.2-2');
+          return label + value.toLocaleString('pt', {style: 'currency', currency: 'BRL'});
+        }
+      }
+    },
+
+    scales: {
+      yAxes: [{
+        ticks: {
+          callback: function(value, index, values) {
+            return value.toLocaleString('pt', {style: 'currency', currency: 'BRL'});
+          }
+        }
+      }]
+    }
+  };
+
   constructor(
     private dashboardService: DashboardService,
-    private messageHandler: MessageHandlerService
+    private messageHandler: MessageHandlerService,
+    private decimalPipe: DecimalPipe
     ) {
 
     }

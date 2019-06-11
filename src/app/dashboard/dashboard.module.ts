@@ -1,6 +1,6 @@
 import { DashboardService } from './dashboard.service';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import {ChartModule} from 'primeng/chart';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -19,7 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
 
   providers: [
-    DashboardService
+    DashboardService,
+    DecimalPipe
   ]
 
 })
