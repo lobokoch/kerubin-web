@@ -288,3 +288,46 @@ a, button {
   background-color: #135ba1 !important;
 }
 */
+
+.div-card {
+  float: left;
+  margin: 5px;
+}
+
+.div-card .ui-card {
+  padding: 10px !important;
+  display: table;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.div-card .ui-card-header {
+  color: gray !important;
+  text-transform: uppercase;
+}
+
+.div-card .ui-card-content {
+  color: rgb(20, 38, 32) !important;
+  font-size: large;
+  font-weight: bold;
+}
+
+.div-card-pago .ui-card {
+  background-color: rgba(0, 206, 0, 0.4);
+
+}
+
+.div-card-7dias .ui-card {
+  background-color: rgba(192, 192, 192, 0.5);
+}
+
+.div-card-hoje .ui-card {
+  background-color: rgba(255, 128, 0, 0.5);
+}
+
+.div-card-amanha .ui-card {
+  background-color: rgba(255, 255, 128, 0.7);
+}
+
+.div-card-atraso .ui-card {
+  background-color: rgba(255, 0, 0, 0.5);
+}
