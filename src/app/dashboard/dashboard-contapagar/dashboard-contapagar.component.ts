@@ -15,6 +15,9 @@ export class DashboardContaPagarComponent implements OnInit {
 
   monthlySumContasPagarData: any;
   contasPagarSituacaoDoAnoSum = new ContasPagarSituacaoDoAnoSum();
+  currentMonthName = '';
+  nextMonthName = '';
+  previusMonthName = '';
 
   options = {
     tooltips: {
@@ -81,7 +84,20 @@ export class DashboardContaPagarComponent implements OnInit {
 
     const today = moment().startOf('month');
     const month = today.month();
+
+    this.currentMonthName = result[month];
+    let nextMonth = month + 1;
+    if (nextMonth > 12) {
+      nextMonth = 1;
+    }
+    this.nextMonthName = result[nextMonth];
+    let previousMonth = month - 1;
+    if (previousMonth < 1) {
+      previousMonth = 1;
+    }
+    this.previusMonthName = result[previousMonth];
     result[month] = '(ATUAL) ' + result[month];
+
 
     return result;
   }

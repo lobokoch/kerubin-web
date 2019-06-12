@@ -46,7 +46,7 @@
           <div class="div-card">
             <p-card>
               <p-header>
-                A pagar este mês (JUNHO)
+                A pagar este mês ({{ currentMonthName }})
               </p-header>
               {{ contasPagarSituacaoDoAnoSum.valorVenceMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
@@ -55,7 +55,7 @@
           <div class="div-card">
             <p-card>
               <p-header>
-                A pagar próximo mês (JULHO)
+                A pagar próximo mês ({{ nextMonthName }})
               </p-header>
               {{ contasPagarSituacaoDoAnoSum.valorVenceProximoMes | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
@@ -64,7 +64,7 @@
           <div class="div-card div-card-pago">
             <p-card>
               <p-header>
-                Pago este mês (JUNHO)
+                Pago este mês ({{ currentMonthName }})
               </p-header>
               {{ contasPagarSituacaoDoAnoSum.valorPagoMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
@@ -73,7 +73,7 @@
           <div class="div-card">
             <p-card>
               <p-header>
-                Pago mês passado (MAIO)
+                Pago mês passado ({{ previusMonthName }})
               </p-header>
               {{ contasPagarSituacaoDoAnoSum.valorPagoMesAnterior | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
