@@ -1,0 +1,23 @@
+{
+	"cadastros.cliente.cliente": "Cliente",
+	"cadastros.cliente.cliente_id": "#id",
+	"cadastros.cliente.cliente_id_grid": "#id",
+	"cadastros.cliente.cliente_nome": "Nome",
+	"cadastros.cliente.cliente_nome_grid": "Nome",
+	"cadastros.cliente.cliente_cpfCNPJ": "Documento (CNPJ/CPF)",
+	"cadastros.cliente.cliente_cpfCNPJ_grid": "Documento (CNPJ/CPF)",
+	"cadastros.cliente.cliente_ie": "Inscrição estadual",
+	"cadastros.cliente.cliente_ie_grid": "Inscrição estadual",
+	"cadastros.cliente.cliente_nomeContato": "Nome para contato",
+	"cadastros.cliente.cliente_nomeContato_grid": "Nome para contato",
+	"cadastros.cliente.cliente_fone": "Telefone",
+	"cadastros.cliente.cliente_fone_grid": "Telefone",
+	"cadastros.cliente.cliente_celular": "Celular",
+	"cadastros.cliente.cliente_celular_grid": "Celular",
+	"cadastros.cliente.cliente_email": "E-mail",
+	"cadastros.cliente.cliente_email_grid": "E-mail",
+	"cadastros.cliente.cliente_site": "Site",
+	"cadastros.cliente.cliente_site_grid": "Site",
+	"cadastros.cliente.cliente_observacoes": "Observações",
+	"cadastros.cliente.cliente_observacoes_grid": "Observações"
+}

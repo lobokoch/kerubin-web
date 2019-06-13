@@ -29,70 +29,84 @@ export class KerubinMenuComponent implements OnInit {
     this.items = [
 
       {
-      	label: 'Dashboards',
-      	icon: 'pi pi-pw',
-      	items: [
+        label: 'Dashboards',
+        icon: 'pi pi-pw',
+        items: [
 
-      		{
-      			label: 'Contas a pagar',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Ano corrente', icon: 'pi pi-fw', routerLink: '/dashboard' },
-      			]
+          {
+            label: 'Contas a pagar',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/dashboard' },
+            ]
           }
 
-      	]
+        ]
       },
 
       {
-      	label: 'Cadastros',
-      	icon: 'pi pi-pw',
-      	items: [
+        label: 'Cadastros',
+        icon: 'pi pi-pw',
+        items: [
 
-      		{
-      			label: 'Banco',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Banco', icon: 'pi pi-fw', routerLink: '/banco' },
-      				{ label: 'Agência bancária', icon: 'pi pi-fw', routerLink: '/agenciabancaria' },
-      				{ label: 'Bandeira de cartão', icon: 'pi pi-fw', routerLink: '/bandeiracartao' },
-      				{ label: 'Conta bancária', icon: 'pi pi-fw', routerLink: '/contabancaria' },
-      				{ label: 'Cartão de crédito', icon: 'pi pi-fw', routerLink: '/cartaocredito' }
-      			]
+          {
+            label: 'Banco',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Banco', icon: 'pi pi-fw', routerLink: '/banco' },
+              { label: 'Agência bancária', icon: 'pi pi-fw', routerLink: '/agenciabancaria' },
+              { label: 'Bandeira de cartão', icon: 'pi pi-fw', routerLink: '/bandeiracartao' },
+              { label: 'Conta bancária', icon: 'pi pi-fw', routerLink: '/contabancaria' },
+              { label: 'Cartão de crédito', icon: 'pi pi-fw', routerLink: '/cartaocredito' }
+            ]
           },
           {
-      			label: 'Fornecedor',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Fornecedor', icon: 'pi pi-fw', routerLink: '/fornecedor' }
-      			]
-      		}
+            label: 'Fornecedor',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Fornecedor', icon: 'pi pi-fw', routerLink: '/fornecedor' }
+            ]
+          },
+          {
+            label: 'Cliente',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Cliente', icon: 'pi pi-fw', routerLink: '/cliente' }
+            ]
+          }
 
-      	]
+        ]
       },
 
       {
-      	label: 'Financeiro',
-      	icon: 'pi pi-pw',
-      	items: [
+        label: 'Financeiro',
+        icon: 'pi pi-pw',
+        items: [
 
-      		{
-      			label: 'Plano de contas',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Plano de contas', icon: 'pi pi-fw', routerLink: '/planoconta' }
-      			]
+          {
+            label: 'Plano de contas',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Plano de contas', icon: 'pi pi-fw', routerLink: '/planoconta' }
+            ]
           },
 
           {
-      			label: 'Contas a pagar',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/contapagar' }
-      			]
-      		}
+            label: 'Contas a pagar',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/contapagar' }
+            ]
+          },
+          {
+            label: 'Contas a receber',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Contas a receber', icon: 'pi pi-fw', routerLink: '/contareceber' }
+            ]
+          }
 
-      	]
+        ]
       }
 
 

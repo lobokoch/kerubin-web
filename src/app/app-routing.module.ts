@@ -21,6 +21,13 @@ const routes: Routes = [
   // Main dashboard
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
 
+  // BEGIN ENTITIES FOR SERVICE: financeiro.contasreceber
+  { path: 'contareceber', loadChildren: './modules/financeiro/contasreceber/contareceber/contareceber.module#ContaReceberModule' },
+  // END ENTITIES FOR SERVICE: financeiro.contas_receber
+
+  // BEGIN ENTITIES FOR SERVICE: cadastros.cliente
+  { path: 'cliente', loadChildren: './modules/cadastros/cliente/cliente/cliente.module#ClienteModule' },
+  // END ENTITIES FOR SERVICE: cadastros.cliente
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.plano_contas
   { path: 'planoconta', loadChildren: './modules/financeiro/planocontas/planocontas-tree/planocontas-tree.module#PlanoContasTreeModule' },
