@@ -1,10 +1,10 @@
 <div class="ui-g">
   <div class="ui-g-12">
-    <h3 class="kb-card-h3"><span class="kb-card-title">Contas a pagar</span></h3>
+    <h3 class="kb-card-h3"><span class="kb-card-title">Contas a receber</span></h3>
   </div>
 
   <div class="ui-g-12 ui-md-6">
-    <p-panel header="Situação do contas a pagar">
+    <p-panel header="Situação do contas a receber">
       <div class="ui-g">
         <div class="ui-g-12">
           <div class="div-card div-card-atraso">
@@ -12,52 +12,52 @@
               <p-header>
                 Em atraso
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVencido | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVencido | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card div-card-hoje">
             <p-card>
               <p-header>
-                A pagar hoje
+                A receber hoje
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVenceHoje | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVenceHoje | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card div-card-amanha">
             <p-card>
               <p-header>
-                A pagar amanhã
+                A receber amanhã
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVenceAmanha | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVenceAmanha | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card div-card-7dias">
             <p-card>
               <p-header>
-                A pagar nos próximos 7 dias
+                A receber nos próximos 7 dias
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVenceProximos7Dias | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVenceProximos7Dias | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card">
             <p-card>
               <p-header>
-                A pagar este mês ({{ currentMonthName }})
+                A receber este mês ({{ currentMonthName }})
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVenceMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVenceMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card">
             <p-card>
               <p-header>
-                A pagar próximo mês ({{ nextMonthName }})
+                A receber próximo mês ({{ nextMonthName }})
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorVenceProximoMes | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorVenceProximoMes | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
         </div>
@@ -70,18 +70,18 @@
           <div class="div-card div-card-pago">
             <p-card>
               <p-header>
-                Pago este mês ({{ currentMonthName }})
+               Recebido este mês ({{ currentMonthName }})
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorPagoMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorPagoMesAtual | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
 
           <div class="div-card">
             <p-card>
               <p-header>
-                Pago mês passado ({{ previusMonthName }})
+                Recebido mês passado ({{ previusMonthName }})
               </p-header>
-              {{ contasPagarSituacaoDoAnoSum.valorPagoMesAnterior | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              {{ contasReceberSituacaoDoAnoSum.valorPagoMesAnterior | currency:'BRL':'symbol':'1.2-2':'pt' }}
             </p-card>
           </div>
         </div>
@@ -91,8 +91,8 @@
   </div>
 
   <div class="ui-g-12 ui-md-6">
-    <p-panel header="Contas a pagar de 2019">
-      <p-chart type="bar" [options]="options" [data]="monthlySumContasPagarData"></p-chart>
+    <p-panel header="Contas a receber de 2019">
+      <p-chart type="bar" [options]="options" [data]="monthlySumContasReceberData"></p-chart>
     </p-panel>
   </div>
 

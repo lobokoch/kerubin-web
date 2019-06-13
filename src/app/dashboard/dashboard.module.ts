@@ -1,5 +1,6 @@
 import { PanelModule } from 'primeng/panel';
 import { DashboardContaPagarModule } from './dashboard-contapagar/dashboard-contapagar.module';
+import { DashboardContaReceberModule } from './dashboard-contareceber/dashboard-contareceber.module';
 import { DashboardService } from './dashboard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CommonModule,
     PanelModule,
     DashboardRoutingModule,
-    DashboardContaPagarModule
+    DashboardContaPagarModule,
+	DashboardContaReceberModule
   ],
 
   providers: [

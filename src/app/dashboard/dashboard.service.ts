@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class DashboardService {
 
-  url = environment.apiUrl + '/financeiro/contas_pagar/dashboard';
+  // url = environment.apiUrl;
 
   constructor(private http: HttpClientWithToken) {
 
