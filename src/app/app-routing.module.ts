@@ -20,6 +20,11 @@ import { LoginComponent } from './security/login/login.component';
 const routes: Routes = [
   // Main dashboard
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  
+  // BEGIN ENTITIES FOR SERVICE: financeiro.fluxocaixa
+  { path: 'caixa', loadChildren: './modules/financeiro/fluxocaixa/caixa/caixa.module#CaixaModule' },
+  { path: 'movimentocaixa', loadChildren: './modules/financeiro/fluxocaixa/movimentocaixa/movimentocaixa.module#MovimentoCaixaModule' },
+  // END ENTITIES FOR SERVICE: financeiro.fluxo_caixa
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.contasreceber
   { path: 'contareceber', loadChildren: './modules/financeiro/contasreceber/contareceber/contareceber.module#ContaReceberModule' },

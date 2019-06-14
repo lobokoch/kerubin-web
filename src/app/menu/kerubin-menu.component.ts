@@ -90,6 +90,15 @@ export class KerubinMenuComponent implements OnInit {
               { label: 'Plano de contas', icon: 'pi pi-fw', routerLink: '/planoconta' }
             ]
           },
+		  
+		  {
+      			label: 'Fluxo de caixa',
+      			icon: 'pi pi-fw ',
+      			items: [
+      				{ label: 'Caixa', icon: 'pi pi-fw', routerLink: '/caixa' }, 
+      				{ label: 'Lancamento no caixa', icon: 'pi pi-fw', routerLink: '/movimentocaixa' }
+      			]
+      		},
 
           {
             label: 'Contas a pagar',

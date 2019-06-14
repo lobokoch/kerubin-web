@@ -1,0 +1,73 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 3.9.0
+Code generated at time stamp: 2019-06-14T00:00:25.681
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+
+  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  	<div class="ui-g">
+
+		<div class="ui-g-12">
+			<h1>{{ getTranslation('financeiro.fluxo_caixa.caixa') }}</h1>
+		</div>
+		<div class="ui-g-12 ui-fluid">
+			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixa_id') }}</label>
+			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="caixa.id" name="id" readonly class="read-only">
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="nome">{{ getTranslation('financeiro.fluxo_caixa.caixa_nome') }}</label><label class="kb-label-required">*</label>
+			<input type="text" pInputText appFocus #nome="ngModel" ngModel [(ngModel)]="caixa.nome" name="nome" required>
+			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="dataHoraAbertura">{{ getTranslation('financeiro.fluxo_caixa.caixa_dataHoraAbertura') }}</label><label class="kb-label-required">*</label>
+			<p-calendar dateFormat="dd/mm/yy" [showTime]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixa.dataHoraAbertura" name="dataHoraAbertura" required></p-calendar>
+			<div class="invalid-message" *ngIf="dataHoraAbertura.invalid && dataHoraAbertura.dirty">Campo obrigatório.</div>
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="saldoInicial">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldoInicial') }}</label><label class="kb-label-required">*</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #saldoInicial="ngModel" ngModel [(ngModel)]="caixa.saldoInicial" name="saldoInicial" required>
+			<div class="invalid-message" *ngIf="saldoInicial.invalid && saldoInicial.dirty">Campo obrigatório.</div>
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="dataHoraFechamento">{{ getTranslation('financeiro.fluxo_caixa.caixa_dataHoraFechamento') }}</label>
+			<p-calendar dateFormat="dd/mm/yy"  [showTime]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixa.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="saldoFinal">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldoFinal') }}</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #saldoFinal="ngModel" ngModel [(ngModel)]="caixa.saldoFinal" name="saldoFinal">
+		</div>
+
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="observacoes">{{ getTranslation('financeiro.fluxo_caixa.caixa_observacoes') }}</label>
+			<textarea pInputTextarea rows="3" #observacoes="ngModel" ngModel [(ngModel)]="caixa.observacoes" name="observacoes"></textarea>
+		</div>
+
+		<div class="ui-g-12">
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<a routerLink="/caixa" pButton label="Pesquisar"></a>
+			</div>
+		</div>
+
+
+	</div>
+  </form>
+
+</div>
