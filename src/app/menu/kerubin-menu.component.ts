@@ -90,16 +90,16 @@ export class KerubinMenuComponent implements OnInit {
               { label: 'Plano de contas', icon: 'pi pi-fw', routerLink: '/planoconta' }
             ]
           },
-		  
-		  {
-      			label: 'Fluxo de caixa',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Caixa', icon: 'pi pi-fw', routerLink: '/caixa' }, 
-      				{ label: 'Caixa diário', icon: 'pi pi-fw', routerLink: '/caixadiario' }, 
-      				{ label: 'Lançamento no caixa', icon: 'pi pi-fw', routerLink: '/caixalancamento' }
-      			]
-      		},
+
+          {
+            label: 'Fluxo de caixa',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Cadastro de caixa', icon: 'pi pi-fw', routerLink: '/caixa' },
+              { label: 'Abertura/Fechamento de caixa', icon: 'pi pi-fw', routerLink: '/caixadiario' },
+              { label: 'Lançamentos no caixa', icon: 'pi pi-fw', routerLink: '/caixalancamento' }
+            ]
+          },
 
           {
             label: 'Contas a pagar',
