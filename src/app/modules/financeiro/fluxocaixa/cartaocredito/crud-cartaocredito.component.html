@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.681
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.081
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,8 +22,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="banco">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_banco') }}</label><label class="kb-label-required">*</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="cartaoCreditoBancoAutoCompleteSuggestions" (completeMethod)="cartaoCreditoBancoAutoComplete($event)" (onClear)="cartaoCreditoBancoAutoCompleteClear($event)" [field]="cartaoCreditoBancoAutoCompleteFieldConverter" #banco="ngModel" ngModel [(ngModel)]="cartaoCredito.banco" name="banco" required>
+			<label for="banco">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_banco') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="cartaoCreditoBancoAutoCompleteSuggestions" (completeMethod)="cartaoCreditoBancoAutoComplete($event)" (onClear)="cartaoCreditoBancoAutoCompleteClear($event)" [field]="cartaoCreditoBancoAutoCompleteFieldConverter" #banco="ngModel" ngModel [(ngModel)]="cartaoCredito.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBancoAutoCompleteFieldConverter(banco) }}</div>
 				</ng-template>
@@ -32,13 +32,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="nomeTitular">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_nomeTitular') }}</label><label class="kb-label-required">*</label>
+			<label for="nomeTitular">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_nomeTitular') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #nomeTitular="ngModel" ngModel [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
 			<div class="invalid-message" *ngIf="nomeTitular.invalid && nomeTitular.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="numeroCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_numeroCartao') }}</label><label class="kb-label-required">*</label>
+			<label for="numeroCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_numeroCartao') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #numeroCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
 			<div class="invalid-message" *ngIf="numeroCartao.invalid && numeroCartao.dirty">Campo obrigatório.</div>
 		</div>
@@ -54,8 +54,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="bandeiraCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_bandeiraCartao') }}</label><label class="kb-label-required">*</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="cartaoCreditoBandeiraCartaoAutoCompleteSuggestions" (completeMethod)="cartaoCreditoBandeiraCartaoAutoComplete($event)" (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)" [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter" #bandeiraCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
+			<label for="bandeiraCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_bandeiraCartao') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="cartaoCreditoBandeiraCartaoAutoCompleteSuggestions" (completeMethod)="cartaoCreditoBandeiraCartaoAutoComplete($event)" (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)" [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter" #bandeiraCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
 				<ng-template let-bandeiraCartao pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao) }}</div>
 				</ng-template>
@@ -64,7 +64,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_ativo') }}</label><label class="kb-label-required">*</label>
+			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_ativo') }}<span class="kb-label-required">*</span></label>
 			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
 		</div>

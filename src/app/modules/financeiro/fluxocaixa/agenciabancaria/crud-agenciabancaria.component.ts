@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.670
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.059
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-flu
 import { BancoService } from './../banco/banco.service';
 import { Banco } from './../banco/banco.model';
 import { BancoAutoComplete } from './../banco/banco.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-agenciabancaria.component',
@@ -133,7 +134,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	agenciaBancariaBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
 		if (banco) {
-			return banco.numero + ' - ' + banco.nome;
+			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
 		} else {
 			return null;
 		}

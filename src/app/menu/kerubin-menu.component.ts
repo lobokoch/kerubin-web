@@ -96,7 +96,8 @@ export class KerubinMenuComponent implements OnInit {
       			icon: 'pi pi-fw ',
       			items: [
       				{ label: 'Caixa', icon: 'pi pi-fw', routerLink: '/caixa' }, 
-      				{ label: 'Lancamento no caixa', icon: 'pi pi-fw', routerLink: '/movimentocaixa' }
+      				{ label: 'Caixa diário', icon: 'pi pi-fw', routerLink: '/caixadiario' }, 
+      				{ label: 'Lançamento no caixa', icon: 'pi pi-fw', routerLink: '/caixalancamento' }
       			]
       		},
 

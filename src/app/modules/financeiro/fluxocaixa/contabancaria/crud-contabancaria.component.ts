@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.670
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.059
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,6 +21,7 @@ import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
 import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancaria.model';
 
 import { TipoContaBancaria } from './../enums/financeiro-fluxocaixa-enums.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-contabancaria.component',
@@ -142,7 +143,7 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
 		if (agencia) {
-			return agencia.numeroAgencia + ' - ' + agencia.digitoAgencia + ' - ' + agencia.endereco;
+			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
 		} else {
 			return null;
 		}

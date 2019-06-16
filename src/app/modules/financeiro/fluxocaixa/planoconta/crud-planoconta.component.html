@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.681
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.081
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,19 +22,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="codigo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}</label><label class="kb-label-required">*</label>
+			<label for="codigo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #codigo="ngModel" ngModel [(ngModel)]="planoConta.codigo" name="codigo" required>
 			<div class="invalid-message" *ngIf="codigo.invalid && codigo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="descricao">{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}</label><label class="kb-label-required">*</label>
+			<label for="descricao">{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="planoConta.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoFinanceiro') }}</label><label class="kb-label-required">*</label>
+			<label for="tipoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoFinanceiro') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="planoContaTipoFinanceiroOptions" placeholder="Selecione um item..." #tipoFinanceiro="ngModel" ngModel [(ngModel)]="planoConta.tipoFinanceiro" name="tipoFinanceiro" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoFinanceiro.invalid && tipoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid">
 			<label for="planoContaPai">{{ getTranslation('financeiro.fluxo_caixa.planoConta_planoContaPai') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions" (completeMethod)="planoContaPlanoContaPaiAutoComplete($event)" (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)" [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter" #planoContaPai="ngModel" ngModel [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions" (completeMethod)="planoContaPlanoContaPaiAutoComplete($event)" (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)" [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter" #planoContaPai="ngModel" ngModel [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
 				<ng-template let-planoContaPai pTemplate="item">
 					<div class="ui-helper-clearfix">{{ planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai) }}</div>
 				</ng-template>
@@ -54,7 +54,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}</label><label class="kb-label-required">*</label>
+			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}<span class="kb-label-required">*</span></label>
 			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="planoConta.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
 		</div>

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.681
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.081
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -43,10 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.fluxo_caixa.caixa_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'dataHoraAbertura'">{{ getTranslation('financeiro.fluxo_caixa.caixa_dataHoraAbertura_grid') }}<p-sortIcon [field]="'dataHoraAbertura'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'saldoInicial'">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldoInicial_grid') }}<p-sortIcon [field]="'saldoInicial'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'dataHoraFechamento'">{{ getTranslation('financeiro.fluxo_caixa.caixa_dataHoraFechamento_grid') }}<p-sortIcon [field]="'dataHoraFechamento'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'saldoFinal'">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldoFinal_grid') }}<p-sortIcon [field]="'saldoFinal'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'ativo'">{{ getTranslation('financeiro.fluxo_caixa.caixa_ativo_grid') }}<p-sortIcon [field]="'ativo'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'saldo'">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldo_grid') }}<p-sortIcon [field]="'saldo'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'version'">{{ getTranslation('financeiro.fluxo_caixa.caixa_version_grid') }}<p-sortIcon [field]="'version'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -57,16 +56,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{caixa?.nome}}
 		            	</td>
 		            	<td>
-		            		{{caixa?.dataHoraAbertura}}
+		            		{{caixa?.ativo? 'Sim': 'Não' }}
 		            	</td>
 		            	<td class="kb-field-money">
-		            		{{caixa?.saldoInicial | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            		{{caixa?.saldo | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
 		            	<td>
-		            		{{caixa?.dataHoraFechamento}}
-		            	</td>
-		            	<td class="kb-field-money">
-		            		{{caixa?.saldoFinal | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            		{{caixa?.version}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/caixa', caixa.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -79,7 +75,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="6">
+				        <td [attr.colspan]="5">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

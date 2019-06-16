@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-14T00:00:25.670
+Code generated with MKL Plug-in version: 3.10.14
+Code generated at time stamp: 2019-06-15T21:09:25.059
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,7 @@ import { BancoAutoComplete } from './../banco/banco.model';
 import { BandeiraCartaoService } from './../bandeiracartao/bandeiracartao.service';
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-crud-cartaocredito.component',
@@ -143,7 +144,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
 		if (banco) {
-			return banco.numero + ' - ' + banco.nome;
+			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -169,7 +170,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
 		if (bandeiraCartao) {
-			return bandeiraCartao.nomeBandeira;
+			return (bandeiraCartao.nomeBandeira || '<nulo>');
 		} else {
 			return null;
 		}
