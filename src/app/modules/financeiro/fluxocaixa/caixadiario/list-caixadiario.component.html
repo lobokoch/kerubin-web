@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.081
+Code generated at time stamp: 2019-06-16T08:41:54.862
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -43,6 +43,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'caixa'">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixa_grid') }}<p-sortIcon [field]="'caixa'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'caixaDiarioSituacao'">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao_grid') }}<p-sortIcon [field]="'caixaDiarioSituacao'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'dataHoraAbertura'">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraAbertura_grid') }}<p-sortIcon [field]="'dataHoraAbertura'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'saldoInicial'">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_saldoInicial_grid') }}<p-sortIcon [field]="'saldoInicial'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'dataHoraFechamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraFechamento_grid') }}<p-sortIcon [field]="'dataHoraFechamento'"></p-sortIcon></th>
@@ -56,6 +57,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <tr [pSelectableRow]="caixaDiario">
 		            	<td>
 		            		{{caixaDiarioCaixaAutoCompleteFieldConverter(caixaDiario?.caixa)}}
+		            	</td>
+		            	<td>
+		            		{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao' + '_' + caixaDiario?.caixaDiarioSituacao?.toLowerCase()) }}
 		            	</td>
 		            	<td>
 		            		{{caixaDiario?.dataHoraAbertura}}
@@ -83,7 +87,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="7">
+				        <td [attr.colspan]="8">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

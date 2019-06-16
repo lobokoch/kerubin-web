@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.081
+Code generated at time stamp: 2019-06-16T08:41:54.862
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -44,7 +44,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <tr>
 		            	<th [pSortableColumn]="'caixaDiario'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}<p-sortIcon [field]="'caixaDiario'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'tipoFonteMovimento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_grid') }}<p-sortIcon [field]="'tipoFonteMovimento'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'tipoMovimentoFinanceiro'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoMovimentoFinanceiro_grid') }}<p-sortIcon [field]="'tipoMovimentoFinanceiro'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'tipoLancamentoFinanceiro'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_grid') }}<p-sortIcon [field]="'tipoLancamentoFinanceiro'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'valor'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valor_grid') }}<p-sortIcon [field]="'valor'"></p-sortIcon></th>
@@ -63,7 +63,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento' + '_' + caixaLancamento?.tipoFonteMovimento?.toLowerCase()) }}
 		            	</td>
 		            	<td>
-		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoMovimentoFinanceiro' + '_' + caixaLancamento?.tipoMovimentoFinanceiro?.toLowerCase()) }}
+		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro' + '_' + caixaLancamento?.tipoLancamentoFinanceiro?.toLowerCase()) }}
 		            	</td>
 		            	<td>
 		            		{{caixaLancamentoPlanoContasAutoCompleteFieldConverter(caixaLancamento?.planoContas)}}

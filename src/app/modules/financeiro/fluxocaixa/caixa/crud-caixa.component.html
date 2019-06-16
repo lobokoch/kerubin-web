@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.081
+Code generated at time stamp: 2019-06-16T08:41:54.862
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -35,7 +35,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="saldo">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldo') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #saldo="ngModel" ngModel [(ngModel)]="caixa.saldo" name="saldo">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" [disabled]="true" #saldo="ngModel" ngModel [(ngModel)]="caixa.saldo" name="saldo">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.081
+Code generated at time stamp: 2019-06-16T08:41:54.862
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -33,14 +33,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
+			<p-dropdown [disabled]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="tipoMovimentoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoMovimentoFinanceiro') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="caixaLancamentoTipoMovimentoFinanceiroOptions" placeholder="Selecione um item..." #tipoMovimentoFinanceiro="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoMovimentoFinanceiro" name="tipoMovimentoFinanceiro" required></p-dropdown>
-			<div class="invalid-message" *ngIf="tipoMovimentoFinanceiro.invalid && tipoMovimentoFinanceiro.dirty">Campo obrigatório.</div>
+			<label for="tipoLancamentoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="caixaLancamentoTipoLancamentoFinanceiroOptions" placeholder="Selecione um item..." #tipoLancamentoFinanceiro="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoLancamentoFinanceiro" name="tipoLancamentoFinanceiro" required></p-dropdown>
+			<div class="invalid-message" *ngIf="tipoLancamentoFinanceiro.invalid && tipoLancamentoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">

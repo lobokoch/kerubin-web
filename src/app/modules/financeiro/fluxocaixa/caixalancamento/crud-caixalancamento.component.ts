@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.059
+Code generated at time stamp: 2019-06-16T08:41:54.849
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -42,10 +42,10 @@ import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
 import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 
-import { TipoPlanoContaFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
+import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-crud-caixalancamento.component',
@@ -74,7 +74,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
 	
 	
-	caixaLancamentoTipoMovimentoFinanceiroOptions: TipoPlanoContaFinanceiro[];
+	caixaLancamentoTipoLancamentoFinanceiroOptions: TipoLancamentoFinanceiro[];
 	
 	
 	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
@@ -103,7 +103,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	) { 
 		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
 		
-		this.initializeCaixaLancamentoTipoMovimentoFinanceiroOptions();
+		this.initializeCaixaLancamentoTipoLancamentoFinanceiroOptions();
 		
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
 	}
@@ -185,7 +185,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	initializeEnumFieldsWithDefault() {
 		this.caixaLancamento.tipoFonteMovimento = this.caixaLancamentoTipoFonteMovimentoOptions[0].value;
-		this.caixaLancamento.tipoMovimentoFinanceiro = this.caixaLancamentoTipoMovimentoFinanceiroOptions[1].value;
+		this.caixaLancamento.tipoLancamentoFinanceiro = this.caixaLancamentoTipoLancamentoFinanceiroOptions[1].value;
 		this.caixaLancamento.formaPagamento = this.caixaLancamentoFormaPagamentoOptions[0].value;
 	}
 	
@@ -353,10 +353,10 @@ export class CaixaLancamentoComponent implements OnInit {
 	    ];
 	}
 	  
-	private initializeCaixaLancamentoTipoMovimentoFinanceiroOptions() {
-	    this.caixaLancamentoTipoMovimentoFinanceiroOptions = [
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoMovimentoFinanceiro_receita'), value: 'RECEITA' }, 
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoMovimentoFinanceiro_despesa'), value: 'DESPESA' }
+	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
+	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_credito'), value: 'CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_debito'), value: 'DEBITO' }
 	    ];
 	}
 	  

@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.10.14
-Code generated at time stamp: 2019-06-15T21:09:25.059
+Code generated at time stamp: 2019-06-16T08:41:54.849
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -8,7 +8,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 import { CaixaDiario } from './../caixadiario/caixadiario.model';
 import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
-import { TipoPlanoContaFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
+import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 import { PlanoConta } from './../planoconta/planoconta.model';
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
@@ -45,7 +45,7 @@ export class CaixaLancamento {
 	id: string;
 	caixaDiario: CaixaDiario;
 	tipoFonteMovimento: TipoFonteMovimento;
-	tipoMovimentoFinanceiro: TipoPlanoContaFinanceiro;
+	tipoLancamentoFinanceiro: TipoLancamentoFinanceiro;
 	planoContas: PlanoConta;
 	descricao: string;
 	valor: number;
