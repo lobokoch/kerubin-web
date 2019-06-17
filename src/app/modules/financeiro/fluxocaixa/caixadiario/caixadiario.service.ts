@@ -42,7 +42,8 @@ export class CaixaDiarioService {
 	    .toPromise()
 	    .then(response => {
 	      const created = response as CaixaDiario;
-	      this.adjustNullEntitySlots([created]);
+        this.adjustNullEntitySlots([created]);
+        this.adjustEntityDates([updated]);
 	      return created;
 	    });
 	}
@@ -54,7 +55,8 @@ export class CaixaDiarioService {
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as CaixaDiario;
-	      this.adjustNullEntitySlots([updated]);
+        this.adjustNullEntitySlots([updated]);
+        this.adjustEntityDates([updated]);
 	      return updated;
 	    });
   }
@@ -67,6 +69,8 @@ export class CaixaDiarioService {
 	    .then(response => {
 	      const updated = response as CaixaDiario;
 	      this.adjustNullEntitySlots([updated]);
+	      this.adjustEntityDates([updated]);
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
   }
@@ -78,7 +82,8 @@ export class CaixaDiarioService {
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as CaixaDiario;
-	      this.adjustNullEntitySlots([updated]);
+        this.adjustNullEntitySlots([updated]);
+        this.adjustEntityDates([updated]);
 	      return updated;
 	    });
   }
@@ -96,12 +101,23 @@ export class CaixaDiarioService {
 	    .toPromise()
 	    .then(response => {
 	      const caixaDiario = response as CaixaDiario;
-	      this.adjustNullEntitySlots([caixaDiario]);
+        this.adjustNullEntitySlots([caixaDiario]);
+        this.adjustEntityDates([caixaDiario]);
 	      return caixaDiario;
 	    });
 	}
 
+  private adjustEntityDates(entityList: CaixaDiario[]) {
+		entityList.forEach(it => {
+		      if (it.dataHoraAbertura) {
+		        it.dataHoraAbertura = moment(it.dataHoraAbertura, 'YYYY-MM-DD H:m:s').toDate();
+          }
 
+		      if (it.dataHoraFechamento) {
+		        it.dataHoraFechamento = moment(it.dataHoraFechamento, 'YYYY-MM-DD H:m:s').toDate();
+		      }
+		});
+	}
 
 	private adjustNullEntitySlots(entityList: CaixaDiario[]) {
 		/*entityList.forEach(caixaDiario => {

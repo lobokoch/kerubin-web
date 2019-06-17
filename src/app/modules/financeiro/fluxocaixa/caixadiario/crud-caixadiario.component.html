@@ -39,7 +39,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraAbertura">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraAbertura') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
+			<p-calendar dateFormat="dd/mm/yy" [showTime]="true"  #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -49,7 +49,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraFechamento">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraFechamento') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+			<p-calendar dateFormat="dd/mm/yy" [showTime]="true"  #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-6">
