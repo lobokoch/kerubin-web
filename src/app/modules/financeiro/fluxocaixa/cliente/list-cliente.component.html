@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.1
-Code generated at time stamp: 2019-06-20T23:36:05.603
+Code generated with MKL Plug-in version: 3.17.2
+Code generated at time stamp: 2019-06-21T06:42:30.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -44,7 +44,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <tr>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.fluxo_caixa.cliente_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'cpfCNPJ'">{{ getTranslation('financeiro.fluxo_caixa.cliente_cpfCNPJ_grid') }}<p-sortIcon [field]="'cpfCNPJ'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.fluxo_caixa.cliente_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -57,9 +56,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<td>
 		            		{{cliente?.cpfCNPJ}}
 		            	</td>
-		            	<td>
-		            		{{cliente?.deleted? 'Sim': 'Não' }}
-		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/cliente', cliente.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<!-- <button (click)="mostrarPagarConta(cliente)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
@@ -71,7 +67,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="4">
+				        <td [attr.colspan]="3">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

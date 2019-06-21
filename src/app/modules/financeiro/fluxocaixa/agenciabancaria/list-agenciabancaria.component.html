@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.1
-Code generated at time stamp: 2019-06-20T23:36:05.603
+Code generated with MKL Plug-in version: 3.17.2
+Code generated at time stamp: 2019-06-21T06:42:30.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -46,7 +46,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'numeroAgencia'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia_grid') }}<p-sortIcon [field]="'numeroAgencia'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'digitoAgencia'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia_grid') }}<p-sortIcon [field]="'digitoAgencia'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'endereco'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco_grid') }}<p-sortIcon [field]="'endereco'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -65,9 +64,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<td>
 		            		{{agenciaBancaria?.endereco}}
 		            	</td>
-		            	<td>
-		            		{{agenciaBancaria?.deleted? 'Sim': 'Não' }}
-		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/agenciabancaria', agenciaBancaria.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<!-- <button (click)="mostrarPagarConta(agenciaBancaria)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
@@ -79,7 +75,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="6">
+				        <td [attr.colspan]="5">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

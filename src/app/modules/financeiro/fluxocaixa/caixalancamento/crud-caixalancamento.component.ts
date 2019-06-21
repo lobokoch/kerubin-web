@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.1
-Code generated at time stamp: 2019-06-20T23:36:05.586
+Code generated with MKL Plug-in version: 3.17.2
+Code generated at time stamp: 2019-06-21T06:42:30.705
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -41,11 +41,11 @@ import { FornecedorService } from './../fornecedor/fornecedor.service';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
-import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
-
 import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
+
+import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 
 
 @Component({
@@ -72,13 +72,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	
 	caixaLancamentoFornecedorAutoCompleteSuggestions: FornecedorAutoComplete[];
-	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
-	
-	
 	caixaLancamentoTipoLancamentoFinanceiroOptions: TipoLancamentoFinanceiro[];
 	
 	
 	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
+	
+	
+	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
 	
 	constructor(
 	    private caixaLancamentoService: CaixaLancamentoService,
@@ -102,11 +102,11 @@ export class CaixaLancamentoComponent implements OnInit {
 	    private route: ActivatedRoute,
 	    private messageService: MessageService
 	) { 
-		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
-		
 		this.initializeCaixaLancamentoTipoLancamentoFinanceiroOptions();
 		
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
+		
+		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
 	}
 	
 	ngOnInit() {
@@ -186,9 +186,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.caixaLancamento.tipoFonteMovimento = this.caixaLancamentoTipoFonteMovimentoOptions[0].value;
 		this.caixaLancamento.tipoLancamentoFinanceiro = this.caixaLancamentoTipoLancamentoFinanceiroOptions[1].value;
 		this.caixaLancamento.formaPagamento = this.caixaLancamentoFormaPagamentoOptions[0].value;
+		this.caixaLancamento.tipoFonteMovimento = this.caixaLancamentoTipoFonteMovimentoOptions[0].value;
 	}
 	
 	
@@ -347,14 +347,6 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	private initializeCaixaLancamentoTipoFonteMovimentoOptions() {
-	    this.caixaLancamentoTipoFonteMovimentoOptions = [
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' }, 
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' }, 
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_receber'), value: 'CONTAS_RECEBER' }
-	    ];
-	}
-	  
 	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
 	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_credito'), value: 'CREDITO' }, 
@@ -369,6 +361,14 @@ export class CaixaLancamentoComponent implements OnInit {
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_outros'), value: 'OUTROS' }
+	    ];
+	}
+	  
+	private initializeCaixaLancamentoTipoFonteMovimentoOptions() {
+	    this.caixaLancamentoTipoFonteMovimentoOptions = [
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_receber'), value: 'CONTAS_RECEBER' }
 	    ];
 	}
 	  
@@ -421,6 +421,24 @@ export class CaixaLancamentoComponent implements OnInit {
 		
 	}
 	ruleFornecedorAppyStyleClass() {
+		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleValorCreditoAppyStyleClass() {
+		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleValorDebitoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
 		if (expression) {
 			return 'hidden';

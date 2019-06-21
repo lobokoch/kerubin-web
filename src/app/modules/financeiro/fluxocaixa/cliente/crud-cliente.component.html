@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.1
-Code generated at time stamp: 2019-06-20T23:36:05.603
+Code generated with MKL Plug-in version: 3.17.2
+Code generated at time stamp: 2019-06-21T06:42:30.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -16,7 +16,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12">
 			<h1>{{ getTranslation('financeiro.fluxo_caixa.cliente') }}</h1>
 		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.cliente_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="cliente.id" name="id" readonly class="read-only">
 		</div>
@@ -32,7 +32,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #cpfCNPJ="ngModel" ngModel [(ngModel)]="cliente.cpfCNPJ" name="cpfCNPJ">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.cliente_deleted') }}</label>
 			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="cliente.deleted" name="deleted"></p-inputSwitch>
 		</div>

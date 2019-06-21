@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.1
-Code generated at time stamp: 2019-06-20T23:36:05.603
+Code generated with MKL Plug-in version: 3.17.2
+Code generated at time stamp: 2019-06-21T06:42:30.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -14,67 +14,63 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div>
 			<h1>{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento') }}</h1>
 		</div>
-		
+
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
 			<p-accordionTab header="Filtro">
-			
+
 				<div class="ui-g">
 					<div class="ui-g-12">
 					</div>
-					
+
 					<div>
 						<p-button label="Pesquisar" (click)="caixaLancamentoFilterSearch()"></p-button>
 					</div>
 				</div>
-				
-			
+
+
 			</p-accordionTab>
 		</p-accordion>
 		<!-- End Filters -->
-		
+
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true"
 				[value]="caixaLancamentoListItems"
-			    [rows]="caixaLancamentoListFilter.pageSize" 
+			    [rows]="caixaLancamentoListFilter.pageSize"
 			    [totalRecords]="caixaLancamentoListTotalElements"
 			    [lazy]="true" (onLazyLoad)="caixaLancamentoListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'caixaDiario'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}<p-sortIcon [field]="'caixaDiario'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'tipoFonteMovimento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_grid') }}<p-sortIcon [field]="'tipoFonteMovimento'"></p-sortIcon></th>
-		            	<th style="width: 7em" [pSortableColumn]="'dataLancamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento_grid') }}<p-sortIcon [field]="'dataLancamento'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'tipoLancamentoFinanceiro'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_grid') }}<p-sortIcon [field]="'tipoLancamentoFinanceiro'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'valor'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valor_grid') }}<p-sortIcon [field]="'valor'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'dataLancamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento_grid') }}<p-sortIcon [field]="'dataLancamento'"></p-sortIcon></th>
+		            	<th [ngClass]="['kb-fin-credito']" style="width: 8em" [pSortableColumn]="'valorCredito'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito_grid') }}<p-sortIcon [field]="'valorCredito'"></p-sortIcon></th>
+		            	<th [ngClass]="'kb-fin-debito'" style="width: 8em" [pSortableColumn]="'valorDebito'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito_grid') }}<p-sortIcon [field]="'valorDebito'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
-		        
+
 			    <ng-template pTemplate="body" let-caixaLancamento>
 		            <tr [pSelectableRow]="caixaLancamento">
 		            	<td>
 		            		{{caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaLancamento?.caixaDiario)}}
 		            	</td>
 		            	<td>
-		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento' + '_' + caixaLancamento?.tipoFonteMovimento?.toLowerCase()) }}
+		            		{{caixaLancamento?.descricao}}
 		            	</td>
 		            	<td>
 		            		{{caixaLancamento?.dataLancamento | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td>
-		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro' + '_' + caixaLancamento?.tipoLancamentoFinanceiro?.toLowerCase()) }}
+		            	<td class="kb-field-money kb-fin-credito">
+		            		{{caixaLancamento?.valorCredito | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td class="kb-field-money">
-		            		{{caixaLancamento?.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	<td class="kb-field-money kb-fin-debito">
+		            		{{(toNegativeValue(caixaLancamento?.valorDebito)) | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
 		            	<td>
 		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento' + '_' + caixaLancamento?.formaPagamento?.toLowerCase()) }}
-		            	</td>
-		            	<td>
-		            		{{caixaLancamento?.descricao}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/caixalancamento', caixaLancamento.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -83,38 +79,37 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		              	</td>
 		            </tr>
 		        </ng-template>
-		        
-		        
+
+
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="8">
+				        <td [attr.colspan]="7">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
 				</ng-template>
-				
+
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais</td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer sumField kb-fin-credito">A: {{ caixaLancamentoSumFields.sumValorCredito | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer sumField kb-fin-debito">B: {{ toNegativeValue(caixaLancamentoSumFields.sumValorDebito) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer sumField kb-conta-valor-apagar">A: {{ caixaLancamentoSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer">(<span class="kb-fin-credito">A</span>-<span class="kb-fin-debito">B</span>): {{ (caixaLancamentoSumFields.sumValorCredito - caixaLancamentoSumFields.sumValorDebito) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 					</tr>
 				</ng-template>
 			</p-table>
 		</div>
 		<!-- End GRID -->
-		
+
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/caixalancamento/novo" pButton label="Novo registro"></a>
 		</div>
-		
+
 		<!-- Begin Extras
-		
+
 		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
 		        [maximizable]="false" [baseZIndex]="10000">
 		      <div>
@@ -136,8 +131,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
 		        </p-footer>
 		</p-dialog>
-		
+
 		End Extras -->
 	</div>
-  
+
 </div>
