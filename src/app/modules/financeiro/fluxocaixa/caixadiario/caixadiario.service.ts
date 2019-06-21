@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.11.1
-Code generated at time stamp: 2019-06-16T23:35:31.119
+Code generated with MKL Plug-in version: 3.17.1
+Code generated at time stamp: 2019-06-20T23:36:05.586
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { CaixaDiarioAutoComplete } from './caixadiario.model';
 import { Caixa } from './../caixa/caixa.model';
 import { CaixaDiarioListFilter } from './caixadiario.model';
 import { environment } from 'src/environments/environment';
+import { CaixaAutoComplete } from './../caixa/caixa.model';
 
 @Injectable()
 export class CaixaDiarioService {
@@ -144,6 +145,27 @@ export class CaixaDiarioService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	caixaCaixaAutoComplete(query: string): Promise<CaixaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<CaixaAutoComplete[]>(`${this.url}/caixaCaixaAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CaixaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	caixaDiarioList(caixaDiarioListFilter: CaixaDiarioListFilter): Promise<any> {
 	    const headers = this.getHeaders();

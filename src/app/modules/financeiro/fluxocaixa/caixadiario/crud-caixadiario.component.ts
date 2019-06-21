@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.11.1
-Code generated at time stamp: 2019-06-16T23:35:31.119
+Code generated with MKL Plug-in version: 3.17.1
+Code generated at time stamp: 2019-06-20T23:36:05.586
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { CaixaDiario } from './caixadiario.model';
 import { CaixaDiarioService } from './caixadiario.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
+import * as moment from 'moment';
 
 import { CaixaService } from './../caixa/caixa.service';
 import { Caixa } from './../caixa/caixa.model';
@@ -86,6 +87,7 @@ export class CaixaDiarioComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.caixaDiarioService.create(this.caixaDiario)
 	    .then((caixaDiario) => {
 	      this.caixaDiario = caixaDiario;
@@ -131,8 +133,8 @@ export class CaixaDiarioComponent implements OnInit {
 	
 	caixaDiarioCaixaAutoComplete(event) {
 	    const query = event.query;
-	    this.caixaService
-	      .autoComplete(query)
+	    this.caixaDiarioService
+	      .caixaCaixaAutoComplete(query)
 	      .then((result) => {
 	        this.caixaDiarioCaixaAutoCompleteSuggestions = result as CaixaAutoComplete[];
 	      })
@@ -176,7 +178,7 @@ export class CaixaDiarioComponent implements OnInit {
 	}
 	
 	abrirCaixaWhenCondition(): boolean {
-		return (String(this.caixaDiario.caixaDiarioSituacao) === 'NAO_INICIADO');
+		return this.caixaDiario.id && (String(this.caixaDiario.caixaDiarioSituacao) === 'NAO_INICIADO');
 	}
 	  
 	abrirCaixa() {
@@ -197,7 +199,7 @@ export class CaixaDiarioComponent implements OnInit {
 	}
 	
 	fecharCaixaWhenCondition(): boolean {
-		return (String(this.caixaDiario.caixaDiarioSituacao) === 'ABERTO');
+		return this.caixaDiario.id && (String(this.caixaDiario.caixaDiarioSituacao) === 'ABERTO');
 	}
 	  
 	fecharCaixa() {
@@ -216,5 +218,6 @@ export class CaixaDiarioComponent implements OnInit {
 	      this.showError('Erro ao executar a operação: ' + error);
 	    });
 	}
+	
 	
 }
