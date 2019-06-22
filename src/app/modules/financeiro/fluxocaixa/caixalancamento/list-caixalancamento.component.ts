@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.2
-Code generated at time stamp: 2019-06-21T06:42:30.705
+Code generated with MKL Plug-in version: 3.20.3
+Code generated at time stamp: 2019-06-22T18:21:47.106
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -39,24 +39,24 @@ import { CaixaLancamentoSumFields } from './caixalancamento.model';
 })
 
 export class CaixaLancamentoListComponent implements OnInit {
-
+	
 	caixaLancamentoListItems: CaixaLancamento[];
 	caixaLancamentoListTotalElements = 0;
 	caixaLancamentoListFilter = new CaixaLancamentoListFilter();
-
-
+	
+	
 	caixaLancamentoSumFields = new CaixaLancamentoSumFields();
-
+	
 	constructor(
 	    private caixaLancamentoService: CaixaLancamentoService,
 	    private financeiroFluxoCaixaTranslationService: FinanceiroFluxoCaixaTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-
+	
 	ngOnInit() {
 	}
-
+	
 	caixaLancamentoList(pageNumber = 0) {
 	    this.caixaLancamentoListFilter.pageNumber = pageNumber;
 	    this.caixaLancamentoService
@@ -64,12 +64,12 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    .then(result => {
 	      	this.caixaLancamentoListItems = result.items;
 	      	this.caixaLancamentoListTotalElements = result.totalElements;
-
+	      
 			this.getCaixaLancamentoSumFields();
 	    });
-
+		
 	}
-
+	
 	getCaixaLancamentoSumFields() {
 	    this.caixaLancamentoService.getCaixaLancamentoSumFields(this.caixaLancamentoListFilter)
 		.then(response => {
@@ -79,11 +79,11 @@ export class CaixaLancamentoListComponent implements OnInit {
 		  this.messageHandler.showError('Erro ao buscar totais:' + error);
 		});
 	}
-
+	
 	caixaLancamentoFilterSearch() {
 	    this.caixaLancamentoList(0);
 	}
-
+	
 	deleteCaixaLancamento(caixaLancamento: CaixaLancamento) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -99,7 +99,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	      }
 	    });
 	}
-
+	
 	caixaLancamentoListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
 	      this.caixaLancamentoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
@@ -109,14 +109,8 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.caixaLancamentoList(pageNumber);
 	}
-
-  toNegativeValue(value: any) {
-    if (value) {
-      return value * -1;
-    }
-    return value;
-  }
-
+	
+	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
 		if (caixaDiario) {
 			return (caixaDiario.caixa.nome || '<nulo>') + ' - ' + (moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m') || '<nulo>');
@@ -124,7 +118,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
 			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
@@ -132,7 +126,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
 			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
@@ -140,7 +134,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
@@ -148,7 +142,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	caixaLancamentoClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
 			return (cliente.nome || '<nulo>') + ' - ' + (cliente.cpfCNPJ || '<nulo>');
@@ -156,7 +150,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
 			return (fornecedor.nome || '<nulo>') + ' - ' + (fornecedor.cpfCNPJ || '<nulo>');
@@ -164,16 +158,25 @@ export class CaixaLancamentoListComponent implements OnInit {
 			return null;
 		}
 	}
-
-
-
-
+	
+	
+	
+	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroFluxoCaixaTranslationService.getTranslation(key);
 		return value;
-
+		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	doShowNumberAsNegative(value: any) {
+	    if (value) {
+	      return value * -1;
+	    }
+	    return value;
+	  }
+	  
 }

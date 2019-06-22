@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.2
-Code generated at time stamp: 2019-06-21T06:42:30.705
+Code generated with MKL Plug-in version: 3.20.3
+Code generated at time stamp: 2019-06-22T18:21:47.106
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -110,6 +110,8 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.rulesOnInit();
+		
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
@@ -121,6 +123,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.caixaLancamento = new CaixaLancamento();
+	      this.rulesOnInit();
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
@@ -390,6 +393,10 @@ export class CaixaLancamentoComponent implements OnInit {
 		// return result;
 	}
 	
+	rulesOnInit() {
+		this.caixaLancamento.dataLancamento = moment().toDate();
+	}
+	
 	
 										
 	// Begin RuleWithSlotAppyStyleClass 
@@ -449,4 +456,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	// End Begin RuleWithSlotAppyStyleClass
 	
+	caixaLancamentoRuleDisableCUD() {
+		const expression = this.caixaLancamento.id && (String(this.caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
+		return expression;
+		
+	}
 }

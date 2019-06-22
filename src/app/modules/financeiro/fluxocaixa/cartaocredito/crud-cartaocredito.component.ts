@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.17.2
-Code generated at time stamp: 2019-06-21T06:42:30.705
+Code generated with MKL Plug-in version: 3.20.3
+Code generated at time stamp: 2019-06-22T18:21:47.106
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -195,6 +195,7 @@ export class CartaoCreditoComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
 	
 	
 }
