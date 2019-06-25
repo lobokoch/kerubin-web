@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.20.3
-Code generated at time stamp: 2019-06-22T18:21:47.106
+Code generated with MKL Plug-in version: 5.0.3
+Code generated at time stamp: 2019-06-24T00:05:09.336
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -57,68 +57,68 @@ import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model
 export class CaixaLancamentoComponent implements OnInit {
 	caixaLancamento = new CaixaLancamento();
 	caixaLancamentoCaixaDiarioAutoCompleteSuggestions: CaixaDiarioAutoComplete[];
-
-
+	
+	
 	caixaLancamentoPlanoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
-
-
+	
+	
 	caixaLancamentoContaBancariaAutoCompleteSuggestions: ContaBancariaAutoComplete[];
-
-
+	
+	
 	caixaLancamentoCartaoCreditoAutoCompleteSuggestions: CartaoCreditoAutoComplete[];
-
-
+	
+	
 	caixaLancamentoClienteAutoCompleteSuggestions: ClienteAutoComplete[];
-
-
+	
+	
 	caixaLancamentoFornecedorAutoCompleteSuggestions: FornecedorAutoComplete[];
 	caixaLancamentoTipoLancamentoFinanceiroOptions: TipoLancamentoFinanceiro[];
-
-
+	
+	
 	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
-
-
+	
+	
 	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
-
+	
 	constructor(
 	    private caixaLancamentoService: CaixaLancamentoService,
 	    private financeiroFluxoCaixaTranslationService: FinanceiroFluxoCaixaTranslationService,
 	    private caixaDiarioService: CaixaDiarioService,
-
-
+	    
+	    
 	    private planoContaService: PlanoContaService,
-
-
+	    
+	    
 	    private contaBancariaService: ContaBancariaService,
-
-
+	    
+	    
 	    private cartaoCreditoService: CartaoCreditoService,
-
-
+	    
+	    
 	    private clienteService: ClienteService,
-
-
+	    
+	    
 	    private fornecedorService: FornecedorService,
 	    private route: ActivatedRoute,
 	    private messageService: MessageService
-	) {
+	) { 
 		this.initializeCaixaLancamentoTipoLancamentoFinanceiroOptions();
-
+		
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
-
+		
 		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
 	}
-
+	
 	ngOnInit() {
 		this.rulesOnInit();
-
+		
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getCaixaLancamentoById(id);
 	    }
 	}
-
+	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
@@ -127,11 +127,11 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
-
+	
 	validateAllFormFields(form: FormGroup) {
 	    Object.keys(form.controls).forEach(field => {
 	      const control = form.get(field);
-
+	
 	      if (control instanceof FormControl) {
 	        control.markAsDirty({ onlySelf: true });
 	      } else if (control instanceof FormGroup) {
@@ -139,22 +139,22 @@ export class CaixaLancamentoComponent implements OnInit {
 	      }
 	    });
 	}
-
+	
 	save(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-
+		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
 	      this.create();
 	    }
 	}
-
+	
 	create() {
-
+		
 	    this.caixaLancamentoService.create(this.caixaLancamento)
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
@@ -164,7 +164,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.showError('Erro ao criar registro: ' + error);
 	    });
 	}
-
+	
 	update() {
 	    this.caixaLancamentoService.update(this.caixaLancamento)
 	    .then((caixaLancamento) => {
@@ -175,7 +175,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.showError('Erro ao atualizar registro: ' + error);
 	    });
 	}
-
+	
 	getCaixaLancamentoById(id: string) {
 	    this.caixaLancamentoService.retrieve(id)
 	    .then((caixaLancamento) => this.caixaLancamento = caixaLancamento)
@@ -183,23 +183,23 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.showError('Erro ao buscar registro: ' + id);
 	    });
 	}
-
+	
 	get isEditing() {
 	    return Boolean(this.caixaLancamento.id);
 	}
-
+	
 	initializeEnumFieldsWithDefault() {
 		this.caixaLancamento.tipoLancamentoFinanceiro = this.caixaLancamentoTipoLancamentoFinanceiroOptions[1].value;
 		this.caixaLancamento.formaPagamento = this.caixaLancamentoFormaPagamentoOptions[0].value;
 		this.caixaLancamento.tipoFonteMovimento = this.caixaLancamentoTipoFonteMovimentoOptions[0].value;
 	}
-
-
+	
+	
 	caixaLancamentoCaixaDiarioAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.caixaDiario = null;
 	}
-
+	
 	caixaLancamentoCaixaDiarioAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -211,7 +211,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
 		if (caixaDiario) {
 			return (caixaDiario.caixa.nome || '<nulo>') + ' - ' + (moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m') || '<nulo>');
@@ -219,16 +219,19 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
-
+	
+	
 	caixaLancamentoPlanoContasAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.planoContas = null;
 	}
-
+	
 	caixaLancamentoPlanoContasAutoComplete(event) {
-		const query = event.query;
-		const caixaLancamento = this.caixaLancamento;
+		const caixaLancamento = (JSON.parse(JSON.stringify(this.caixaLancamento)));
+		if (String(caixaLancamento.planoContas === '')) {
+			caixaLancamento.planoContas = null;
+		}
+	    const query = event.query;
 	    this.caixaLancamentoService
 	      .planoContaPlanoContasAutoComplete(query, caixaLancamento)
 	      .then((result) => {
@@ -238,7 +241,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
 			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
@@ -246,13 +249,13 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
-
+	
+	
 	caixaLancamentoContaBancariaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.contaBancaria = null;
 	}
-
+	
 	caixaLancamentoContaBancariaAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -264,7 +267,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
 			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
@@ -272,13 +275,13 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
-
+	
+	
 	caixaLancamentoCartaoCreditoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.cartaoCredito = null;
 	}
-
+	
 	caixaLancamentoCartaoCreditoAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -290,7 +293,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
@@ -298,13 +301,13 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
-
+	
+	
 	caixaLancamentoClienteAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.cliente = null;
 	}
-
+	
 	caixaLancamentoClienteAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -316,7 +319,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
 			return (cliente.nome || '<nulo>') + ' - ' + (cliente.cpfCNPJ || '<nulo>');
@@ -324,13 +327,13 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
-
+	
+	
 	caixaLancamentoFornecedorAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.fornecedor = null;
 	}
-
+	
 	caixaLancamentoFornecedorAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -342,7 +345,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.showError('Erro ao buscar registros com o termo: ' + query);
 	      });
 	}
-
+	
 	caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
 			return (fornecedor.nome || '<nulo>') + ' - ' + (fornecedor.cpfCNPJ || '<nulo>');
@@ -350,57 +353,57 @@ export class CaixaLancamentoComponent implements OnInit {
 			return null;
 		}
 	}
-
+	
 	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
 	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_credito'), value: 'CREDITO' },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_credito'), value: 'CREDITO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_debito'), value: 'DEBITO' }
 	    ];
 	}
-
+	  
 	private initializeCaixaLancamentoFormaPagamentoOptions() {
 	    this.caixaLancamentoFormaPagamentoOptions = [
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_dinheiro'), value: 'DINHEIRO' },
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' },
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' },
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
 	}
-
+	  
 	private initializeCaixaLancamentoTipoFonteMovimentoOptions() {
 	    this.caixaLancamentoTipoFonteMovimentoOptions = [
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' },
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_receber'), value: 'CONTAS_RECEBER' }
 	    ];
 	}
-
-
+	  
+	
 	public showSuccess(msg: string) {
 	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
 	}
-
+	
 	public showError(msg: string) {
 	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
 	}
-
+	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroFluxoCaixaTranslationService.getTranslation(key);
 		return value;
-
+		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-
+	
 	rulesOnInit() {
 		this.caixaLancamento.dataLancamento = moment().toDate();
 	}
-
-
-
-	// Begin RuleWithSlotAppyStyleClass
+	
+	
+										
+	// Begin RuleWithSlotAppyStyleClass 
 	ruleContaBancariaAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CONTA_BANCARIA');
 		if (expression) {
@@ -408,7 +411,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	ruleCartaoCreditoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CARTAO_CREDITO');
@@ -417,7 +420,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	ruleClienteAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
@@ -426,7 +429,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	ruleFornecedorAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
@@ -435,7 +438,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	ruleValorCreditoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
@@ -444,7 +447,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	ruleValorDebitoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
@@ -453,13 +456,13 @@ export class CaixaLancamentoComponent implements OnInit {
 		} else {
 			return '';
 		}
-
+		
 	}
 	// End Begin RuleWithSlotAppyStyleClass
-
+	
 	caixaLancamentoRuleDisableCUD() {
 		const expression = this.caixaLancamento.id && (String(this.caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
 		return expression;
-
+		
 	}
 }
