@@ -159,4 +159,9 @@ export class DashboardContaPagarComponent implements OnInit {
     return result;
   }
 
+
+  getPanelPrevistoXRealizadoTitle(): string {
+    const currentYear = moment().year();
+    return `Contas a pagar ${currentYear} (previsto X realizado)`;
+  }
 }

@@ -159,4 +159,9 @@ export class DashboardContaReceberComponent implements OnInit {
     return result;
   }
 
+  getPanelPrevistoXRealizadoTitle(): string {
+    const currentYear = moment().year();
+    return `Contas a receber ${currentYear} (previsto X realizado)`;
+  }
+
 }

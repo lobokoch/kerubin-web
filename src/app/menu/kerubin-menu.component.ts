@@ -34,10 +34,10 @@ export class KerubinMenuComponent implements OnInit {
         items: [
 
           {
-            label: 'Contas a pagar',
+            label: 'Contas',
             icon: 'pi pi-fw ',
             items: [
-              { label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/dashboard' },
+              { label: 'Situação das contas', icon: 'pi pi-fw', routerLink: '/dashboard' },
             ]
           }
 

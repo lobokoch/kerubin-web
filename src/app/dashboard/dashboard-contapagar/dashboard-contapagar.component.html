@@ -91,7 +91,7 @@
   </div>
 
   <div class="ui-g-12 ui-md-6">
-    <p-panel header="Contas a pagar de 2019">
+    <p-panel [header]="getPanelPrevistoXRealizadoTitle()">
       <p-chart type="bar" [options]="options" [data]="monthlySumContasPagarData"></p-chart>
     </p-panel>
   </div>
