@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -18,6 +19,9 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 export class LoginComponent implements OnInit {
 
+  username = '';
+  password = '';
+
   constructor(
     private auth: AuthService,
     private messageHandler: MessageHandlerService,
@@ -27,8 +31,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(username: string, password: string) {
-    this.auth.login(username, password)
+  // login(username: string, password: string) {
+  login(form: FormGroup) {
+    if (!form.valid) {
+      this.validateAllFormFields(form);
+      return;
+    }
+
+    this.auth.login(this.username, this.password)
     .then(() => {
       const tenant = this.auth.tenant;
       if (tenant) {
@@ -41,5 +51,17 @@ export class LoginComponent implements OnInit {
       this.messageHandler.showError(error);
     });
   }
+
+  validateAllFormFields(form: FormGroup) {
+    Object.keys(form.controls).forEach(field => {
+      const control = form.get(field);
+
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+}
 
 }
