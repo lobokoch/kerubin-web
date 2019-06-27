@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 5.0.3
-Code generated at time stamp: 2019-06-24T00:05:09.336
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:36:59.374
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -139,4 +139,9 @@ export class CaixaComponent implements OnInit {
 	
 	
 	
+	caixaRuleDisableCUD() {
+		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
+		return expression;
+		
+	}
 }

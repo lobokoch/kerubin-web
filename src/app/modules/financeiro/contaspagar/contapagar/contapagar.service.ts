@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-08T10:32:58.533
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,6 +25,10 @@ import { ContaPagarDescricaoAutoComplete } from './contapagar.model';
 import { ContaPagarAgrupadorAutoComplete } from './contapagar.model';
 import { ContaPagarSumFields } from './contapagar.model';
 import { environment } from 'src/environments/environment';
+import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
+import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
+import { CartaoCreditoAutoComplete } from './../cartaocredito/cartaocredito.model';
+import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
 @Injectable()
 export class ContaPagarService {
@@ -163,6 +167,75 @@ export class ContaPagarService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	planoContaPlanoContasAutoComplete(query: string): Promise<PlanoContaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as PlanoContaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	contaBancariaContaBancariaAutoComplete(query: string): Promise<ContaBancariaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<ContaBancariaAutoComplete[]>(`${this.url}/contaBancariaContaBancariaAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ContaBancariaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	cartaoCreditoCartaoCreditoAutoComplete(query: string): Promise<CartaoCreditoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<CartaoCreditoAutoComplete[]>(`${this.url}/cartaoCreditoCartaoCreditoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CartaoCreditoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	fornecedorFornecedorAutoComplete(query: string): Promise<FornecedorAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<FornecedorAutoComplete[]>(`${this.url}/fornecedorFornecedorAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as FornecedorAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	contaPagarDescricaoAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-08T10:32:58.550
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.745
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,21 +9,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-card>
+		<p-header>
+			<div class="kb-card-header">{{ getTranslation('financeiro.contas_pagar.contaPagar') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('financeiro.contas_pagar.contaPagar') }}</h1>
-		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_pagar.contaPagar_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="contaPagar.id" name="id" readonly class="read-only">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="planoContas">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas') }}</label><label class="kb-label-required">*</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions" (completeMethod)="contaPagarPlanoContasAutoComplete($event)" (onClear)="contaPagarPlanoContasAutoCompleteClear($event)" [field]="contaPagarPlanoContasAutoCompleteFieldConverter" #planoContas="ngModel" ngModel [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
+			<label for="planoContas">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions" (completeMethod)="contaPagarPlanoContasAutoComplete($event)" (onClear)="contaPagarPlanoContasAutoCompleteClear($event)" [field]="contaPagarPlanoContasAutoCompleteFieldConverter" #planoContas="ngModel" ngModel [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -32,32 +34,32 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="descricao">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao') }}</label><label class="kb-label-required">*</label>
+			<label for="descricao">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="contaPagar.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="dataVencimento">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento') }}</label><label class="kb-label-required">*</label>
+			<label for="dataVencimento">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento') }}<span class="kb-label-required">*</span></label>
 			<p-calendar dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="valor">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor') }}</label><label class="kb-label-required">*</label>
+			<label for="valor">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor') }}<span class="kb-label-required">*</span></label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaPagar.valor" name="valor" required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="formaPagamento">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento') }}</label><label class="kb-label-required">*</label>
+			<label for="formaPagamento">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="contaPagar.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="contaBancaria">{{ getTranslation('financeiro.contas_pagar.contaPagar_contaBancaria') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions" (completeMethod)="contaPagarContaBancariaAutoComplete($event)" (onClear)="contaPagarContaBancariaAutoCompleteClear($event)" [field]="contaPagarContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions" (completeMethod)="contaPagarContaBancariaAutoComplete($event)" (onClear)="contaPagarContaBancariaAutoCompleteClear($event)" [field]="contaPagarContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
@@ -66,7 +68,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="cartaoCredito">{{ getTranslation('financeiro.contas_pagar.contaPagar_cartaoCredito') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)" (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)" [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)" (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)" [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
@@ -110,7 +112,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="fornecedor">{{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarFornecedorAutoCompleteSuggestions" (completeMethod)="contaPagarFornecedorAutoComplete($event)" (onClear)="contaPagarFornecedorAutoCompleteClear($event)" [field]="contaPagarFornecedorAutoCompleteFieldConverter" #fornecedor="ngModel" ngModel [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarFornecedorAutoCompleteSuggestions" (completeMethod)="contaPagarFornecedorAutoComplete($event)" (onClear)="contaPagarFornecedorAutoCompleteClear($event)" [field]="contaPagarFornecedorAutoCompleteFieldConverter" #fornecedor="ngModel" ngModel [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
 				<ng-template let-fornecedor pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarFornecedorAutoCompleteFieldConverter(fornecedor) }}</div>
 				</ng-template>
@@ -180,5 +182,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-card>
   
 </div>

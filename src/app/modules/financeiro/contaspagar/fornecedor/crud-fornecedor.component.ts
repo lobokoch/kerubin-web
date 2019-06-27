@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.681
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { Fornecedor } from './fornecedor.model';
 import { FornecedorService } from './fornecedor.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
+
 
 @Component({
   selector: 'app-crud-fornecedor.component',
@@ -73,6 +74,7 @@ export class FornecedorComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.fornecedorService.create(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
@@ -126,5 +128,7 @@ export class FornecedorComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 	
 }

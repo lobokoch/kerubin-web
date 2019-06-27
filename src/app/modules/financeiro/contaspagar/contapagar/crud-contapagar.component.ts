@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-08T10:32:58.533
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { ContaPagar } from './contapagar.model';
 import { ContaPagarService } from './contapagar.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
+import * as moment from 'moment';
 
 import { PlanoContaService } from './../planoconta/planoconta.service';
 import { PlanoConta } from './../planoconta/planoconta.model';
@@ -34,6 +35,7 @@ import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
 import { FormaPagamento } from './../enums/financeiro-contaspagar-enums.model';
 import {SelectItem} from 'primeng/api';
+
 
 @Component({
   selector: 'app-crud-contapagar.component',
@@ -126,6 +128,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.contaPagarService.create(this.contaPagar)
 	    .then((contaPagar) => {
 	      this.contaPagar = contaPagar;
@@ -171,8 +174,8 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarPlanoContasAutoComplete(event) {
 	    const query = event.query;
-	    this.planoContaService
-	      .autoComplete(query)
+	    this.contaPagarService
+	      .planoContaPlanoContasAutoComplete(query)
 	      .then((result) => {
 	        this.contaPagarPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
@@ -183,7 +186,7 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return planoContas.codigo + ' - ' + planoContas.descricao;
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -197,8 +200,8 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarContaBancariaAutoComplete(event) {
 	    const query = event.query;
-	    this.contaBancariaService
-	      .autoComplete(query)
+	    this.contaPagarService
+	      .contaBancariaContaBancariaAutoComplete(query)
 	      .then((result) => {
 	        this.contaPagarContaBancariaAutoCompleteSuggestions = result as ContaBancariaAutoComplete[];
 	      })
@@ -209,7 +212,7 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
-			return contaBancaria.nomeTitular + ' - ' + contaBancaria.numeroConta;
+			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
 		} else {
 			return null;
 		}
@@ -223,8 +226,8 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarCartaoCreditoAutoComplete(event) {
 	    const query = event.query;
-	    this.cartaoCreditoService
-	      .autoComplete(query)
+	    this.contaPagarService
+	      .cartaoCreditoCartaoCreditoAutoComplete(query)
 	      .then((result) => {
 	        this.contaPagarCartaoCreditoAutoCompleteSuggestions = result as CartaoCreditoAutoComplete[];
 	      })
@@ -235,7 +238,7 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
-			return cartaoCredito.nomeTitular + ' - ' + cartaoCredito.numeroCartao;
+			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -249,8 +252,8 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarFornecedorAutoComplete(event) {
 	    const query = event.query;
-	    this.fornecedorService
-	      .autoComplete(query)
+	    this.contaPagarService
+	      .fornecedorFornecedorAutoComplete(query)
 	      .then((result) => {
 	        this.contaPagarFornecedorAutoCompleteSuggestions = result as FornecedorAutoComplete[];
 	      })
@@ -261,7 +264,7 @@ export class ContaPagarComponent implements OnInit {
 	
 	contaPagarFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
-			return fornecedor.nome;
+			return (fornecedor.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -328,4 +331,6 @@ export class ContaPagarComponent implements OnInit {
 	    this.numberOfCopies = 1;
 	    this.copiesReferenceFieldInterval = 30;
 	}
+	
+	
 }

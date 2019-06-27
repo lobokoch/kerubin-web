@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 5.0.3
-Code generated at time stamp: 2019-06-24T00:05:09.336
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:36:59.374
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/./../i18n/financeiro-fluxocaixa-translation.service';
@@ -57,6 +58,7 @@ import { CaixaModule } from '../caixa/caixa.module';
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
+	CardModule,
 
     // Kerubin
     CaixaDiarioRoutingModule,

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.681
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -38,12 +38,6 @@ export class ContaBancariaListComponent implements OnInit {
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
-	/*
-	contaBancaria: ContaBancaria;
-	totaisFiltroContaPagar = new TotaisFiltroContaPagar(0.0, 0.0);
-	mostrarDialogPagarConta = false;
-	*/
-	
 	constructor(
 	    private contaBancariaService: ContaBancariaService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
@@ -52,9 +46,6 @@ export class ContaBancariaListComponent implements OnInit {
 	) { }
 	
 	ngOnInit() {
-    	this.contaBancariaListFilter.sortField = new SortField('nomeTitular', 1); // asc
-	    // this.contaBancaria = new ContaBancaria();
-        // this.contaPagar.dataPagamento = moment().toDate();
 	}
 	
 	contaBancariaList(pageNumber = 0) {
@@ -94,7 +85,7 @@ export class ContaBancariaListComponent implements OnInit {
 	    if (event.sortField) {
 	      this.contaBancariaListFilter.sortField = new SortField(event.sortField, event.sortOrder);
 	    } else {
-	      this.contaBancariaListFilter.sortField = new SortField('nomeTitular', 1); // asc
+	      this.contaBancariaListFilter.sortField = new SortField('id', 1); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.contaBancariaList(pageNumber);
@@ -114,7 +105,7 @@ export class ContaBancariaListComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
 		if (agencia) {
-			return agencia.numeroAgencia + ' - ' + agencia.digitoAgencia + ' - ' + agencia.endereco;
+			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
 		} else {
 			return null;
 		}
@@ -132,83 +123,5 @@ export class ContaBancariaListComponent implements OnInit {
 		// return result;
 	}
 	
-	/*********************
-	getContaCssClass(conta: ContaPagar): string {
-	    const vencimento = conta.dataVencimento;
-	    const emAberto = conta.dataPagamento == null;
-	    const hoje = moment();
-	    if (vencimento && emAberto) {
-	      if (moment(vencimento).isBefore(hoje, 'day')) {
-	        return 'conta-vencida';
-	      }
-	      if (moment(vencimento).isSame(hoje, 'day')) {
-	        return 'conta-vence-hoje';
-	      }
-	      if (moment(vencimento).isSame(moment().add(1, 'day'), 'day')) {
-	        return 'conta-vence-amanha';
-	      }
-	      if (moment(vencimento).isBefore(moment().add(1, 'week').startOf('week'), 'day')) {
-	        return 'conta-vence-essa-semana';
-	      }
-	    }
-	    return 'conta-ok';
-	}
 	
-	get getTotalGeralContasPagar(): number {
-	    const total = this.totaisFiltroContaPagar.totalValorPagar - this.totaisFiltroContaPagar.totalValorPago;
-	    return total ? total : 0.0;
-	}
-	  
-	get getTotalValorPagar(): number {
-	    const total = this.totaisFiltroContaPagar.totalValorPagar;
-	    return total ? total : 0.0;
-	}
-	
-	get getTotalValorPago(): number {
-		const total = this.totaisFiltroContaPagar.totalValorPago;
-		return total ? total : 0.0;
-	}
-	
-	getTotaisFiltroContaPagar() {
-	    this.contasPagarService.getTotaisFiltroContaPagar(this.contaPagarListFilter)
-	    .then(response => {
-	      this.totaisFiltroContaPagar = response;
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao buscar totais:' + erro);
-	    });
-	}
-	
-	mostrarPagarConta(conta: ContaPagar) {
-	    this.contaPagar = new ContaPagar();
-	    this.contaPagar.assign(conta);
-	    // this.contaPagar.dataPagamento = new Date(this.contaPagar.dataPagamento);
-	    const data = this.contaPagar.dataPagamento;
-	    if (data == null) {
-	      this.contaPagar.dataPagamento = moment().toDate();
-	    } else {
-	      this.contaPagar.dataPagamento = moment(this.contaPagar.dataPagamento).toDate();
-	    }
-	    if (!this.contaPagar.valorPago || this.contaPagar.valorPago === 0) {
-	      this.contaPagar.valorPago = conta.valor;
-	    }
-	    this.mostrarDialogPagarConta = true;
-	}
-	
-	cancelarPagarConta() {
-		this.mostrarDialogPagarConta = false;
-	}
-	
-	executarPagarConta() {
-	    this.contasPagarService.update(this.contaPagar)
-	    .then((contaPagar) => {
-	      this.mostrarDialogPagarConta = false;
-	      this.messageHandler.showSuccess(`A conta ${contaPagar.descricao} foi paga.`);
-	      this.contaPagarList(0);
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao pagar a conta: ' + erro);
-	    });
-	}
-	*********************/
 }

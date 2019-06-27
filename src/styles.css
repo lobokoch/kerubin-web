@@ -342,3 +342,10 @@ a, button {
   color: rgb(187, 0, 15) !important;
 }
 /* End Fluxo de caixa */
+
+.kb-card-header {
+  background-color:  rgb(244, 244, 244);
+  padding: 10px;
+  margin-bottom: 0px;
+  font-weight: bold;
+}

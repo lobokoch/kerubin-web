@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.681
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,7 @@ import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
 import { ContaBancariaListFilter } from './contabancaria.model';
 import { ContaBancariaNumeroContaAutoComplete } from './contabancaria.model';
 import { environment } from 'src/environments/environment';
+import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancaria.model';
 
 @Injectable()
 export class ContaBancariaService {
@@ -114,6 +115,27 @@ export class ContaBancariaService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	agenciaBancariaAgenciaAutoComplete(query: string): Promise<AgenciaBancariaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<AgenciaBancariaAutoComplete[]>(`${this.url}/agenciaBancariaAgenciaAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as AgenciaBancariaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	contaBancariaNumeroContaAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();

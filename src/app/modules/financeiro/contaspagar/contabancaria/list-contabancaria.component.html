@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.699
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.745
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -50,7 +50,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="contaBancariaListFilter.pageSize" 
 			    [totalRecords]="contaBancariaListTotalElements"
 			    [lazy]="true" (onLazyLoad)="contaBancariaListOnLazyLoad($event)" >
-			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'nomeTitular'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_nomeTitular_grid') }}<p-sortIcon [field]="'nomeTitular'"></p-sortIcon></th>
@@ -60,7 +59,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'digito'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_digito_grid') }}<p-sortIcon [field]="'digito'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataValidade'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_dataValidade_grid') }}<p-sortIcon [field]="'dataValidade'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'ativo'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_ativo_grid') }}<p-sortIcon [field]="'ativo'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -88,9 +86,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<td>
 		            		{{contaBancaria?.ativo? 'Sim': 'Não' }}
 		            	</td>
-		            	<td>
-		            		{{contaBancaria?.deleted? 'Sim': 'Não' }}
-		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/contabancaria', contaBancaria.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<!-- <button (click)="mostrarPagarConta(contaBancaria)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
@@ -102,7 +97,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="9">
+				        <td [attr.colspan]="8">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

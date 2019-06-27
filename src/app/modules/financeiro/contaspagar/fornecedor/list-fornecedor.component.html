@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.699
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.745
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -50,12 +50,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="fornecedorListFilter.pageSize" 
 			    [totalRecords]="fornecedorListTotalElements"
 			    [lazy]="true" (onLazyLoad)="fornecedorListOnLazyLoad($event)" >
-			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.contas_pagar.fornecedor_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'cpfCNPJ'">{{ getTranslation('financeiro.contas_pagar.fornecedor_cpfCNPJ_grid') }}<p-sortIcon [field]="'cpfCNPJ'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.contas_pagar.fornecedor_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -68,9 +66,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<td>
 		            		{{fornecedor?.cpfCNPJ}}
 		            	</td>
-		            	<td>
-		            		{{fornecedor?.deleted? 'Sim': 'Não' }}
-		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/fornecedor', fornecedor.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<!-- <button (click)="mostrarPagarConta(fornecedor)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
@@ -82,7 +77,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="4">
+				        <td [attr.colspan]="3">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

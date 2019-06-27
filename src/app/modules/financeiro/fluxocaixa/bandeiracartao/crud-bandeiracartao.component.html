@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 5.0.3
-Code generated at time stamp: 2019-06-24T00:05:09.370
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:36:59.406
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,13 +9,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-card>
+		<p-header>
+			<div class="kb-card-header">{{ getTranslation('financeiro.fluxo_caixa.bandeiraCartao') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('financeiro.fluxo_caixa.bandeiraCartao') }}</h1>
-		</div>
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.bandeiraCartao_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="bandeiraCartao.id" name="id" readonly class="read-only">
@@ -47,5 +49,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-card>
   
 </div>

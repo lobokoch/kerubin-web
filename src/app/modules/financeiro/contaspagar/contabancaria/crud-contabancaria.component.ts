@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.681
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,12 +15,14 @@ import {MessageService} from 'primeng/api';
 import { ContaBancaria } from './contabancaria.model';
 import { ContaBancariaService } from './contabancaria.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
+import * as moment from 'moment';
 
 import { AgenciaBancariaService } from './../agenciabancaria/agenciabancaria.service';
 import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
 import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancaria.model';
 
 import { TipoContaBancaria } from './../enums/financeiro-contaspagar-enums.model';
+
 
 @Component({
   selector: 'app-crud-contabancaria.component',
@@ -85,6 +87,7 @@ export class ContaBancariaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
@@ -130,8 +133,8 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoComplete(event) {
 	    const query = event.query;
-	    this.agenciaBancariaService
-	      .autoComplete(query)
+	    this.contaBancariaService
+	      .agenciaBancariaAgenciaAutoComplete(query)
 	      .then((result) => {
 	        this.contaBancariaAgenciaAutoCompleteSuggestions = result as AgenciaBancariaAutoComplete[];
 	      })
@@ -142,7 +145,7 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
 		if (agencia) {
-			return agencia.numeroAgencia + ' - ' + agencia.digitoAgencia + ' - ' + agencia.endereco;
+			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
 		} else {
 			return null;
 		}
@@ -174,5 +177,7 @@ export class ContaBancariaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 	
 }

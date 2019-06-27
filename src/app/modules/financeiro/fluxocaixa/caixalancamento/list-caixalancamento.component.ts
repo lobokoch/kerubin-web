@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 5.0.3
-Code generated at time stamp: 2019-06-24T00:05:09.336
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:36:59.374
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -179,4 +179,10 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    return value;
 	  }
 	  
+	
+	caixaLancamentoRuleDisableCUD(caixaLancamento: CaixaLancamento) {
+		const expression = caixaLancamento.id && (String(caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
+		return expression;
+		
+	}
 }

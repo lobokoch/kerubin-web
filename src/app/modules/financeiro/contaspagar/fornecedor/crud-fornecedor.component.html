@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.699
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.745
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,20 +9,22 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-card>
+		<p-header>
+			<div class="kb-card-header">{{ getTranslation('financeiro.contas_pagar.fornecedor') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('financeiro.contas_pagar.fornecedor') }}</h1>
-		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_pagar.fornecedor_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="fornecedor.id" name="id" readonly class="read-only">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="nome">{{ getTranslation('financeiro.contas_pagar.fornecedor_nome') }}</label><label class="kb-label-required">*</label>
+			<label for="nome">{{ getTranslation('financeiro.contas_pagar.fornecedor_nome') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #nome="ngModel" ngModel [(ngModel)]="fornecedor.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
 		</div>
@@ -32,7 +34,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #cpfCNPJ="ngModel" ngModel [(ngModel)]="fornecedor.cpfCNPJ" name="cpfCNPJ">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.contas_pagar.fornecedor_deleted') }}</label>
 			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="fornecedor.deleted" name="deleted"></p-inputSwitch>
 		</div>
@@ -52,5 +54,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-card>
   
 </div>

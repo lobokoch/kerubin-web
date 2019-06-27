@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:44.699
+Code generated with MKL Plug-in version: 5.3.2
+Code generated at time stamp: 2019-06-26T23:37:03.745
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -50,11 +50,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="bandeiraCartaoListFilter.pageSize" 
 			    [totalRecords]="bandeiraCartaoListTotalElements"
 			    [lazy]="true" (onLazyLoad)="bandeiraCartaoListOnLazyLoad($event)" >
-			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'nomeBandeira'">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_nomeBandeira_grid') }}<p-sortIcon [field]="'nomeBandeira'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -63,9 +61,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <tr [pSelectableRow]="bandeiraCartao">
 		            	<td>
 		            		{{bandeiraCartao?.nomeBandeira}}
-		            	</td>
-		            	<td>
-		            		{{bandeiraCartao?.deleted? 'Sim': 'Não' }}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/bandeiracartao', bandeiraCartao.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -78,7 +73,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="3">
+				        <td [attr.colspan]="2">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
