@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit {
       }
     })
     .catch (error => {
+      this.password = '';
+      console.log('login error:' + error);
       this.messageHandler.showError(error);
     });
   }
