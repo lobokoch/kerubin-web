@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 5.3.2
-Code generated at time stamp: 2019-06-26T23:36:59.406
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:38.878
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,9 +9,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
-	<p-card>
+	<p-panel>
 		<p-header>
-			<div class="kb-card-header">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario') }}</div>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario') }}</div>
 		</p-header>
 	
 
@@ -41,7 +41,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraAbertura">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraAbertura') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -51,7 +51,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraFechamento">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraFechamento') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -100,6 +100,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	</div>
   </form>
   
-  </p-card>
+  </p-panel>
   
 </div>

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-
 import { BancoService } from './../banco/banco.service';
 import { Banco } from './../banco/banco.model';
 import { BancoAutoComplete } from './../banco/banco.model';
+
 
 @Component({
   selector: 'app-crud-agenciabancaria.component',
@@ -79,6 +80,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.agenciaBancariaService.create(this.agenciaBancaria)
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
@@ -121,8 +123,8 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	agenciaBancariaBancoAutoComplete(event) {
 	    const query = event.query;
-	    this.bancoService
-	      .autoComplete(query)
+	    this.agenciaBancariaService
+	      .bancoBancoAutoComplete(query)
 	      .then((result) => {
 	        this.agenciaBancariaBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
@@ -133,7 +135,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	agenciaBancariaBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
 		if (banco) {
-			return banco.numero + ' - ' + banco.nome;
+			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -156,5 +158,7 @@ export class AgenciaBancariaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 	
 }

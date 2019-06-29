@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,8 @@ import { Banco } from './../banco/banco.model';
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { CartaoCreditoListFilter } from './cartaocredito.model';
 import { environment } from 'src/environments/environment';
+import { BancoAutoComplete } from './../banco/banco.model';
+import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
 
 @Injectable()
 export class CartaoCreditoService {
@@ -119,6 +121,43 @@ export class CartaoCreditoService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	bancoBancoAutoComplete(query: string): Promise<BancoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<BancoAutoComplete[]>(`${this.url}/bancoBancoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as BancoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	bandeiraCartaoBandeiraCartaoAutoComplete(query: string): Promise<BandeiraCartaoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<BandeiraCartaoAutoComplete[]>(`${this.url}/bandeiraCartaoBandeiraCartaoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as BandeiraCartaoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	cartaoCreditoList(cartaoCreditoListFilter: CartaoCreditoListFilter): Promise<any> {
 	    const headers = this.getHeaders();

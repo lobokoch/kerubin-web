@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 5.3.2
-Code generated at time stamp: 2019-06-26T23:37:03.745
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:59:05.328
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,9 +9,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
-	<p-card>
+	<p-panel>
 		<p-header>
-			<div class="kb-card-header">{{ getTranslation('financeiro.contas_pagar.contaBancaria') }}</div>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_pagar.contaBancaria') }}</div>
 		</p-header>
 	
 
@@ -58,7 +58,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataValidade">{{ getTranslation('financeiro.contas_pagar.contaBancaria_dataValidade') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" #dataValidade="ngModel" ngModel [(ngModel)]="contaBancaria.dataValidade" name="dataValidade"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataValidade="ngModel" ngModel [(ngModel)]="contaBancaria.dataValidade" name="dataValidade"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
@@ -88,6 +88,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	</div>
   </form>
   
-  </p-card>
+  </p-panel>
   
 </div>

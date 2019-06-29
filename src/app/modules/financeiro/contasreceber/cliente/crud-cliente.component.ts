@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
+
 
 @Component({
   selector: 'app-crud-cliente.component',
@@ -73,6 +74,7 @@ export class ClienteComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
@@ -126,5 +128,7 @@ export class ClienteComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 	
 }

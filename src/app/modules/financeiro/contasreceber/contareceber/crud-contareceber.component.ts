@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { ContaReceber } from './contareceber.model';
 import { ContaReceberService } from './contareceber.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
+import * as moment from 'moment';
 
 import { PlanoContaService } from './../planoconta/planoconta.service';
 import { PlanoConta } from './../planoconta/planoconta.model';
@@ -35,6 +36,7 @@ import { ClienteAutoComplete } from './../cliente/cliente.model';
 import { FormaPagamento } from './../enums/financeiro-contasreceber-enums.model';
 import {SelectItem} from 'primeng/api';
 
+
 @Component({
   selector: 'app-crud-contareceber.component',
   templateUrl: './crud-contareceber.component.html',
@@ -42,6 +44,9 @@ import {SelectItem} from 'primeng/api';
 })
 
 export class ContaReceberComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	 
 	numberOfCopies = 1;
 	copiesReferenceFieldInterval = 30;
@@ -84,6 +89,7 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
@@ -126,6 +132,7 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.contaReceberService.create(this.contaReceber)
 	    .then((contaReceber) => {
 	      this.contaReceber = contaReceber;
@@ -171,8 +178,8 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberPlanoContasAutoComplete(event) {
 	    const query = event.query;
-	    this.planoContaService
-	      .autoComplete(query)
+	    this.contaReceberService
+	      .planoContaPlanoContasAutoComplete(query)
 	      .then((result) => {
 	        this.contaReceberPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
@@ -183,7 +190,7 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return planoContas.codigo + ' - ' + planoContas.descricao;
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -197,8 +204,8 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberContaBancariaAutoComplete(event) {
 	    const query = event.query;
-	    this.contaBancariaService
-	      .autoComplete(query)
+	    this.contaReceberService
+	      .contaBancariaContaBancariaAutoComplete(query)
 	      .then((result) => {
 	        this.contaReceberContaBancariaAutoCompleteSuggestions = result as ContaBancariaAutoComplete[];
 	      })
@@ -209,7 +216,7 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
-			return contaBancaria.nomeTitular + ' - ' + contaBancaria.numeroConta;
+			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
 		} else {
 			return null;
 		}
@@ -223,8 +230,8 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberCartaoCreditoAutoComplete(event) {
 	    const query = event.query;
-	    this.cartaoCreditoService
-	      .autoComplete(query)
+	    this.contaReceberService
+	      .cartaoCreditoCartaoCreditoAutoComplete(query)
 	      .then((result) => {
 	        this.contaReceberCartaoCreditoAutoCompleteSuggestions = result as CartaoCreditoAutoComplete[];
 	      })
@@ -235,7 +242,7 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
-			return cartaoCredito.nomeTitular + ' - ' + cartaoCredito.numeroCartao;
+			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -249,8 +256,8 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberClienteAutoComplete(event) {
 	    const query = event.query;
-	    this.clienteService
-	      .autoComplete(query)
+	    this.contaReceberService
+	      .clienteClienteAutoComplete(query)
 	      .then((result) => {
 	        this.contaReceberClienteAutoCompleteSuggestions = result as ClienteAutoComplete[];
 	      })
@@ -261,7 +268,7 @@ export class ContaReceberComponent implements OnInit {
 	
 	contaReceberClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
-			return cliente.nome;
+			return (cliente.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -328,4 +335,11 @@ export class ContaReceberComponent implements OnInit {
 	    this.numberOfCopies = 1;
 	    this.copiesReferenceFieldInterval = 30;
 	}
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.financeiroContasReceberTranslationService.getCalendarLocaleSettings();
+	}
+	
 }

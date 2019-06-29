@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 5.3.2
-Code generated at time stamp: 2019-06-26T23:37:03.745
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:59:05.328
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,9 +9,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
-	<p-card>
+	<p-panel>
 		<p-header>
-			<div class="kb-card-header">{{ getTranslation('financeiro.contas_pagar.contaPagar') }}</div>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_pagar.contaPagar') }}</div>
 		</p-header>
 	
 
@@ -41,7 +41,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataVencimento">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento') }}<span class="kb-label-required">*</span></label>
-			<p-calendar dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -82,7 +82,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataPagamento">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
@@ -183,6 +183,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	</div>
   </form>
   
-  </p-card>
+  </p-panel>
   
 </div>

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.932
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.839
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -59,7 +59,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'digito'">{{ getTranslation('financeiro.contas_receber.contaBancaria_digito_grid') }}<p-sortIcon [field]="'digito'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataValidade'">{{ getTranslation('financeiro.contas_receber.contaBancaria_dataValidade_grid') }}<p-sortIcon [field]="'dataValidade'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'ativo'">{{ getTranslation('financeiro.contas_receber.contaBancaria_ativo_grid') }}<p-sortIcon [field]="'ativo'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.contas_receber.contaBancaria_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -87,9 +86,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<td>
 		            		{{contaBancaria?.ativo? 'Sim': 'Não' }}
 		            	</td>
-		            	<td>
-		            		{{contaBancaria?.deleted? 'Sim': 'Não' }}
-		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/contabancaria', contaBancaria.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<!-- <button (click)="mostrarPagarConta(contaBancaria)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
@@ -101,7 +97,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="9">
+				        <td [attr.colspan]="8">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

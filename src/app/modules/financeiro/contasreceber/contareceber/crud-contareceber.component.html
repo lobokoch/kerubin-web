@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.932
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.839
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,21 +9,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_receber.contaReceber') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('financeiro.contas_receber.contaReceber') }}</h1>
-		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_receber.contaReceber_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="contaReceber.id" name="id" readonly class="read-only">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="planoContas">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas') }}</label><label class="kb-label-required">*</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions" (completeMethod)="contaReceberPlanoContasAutoComplete($event)" (onClear)="contaReceberPlanoContasAutoCompleteClear($event)" [field]="contaReceberPlanoContasAutoCompleteFieldConverter" #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
+			<label for="planoContas">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions" (completeMethod)="contaReceberPlanoContasAutoComplete($event)" (onClear)="contaReceberPlanoContasAutoCompleteClear($event)" [field]="contaReceberPlanoContasAutoCompleteFieldConverter" #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -32,32 +34,32 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="descricao">{{ getTranslation('financeiro.contas_receber.contaReceber_descricao') }}</label><label class="kb-label-required">*</label>
+			<label for="descricao">{{ getTranslation('financeiro.contas_receber.contaReceber_descricao') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="contaReceber.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="dataVencimento">{{ getTranslation('financeiro.contas_receber.contaReceber_dataVencimento') }}</label><label class="kb-label-required">*</label>
-			<p-calendar dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaReceber.dataVencimento" name="dataVencimento" required></p-calendar>
+			<label for="dataVencimento">{{ getTranslation('financeiro.contas_receber.contaReceber_dataVencimento') }}<span class="kb-label-required">*</span></label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaReceber.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="valor">{{ getTranslation('financeiro.contas_receber.contaReceber_valor') }}</label><label class="kb-label-required">*</label>
+			<label for="valor">{{ getTranslation('financeiro.contas_receber.contaReceber_valor') }}<span class="kb-label-required">*</span></label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaReceber.valor" name="valor" required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="formaPagamento">{{ getTranslation('financeiro.contas_receber.contaReceber_formaPagamento') }}</label><label class="kb-label-required">*</label>
+			<label for="formaPagamento">{{ getTranslation('financeiro.contas_receber.contaReceber_formaPagamento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="contaReceberFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="contaReceber.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="contaBancaria">{{ getTranslation('financeiro.contas_receber.contaReceber_contaBancaria') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions" (completeMethod)="contaReceberContaBancariaAutoComplete($event)" (onClear)="contaReceberContaBancariaAutoCompleteClear($event)" [field]="contaReceberContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions" (completeMethod)="contaReceberContaBancariaAutoComplete($event)" (onClear)="contaReceberContaBancariaAutoCompleteClear($event)" [field]="contaReceberContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
@@ -66,7 +68,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="cartaoCredito">{{ getTranslation('financeiro.contas_receber.contaReceber_cartaoCredito') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)" (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)" [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)" (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)" [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
@@ -80,7 +82,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataPagamento">{{ getTranslation('financeiro.contas_receber.contaReceber_dataPagamento') }}</label>
-			<p-calendar dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
@@ -110,7 +112,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="cliente">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente') }}</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberClienteAutoCompleteSuggestions" (completeMethod)="contaReceberClienteAutoComplete($event)" (onClear)="contaReceberClienteAutoCompleteClear($event)" [field]="contaReceberClienteAutoCompleteFieldConverter" #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberClienteAutoCompleteSuggestions" (completeMethod)="contaReceberClienteAutoComplete($event)" (onClear)="contaReceberClienteAutoCompleteClear($event)" [field]="contaReceberClienteAutoCompleteFieldConverter" #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberClienteAutoCompleteFieldConverter(cliente) }}</div>
 				</ng-template>
@@ -180,5 +182,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-panel>
   
 </div>

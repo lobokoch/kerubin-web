@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 5.3.2
-Code generated at time stamp: 2019-06-26T23:37:03.723
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:59:05.104
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -44,6 +44,9 @@ import {SelectItem} from 'primeng/api';
 })
 
 export class ContaPagarComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	 
 	numberOfCopies = 1;
 	copiesReferenceFieldInterval = 30;
@@ -86,6 +89,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
@@ -332,5 +336,10 @@ export class ContaPagarComponent implements OnInit {
 	    this.copiesReferenceFieldInterval = 30;
 	}
 	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.financeiroContasPagarTranslationService.getCalendarLocaleSettings();
+	}
 	
 }

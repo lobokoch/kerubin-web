@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 5.3.2
-Code generated at time stamp: 2019-06-26T23:36:59.374
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:38.612
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,6 +25,9 @@ import * as moment from 'moment';
 })
 
 export class CaixaComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	caixa = new Caixa();
 	
 	constructor(
@@ -36,6 +39,7 @@ export class CaixaComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 		this.rulesOnCreate();
 		
 	    const id = this.route.snapshot.params['id'];
@@ -144,4 +148,9 @@ export class CaixaComponent implements OnInit {
 		return expression;
 		
 	}
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
+	}
+	
 }

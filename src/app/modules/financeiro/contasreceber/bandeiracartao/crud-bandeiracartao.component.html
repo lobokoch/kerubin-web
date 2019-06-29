@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.932
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.839
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,25 +9,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_receber.bandeiraCartao') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('financeiro.contas_receber.bandeiraCartao') }}</h1>
-		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_receber.bandeiraCartao_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="bandeiraCartao.id" name="id" readonly class="read-only">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="nomeBandeira">{{ getTranslation('financeiro.contas_receber.bandeiraCartao_nomeBandeira') }}</label><label class="kb-label-required">*</label>
+			<label for="nomeBandeira">{{ getTranslation('financeiro.contas_receber.bandeiraCartao_nomeBandeira') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #nomeBandeira="ngModel" ngModel [(ngModel)]="bandeiraCartao.nomeBandeira" name="nomeBandeira" required>
 			<div class="invalid-message" *ngIf="nomeBandeira.invalid && nomeBandeira.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.contas_receber.bandeiraCartao_deleted') }}</label>
 			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="bandeiraCartao.deleted" name="deleted"></p-inputSwitch>
 		</div>
@@ -47,5 +49,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-panel>
   
 </div>

@@ -343,9 +343,9 @@ a, button {
 }
 /* End Fluxo de caixa */
 
-.kb-card-header {
-  background-color:  rgb(244, 244, 244);
-  padding: 10px;
+.kb-form-panel-header {
+ /* background-color:  rgb(244, 244, 244);*/
+  padding: 3px;
   margin-bottom: 0px;
   font-weight: bold;
 }

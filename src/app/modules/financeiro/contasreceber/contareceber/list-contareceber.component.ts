@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -151,7 +151,7 @@ export class ContaReceberListComponent implements OnInit {
 	
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return planoContas.codigo + ' - ' + planoContas.descricao;
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -159,7 +159,7 @@ export class ContaReceberListComponent implements OnInit {
 	
 	contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
-			return contaBancaria.nomeTitular + ' - ' + contaBancaria.numeroConta;
+			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
 		} else {
 			return null;
 		}
@@ -167,7 +167,7 @@ export class ContaReceberListComponent implements OnInit {
 	
 	contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
-			return cartaoCredito.nomeTitular + ' - ' + cartaoCredito.numeroCartao;
+			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -175,7 +175,7 @@ export class ContaReceberListComponent implements OnInit {
 	
 	contaReceberClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
-			return cliente.nome;
+			return (cliente.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -363,4 +363,6 @@ export class ContaReceberListComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 }

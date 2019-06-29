@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:47:45.920
+Code generated with MKL Plug-in version: 6.0.1
+Code generated at time stamp: 2019-06-29T06:58:51.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,6 +21,7 @@ import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { TipoPlanoContaFinanceiro } from './../enums/financeiro-contasreceber-enums.model';
 
 import { TipoReceitaDespesa } from './../enums/financeiro-contasreceber-enums.model';
+
 
 @Component({
   selector: 'app-crud-planoconta.component',
@@ -89,6 +90,7 @@ export class PlanoContaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
@@ -135,7 +137,7 @@ export class PlanoContaComponent implements OnInit {
 	planoContaPlanoContaPaiAutoComplete(event) {
 	    const query = event.query;
 	    this.planoContaService
-	      .autoComplete(query)
+	      .planoContaPlanoContaPaiAutoComplete(query)
 	      .then((result) => {
 	        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
@@ -146,7 +148,7 @@ export class PlanoContaComponent implements OnInit {
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
 		if (planoContaPai) {
-			return planoContaPai.codigo + ' - ' + planoContaPai.descricao;
+			return (planoContaPai.codigo || '<nulo>') + ' - ' + (planoContaPai.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -183,5 +185,7 @@ export class PlanoContaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
 	
 }
