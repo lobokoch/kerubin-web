@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,10 +15,12 @@ import {MessageService} from 'primeng/api';
 import { AgenciaBancaria } from './agenciabancaria.model';
 import { AgenciaBancariaService } from './agenciabancaria.service';
 import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import * as moment from 'moment';
 
 import { BancoService } from './../banco/banco.service';
 import { Banco } from './../banco/banco.model';
 import { BancoAutoComplete } from './../banco/banco.model';
+
 
 @Component({
   selector: 'app-crud-agenciabancaria.component',
@@ -27,6 +29,9 @@ import { BancoAutoComplete } from './../banco/banco.model';
 })
 
 export class AgenciaBancariaComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	agenciaBancaria = new AgenciaBancaria();
 	agenciaBancariaBancoAutoCompleteSuggestions: BancoAutoComplete[];
 	
@@ -40,6 +45,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getAgenciaBancariaById(id);
@@ -79,6 +85,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.agenciaBancariaService.create(this.agenciaBancaria)
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
@@ -121,8 +128,8 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	agenciaBancariaBancoAutoComplete(event) {
 	    const query = event.query;
-	    this.bancoService
-	      .autoComplete(query)
+	    this.agenciaBancariaService
+	      .bancoBancoAutoComplete(query)
 	      .then((result) => {
 	        this.agenciaBancariaBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
@@ -133,7 +140,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	agenciaBancariaBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
 		if (banco) {
-			return banco.numero + ' - ' + banco.nome;
+			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -155,6 +162,13 @@ export class AgenciaBancariaComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
 	
 }

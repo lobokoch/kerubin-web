@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.612
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.458
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,9 +34,9 @@ import { CaixaLancamentoListComponent } from './list-caixalancamento.component';
 import { CaixaLancamentoComponent } from './crud-caixalancamento.component';
 import { CaixaLancamentoRoutingModule } from './caixalancamento-routing.module';
 import { CaixaDiarioModule } from '../caixadiario/caixadiario.module';
-import { PlanoContaModule } from '../planoconta/planoconta.module';
 import { ContaBancariaModule } from '../contabancaria/contabancaria.module';
 import { CartaoCreditoModule } from '../cartaocredito/cartaocredito.module';
+import { PlanoContaModule } from '../planoconta/planoconta.module';
 import { ClienteModule } from '../cliente/cliente.module';
 import { FornecedorModule } from '../fornecedor/fornecedor.module';
 // Kerubin - END
@@ -68,9 +68,9 @@ import { FornecedorModule } from '../fornecedor/fornecedor.module';
     // Kerubin
     CaixaLancamentoRoutingModule,
 	CaixaDiarioModule,
-	PlanoContaModule,
 	ContaBancariaModule,
 	CartaoCreditoModule,
+	PlanoContaModule,
 	ClienteModule,
 	FornecedorModule
 

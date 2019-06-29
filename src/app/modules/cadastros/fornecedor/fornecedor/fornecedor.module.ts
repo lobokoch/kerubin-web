@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:17:47.017
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T10:11:22.774
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { CadastrosFornecedorTranslationService } from './../i18n/./../i18n/cadastros-fornecedor-translation.service';
@@ -56,6 +57,7 @@ import { FornecedorRoutingModule } from './fornecedor-routing.module';
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
+	CardModule,
 
     // Kerubin
     FornecedorRoutingModule

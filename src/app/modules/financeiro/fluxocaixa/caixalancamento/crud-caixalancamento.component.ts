@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.612
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.458
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,10 +21,6 @@ import { CaixaDiarioService } from './../caixadiario/caixadiario.service';
 import { CaixaDiario } from './../caixadiario/caixadiario.model';
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 
-import { PlanoContaService } from './../planoconta/planoconta.service';
-import { PlanoConta } from './../planoconta/planoconta.model';
-import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
-
 import { ContaBancariaService } from './../contabancaria/contabancaria.service';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
@@ -32,6 +28,10 @@ import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.mode
 import { CartaoCreditoService } from './../cartaocredito/cartaocredito.service';
 import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
 import { CartaoCreditoAutoComplete } from './../cartaocredito/cartaocredito.model';
+
+import { PlanoContaService } from './../planoconta/planoconta.service';
+import { PlanoConta } from './../planoconta/planoconta.model';
+import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
 import { ClienteService } from './../cliente/cliente.service';
 import { Cliente } from './../cliente/cliente.model';
@@ -62,13 +62,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	caixaLancamentoCaixaDiarioAutoCompleteSuggestions: CaixaDiarioAutoComplete[];
 	
 	
-	caixaLancamentoPlanoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
-	
-	
 	caixaLancamentoContaBancariaAutoCompleteSuggestions: ContaBancariaAutoComplete[];
 	
 	
 	caixaLancamentoCartaoCreditoAutoCompleteSuggestions: CartaoCreditoAutoComplete[];
+	
+	
+	caixaLancamentoPlanoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
 	
 	
 	caixaLancamentoClienteAutoCompleteSuggestions: ClienteAutoComplete[];
@@ -89,13 +89,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	    private caixaDiarioService: CaixaDiarioService,
 	    
 	    
-	    private planoContaService: PlanoContaService,
-	    
-	    
 	    private contaBancariaService: ContaBancariaService,
 	    
 	    
 	    private cartaoCreditoService: CartaoCreditoService,
+	    
+	    
+	    private planoContaService: PlanoContaService,
 	    
 	    
 	    private clienteService: ClienteService,
@@ -225,36 +225,6 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	
-	caixaLancamentoPlanoContasAutoCompleteClear(event) {
-		// The autoComplete value has been reseted
-		this.caixaLancamento.planoContas = null;
-	}
-	
-	caixaLancamentoPlanoContasAutoComplete(event) {
-		const caixaLancamento = (JSON.parse(JSON.stringify(this.caixaLancamento)));
-		if (String(caixaLancamento.planoContas === '')) {
-			caixaLancamento.planoContas = null;
-		}
-	    const query = event.query;
-	    this.caixaLancamentoService
-	      .planoContaPlanoContasAutoComplete(query, caixaLancamento)
-	      .then((result) => {
-	        this.caixaLancamentoPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
-	      })
-	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
-	      });
-	}
-	
-	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
-		if (planoContas) {
-			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
-		} else {
-			return null;
-		}
-	}
-	
-	
 	caixaLancamentoContaBancariaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.contaBancaria = null;
@@ -301,6 +271,36 @@ export class CaixaLancamentoComponent implements OnInit {
 	caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
+		} else {
+			return null;
+		}
+	}
+	
+	
+	caixaLancamentoPlanoContasAutoCompleteClear(event) {
+		// The autoComplete value has been reseted
+		this.caixaLancamento.planoContas = null;
+	}
+	
+	caixaLancamentoPlanoContasAutoComplete(event) {
+		const caixaLancamento = (JSON.parse(JSON.stringify(this.caixaLancamento)));
+		if (String(caixaLancamento.planoContas === '')) {
+			caixaLancamento.planoContas = null;
+		}
+	    const query = event.query;
+	    this.caixaLancamentoService
+	      .planoContaPlanoContasAutoComplete(query, caixaLancamento)
+	      .then((result) => {
+	        this.caixaLancamentoPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
+	      })
+	      .catch(error => {
+	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	      });
+	}
+	
+	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
+		if (planoContas) {
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -370,6 +370,8 @@ export class CaixaLancamentoComponent implements OnInit {
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
@@ -419,6 +421,15 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	ruleCartaoCreditoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleOutrosDescricaoAppyStyleClass() {
+		const expression = (String(this.caixaLancamento.formaPagamento) === 'CONTA_BANCARIA') || (String(this.caixaLancamento.formaPagamento) === 'CARTAO_CREDITO');
 		if (expression) {
 			return 'hidden';
 		} else {

@@ -114,12 +114,12 @@ export class NewAccountComponent implements OnInit {
   goBack() {
     this.logout.logout()
       .then(() => {
-        this.router.navigate(['/mainmenu']);
+        this.router.navigate(['/login']);
       })
       .catch(() => {
-        this.router.navigate(['/mainmenu']);
+        this.router.navigate(['/login']);
       });
   }
 
-}		
+}
 

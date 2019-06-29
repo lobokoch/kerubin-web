@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.9.0
-Code generated at time stamp: 2019-06-12T22:12:49.976
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T10:11:35.889
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { CadastrosClienteTranslationService } from './../i18n/./../i18n/cadastros-cliente-translation.service';
@@ -56,6 +57,7 @@ import { ClienteRoutingModule } from './cliente-routing.module';
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
+	CardModule,
 
     // Kerubin
     ClienteRoutingModule

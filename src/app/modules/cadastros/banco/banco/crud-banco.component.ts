@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,8 @@ import {MessageService} from 'primeng/api';
 import { Banco } from './banco.model';
 import { BancoService } from './banco.service';
 import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-crud-banco.component',
@@ -23,6 +25,9 @@ import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-tran
 })
 
 export class BancoComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	banco = new Banco();
 	
 	constructor(
@@ -34,6 +39,7 @@ export class BancoComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getBancoById(id);
@@ -73,6 +79,7 @@ export class BancoComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.bancoService.create(this.banco)
 	    .then((banco) => {
 	      this.banco = banco;
@@ -125,6 +132,13 @@ export class BancoComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
 	
 }

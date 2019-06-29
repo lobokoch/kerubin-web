@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:59:05.328
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:10.088
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -51,13 +51,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-8">
+		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="formaPagamento">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="contaPagar.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
+		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleContaBancariaAppyStyleClass()">
 			<label for="contaBancaria">{{ getTranslation('financeiro.contas_pagar.contaPagar_contaBancaria') }}</label>
 			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions" (completeMethod)="contaPagarContaBancariaAutoComplete($event)" (onClear)="contaPagarContaBancariaAutoCompleteClear($event)" [field]="contaPagarContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
@@ -66,7 +66,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
+		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
 			<label for="cartaoCredito">{{ getTranslation('financeiro.contas_pagar.contaPagar_cartaoCredito') }}</label>
 			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)" (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)" [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
@@ -75,7 +75,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
+		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleOutrosDescricaoAppyStyleClass()">
 			<label for="outrosDescricao">{{ getTranslation('financeiro.contas_pagar.contaPagar_outrosDescricao') }}</label>
 			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="contaPagar.outrosDescricao" name="outrosDescricao">
 		</div>

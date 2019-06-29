@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.612
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.458
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -17,18 +17,18 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { CaixaLancamento } from './caixalancamento.model';
 import { CaixaLancamentoAutoComplete } from './caixalancamento.model';
 import { CaixaDiario } from './../caixadiario/caixadiario.model';
-import { PlanoConta } from './../planoconta/planoconta.model';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
 import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
+import { PlanoConta } from './../planoconta/planoconta.model';
 import { Cliente } from './../cliente/cliente.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
 import { environment } from 'src/environments/environment';
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
-import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
 import { CartaoCreditoAutoComplete } from './../cartaocredito/cartaocredito.model';
+import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { ClienteAutoComplete } from './../cliente/cliente.model';
 import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
@@ -108,11 +108,6 @@ export class CaixaLancamentoService {
 		      }
 		      	
 		      
-		      if (!caixaLancamento.planoContas) {
-		        caixaLancamento.planoContas = new PlanoConta();
-		      }
-		      	
-		      
 		      if (!caixaLancamento.contaBancaria) {
 		        caixaLancamento.contaBancaria = new ContaBancaria();
 		      }
@@ -120,6 +115,11 @@ export class CaixaLancamentoService {
 		      
 		      if (!caixaLancamento.cartaoCredito) {
 		        caixaLancamento.cartaoCredito = new CartaoCredito();
+		      }
+		      	
+		      
+		      if (!caixaLancamento.planoContas) {
+		        caixaLancamento.planoContas = new PlanoConta();
 		      }
 		      	
 		      
@@ -169,22 +169,6 @@ export class CaixaLancamentoService {
 	}
 	
 	
-	planoContaPlanoContasAutoComplete(query: string, caixaLancamento: CaixaLancamento): Promise<PlanoContaAutoComplete[]> {
-	    const headers = this.getHeaders();
-	
-	    let params = new HttpParams();
-	    params = params.set('query', query);
-	
-	    return this.http.post<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, caixaLancamento, { headers, params })
-	      .toPromise()
-	      .then(response => {
-	        const result = response as PlanoContaAutoComplete[];
-	        return result;
-	      });
-	
-	}
-	
-	
 	contaBancariaContaBancariaAutoComplete(query: string): Promise<ContaBancariaAutoComplete[]> {
 	    const headers = this.getHeaders();
 	
@@ -211,6 +195,22 @@ export class CaixaLancamentoService {
 	      .toPromise()
 	      .then(response => {
 	        const result = response as CartaoCreditoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	planoContaPlanoContasAutoComplete(query: string, caixaLancamento: CaixaLancamento): Promise<PlanoContaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.post<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, caixaLancamento, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as PlanoContaAutoComplete[];
 	        return result;
 	      });
 	

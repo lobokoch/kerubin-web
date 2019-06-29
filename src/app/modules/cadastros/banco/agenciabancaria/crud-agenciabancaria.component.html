@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.497
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.385
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,21 +9,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.agenciaBancaria') }}</div>
+		</p-header>
+	
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
   	
-		<div class="ui-g-12">
-			<h1>{{ getTranslation('cadastros.banco.agenciaBancaria') }}</h1>
-		</div>
-		<div class="ui-g-12 ui-fluid">
+		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('cadastros.banco.agenciaBancaria_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="agenciaBancaria.id" name="id" readonly class="read-only">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="banco">{{ getTranslation('cadastros.banco.agenciaBancaria_banco') }}</label><label class="kb-label-required">*</label>
-			<p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="agenciaBancariaBancoAutoCompleteSuggestions" (completeMethod)="agenciaBancariaBancoAutoComplete($event)" (onClear)="agenciaBancariaBancoAutoCompleteClear($event)" [field]="agenciaBancariaBancoAutoCompleteFieldConverter" #banco="ngModel" ngModel [(ngModel)]="agenciaBancaria.banco" name="banco" required>
+			<label for="banco">{{ getTranslation('cadastros.banco.agenciaBancaria_banco') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="agenciaBancariaBancoAutoCompleteSuggestions" (completeMethod)="agenciaBancariaBancoAutoComplete($event)" (onClear)="agenciaBancariaBancoAutoCompleteClear($event)" [field]="agenciaBancariaBancoAutoCompleteFieldConverter" #banco="ngModel" ngModel [(ngModel)]="agenciaBancaria.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
 					<div class="ui-helper-clearfix">{{ agenciaBancariaBancoAutoCompleteFieldConverter(banco) }}</div>
 				</ng-template>
@@ -32,13 +34,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-5">
-			<label for="numeroAgencia">{{ getTranslation('cadastros.banco.agenciaBancaria_numeroAgencia') }}</label><label class="kb-label-required">*</label>
+			<label for="numeroAgencia">{{ getTranslation('cadastros.banco.agenciaBancaria_numeroAgencia') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #numeroAgencia="ngModel" ngModel [(ngModel)]="agenciaBancaria.numeroAgencia" name="numeroAgencia" required>
 			<div class="invalid-message" *ngIf="numeroAgencia.invalid && numeroAgencia.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-1">
-			<label for="digitoAgencia">{{ getTranslation('cadastros.banco.agenciaBancaria_digitoAgencia') }}</label><label class="kb-label-required">*</label>
+			<label for="digitoAgencia">{{ getTranslation('cadastros.banco.agenciaBancaria_digitoAgencia') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #digitoAgencia="ngModel" ngModel [(ngModel)]="agenciaBancaria.digitoAgencia" name="digitoAgencia" required>
 			<div class="invalid-message" *ngIf="digitoAgencia.invalid && digitoAgencia.dirty">Campo obrigatório.</div>
 		</div>
@@ -73,5 +75,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	
 	</div>
   </form>
+  
+  </p-panel>
   
 </div>

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { AgenciaBancariaAutoComplete } from './agenciabancaria.model';
 import { Banco } from './../banco/banco.model';
 import { AgenciaBancariaListFilter } from './agenciabancaria.model';
 import { environment } from 'src/environments/environment';
+import { BancoAutoComplete } from './../banco/banco.model';
 
 @Injectable()
 export class AgenciaBancariaService {
@@ -43,6 +44,7 @@ export class AgenciaBancariaService {
 	    .then(response => {
 	      const created = response as AgenciaBancaria;
 	      this.adjustNullEntitySlots([created]);
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
@@ -55,6 +57,7 @@ export class AgenciaBancariaService {
 	    .then(response => {
 	      const updated = response as AgenciaBancaria;
 	      this.adjustNullEntitySlots([updated]);
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -72,11 +75,16 @@ export class AgenciaBancariaService {
 	    .then(response => {
 	      const agenciaBancaria = response as AgenciaBancaria;
 	      this.adjustNullEntitySlots([agenciaBancaria]);
+	      this.adjustEntityDates([agenciaBancaria]);
 	      return agenciaBancaria;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: AgenciaBancaria[]) {
+		entityList.forEach(agenciaBancaria => {
+		});
+	}
 	
 	private adjustNullEntitySlots(entityList: AgenciaBancaria[]) {
 		/*entityList.forEach(agenciaBancaria => {
@@ -102,6 +110,27 @@ export class AgenciaBancariaService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	bancoBancoAutoComplete(query: string): Promise<BancoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<BancoAutoComplete[]>(`${this.url}/bancoBancoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as BancoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	agenciaBancariaList(agenciaBancariaListFilter: AgenciaBancariaListFilter): Promise<any> {
 	    const headers = this.getHeaders();
@@ -116,6 +145,7 @@ export class AgenciaBancariaService {
 	        const totalElements = data.totalElements;
 	
 	        this.adjustNullEntitySlots(items);
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,

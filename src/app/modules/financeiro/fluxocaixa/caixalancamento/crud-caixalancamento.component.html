@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.878
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.478
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -51,20 +51,43 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<div class="invalid-message" *ngIf="tipoLancamentoFinanceiro.invalid && tipoLancamentoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4 kb-fin-credito" [ngClass]="ruleValorCreditoAppyStyleClass()">
+		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-credito" [ngClass]="ruleValorCreditoAppyStyleClass()">
 			<label for="valorCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito') }}</label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorCredito" name="valorCredito">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4 kb-fin-debito" [ngClass]="ruleValorDebitoAppyStyleClass()">
+		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-debito" [ngClass]="ruleValorDebitoAppyStyleClass()">
 			<label for="valorDebito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito') }}</label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDebito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorDebito" name="valorDebito">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
+		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="formaPagamento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="caixaLancamentoFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="caixaLancamento.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleContaBancariaAppyStyleClass()">
+			<label for="contaBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_contaBancaria') }}</label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="caixaLancamentoContaBancariaAutoCompleteSuggestions" (completeMethod)="caixaLancamentoContaBancariaAutoComplete($event)" (onClear)="caixaLancamentoContaBancariaAutoCompleteClear($event)" [field]="caixaLancamentoContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.contaBancaria" name="contaBancaria">
+				<ng-template let-contaBancaria pTemplate="item">
+					<div class="ui-helper-clearfix">{{ caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
+				</ng-template>
+			</p-autoComplete>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
+			<label for="cartaoCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cartaoCredito') }}</label>
+			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="caixaLancamentoCartaoCreditoAutoCompleteSuggestions" (completeMethod)="caixaLancamentoCartaoCreditoAutoComplete($event)" (onClear)="caixaLancamentoCartaoCreditoAutoCompleteClear($event)" [field]="caixaLancamentoCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.cartaoCredito" name="cartaoCredito">
+				<ng-template let-cartaoCredito pTemplate="item">
+					<div class="ui-helper-clearfix">{{ caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
+				</ng-template>
+			</p-autoComplete>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleOutrosDescricaoAppyStyleClass()">
+			<label for="outrosDescricao">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_outrosDescricao') }}</label>
+			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="caixaLancamento.outrosDescricao" name="outrosDescricao">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
@@ -80,24 +103,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [disabled]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleContaBancariaAppyStyleClass()">
-			<label for="contaBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_contaBancaria') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="caixaLancamentoContaBancariaAutoCompleteSuggestions" (completeMethod)="caixaLancamentoContaBancariaAutoComplete($event)" (onClear)="caixaLancamentoContaBancariaAutoCompleteClear($event)" [field]="caixaLancamentoContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.contaBancaria" name="contaBancaria">
-				<ng-template let-contaBancaria pTemplate="item">
-					<div class="ui-helper-clearfix">{{ caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
-				</ng-template>
-			</p-autoComplete>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
-			<label for="cartaoCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cartaoCredito') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="caixaLancamentoCartaoCreditoAutoCompleteSuggestions" (completeMethod)="caixaLancamentoCartaoCreditoAutoComplete($event)" (onClear)="caixaLancamentoCartaoCreditoAutoCompleteClear($event)" [field]="caixaLancamentoCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.cartaoCredito" name="cartaoCredito">
-				<ng-template let-cartaoCredito pTemplate="item">
-					<div class="ui-helper-clearfix">{{ caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
-				</ng-template>
-			</p-autoComplete>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleClienteAppyStyleClass()">

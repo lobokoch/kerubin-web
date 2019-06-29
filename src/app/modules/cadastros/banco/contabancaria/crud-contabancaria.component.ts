@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { ContaBancaria } from './contabancaria.model';
 import { ContaBancariaService } from './contabancaria.service';
 import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import * as moment from 'moment';
 
 import { AgenciaBancariaService } from './../agenciabancaria/agenciabancaria.service';
 import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
@@ -26,6 +27,7 @@ import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.m
 
 import { TipoContaBancaria } from './../enums/cadastros-banco-enums.model';
 
+
 @Component({
   selector: 'app-crud-contabancaria.component',
   templateUrl: './crud-contabancaria.component.html',
@@ -33,6 +35,9 @@ import { TipoContaBancaria } from './../enums/cadastros-banco-enums.model';
 })
 
 export class ContaBancariaComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	contaBancaria = new ContaBancaria();
 	contaBancariaAgenciaAutoCompleteSuggestions: AgenciaBancariaAutoComplete[];
 	
@@ -54,6 +59,7 @@ export class ContaBancariaComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
@@ -95,6 +101,7 @@ export class ContaBancariaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
@@ -140,8 +147,8 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoComplete(event) {
 	    const query = event.query;
-	    this.agenciaBancariaService
-	      .autoComplete(query)
+	    this.contaBancariaService
+	      .agenciaBancariaAgenciaAutoComplete(query)
 	      .then((result) => {
 	        this.contaBancariaAgenciaAutoCompleteSuggestions = result as AgenciaBancariaAutoComplete[];
 	      })
@@ -152,7 +159,7 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
 		if (agencia) {
-			return agencia.numeroAgencia + ' - ' + agencia.digitoAgencia + ' - ' + agencia.endereco;
+			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
 		} else {
 			return null;
 		}
@@ -166,8 +173,8 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaBandeiraCartaoAutoComplete(event) {
 	    const query = event.query;
-	    this.bandeiraCartaoService
-	      .autoComplete(query)
+	    this.contaBancariaService
+	      .bandeiraCartaoBandeiraCartaoAutoComplete(query)
 	      .then((result) => {
 	        this.contaBancariaBandeiraCartaoAutoCompleteSuggestions = result as BandeiraCartaoAutoComplete[];
 	      })
@@ -178,7 +185,7 @@ export class ContaBancariaComponent implements OnInit {
 	
 	contaBancariaBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
 		if (bandeiraCartao) {
-			return bandeiraCartao.nomeBandeira;
+			return (bandeiraCartao.nomeBandeira || '<nulo>');
 		} else {
 			return null;
 		}
@@ -209,6 +216,13 @@ export class ContaBancariaComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
 	
 }

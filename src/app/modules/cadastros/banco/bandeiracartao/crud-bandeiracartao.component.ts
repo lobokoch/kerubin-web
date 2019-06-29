@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,8 @@ import {MessageService} from 'primeng/api';
 import { BandeiraCartao } from './bandeiracartao.model';
 import { BandeiraCartaoService } from './bandeiracartao.service';
 import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-crud-bandeiracartao.component',
@@ -23,6 +25,9 @@ import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-tran
 })
 
 export class BandeiraCartaoComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	bandeiraCartao = new BandeiraCartao();
 	
 	constructor(
@@ -34,6 +39,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getBandeiraCartaoById(id);
@@ -73,6 +79,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.bandeiraCartaoService.create(this.bandeiraCartao)
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
@@ -125,6 +132,13 @@ export class BandeiraCartaoComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
 	
 }

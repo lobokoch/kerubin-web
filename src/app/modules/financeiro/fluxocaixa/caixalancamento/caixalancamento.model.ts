@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.612
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.458
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,10 +9,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 import { CaixaDiario } from './../caixadiario/caixadiario.model';
 import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
-import { PlanoConta } from './../planoconta/planoconta.model';
-import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
 import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
+import { PlanoConta } from './../planoconta/planoconta.model';
+import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 import { Cliente } from './../cliente/cliente.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 
@@ -50,10 +50,11 @@ export class CaixaLancamento {
 	valorCredito: number;
 	valorDebito: number;
 	formaPagamento: FormaPagamento;
-	planoContas: PlanoConta;
-	tipoFonteMovimento: TipoFonteMovimento;
 	contaBancaria: ContaBancaria;
 	cartaoCredito: CartaoCredito;
+	outrosDescricao: string;
+	planoContas: PlanoConta;
+	tipoFonteMovimento: TipoFonteMovimento;
 	cliente: Cliente;
 	fornecedor: Fornecedor;
 	documento: string;

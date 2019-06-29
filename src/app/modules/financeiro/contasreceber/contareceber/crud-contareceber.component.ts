@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:51.608
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:17.814
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -279,6 +279,8 @@ export class ContaReceberComponent implements OnInit {
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cheque'), value: 'CHEQUE' }, 
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
@@ -336,6 +338,36 @@ export class ContaReceberComponent implements OnInit {
 	    this.copiesReferenceFieldInterval = 30;
 	}
 	
+										
+	// Begin RuleWithSlotAppyStyleClass 
+	ruleContaBancariaAppyStyleClass() {
+		const expression = (String(this.contaReceber.formaPagamento) !== 'CONTA_BANCARIA');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleCartaoCreditoAppyStyleClass() {
+		const expression = (String(this.contaReceber.formaPagamento) !== 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleOutrosDescricaoAppyStyleClass() {
+		const expression = (String(this.contaReceber.formaPagamento) === 'CONTA_BANCARIA') || (String(this.contaReceber.formaPagamento) === 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	// End Begin RuleWithSlotAppyStyleClass
 	
 	
 	initLocaleSettings() {

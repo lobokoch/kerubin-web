@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -14,7 +15,7 @@ import { NgModule } from '@angular/core';
 // PrimeMG
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';		
+import { InputTextModule } from 'primeng/inputtext';
 
 // Kerubin
 import { NewAccountComponent } from './newaccount/newaccount.component';
@@ -28,7 +29,8 @@ import { ConfigNewAccountComponent } from './confignewaccount/confignewaccount.c
     FormsModule,
     InputTextModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    RouterModule
   ],
 
   declarations: [

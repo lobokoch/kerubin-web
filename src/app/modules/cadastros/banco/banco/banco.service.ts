@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -42,6 +42,7 @@ export class BancoService {
 	    .toPromise()
 	    .then(response => {
 	      const created = response as Banco;
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
@@ -53,6 +54,7 @@ export class BancoService {
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as Banco;
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -69,11 +71,16 @@ export class BancoService {
 	    .toPromise()
 	    .then(response => {
 	      const banco = response as Banco;
+	      this.adjustEntityDates([banco]);
 	      return banco;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: Banco[]) {
+		entityList.forEach(banco => {
+		});
+	}
 	
 	
 	autoComplete(query: string): Promise<BancoAutoComplete[]> {
@@ -91,6 +98,7 @@ export class BancoService {
 	
 	}
 	
+				
 	
 	bancoNomeAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();
@@ -119,6 +127,7 @@ export class BancoService {
 	        const items = data.content; /* array of Banco */
 	        const totalElements = data.totalElements;
 	
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,

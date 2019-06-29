@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.1
-Code generated at time stamp: 2019-06-29T06:58:38.612
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T09:26:24.458
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,11 +21,11 @@ import { SortField } from './caixalancamento.model';
 
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 
-import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
-
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
 
 import { CartaoCreditoAutoComplete } from './../cartaocredito/cartaocredito.model';
+
+import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
 import { ClienteAutoComplete } from './../cliente/cliente.model';
 
@@ -119,14 +119,6 @@ export class CaixaLancamentoListComponent implements OnInit {
 		}
 	}
 	
-	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
-		if (planoContas) {
-			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
-		} else {
-			return null;
-		}
-	}
-	
 	caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
 			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
@@ -138,6 +130,14 @@ export class CaixaLancamentoListComponent implements OnInit {
 	caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
+		} else {
+			return null;
+		}
+	}
+	
+	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
+		if (planoContas) {
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}

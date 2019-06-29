@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:07.487
+Code generated with MKL Plug-in version: 6.0.2
+Code generated at time stamp: 2019-06-29T08:31:34.378
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { CartaoCredito } from './cartaocredito.model';
 import { CartaoCreditoService } from './cartaocredito.service';
 import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import * as moment from 'moment';
 
 import { BancoService } from './../banco/banco.service';
 import { Banco } from './../banco/banco.model';
@@ -24,6 +25,7 @@ import { BandeiraCartaoService } from './../bandeiracartao/bandeiracartao.servic
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
 
+
 @Component({
   selector: 'app-crud-cartaocredito.component',
   templateUrl: './crud-cartaocredito.component.html',
@@ -31,6 +33,9 @@ import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.m
 })
 
 export class CartaoCreditoComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	cartaoCredito = new CartaoCredito();
 	cartaoCreditoBancoAutoCompleteSuggestions: BancoAutoComplete[];
 	
@@ -50,6 +55,7 @@ export class CartaoCreditoComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getCartaoCreditoById(id);
@@ -89,6 +95,7 @@ export class CartaoCreditoComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
@@ -131,8 +138,8 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBancoAutoComplete(event) {
 	    const query = event.query;
-	    this.bancoService
-	      .autoComplete(query)
+	    this.cartaoCreditoService
+	      .bancoBancoAutoComplete(query)
 	      .then((result) => {
 	        this.cartaoCreditoBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
@@ -143,7 +150,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
 		if (banco) {
-			return banco.numero + ' - ' + banco.nome;
+			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -157,8 +164,8 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoComplete(event) {
 	    const query = event.query;
-	    this.bandeiraCartaoService
-	      .autoComplete(query)
+	    this.cartaoCreditoService
+	      .bandeiraCartaoBandeiraCartaoAutoComplete(query)
 	      .then((result) => {
 	        this.cartaoCreditoBandeiraCartaoAutoCompleteSuggestions = result as BandeiraCartaoAutoComplete[];
 	      })
@@ -169,7 +176,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
 		if (bandeiraCartao) {
-			return bandeiraCartao.nomeBandeira;
+			return (bandeiraCartao.nomeBandeira || '<nulo>');
 		} else {
 			return null;
 		}
@@ -191,6 +198,13 @@ export class CartaoCreditoComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
 	
 }
