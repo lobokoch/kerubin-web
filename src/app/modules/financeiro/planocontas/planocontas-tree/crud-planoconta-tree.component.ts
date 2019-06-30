@@ -160,9 +160,9 @@ export class PlanoContaTreeComponent implements OnInit {
         this.confirmSaveSameCodigo(`O item "${str}" tem o mesmo código do item "${node.label}", deseja salvar mesmo assim?`);
       } else {
         if (this.isEditing) {
-          this.update(form);
+          this.update();
         } else {
-          this.create(form);
+          this.create();
         }
       }
   }
@@ -205,15 +205,15 @@ export class PlanoContaTreeComponent implements OnInit {
       message: message,
       accept: () => {
         if (this.isEditing) {
-          this.update(null);
+          this.update();
         } else {
-          this.create(null);
+          this.create();
         }
       }
     });
 }
 
-	create(form: FormControl) {
+	create() {
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
@@ -225,7 +225,7 @@ export class PlanoContaTreeComponent implements OnInit {
 	    });
   }
 
-  update(form: FormControl) {
+  update() {
     this.planoContaService.update(this.planoConta)
     .then((planoConta) => {
       this.planoConta = planoConta;
