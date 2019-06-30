@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:35.889
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:48:09.982
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,9 @@ import {MessageService} from 'primeng/api';
 import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
 import { CadastrosClienteTranslationService } from './../i18n/cadastros-cliente-translation.service';
+import * as moment from 'moment';
+
+import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
 
 
 @Component({
@@ -24,7 +27,11 @@ import { CadastrosClienteTranslationService } from './../i18n/cadastros-cliente-
 })
 
 export class ClienteComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	cliente = new Cliente();
+	clienteTipoClienteOptions: TipoPessoa[];
 	
 	constructor(
 	    private clienteService: ClienteService,
@@ -32,9 +39,12 @@ export class ClienteComponent implements OnInit {
 	    private route: ActivatedRoute,
 	    private messageService: MessageService
 	) { 
+		this.initializeClienteTipoClienteOptions();
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
+		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getClienteById(id);
@@ -45,6 +55,7 @@ export class ClienteComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
+	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
 	
@@ -108,9 +119,19 @@ export class ClienteComponent implements OnInit {
 	    return Boolean(this.cliente.id);
 	}
 	
+	initializeEnumFieldsWithDefault() {
+		this.cliente.tipoCliente = this.clienteTipoClienteOptions[0].value;
+	}
 	
 	
 	
+	private initializeClienteTipoClienteOptions() {
+	    this.clienteTipoClienteOptions = [
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoCliente_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoCliente_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
+	}
+	  
 	
 	public showSuccess(msg: string) {
 	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
@@ -130,5 +151,10 @@ export class ClienteComponent implements OnInit {
 	}
 	
 	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosClienteTranslationService.getCalendarLocaleSettings();
+	}
 	
 }

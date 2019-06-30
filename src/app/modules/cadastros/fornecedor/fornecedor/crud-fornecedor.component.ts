@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:22.774
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:49:56.851
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,9 @@ import {MessageService} from 'primeng/api';
 import { Fornecedor } from './fornecedor.model';
 import { FornecedorService } from './fornecedor.service';
 import { CadastrosFornecedorTranslationService } from './../i18n/cadastros-fornecedor-translation.service';
+import * as moment from 'moment';
+
+import { TipoPessoa } from './../enums/cadastros-fornecedor-enums.model';
 
 
 @Component({
@@ -24,7 +27,11 @@ import { CadastrosFornecedorTranslationService } from './../i18n/cadastros-forne
 })
 
 export class FornecedorComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	fornecedor = new Fornecedor();
+	fornecedorTipoClienteOptions: TipoPessoa[];
 	
 	constructor(
 	    private fornecedorService: FornecedorService,
@@ -32,9 +39,12 @@ export class FornecedorComponent implements OnInit {
 	    private route: ActivatedRoute,
 	    private messageService: MessageService
 	) { 
+		this.initializeFornecedorTipoClienteOptions();
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
+		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getFornecedorById(id);
@@ -45,6 +55,7 @@ export class FornecedorComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.fornecedor = new Fornecedor();
+	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
 	
@@ -108,9 +119,19 @@ export class FornecedorComponent implements OnInit {
 	    return Boolean(this.fornecedor.id);
 	}
 	
+	initializeEnumFieldsWithDefault() {
+		this.fornecedor.tipoCliente = this.fornecedorTipoClienteOptions[0].value;
+	}
 	
 	
 	
+	private initializeFornecedorTipoClienteOptions() {
+	    this.fornecedorTipoClienteOptions = [
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_tipoCliente_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_tipoCliente_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
+	}
+	  
 	
 	public showSuccess(msg: string) {
 	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
@@ -130,5 +151,10 @@ export class FornecedorComponent implements OnInit {
 	}
 	
 	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.cadastrosFornecedorTranslationService.getCalendarLocaleSettings();
+	}
 	
 }

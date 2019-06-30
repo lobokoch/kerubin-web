@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:35.889
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:48:09.982
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -42,6 +42,7 @@ export class ClienteService {
 	    .toPromise()
 	    .then(response => {
 	      const created = response as Cliente;
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
@@ -53,6 +54,7 @@ export class ClienteService {
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as Cliente;
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -69,11 +71,20 @@ export class ClienteService {
 	    .toPromise()
 	    .then(response => {
 	      const cliente = response as Cliente;
+	      this.adjustEntityDates([cliente]);
 	      return cliente;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: Cliente[]) {
+		entityList.forEach(cliente => {
+		      if (cliente.dataFundacaoNascimento) {
+		        cliente.dataFundacaoNascimento = moment(cliente.dataFundacaoNascimento, 'YYYY-MM-DD').toDate();
+		      }
+		      	
+		});
+	}
 	
 	
 	autoComplete(query: string): Promise<ClienteAutoComplete[]> {
@@ -120,6 +131,7 @@ export class ClienteService {
 	        const items = data.content; /* array of Cliente */
 	        const totalElements = data.totalElements;
 	
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,

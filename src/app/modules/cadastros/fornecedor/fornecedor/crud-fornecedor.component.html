@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:22.776
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:49:56.853
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,20 +23,31 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="fornecedor.id" name="id" readonly class="read-only">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="tipoCliente">{{ getTranslation('cadastros.fornecedor.fornecedor_tipoCliente') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="fornecedorTipoClienteOptions" placeholder="Selecione um item..." appFocus #tipoCliente="ngModel" ngModel [(ngModel)]="fornecedor.tipoCliente" name="tipoCliente" required></p-dropdown>
+			<div class="invalid-message" *ngIf="tipoCliente.invalid && tipoCliente.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-10">
 			<label for="nome">{{ getTranslation('cadastros.fornecedor.fornecedor_nome') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText appFocus #nome="ngModel" ngModel [(ngModel)]="fornecedor.nome" name="nome" required>
+			<input type="text" pInputText #nome="ngModel" ngModel [(ngModel)]="fornecedor.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="cpfCNPJ">{{ getTranslation('cadastros.fornecedor.fornecedor_cpfCNPJ') }}</label>
-			<input type="text" pInputText #cpfCNPJ="ngModel" ngModel [(ngModel)]="fornecedor.cpfCNPJ" name="cpfCNPJ">
+		<div class="ui-g-12 ui-fluid ui-md-5">
+			<label for="cnpjCPF">{{ getTranslation('cadastros.fornecedor.fornecedor_cnpjCPF') }}</label>
+			<input type="text" pInputText #cnpjCPF="ngModel" ngModel [(ngModel)]="fornecedor.cnpjCPF" name="cnpjCPF">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2">
+		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="ieRG">{{ getTranslation('cadastros.fornecedor.fornecedor_ieRG') }}</label>
 			<input type="text" pInputText #ieRG="ngModel" ngModel [(ngModel)]="fornecedor.ieRG" name="ieRG">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3">
+			<label for="dataFundacaoNascimento">{{ getTranslation('cadastros.fornecedor.fornecedor_dataFundacaoNascimento') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataFundacaoNascimento="ngModel" ngModel [(ngModel)]="fornecedor.dataFundacaoNascimento" name="dataFundacaoNascimento"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -65,8 +76,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="cEP">{{ getTranslation('cadastros.fornecedor.fornecedor_cEP') }}</label>
-			<input type="text" pInputText #cEP="ngModel" ngModel [(ngModel)]="fornecedor.cEP" name="cEP">
+			<label for="cep">{{ getTranslation('cadastros.fornecedor.fornecedor_cep') }}</label>
+			<input type="text" pInputText #cep="ngModel" ngModel [(ngModel)]="fornecedor.cep" name="cep">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-5">

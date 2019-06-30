@@ -1,11 +1,12 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:22.774
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:49:56.851
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
+import { TipoPessoa } from './../enums/cadastros-fornecedor-enums.model';
 
 export class SortField {
   field: string;
@@ -39,15 +40,17 @@ export class FornecedorListFilter extends PaginationFilter {
 
 export class Fornecedor {
 	id: string;
+	tipoCliente: TipoPessoa;
 	nome: string;
-	cpfCNPJ: string;
+	cnpjCPF: string;
 	ieRG: string;
+	dataFundacaoNascimento: Date;
 	nomeContato: string;
 	fone: string;
 	celular: string;
 	email: string;
 	site: string;
-	cEP: string;
+	cep: string;
 	cidade: string;
 	bairro: string;
 	endereco: string;

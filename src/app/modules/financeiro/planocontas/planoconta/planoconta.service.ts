@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:17.732
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:21:44.076
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -44,6 +44,7 @@ export class PlanoContaService {
 	    .then(response => {
 	      const created = response as PlanoConta;
 	      this.adjustNullEntitySlots([created]);
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
@@ -56,6 +57,7 @@ export class PlanoContaService {
 	    .then(response => {
 	      const updated = response as PlanoConta;
 	      this.adjustNullEntitySlots([updated]);
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -73,11 +75,16 @@ export class PlanoContaService {
 	    .then(response => {
 	      const planoConta = response as PlanoConta;
 	      this.adjustNullEntitySlots([planoConta]);
+	      this.adjustEntityDates([planoConta]);
 	      return planoConta;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: PlanoConta[]) {
+		entityList.forEach(planoConta => {
+		});
+	}
 	
 	private adjustNullEntitySlots(entityList: PlanoConta[]) {
 		/*entityList.forEach(planoConta => {
@@ -103,6 +110,27 @@ export class PlanoContaService {
 	
 	}
 	
+							
+	// Begin relationships autoComplete 
+	
+	planoContaPlanoContaPaiAutoComplete(query: string): Promise<PlanoContaAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContaPaiAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as PlanoContaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
+	
+				
 	
 	planoContaCodigoAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();
@@ -147,6 +175,7 @@ export class PlanoContaService {
 	        const totalElements = data.totalElements;
 	
 	        this.adjustNullEntitySlots(items);
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,

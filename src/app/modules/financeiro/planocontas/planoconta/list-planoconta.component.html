@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:17.734
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:21:44.078
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -9,11 +9,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('financeiro.plano_contas.planoConta') }}</div>
+		</p-header>
+	
 
   	<div class="ui-g">
-		<div>
-			<h1>{{ getTranslation('financeiro.plano_contas.planoConta') }}</h1>
-		</div>
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
@@ -73,7 +75,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="planoContaListFilter.pageSize" 
 			    [totalRecords]="planoContaListTotalElements"
 			    [lazy]="true" (onLazyLoad)="planoContaListOnLazyLoad($event)" >
-			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'codigo'">{{ getTranslation('financeiro.plano_contas.planoConta_codigo_grid') }}<p-sortIcon [field]="'codigo'"></p-sortIcon></th>
@@ -157,5 +158,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		End Extras -->
 	</div>
+	
+	</p-panel>
   
 </div>

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:22.774
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:49:56.851
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -42,6 +42,7 @@ export class FornecedorService {
 	    .toPromise()
 	    .then(response => {
 	      const created = response as Fornecedor;
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
@@ -53,6 +54,7 @@ export class FornecedorService {
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as Fornecedor;
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -69,11 +71,20 @@ export class FornecedorService {
 	    .toPromise()
 	    .then(response => {
 	      const fornecedor = response as Fornecedor;
+	      this.adjustEntityDates([fornecedor]);
 	      return fornecedor;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: Fornecedor[]) {
+		entityList.forEach(fornecedor => {
+		      if (fornecedor.dataFundacaoNascimento) {
+		        fornecedor.dataFundacaoNascimento = moment(fornecedor.dataFundacaoNascimento, 'YYYY-MM-DD').toDate();
+		      }
+		      	
+		});
+	}
 	
 	
 	autoComplete(query: string): Promise<FornecedorAutoComplete[]> {
@@ -120,6 +131,7 @@ export class FornecedorService {
 	        const items = data.content; /* array of Fornecedor */
 	        const totalElements = data.totalElements;
 	
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,

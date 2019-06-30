@@ -1,7 +1,7 @@
 import { MessageHandlerService } from './../../../../core/message-handler.service';
 import { PlanoContasTreeService } from './planocontas-tree.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import {TreeNode} from 'primeng/api';
@@ -72,6 +72,18 @@ export class PlanoContaTreeComponent implements OnInit {
 	    }.bind(this), 1);
   }
 
+  validateAllFormFields(form: FormGroup) {
+    Object.keys(form.controls).forEach(field => {
+      const control = form.get(field);
+
+      if (control instanceof FormControl) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+}
+
   doNew() {
     const planoConta = new PlanoConta();
     if (this.planoContaOld) {
@@ -136,7 +148,12 @@ export class PlanoContaTreeComponent implements OnInit {
     return codigo;
   }
 
-	save(form: FormControl) {
+	save(form: FormGroup) {
+    if (!form.valid) {
+      this.validateAllFormFields(form);
+      return;
+    }
+
       const node = this.findAnyOtherNodeByThisCodigo(this.planoConta.id, this.planoConta.codigo);
       if (node) {
         const str = this.planoConta.codigo + ' - ' + this.planoConta.descricao;

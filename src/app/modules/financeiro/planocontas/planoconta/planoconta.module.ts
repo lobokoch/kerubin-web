@@ -1,14 +1,14 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:17.732
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:21:44.076
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -25,6 +25,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { FinanceiroPlanoContasTranslationService } from './../i18n/./../i18n/financeiro-planocontas-translation.service';
@@ -37,8 +38,8 @@ import { PlanoContaRoutingModule } from './planoconta-routing.module';
 @NgModule({
 
   imports: [
-  // PrimeNG
-  CommonModule,
+    // PrimeNG
+    CommonModule,
 	FormsModule,
 	InputTextModule,
 	ButtonModule,
@@ -56,6 +57,7 @@ import { PlanoContaRoutingModule } from './planoconta-routing.module';
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
+	CardModule,
 
     // Kerubin
     PlanoContaRoutingModule

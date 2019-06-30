@@ -11,12 +11,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import {TreeModule} from 'primeng/tree';
-// import { AccordionModule } from 'primeng/accordion';
-// import { SpinnerModule } from 'primeng/spinner';
-// import { PanelModule } from 'primeng/panel';
-// import {CalendarModule} from 'primeng/calendar';
-// import { InputTextareaModule } from 'primeng/inputtextarea';
-// import { TableModule } from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
 
 // Mask
 // import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -50,6 +45,7 @@ import { PlanoContaService } from '../planoconta/planoconta.service';
     DialogModule,
     DropdownModule,
     TreeModule,
+    PanelModule,
 
     PlanocontasTreeRoutingModule
   ],

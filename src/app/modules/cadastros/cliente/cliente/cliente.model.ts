@@ -1,11 +1,12 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.2
-Code generated at time stamp: 2019-06-29T10:11:35.889
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:48:09.982
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
+import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
 
 export class SortField {
   field: string;
@@ -39,15 +40,17 @@ export class ClienteListFilter extends PaginationFilter {
 
 export class Cliente {
 	id: string;
+	tipoCliente: TipoPessoa;
 	nome: string;
-	cpfCNPJ: string;
+	cnpjCPF: string;
 	ieRG: string;
+	dataFundacaoNascimento: Date;
 	nomeContato: string;
 	fone: string;
 	celular: string;
 	email: string;
 	site: string;
-	cEP: string;
+	cep: string;
 	cidade: string;
 	bairro: string;
 	endereco: string;

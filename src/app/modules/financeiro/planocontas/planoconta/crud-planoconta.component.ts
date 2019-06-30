@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.3
-Code generated at time stamp: 2019-06-05T23:18:17.732
+Code generated with MKL Plug-in version: 6.0.4
+Code generated at time stamp: 2019-06-30T08:21:44.076
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,12 +15,14 @@ import {MessageService} from 'primeng/api';
 import { PlanoConta } from './planoconta.model';
 import { PlanoContaService } from './planoconta.service';
 import { FinanceiroPlanoContasTranslationService } from './../i18n/financeiro-planocontas-translation.service';
+import * as moment from 'moment';
 
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
 import { TipoPlanoContaFinanceiro } from './../enums/financeiro-planocontas-enums.model';
 
 import { TipoReceitaDespesa } from './../enums/financeiro-planocontas-enums.model';
+
 
 @Component({
   selector: 'app-crud-planoconta.component',
@@ -29,6 +31,9 @@ import { TipoReceitaDespesa } from './../enums/financeiro-planocontas-enums.mode
 })
 
 export class PlanoContaComponent implements OnInit {
+	
+	calendarLocale: any;
+	
 	planoConta = new PlanoConta();
 	planoContaPlanoContaPaiAutoCompleteSuggestions: PlanoContaAutoComplete[];
 	planoContaTipoFinanceiroOptions: TipoPlanoContaFinanceiro[];
@@ -48,6 +53,7 @@ export class PlanoContaComponent implements OnInit {
 	}
 	
 	ngOnInit() {
+		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getPlanoContaById(id);
@@ -87,6 +93,7 @@ export class PlanoContaComponent implements OnInit {
 	}
 	
 	create() {
+		
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
@@ -130,7 +137,7 @@ export class PlanoContaComponent implements OnInit {
 	planoContaPlanoContaPaiAutoComplete(event) {
 	    const query = event.query;
 	    this.planoContaService
-	      .autoComplete(query)
+	      .planoContaPlanoContaPaiAutoComplete(query)
 	      .then((result) => {
 	        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
@@ -141,7 +148,7 @@ export class PlanoContaComponent implements OnInit {
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
 		if (planoContaPai) {
-			return planoContaPai.codigo + ' - ' + planoContaPai.descricao;
+			return (planoContaPai.codigo || '<nulo>') + ' - ' + (planoContaPai.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -177,6 +184,13 @@ export class PlanoContaComponent implements OnInit {
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
+	}
+	
+	
+	
+	
+	initLocaleSettings() {
+		this.calendarLocale = this.financeiroPlanoContasTranslationService.getCalendarLocaleSettings();
 	}
 	
 }
