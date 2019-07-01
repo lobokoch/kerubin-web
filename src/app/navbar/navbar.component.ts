@@ -12,8 +12,6 @@ import { LogoutService } from '../security/logout.service';
 import { MessageHandlerService } from '../core/message-handler.service';
 import { Router } from '@angular/router';
 
-// import { FinanceiroPlanoContasTranslationService } from './../i18n/financeiro-planocontas-translation.service';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -22,27 +20,19 @@ import { Router } from '@angular/router';
 
 export class NavbarComponent implements OnInit {
 
+  isMenuShowing = false;
+
   constructor(
 	private authService: AuthService,
 	private logoutService: LogoutService,
 	private messageHandler: MessageHandlerService,
 	private router: Router
-  	// private financeiroPlanoContasTranslationService: FinanceiroPlanoContasTranslationService
   ) { }
 
   ngOnInit() {
-  }
 
-  /*
-  // TODO: temporário, só para testes.
-  getTranslation(key: string): string {
-  	const value = this.financeiroPlanoContasTranslationService.getTranslation(key);
-  	return value;
 
-  	// const result = key.substring(key.lastIndexOf('_') + 1);
-  	// return result;
   }
-  */
 
   getCurrentUserName() {
       if (this.authService.jwtPayload && this.authService.jwtPayload.name) {
