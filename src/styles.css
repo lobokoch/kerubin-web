@@ -349,3 +349,31 @@ a, button {
   margin-bottom: 0px;
   font-weight: bold;
 }
+
+.kb-user-profile {
+  float: right;
+  color: white;
+  margin-right: 50px;
+  width: 200px;
+  height: 30px;
+}
+
+.kb-user-letra {
+  background-color: white;
+  color: gray;
+  padding-top: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 3px;
+  margin-right: 10px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  height: 10px;
+  width: 20px;
+}
+
+.kb-display-inline {
+  display: inline;
+}
+

@@ -9,26 +9,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <nav class="navbar">
-  <div class="container">
-    <div class="ui-g">
-      <div class="i-g-12">
-        <a href="javascript:;" class="navbar-toggle" (click)="isMenuShowing = !isMenuShowing"><i class="pi pi-bars"></i></a>
-      </div>
 
-    </div>
+  <div class="kb-user-profile">
+    <div class="kb-user-letra kb-display-inline">{{ getCurrentUserNameFirstLetter() }}</div>
+    <div class="kb-display-inline">{{ getCurrentUserName() }}</div>
   </div>
 
-  <ul class="navbar-menu" [hidden]="!isMenuShowing">
-    <li class="navbar-user">{{ getCurrentUserName() }}</li>
-    
-    <!-- Begin Menu Items -->
-    <!-- Begin financeiro.plano_contas menu itens -->
-    <li class="navbar-menuitem" routerLinkActive="active"><a routerLink="/planoconta">Plano de contas</a></li>
-    <!-- End financeiro.plano_contas menu itens -->
-    
-    <!-- End Menu Items -->
-    
-    <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
-  </ul>
+  <div class="container">
+    <div>
+      <a href="javascript:;" class="navbar-toggle" (click)="isMenuShowing = !isMenuShowing"><i
+          class="pi pi-bars"></i></a>
+    </div>
+
+
+
+  </div>
 
 </nav>

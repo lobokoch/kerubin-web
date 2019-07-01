@@ -32,26 +32,33 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-  
-  /* 
+
+  /*
   // TODO: temporário, só para testes.
   getTranslation(key: string): string {
   	const value = this.financeiroPlanoContasTranslationService.getTranslation(key);
   	return value;
-  	
+
   	// const result = key.substring(key.lastIndexOf('_') + 1);
   	// return result;
   }
   */
-  
+
   getCurrentUserName() {
       if (this.authService.jwtPayload && this.authService.jwtPayload.name) {
         return this.authService.jwtPayload.name;
       } else {
-        return '<Desconhecido>';
+        return 'Desconhecido';
       }
   }
-  
+
+  getCurrentUserNameFirstLetter(): string {
+    const name: string = this.getCurrentUserName();
+    if (name) {
+      return name.substr(0, 1).toUpperCase();
+    }
+  }
+
   logout() {
       this.logoutService.logout()
       .then(() => {
