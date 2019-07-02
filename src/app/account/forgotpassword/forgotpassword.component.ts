@@ -51,18 +51,19 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     this.disabled = true;
-    this.btnLabel = 'Enviado link, aguarde...';
+    this.btnLabel = 'Enviado, aguarde...';
     this.userAccountService.sendChangePasswordLink(this.email)
       .then((response) => {
-        this.disabled = false;
+        // this.disabled = false;
         this.btnLabel = 'Link enviado!';
-        // this.createdAccountResult = response.text;
+        this.textResult = response.text;
+        // console.log(this.textResult);
         this.passwordLinkSent = true;
         this.logout.logout();
       })
       .catch((e) => {
         console.log('Error: ' + e);
-        this.disabled = false;
+        // this.disabled = false;
         this.btnLabel = 'Erro!';
 
         if (e.message && (e.message as string).toLowerCase().indexOf('http') === -1) {

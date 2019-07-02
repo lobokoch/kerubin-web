@@ -32,7 +32,7 @@ export class UserAccountService {
 	    });
   }
 
-	sendChangePasswordLink(email: string): Promise<string> {
+	sendChangePasswordLink(email: string): Promise<any> {
 	    return this.http.post<string>(`${this.url}/sendChangePasswordLink`, email)
 	    .toPromise()
 	    .then(response => {
