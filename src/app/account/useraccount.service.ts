@@ -32,6 +32,15 @@ export class UserAccountService {
 	    });
   }
 
+	sendChangePasswordLink(email: string): Promise<string> {
+	    return this.http.post<string>(`${this.url}/sendChangePasswordLink`, email)
+	    .toPromise()
+	    .then(response => {
+        console.log('response: ' + response);
+	      return response;
+	    });
+  }
+
 	confirmAccount(id: String): Promise<SysUser> {
 	    return this.http.put<SysUser>(`${this.url}/confirmAccount/${id}`, {})
 	    .toPromise()

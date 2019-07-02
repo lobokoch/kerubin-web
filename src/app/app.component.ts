@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'Kerubin';
-  urls = ['/login', '/newaccount', '/confirmaccount'];
+  urls = ['/login', '/newaccount', '/confirmaccount', '/forgotpassword'];
   constructor(private router: Router) {
     //
   }

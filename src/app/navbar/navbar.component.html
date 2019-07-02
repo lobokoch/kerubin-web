@@ -15,7 +15,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       <li class="kb-user-letra">{{ getCurrentUserNameFirstLetter() }}</li>
       <li class="">{{ getCurrentUserName() }}</li>
       <li>
-        <a href="javascript:;" class="navbar-toggle kb-display-inline"
+        <a href="javascript:;"  class="navbar-toggle kb-display-inline"
         (click)="isMenuShowing = !isMenuShowing"><i class="pi pi-cog"></i></a>
       </li>
     </ul>
@@ -23,7 +23,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 </nav>
 
-  <ul class="navbar-menu" [hidden]="!isMenuShowing">
+  <ul class="navbar-menu" (mouseleave)="isMenuShowing = false" [hidden]="!isMenuShowing">
     <li class="navbar-menuitem">
       <a href="javascript:;" (click)="logout()" >
         <i class="pi pi-power-off kb-center-vertical"></i>

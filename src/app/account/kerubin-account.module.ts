@@ -21,6 +21,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NewAccountComponent } from './newaccount/newaccount.component';
 import { ConfirmAccountComponent } from './confirmaccount/confirmaccount.component';
 import { ConfigNewAccountComponent } from './confignewaccount/confignewaccount.component';
+import { ForgotPasswordComponent } from './forgotpassword/forgotpassword.component';
 
 @NgModule({
 
@@ -36,7 +37,8 @@ import { ConfigNewAccountComponent } from './confignewaccount/confignewaccount.c
   declarations: [
     ConfigNewAccountComponent,
     ConfirmAccountComponent,
-    NewAccountComponent
+    NewAccountComponent,
+    ForgotPasswordComponent
   ],
 
   exports: [

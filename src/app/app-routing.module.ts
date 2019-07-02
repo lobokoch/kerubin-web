@@ -1,3 +1,4 @@
+import { ForgotPasswordComponent } from './account/forgotpassword/forgotpassword.component';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.1
 Code generated at time stamp: 2019-06-03T07:33:29.569
@@ -20,7 +21,7 @@ import { LoginComponent } from './security/login/login.component';
 const routes: Routes = [
   // Main dashboard
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-  
+
  // BEGIN ENTITIES FOR SERVICE: financeiro.fluxocaixa
   { path: 'caixa', loadChildren: './modules/financeiro/fluxocaixa/caixa/caixa.module#CaixaModule' },
   { path: 'caixadiario', loadChildren: './modules/financeiro/fluxocaixa/caixadiario/caixadiario.module#CaixaDiarioModule' },
@@ -62,7 +63,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'confignewaccount', component: ConfigNewAccountComponent },
   { path: 'newaccount', component: NewAccountComponent },
-  { path: 'confirmaccount', component: ConfirmAccountComponent }
+  { path: 'confirmaccount', component: ConfirmAccountComponent },
+  { path: 'forgotpassword', component: ForgotPasswordComponent }
 ];
 
 
