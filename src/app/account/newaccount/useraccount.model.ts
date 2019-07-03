@@ -54,6 +54,7 @@ export class SysUser {
   id: string;
   name: string;
   email: string;
+  password: string;
   accountType: string;
 }
 

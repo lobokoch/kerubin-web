@@ -37,8 +37,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           </div>
 
           <div class="ui-g-12">
-            <button pButton style="font-weight: bold; border: 1px solid black; height: 120%" type="submit"
-              label="Entrar" (click)="login(loginForm.form)">
+            <button [disabled]="autenticando" pButton style="font-weight: bold; border: 1px solid black; height: 120%" type="submit"
+            [label]="btnLabel" (click)="login(loginForm.form)">
             </button>
           </div>
 

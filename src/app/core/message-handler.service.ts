@@ -49,6 +49,8 @@ export class MessageHandlerService {
             message = errorResponse.error.error_description;
           } else if (errorResponse.error.message) {
             message = errorResponse.error.message;
+          } else if (errorResponse.error.text) {
+            message = errorResponse.error.text;
           } else {
             message = 'Ocorreu um erro. Tente novamente em alguns instantes';
           }

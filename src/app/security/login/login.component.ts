@@ -19,8 +19,10 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 export class LoginComponent implements OnInit {
 
+  btnLabel = 'Entrar';
   username = '';
   password = '';
+  autenticando = false;
 
   constructor(
     private auth: AuthService,
@@ -38,6 +40,9 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.btnLabel = 'Autenticando...';
+    this.autenticando = true;
+
     this.auth.login(this.username, this.password)
     .then(() => {
       const tenant = this.auth.tenant;
@@ -49,6 +54,8 @@ export class LoginComponent implements OnInit {
     })
     .catch (error => {
       this.password = '';
+      this.btnLabel = 'Entrar';
+      this.autenticando = false;
       console.log('login error:' + error);
       this.messageHandler.showError(error);
     });

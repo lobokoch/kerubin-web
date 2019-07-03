@@ -1,3 +1,4 @@
+import { ChangePasswordForgottenComponent } from './account/changepasswordforgotten/changepasswordforgotten.component';
 import { ForgotPasswordComponent } from './account/forgotpassword/forgotpassword.component';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.1
@@ -64,7 +65,8 @@ const routes: Routes = [
   { path: 'confignewaccount', component: ConfigNewAccountComponent },
   { path: 'newaccount', component: NewAccountComponent },
   { path: 'confirmaccount', component: ConfirmAccountComponent },
-  { path: 'forgotpassword', component: ForgotPasswordComponent }
+  { path: 'forgotpassword', component: ForgotPasswordComponent },
+  { path: 'changepasswordforgotten', component: ChangePasswordForgottenComponent }
 ];
 
 

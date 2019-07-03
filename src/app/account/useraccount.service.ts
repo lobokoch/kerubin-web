@@ -23,6 +23,15 @@ export class UserAccountService {
     private http: HttpClientWithToken
   ) { }
 
+  changePasswordForgotten(user: SysUser): Promise<any> {
+    return this.http.post<String>(`${this.url}/changePasswordForgotten`, user)
+    .toPromise()
+    .then(response => {
+      console.log('response: ' + response);
+      return response;
+    });
+}
+
 	createAccount(userAccount: UserAccount): Promise<AccountCreatedDTO> {
 	    return this.http.post<AccountCreatedDTO>(`${this.url}/createAccount`, userAccount)
 	    .toPromise()
