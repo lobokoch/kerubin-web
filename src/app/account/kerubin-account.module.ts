@@ -22,7 +22,7 @@ import { NewAccountComponent } from './newaccount/newaccount.component';
 import { ConfirmAccountComponent } from './confirmaccount/confirmaccount.component';
 import { ConfigNewAccountComponent } from './confignewaccount/confignewaccount.component';
 import { ForgotPasswordComponent } from './forgotpassword/forgotpassword.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { ChangePasswordComponent } from './changepassword/changepassword.component';
 import { ChangePasswordForgottenComponent } from './changepasswordforgotten/changepasswordforgotten.component';
 
 @NgModule({
@@ -41,7 +41,7 @@ import { ChangePasswordForgottenComponent } from './changepasswordforgotten/chan
     ConfirmAccountComponent,
     NewAccountComponent,
     ForgotPasswordComponent,
-    ChangepasswordComponent,
+    ChangePasswordComponent,
     ChangePasswordForgottenComponent
   ],
 

@@ -24,12 +24,21 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 </nav>
 
   <ul class="navbar-menu" (mouseleave)="isMenuShowing = false" [hidden]="!isMenuShowing">
-    <li class="navbar-menuitem">
+
+    <li class="navbar-menuitem" style="border-bottom: 1px solid silver">
       <a href="javascript:;" (click)="logout()" >
         <i class="pi pi-power-off kb-center-vertical"></i>
         <span class="kb-center-vertical">Sair</span>
       </a>
     </li>
+
+    <li class="navbar-menuitem">
+      <a routerLink="/changepassword">
+        <i class="pi pi-key kb-center-vertical"></i>
+        <span class="kb-center-vertical">Mudar a senha</span>
+      </a>
+    </li>
+
   </ul>
 
   <!--div class="container">

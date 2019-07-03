@@ -17,48 +17,57 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class UserAccountService {
 
-	url = environment.apiUrl + '/account';
+  url = environment.apiUrl + '/account';
 
-	constructor(
+  constructor(
     private http: HttpClientWithToken
   ) { }
 
+  changePassword(user: SysUser): Promise<any> {
+    return this.http.post<String>(`${this.url}/changePassword`, user)
+      .toPromise()
+      .then(response => {
+        console.log('response: ' + response);
+        return response;
+      });
+  }
+
   changePasswordForgotten(user: SysUser): Promise<any> {
     return this.http.post<String>(`${this.url}/changePasswordForgotten`, user)
-    .toPromise()
-    .then(response => {
-      console.log('response: ' + response);
-      return response;
-    });
-}
-
-	createAccount(userAccount: UserAccount): Promise<AccountCreatedDTO> {
-	    return this.http.post<AccountCreatedDTO>(`${this.url}/createAccount`, userAccount)
-	    .toPromise()
-	    .then(response => {
+      .toPromise()
+      .then(response => {
         console.log('response: ' + response);
-	      return response;
-	    });
+        return response;
+      });
   }
 
-	sendChangePasswordLink(email: string): Promise<any> {
-	    return this.http.post<string>(`${this.url}/sendChangePasswordLink`, email)
-	    .toPromise()
-	    .then(response => {
+  createAccount(userAccount: UserAccount): Promise<AccountCreatedDTO> {
+    return this.http.post<AccountCreatedDTO>(`${this.url}/createAccount`, userAccount)
+      .toPromise()
+      .then(response => {
         console.log('response: ' + response);
-	      return response;
-	    });
+        return response;
+      });
   }
 
-	confirmAccount(id: String): Promise<SysUser> {
-	    return this.http.put<SysUser>(`${this.url}/confirmAccount/${id}`, {})
-	    .toPromise()
-	    .then(response => {
+  sendChangePasswordLink(email: string): Promise<any> {
+    return this.http.post<string>(`${this.url}/sendChangePasswordLink`, email)
+      .toPromise()
+      .then(response => {
+        console.log('response: ' + response);
+        return response;
+      });
+  }
+
+  confirmAccount(id: String): Promise<SysUser> {
+    return this.http.put<SysUser>(`${this.url}/confirmAccount/${id}`, {})
+      .toPromise()
+      .then(response => {
         console.log('response: ' + response);
         const confirmedUser = response as SysUser;
         console.log('confirmedUser: ' + confirmedUser);
-	      return confirmedUser;
-	    });
-	}
+        return confirmedUser;
+      });
+  }
 }
 
