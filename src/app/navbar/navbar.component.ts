@@ -35,8 +35,8 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUserName() {
-      if (this.authService.jwtPayload && this.authService.jwtPayload.name) {
-        return this.authService.jwtPayload.name;
+      if (this.authService.getCurrentUserName()) {
+        return this.authService.getCurrentUserName();
       } else {
         return 'Desconhecido';
       }

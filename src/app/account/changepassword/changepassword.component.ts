@@ -13,14 +13,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./changepassword.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-  id = '';
   email = '';
-
+  userName = '';
   currentPassword = '';
   newPassword = '';
   confirmNewPassword = '';
 
-  connected = false;
+  connected = true;
   passwordChanged = false;
   passwordChangedError = false;
   btnLabel = 'Alterar senha';
@@ -38,7 +37,19 @@ export class ChangePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.email = this.auth.getCurrentUser();
+    this.userName = this.auth.getCurrentUserName();
+    this.connected = true;
+    this.disabled = false;
+    this.passwordChanged = false;
+    this.passwordChangedError = false;
 
+    if (!this.email || !this.userName) {
+      this.connected = false;
+      this.disabled = true;
+      this.textResult = 'Não foi possível obter os dados da sua conexão. Por favor refaça o login.';
+      return;
+    }
   }
 
   validateAllFormFields(form: FormGroup) {
@@ -70,7 +81,7 @@ export class ChangePasswordComponent implements OnInit {
     this.textResult = '';
 
     const user = new SysUser();
-    user.id = this.id;
+    user.id = '8edac044-2884-4fd5-b8db-8aebcdfe88df'; // fake
     user.name = this.currentPassword;
     user.email = this.email;
     user.password = this.newPassword;
@@ -82,7 +93,6 @@ export class ChangePasswordComponent implements OnInit {
         this.passwordChanged = true;
         this.disabled = true;
         this.passwordChangedError = false;
-        this.logout.logout();
       })
       .catch((e) => {
         this.passwordChangedError = true;
@@ -94,32 +104,13 @@ export class ChangePasswordComponent implements OnInit {
         if (e.message && (e.message as string).toLowerCase().indexOf('http') === -1) {
           this.textResult = '<h3>Ocorreu um erro.</h3><p>' + e.message + '</p>';
         } else {
-          this.textResult = 'Ops :( <p>Ocorreu um erro ao mudar a senha.</p>';
+          this.textResult = 'Ops :( ocorreu um erro ao mudar a senha.';
         }
-        this.logout.logout();
-      });
-  }
-
-  private doLoginAnonymous() {
-    this.auth.doLoginAnonymous()
-      .then((result) => {
-        console.log('Anonymous connected!');
-        this.connected = true;
-      })
-      .catch((e) => {
-        this.connected = false;
-        this.messageHandler.showError(e);
       });
   }
 
   goBack() {
-    this.logout.logout()
-      .then(() => {
-        this.router.navigate(['/login']);
-      })
-      .catch(() => {
-        this.router.navigate(['/login']);
-      });
+    this.router.navigate(['/mainmenu']);
   }
 
 }
