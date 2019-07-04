@@ -73,8 +73,7 @@ export class KerubinMenuComponent implements OnInit {
             items: [
               { label: 'Cliente', icon: 'pi pi-fw', routerLink: '/cliente' }
             ]
-          }
-
+          }		
         ]
       },
 
@@ -117,6 +116,21 @@ export class KerubinMenuComponent implements OnInit {
           }
 
         ]
+      },
+	  {
+      	label: 'Segurança',
+      	icon: 'pi pi-pw',
+      	items: [
+      		
+      		{
+      			label: 'Autorização',
+      			icon: 'pi pi-fw ',
+      			items: [
+      				{ label: 'Usuário', icon: 'pi pi-fw', routerLink: '/sysuser' }
+      			]
+      		}
+      		
+      	]
       }
 
 
