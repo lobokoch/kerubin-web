@@ -45,16 +45,20 @@ export class MessageHandlerService {
       try {
 
         if (errorResponse.error) {
-          if (errorResponse.error.error_description) {
-            message = errorResponse.error.error_description;
-          } else if (errorResponse.error.message) {
-            message = errorResponse.error.message;
-          } else if (errorResponse.error.text) {
-            message = errorResponse.error.text;
-          } else {
-            message = 'Ocorreu um erro. Tente novamente em alguns instantes';
-          }
 
+          if (errorResponse.error.apierror && errorResponse.error.apierror.message) {
+            message = errorResponse.error.apierror.message;
+          } else {
+            if (errorResponse.error.error_description) {
+              message = errorResponse.error.error_description;
+            } else if (errorResponse.error.message) {
+              message = errorResponse.error.message;
+            } else if (errorResponse.error.text) {
+              message = errorResponse.error.text;
+            } else {
+              message = 'Ocorreu um erro. Tente novamente em alguns instantes';
+            }
+          }
         }
 
       } catch (e) {

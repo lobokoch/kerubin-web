@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-07-03T07:08:37.175
+Code generated with MKL Plug-in version: 6.10.6
+Code generated at time stamp: 2019-07-06T07:24:18.293
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,13 +23,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="sysUser.id" name="id" readonly class="read-only">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
+		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="name">{{ getTranslation('security.authorization.sysUser_name') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #name="ngModel" ngModel [(ngModel)]="sysUser.name" name="name" required>
 			<div class="invalid-message" *ngIf="name.invalid && name.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
+		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="email">{{ getTranslation('security.authorization.sysUser_email') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #email="ngModel" ngModel [(ngModel)]="sysUser.email" name="email" required>
 			<div class="invalid-message" *ngIf="email.invalid && email.dirty">Campo obrigatório.</div>
@@ -37,53 +37,59 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="password">{{ getTranslation('security.authorization.sysUser_password') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #password="ngModel" ngModel [(ngModel)]="sysUser.password" name="password" required>
+			<input type="password" pInputText  #password="ngModel" ngModel [(ngModel)]="sysUser.password" name="password" required>
 			<div class="invalid-message" *ngIf="password.invalid && password.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="accountType">{{ getTranslation('security.authorization.sysUser_accountType') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #accountType="ngModel" ngModel [(ngModel)]="sysUser.accountType" name="accountType" required></p-dropdown>
+			<label for="confirmPassword">{{ getTranslation('security.authorization.sysUser_confirmPassword') }}<span class="kb-label-required">*</span></label>
+			<input type="password" pInputText  #confirmPassword="ngModel" ngModel [(ngModel)]="sysUser.confirmPassword" name="confirmPassword" required>
+			<div class="invalid-message" *ngIf="confirmPassword.invalid && confirmPassword.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label style="display: block" for="active">{{ getTranslation('security.authorization.sysUser_active') }}</label>
+			<p-inputSwitch #active="ngModel" ngModel [(ngModel)]="sysUser.active" name="active"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label style="display: block" for="administrator">{{ getTranslation('security.authorization.sysUser_administrator') }}</label>
+			<p-inputSwitch #administrator="ngModel" ngModel [(ngModel)]="sysUser.administrator" name="administrator"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
+			<label for="accountType" class="hidden">{{ getTranslation('security.authorization.sysUser_accountType') }}</label>
+			<p-dropdown [disabled]="true" [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #accountType="ngModel" ngModel [(ngModel)]="sysUser.accountType" name="accountType" required></p-dropdown>
 			<div class="invalid-message" *ngIf="accountType.invalid && accountType.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="tenant">{{ getTranslation('security.authorization.sysUser_tenant') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="sysUserTenantAutoCompleteSuggestions" (completeMethod)="sysUserTenantAutoComplete($event)" (onClear)="sysUserTenantAutoCompleteClear($event)" [field]="sysUserTenantAutoCompleteFieldConverter" #tenant="ngModel" ngModel [(ngModel)]="sysUser.tenant" name="tenant">
+		<div class="ui-g-12 ui-fluid ui-md-10 hidden">
+			<label for="tenant" class="hidden">{{ getTranslation('security.authorization.sysUser_tenant') }}</label>
+			<p-autoComplete [disabled]="true"p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="sysUserTenantAutoCompleteSuggestions" (completeMethod)="sysUserTenantAutoComplete($event)" (onClear)="sysUserTenantAutoCompleteClear($event)" [field]="sysUserTenantAutoCompleteFieldConverter" #tenant="ngModel" ngModel [(ngModel)]="sysUser.tenant" name="tenant">
 				<ng-template let-tenant pTemplate="item">
 					<div class="ui-helper-clearfix">{{ sysUserTenantAutoCompleteFieldConverter(tenant) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label style="display: block" for="administrator">{{ getTranslation('security.authorization.sysUser_administrator') }}</label>
-			<p-inputSwitch #administrator="ngModel" ngModel [(ngModel)]="sysUser.administrator" name="administrator"></p-inputSwitch>
+		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
+			<label for="activationDate" class="hidden">{{ getTranslation('security.authorization.sysUser_activationDate') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #activationDate="ngModel" ngModel [(ngModel)]="sysUser.activationDate" name="activationDate"></p-calendar>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label style="display: block" for="active">{{ getTranslation('security.authorization.sysUser_active') }}</label>
-			<p-inputSwitch #active="ngModel" ngModel [(ngModel)]="sysUser.active" name="active"></p-inputSwitch>
+		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
+			<label style="display: block" for="confirmed" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmed') }}</label>
+			<p-inputSwitch [disabled]="true" #confirmed="ngModel" ngModel [(ngModel)]="sysUser.confirmed" name="confirmed"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="activationDate">{{ getTranslation('security.authorization.sysUser_activationDate') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" #activationDate="ngModel" ngModel [(ngModel)]="sysUser.activationDate" name="activationDate"></p-calendar>
+		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
+			<label for="confirmationDate" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmationDate') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #confirmationDate="ngModel" ngModel [(ngModel)]="sysUser.confirmationDate" name="confirmationDate"></p-calendar>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label style="display: block" for="confirmed">{{ getTranslation('security.authorization.sysUser_confirmed') }}</label>
-			<p-inputSwitch #confirmed="ngModel" ngModel [(ngModel)]="sysUser.confirmed" name="confirmed"></p-inputSwitch>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="confirmationDate">{{ getTranslation('security.authorization.sysUser_confirmationDate') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" #confirmationDate="ngModel" ngModel [(ngModel)]="sysUser.confirmationDate" name="confirmationDate"></p-calendar>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="confirmationId">{{ getTranslation('security.authorization.sysUser_confirmationId') }}</label>
-			<input type="text" pInputText #confirmationId="ngModel" ngModel [(ngModel)]="sysUser.confirmationId" name="confirmationId">
+		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
+			<label for="confirmationId" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmationId') }}</label>
+			<input type="hidden" pInputText [disabled]="true" #confirmationId="ngModel" ngModel [(ngModel)]="sysUser.confirmationId" name="confirmationId">
 		</div>
 		
 		<div class="ui-g-12">

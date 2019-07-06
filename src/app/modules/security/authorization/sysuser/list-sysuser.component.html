@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-07-03T07:08:37.175
+Code generated with MKL Plug-in version: 6.10.6
+Code generated at time stamp: 2019-07-06T07:24:18.293
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -56,9 +56,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <tr>
 		            	<th [pSortableColumn]="'name'">{{ getTranslation('security.authorization.sysUser_name_grid') }}<p-sortIcon [field]="'name'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'email'">{{ getTranslation('security.authorization.sysUser_email_grid') }}<p-sortIcon [field]="'email'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'accountType'">{{ getTranslation('security.authorization.sysUser_accountType_grid') }}<p-sortIcon [field]="'accountType'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'administrator'">{{ getTranslation('security.authorization.sysUser_administrator_grid') }}<p-sortIcon [field]="'administrator'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'active'">{{ getTranslation('security.authorization.sysUser_active_grid') }}<p-sortIcon [field]="'active'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'administrator'">{{ getTranslation('security.authorization.sysUser_administrator_grid') }}<p-sortIcon [field]="'administrator'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -72,13 +71,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{sysUser?.email}}
 		            	</td>
 		            	<td>
-		            		{{ getTranslation('security.authorization.sysUser_accountType' + '_' + sysUser?.accountType?.toLowerCase()) }}
+		            		{{sysUser?.active? 'Sim': 'Não' }}
 		            	</td>
 		            	<td>
 		            		{{sysUser?.administrator? 'Sim': 'Não' }}
-		            	</td>
-		            	<td>
-		            		{{sysUser?.active? 'Sim': 'Não' }}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/sysuser', sysUser.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -91,7 +87,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="6">
+				        <td [attr.colspan]="5">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

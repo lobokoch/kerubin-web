@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-07-03T07:08:37.172
+Code generated with MKL Plug-in version: 6.10.6
+Code generated at time stamp: 2019-07-06T07:24:18.259
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,6 +22,7 @@ import { Tenant } from './../tenant/tenant.model';
 import { TenantAutoComplete } from './../tenant/tenant.model';
 
 import { AccountType } from './../enums/security-authorization-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class SysUserComponent implements OnInit {
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private tenantService: TenantService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeSysUserAccountTypeOptions();
 	}
@@ -95,10 +96,10 @@ export class SysUserComponent implements OnInit {
 	    this.sysUserService.create(this.sysUser)
 	    .then((sysUser) => {
 	      this.sysUser = sysUser;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -106,10 +107,10 @@ export class SysUserComponent implements OnInit {
 	    this.sysUserService.update(this.sysUser)
 	    .then((sysUser) => {
 	      this.sysUser = sysUser;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -117,7 +118,7 @@ export class SysUserComponent implements OnInit {
 	    this.sysUserService.retrieve(id)
 	    .then((sysUser) => this.sysUser = sysUser)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -143,7 +144,7 @@ export class SysUserComponent implements OnInit {
 	        this.sysUserTenantAutoCompleteSuggestions = result as TenantAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -162,14 +163,6 @@ export class SysUserComponent implements OnInit {
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
