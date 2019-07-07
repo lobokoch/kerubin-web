@@ -5,15 +5,24 @@ Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
-
 .navbar {
-  /*padding: 10px 0;*/
   background-color: #1e94d2;
-  height: 50px;
 }
 
-.navbar-toggle {
+.kb-logo {
+  margin-left: 10px;
+  margin-top: -10px;
+  padding: 0px;
+  float: left;
   color: #fff;
+  font-size: 2em;
+  font-weight: bolder;
+}
+
+.kb-navebar-container {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
 }
 
 .navbar-menu {
@@ -28,6 +37,73 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   z-index: 9999;
   padding: 0px;
   list-style: none;
+}
+
+@media (max-width: 500px) {
+
+  .navbar-menu {
+    top: 80px;
+    left: 25px;
+  }
+
+  .navbar {
+    height: 80px;
+  }
+
+  .kb-navebar-container {
+    height: 80px;
+  }
+
+  .kb-user-profile {
+    float: left;
+  }
+
+  .kb-user-profile {
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    margin-top: -40px;
+    width: auto;
+    overflow: auto !important;
+    line-height: 10px;
+    text-align: center;
+  }
+}
+
+@media (min-width: 501px) {
+
+  .navbar-menu {
+    top: 50px;
+  }
+
+  .kb-user-profile {
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 10px;
+    margin-top: -10px;
+    width: auto;
+    overflow: auto !important;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .navbar {
+    height: 50px;
+
+  }
+
+  .kb-navebar-container {
+    height: 50px;
+  }
+
+  .kb-user-profile {
+    float: right;
+  }
+}
+
+.navbar-toggle {
+  color: #fff;
 }
 
 .navbar-menuitem {
@@ -84,14 +160,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   display: inline;
 }
 
-.kb-user-profile {
-  float: right;
-  color: white;
-  margin-right: 10px;
-  width: auto;
-  height: 30px;
-}
-
 .kb-circle {
   background-color: white;
   color: gray;
@@ -109,6 +177,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   line-height: 30px;
   text-align: center;
 }
+
+
+
 
 
 
