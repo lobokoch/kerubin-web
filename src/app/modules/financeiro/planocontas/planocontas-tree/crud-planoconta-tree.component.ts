@@ -1,10 +1,10 @@
 import { MessageHandlerService } from './../../../../core/message-handler.service';
 import { PlanoContasTreeService } from './planocontas-tree.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import {TreeNode} from 'primeng/api';
+import { TreeNode } from 'primeng/api';
 
 import { FinanceiroPlanoContasTranslationService } from '../i18n/financeiro-planocontas-translation.service';
 
@@ -23,53 +23,69 @@ import { PlanoContaService } from '../planoconta/planoconta.service';
 })
 
 export class PlanoContaTreeComponent implements OnInit {
+
+  @ViewChild('descricao', { read: ElementRef }) descricaoField: ElementRef;
+
+  loadingTree = false;
   planoContasTree: TreeNode[];
   selectedNode: TreeNode;
+  selectedNodeKey = '';
 
   planoConta = new PlanoConta();
   planoContaOld: PlanoConta = null;
-	planoContaPlanoContaPaiAutoCompleteSuggestions: PlanoContaAutoComplete[];
-	planoContaTipoFinanceiroOptions: TipoPlanoContaFinanceiro[];
+  planoContaPlanoContaPaiAutoCompleteSuggestions: PlanoContaAutoComplete[];
+  planoContaTipoFinanceiroOptions: TipoPlanoContaFinanceiro[];
 
 
-	planoContaTipoReceitaDespesaOptions: TipoReceitaDespesa[];
+  planoContaTipoReceitaDespesaOptions: TipoReceitaDespesa[];
 
-	constructor(
-	    private planoContaService: PlanoContaService,
-	    private planoContasTreeService: PlanoContasTreeService,
-	    private financeiroPlanoContasTranslationService: FinanceiroPlanoContasTranslationService,
-	    private route: ActivatedRoute,
-      private messageService: MessageService,
-      private confirmation: ConfirmationService,
-      private messageHandlerService: MessageHandlerService
-	) {
-		this.initializePlanoContaTipoFinanceiroOptions();
+  constructor(
+    private planoContaService: PlanoContaService,
+    private planoContasTreeService: PlanoContasTreeService,
+    private financeiroPlanoContasTranslationService: FinanceiroPlanoContasTranslationService,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+    private confirmation: ConfirmationService,
+    private messageHandlerService: MessageHandlerService
+  ) {
+    this.initializePlanoContaTipoFinanceiroOptions();
 
     this.initializePlanoContaTipoReceitaDespesaOptions();
 
   }
 
+  reloadTree() {
+    this.loadTree();
+  }
+
   loadTree() {
+    this.loadingTree = true;
     this.planoContasTreeService
       .getPlanoContasTree('')
       .then(nodes => {
         this.planoContasTree = nodes;
+        this.loadingTree = false;
+      })
+      .catch(error => {
+        this.loadingTree = false;
       });
+
   }
 
-	ngOnInit() {
-      this.loadTree();
-	    const id = this.route.snapshot.params['id'];
-	    if (id) {
-	      this.getPlanoContaById(id);
-	    }
-	}
+  ngOnInit() {
+    this.loadTree();
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.getPlanoContaById(id);
+    }
+  }
 
-	begin(form: FormControl) {
-	    form.reset();
-	    setTimeout(function() {
-        this.doNew();
-	    }.bind(this), 1);
+  begin(form: FormControl) {
+    form.reset();
+    setTimeout(function () {
+      this.doNew();
+    }.bind(this), 1);
+
   }
 
   validateAllFormFields(form: FormGroup) {
@@ -82,7 +98,7 @@ export class PlanoContaTreeComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
-}
+  }
 
   doNew() {
     const planoConta = new PlanoConta();
@@ -98,6 +114,8 @@ export class PlanoContaTreeComponent implements OnInit {
     }
 
     this.planoConta = planoConta;
+
+    this.descricaoField.nativeElement.focus();
   }
 
   buildNextPlanoContaCodigo(node: TreeNode): string {
@@ -148,23 +166,24 @@ export class PlanoContaTreeComponent implements OnInit {
     return codigo;
   }
 
-	save(form: FormGroup) {
+  save(form: FormGroup) {
     if (!form.valid) {
       this.validateAllFormFields(form);
       return;
     }
 
-      const node = this.findAnyOtherNodeByThisCodigo(this.planoConta.id, this.planoConta.codigo);
-      if (node) {
-        const str = this.planoConta.codigo + ' - ' + this.planoConta.descricao;
-        this.confirmSaveSameCodigo(`O item "${str}" tem o mesmo código do item "${node.label}", deseja salvar mesmo assim?`);
+    const node = this.findAnyOtherNodeByThisCodigo(this.planoConta.id, this.planoConta.codigo);
+    if (node) {
+      const str = this.planoConta.codigo + ' - ' + this.planoConta.descricao;
+      this.confirmSaveSameCodigo(`O item "${str}" tem o mesmo código do item "${node.label}", deseja salvar mesmo assim?`);
+    } else {
+      this.selectedNodeKey = this.selectedNode.key;
+      if (this.isEditing) {
+        this.update();
       } else {
-        if (this.isEditing) {
-          this.update();
-        } else {
-          this.create();
-        }
+        this.create();
       }
+    }
   }
 
   findAnyOtherNodeByThisCodigo(id: string, codigo: string): TreeNode {
@@ -211,47 +230,125 @@ export class PlanoContaTreeComponent implements OnInit {
         }
       }
     });
-}
+  }
 
-	create() {
-	    this.planoContaService.create(this.planoConta)
-	    .then((planoConta) => {
-	      this.planoConta = planoConta;
-        this.showSuccess('Registro criado com sucesso!');
+  create() {
+    this.planoContaService.create(this.planoConta)
+      .then((planoConta) => {
+        this.planoConta = planoConta;
+        this.messageHandlerService.showSuccess('Registro criado com sucesso!');
         this.getPlanoContasNode(this.selectedNode);
-	    }).
-	    catch(error => {
-	      this.messageHandlerService.showError(error);
-	    });
+      }).
+      catch(error => {
+        this.messageHandlerService.showError(error);
+      });
+  }
+
+  expandTree() {
+    this.planoContasTree[0].children[0] = this.selectedNode;
   }
 
   update() {
     this.planoContaService.update(this.planoConta)
-    .then((planoConta) => {
-      this.planoConta = planoConta;
-      this.showSuccess('Registro alterado!');
-      this.getPlanoContasNode(this.selectedNode);
-    })
-    .catch(error => {
-      this.messageHandlerService.showError(error);
+      .then((planoConta) => {
+        this.planoConta = planoConta;
+        this.messageHandlerService.showSuccess('Registro alterado!');
+        this.getPlanoContasNode(this.selectedNode);
+      })
+      .catch(error => {
+        this.messageHandlerService.showError(error);
+      });
+  }
+
+  deletePlanoConta() {
+    if (this.selectedNode.children.length > 0) {
+      this.messageHandlerService.showError('Esse item de plano de contas possui filhos, primeiro devem ser excluídos os filhos.');
+      return;
+    }
+    if (!this.planoConta) {
+      this.messageHandlerService.showError('Selecione um item de plano de contas.');
+      return;
+    }
+
+    const confirmMessage = 'Confirma a exclusão do Plano de Contas: ' + this.planoConta.codigo + ' - ' + this.planoConta.descricao + '?';
+
+    this.confirmation.confirm({
+      message: confirmMessage,
+      accept: () => {
+        this.planoContaService.delete(this.planoConta.id)
+        .then(() => {
+          this.messageHandlerService.showSuccess('Registro excluído!');
+          this.planoConta = new PlanoConta();
+          this.selectedNode = null;
+          this.selectedNodeKey = null;
+          this.reloadTree();
+        })
+        .catch((error) => {
+          this.messageHandlerService.showError(error);
+        });
+      }
     });
 }
+
+  expandNodes(node: TreeNode) {
+    node.expanded = true;
+    node.children.forEach(element => {
+      this.expandNodes(element);
+    });
+  }
 
   getPlanoContasNode(node: TreeNode) {
     if (node) {
       const id = node.key;
       this.planoContasTreeService.getPlanoContasNode(id)
-      .then(loadedNode => {
-        this.updateNode(node, loadedNode);
-      })
-      .catch(error => {
-        this.showError('Erro ao regarregar item do Plano de Contas: ' + error);
-      });
+        .then(loadedNode => {
+          this.updateNode(node, loadedNode);
+          this.expandSelectedNode();
+        })
+        .catch(error => {
+          this.messageHandlerService.showError('Erro ao regarregar item do Plano de Contas: ' + error);
+        });
     }
   }
 
+  expandSelectedNode() {
+    this.selectedNode = this.findTreeNodeByKey(this.selectedNodeKey);
+    if (this.selectedNode) {
+      this.selectedNode.expanded = true;
+    }
+  }
+
+  findTreeNodeByKey(key: string): TreeNode {
+    let foundNode = null;
+    for (let i = 0; i < this.planoContasTree.length; i++) {
+      const node = this.planoContasTree[i];
+      foundNode = this.findTreeNodeByKey_(node, key);
+      if (foundNode) {
+        return foundNode;
+      }
+    }
+
+    return foundNode;
+  }
+
+  findTreeNodeByKey_(node: TreeNode, key: string): TreeNode {
+    if (node.key === key) {
+      return node;
+    }
+
+    let foundNode = null;
+    for (let i = 0; i < node.children.length; i++) {
+      const childNode = node.children[i];
+      foundNode = this.findTreeNodeByKey_(childNode, key);
+      if (foundNode) {
+        return foundNode;
+      }
+    }
+    return foundNode;
+  }
+
   updateNode(oldNode: TreeNode, newNode: TreeNode) {
-    if (! (oldNode && newNode)) {
+    if (!(oldNode && newNode)) {
       return;
     }
 
@@ -280,15 +377,15 @@ export class PlanoContaTreeComponent implements OnInit {
     }
   }
 
-	getPlanoContaById(id: string) {
-	    this.planoContaService.retrieve(id)
+  getPlanoContaById(id: string) {
+    this.planoContaService.retrieve(id)
       .then((planoConta) => {
         this.planoConta = planoConta;
         this.planoContaOld = this.clonePlanoConta(planoConta);
       })
-	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
-	    });
+      .catch(error => {
+        this.messageHandlerService.showError('Erro ao buscar registro: ' + id);
+      });
   }
 
   clonePlanoConta(source: PlanoConta): PlanoConta {
@@ -305,72 +402,72 @@ export class PlanoContaTreeComponent implements OnInit {
     return cloned;
   }
 
-	get isEditing() {
-	    return Boolean(this.planoConta.id);
-	}
+  get isEditing() {
+    return Boolean(this.planoConta.id);
+  }
 
-	planoContaPlanoContaPaiAutoCompleteClear(event) {
-		// The autoComplete value has been reseted
-		this.planoConta.planoContaPai = null;
-	}
+  planoContaPlanoContaPaiAutoCompleteClear(event) {
+    // The autoComplete value has been reseted
+    this.planoConta.planoContaPai = null;
+  }
 
-	planoContaPlanoContaPaiAutoComplete(event) {
-	    const query = event.query;
-	    this.planoContaService
-	      .autoComplete(query)
-	      .then((result) => {
-	        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
-	      })
-	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
-	      });
-	}
+  planoContaPlanoContaPaiAutoComplete(event) {
+    const query = event.query;
+    this.planoContaService
+      .autoComplete(query)
+      .then((result) => {
+        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
+      })
+      .catch(error => {
+        this.messageHandlerService.showError('Erro ao buscar registros com o termo: ' + query);
+      });
+  }
 
-	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
-		if (planoContaPai) {
-			return planoContaPai.codigo + ' - ' + planoContaPai.descricao;
-		} else {
-			return null;
-		}
-	}
+  planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
+    if (planoContaPai) {
+      return planoContaPai.codigo + ' - ' + planoContaPai.descricao;
+    } else {
+      return null;
+    }
+  }
 
-	private initializePlanoContaTipoFinanceiroOptions() {
-	    this.planoContaTipoFinanceiroOptions = [
-	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_receita'), value: 'RECEITA' },
-	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_despesa'), value: 'DESPESA' }
-	    ];
-	}
+  private initializePlanoContaTipoFinanceiroOptions() {
+    this.planoContaTipoFinanceiroOptions = [
+      { label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_receita'), value: 'RECEITA' },
+      { label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_despesa'), value: 'DESPESA' }
+    ];
+  }
 
-	private initializePlanoContaTipoReceitaDespesaOptions() {
-	    this.planoContaTipoReceitaDespesaOptions = [
-	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_fixo'), value: 'FIXO' },
-	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_variavel'), value: 'VARIAVEL' }
-	    ];
-	}
+  private initializePlanoContaTipoReceitaDespesaOptions() {
+    this.planoContaTipoReceitaDespesaOptions = [
+      { label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_fixo'), value: 'FIXO' },
+      { label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_variavel'), value: 'VARIAVEL' }
+    ];
+  }
 
 
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
+  /*public showSuccess(msg: string) {
+    this.messageService.add({ severity: 'success', summary: 'Successo', detail: msg });
+  }
 
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
+  public showError(msg: string) {
+    this.messageService.add({ severity: 'error', summary: 'Erro', detail: msg });
+  }*/
 
-	// TODO: temporário, só para testes.
-	getTranslation(key: string): string {
-		const value = this.financeiroPlanoContasTranslationService.getTranslation(key);
-		return value;
+  // TODO: temporário, só para testes.
+  getTranslation(key: string): string {
+    const value = this.financeiroPlanoContasTranslationService.getTranslation(key);
+    return value;
 
-		// const result = key.substring(key.lastIndexOf('_') + 1);
-		// return result;
+    // const result = key.substring(key.lastIndexOf('_') + 1);
+    // return result;
   }
 
   /// TREE ////
 
   nodeSelect(event) {
     this.getPlanoContaById(event.node.key);
-}
+  }
 
   /////////////
 

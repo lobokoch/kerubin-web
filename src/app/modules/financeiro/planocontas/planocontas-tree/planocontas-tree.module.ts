@@ -22,6 +22,7 @@ import { PlanoContasTreeService } from './planocontas-tree.service';
 import { PlanoContaTreeComponent } from './crud-planoconta-tree.component';
 import { PlanocontasTreeRoutingModule } from './planocontas-tree-routing.module';
 import { PlanoContaService } from '../planoconta/planoconta.service';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { PlanoContaService } from '../planoconta/planoconta.service';
     DropdownModule,
     TreeModule,
     PanelModule,
+    CardModule,
 
     PlanocontasTreeRoutingModule
   ],

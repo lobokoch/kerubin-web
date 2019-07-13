@@ -12,9 +12,13 @@
         <div class="ui-g-12 ui-md-4 ui-g-nopad">
           <div class="ui-g-12 ui-g-nopad" style="padding-right: 10px !important">
 
+            <p-button style="margin-bottom: 5px;" (onClick)="reloadTree($event)" label="Recarregar" icon="pi pi-replay" iconPos="right"></p-button>
+
             <p-tree [style]="{'width': '100%', 'max-height':'600px', 'overflow':'auto'}" [value]="planoContasTree"
-              [filter]="true" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="nodeSelect($event)"
-              (onNodeUnselect)="nodeUnselect($event)" filterMode="strict">
+              [filter]="true" filterMode="strict"
+              [loading]="loadingTree" selectionMode="single"
+              [(selection)]="selectedNode" (onNodeSelect)="nodeSelect($event)"
+              (onNodeUnselect)="nodeUnselect($event)">
             </p-tree>
 
           </div>
@@ -36,7 +40,7 @@
                 <div class="ui-g-12 ui-fluid ui-md-2">
                   <label for="codigo">{{ getTranslation('financeiro.plano_contas.planoConta_codigo') }}<span
                       class="kb-label-required">*</span></label>
-                  <input type="text" pInputText appFocus #codigo="ngModel" ngModel [(ngModel)]="planoConta.codigo"
+                  <input type="text" pInputText #codigo="ngModel" ngModel [(ngModel)]="planoConta.codigo"
                     name="codigo" required>
                   <div class="invalid-message" *ngIf="codigo.invalid && codigo.dirty">Campo obrigatório.</div>
                 </div>
@@ -44,7 +48,7 @@
                 <div class="ui-g-12 ui-fluid ui-md-10">
                   <label for="descricao">{{ getTranslation('financeiro.plano_contas.planoConta_descricao') }}<span
                       class="kb-label-required">*</span></label>
-                  <input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="planoConta.descricao"
+                  <input type="text" appFocus pInputText #descricao="ngModel" ngModel [(ngModel)]="planoConta.descricao"
                     name="descricao" required>
                   <div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
                 </div>
@@ -95,17 +99,49 @@
                 </div>
 
                 <div class="ui-g-12 ui-fluid">
+
                   <div class="ui-g-12 ui-fluid ui-md-2">
                     <button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
                   </div>
+
                   <div class="ui-g-12 ui-fluid ui-md-2">
                     <button pButton (click)="begin(form1)" type="button" label="Novo"
                       class="botao-margem-direita ui-button-info"></button>
                   </div>
+
+                  <div class="ui-g-12 ui-fluid ui-md-2">
+                    <button [disabled]="planoConta.id == null || planoConta.codigo == null || planoConta.codigo === ''"
+                    style="border: 1px solid silver" pButton (click)="deletePlanoConta()" type="button" label="Excluir"
+                      class="botao-margem-direita ui-button-secondary"></button>
+                  </div>
+
                 </div>
               </div>
             </form>
           </div>
+
+          <hr/>
+
+          <div class="ui-g-12 ui-g-nopad">
+              <p-card>
+                  <strong>Para adicionar um novo item ao Plano de Contas, faça o seguinte:</strong>
+                  <ol>
+                    <li>Na lista da esquerda, clique sobre o item que será o pai do novo item;<br>
+                      <strong>Dicas caso o item pai não esteja aparecendo na lista da esquerda:</strong></li>
+                    <ul>
+                      <li>Você pode pesquisar digitando na caixa de edição com a lupa;</li>
+                      <li>Você pode expandir os itens da esquerda clicando na ponta de seta do lado esquerdo dos itens.</li>
+                    </ul>
+                    <li>Clique no botão <strong>Novo</strong>;</li>
+                    <li>Preencha os campos desejados. <strong>Os campos já preenchidos, não precisam ser alterados</strong>;</li>
+                    <li>Clique no botão <strong>Salvar</strong>;</li>
+                    <li>O novo item é adicionado por último na lista do pai que foi selecionado no passo 1.</li>
+                  </ol>
+
+                  <strong>Nota: </strong>Clicando no botão <strong>Recarregar</strong>, a lista de itens do Plano de Contas será totalmente recarregada e reorganizada.
+              </p-card>
+          </div>
+
         </div>
 
       </div>
