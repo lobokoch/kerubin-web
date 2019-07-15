@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -35,6 +35,7 @@ import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
 import { FormaPagamento } from './../enums/financeiro-contaspagar-enums.model';
 import {SelectItem} from 'primeng/api';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -82,7 +83,7 @@ export class ContaPagarComponent implements OnInit {
 	    
 	    private fornecedorService: FornecedorService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeContaPagarFormaPagamentoOptions();
 		this.initializeCopiesReferenceFieldOptions();
@@ -136,10 +137,10 @@ export class ContaPagarComponent implements OnInit {
 	    this.contaPagarService.create(this.contaPagar)
 	    .then((contaPagar) => {
 	      this.contaPagar = contaPagar;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -147,10 +148,10 @@ export class ContaPagarComponent implements OnInit {
 	    this.contaPagarService.update(this.contaPagar)
 	    .then((contaPagar) => {
 	      this.contaPagar = contaPagar;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -158,7 +159,7 @@ export class ContaPagarComponent implements OnInit {
 	    this.contaPagarService.retrieve(id)
 	    .then((contaPagar) => this.contaPagar = contaPagar)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -184,13 +185,13 @@ export class ContaPagarComponent implements OnInit {
 	        this.contaPagarPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
+			return (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -210,7 +211,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.contaPagarContaBancariaAutoCompleteSuggestions = result as ContaBancariaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -236,7 +237,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.contaPagarCartaoCreditoAutoCompleteSuggestions = result as CartaoCreditoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -262,7 +263,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.contaPagarFornecedorAutoCompleteSuggestions = result as FornecedorAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -287,14 +288,6 @@ export class ContaPagarComponent implements OnInit {
 	}
 	  
 	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
-	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroContasPagarTranslationService.getTranslation(key);
@@ -308,7 +301,7 @@ export class ContaPagarComponent implements OnInit {
 	actionFazerCopiasContaPagar(form: FormControl) {
 	      if (!this.contaPagar.agrupador) {
 	        // this.copiesMustHaveGroup = true;
-	        this.showError('Campo \'Agrupador\' deve ser informado para gerar cópias.');
+	        this.messageHandler.showError('Campo \'Agrupador\' deve ser informado para gerar cópias.');
 	        return;
 	      }
 	      // this.copiesMustHaveGroup = false;
@@ -317,13 +310,13 @@ export class ContaPagarComponent implements OnInit {
 	        this.copiesReferenceFieldInterval, this.contaPagar.agrupador)
 		    .then(() => {
 	        // this.copiesMustHaveGroup = false;
-	        this.showSuccess('Operação realizada com sucesso!');
+	        this.messageHandler.showSuccess('Operação realizada com sucesso!');
 		    }).
 		    catch(error => {
 	        // this.copiesMustHaveGroup = false;
 	        const message =  JSON.parse(error._body).message || 'Não foi possível realizar a operação';
 	        console.log(error);
-		      this.showError('Erro: ' + message);
+		      this.messageHandler.showError(message);
 		    });
 	}
 	 

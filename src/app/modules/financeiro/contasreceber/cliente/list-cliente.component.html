@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:22:13.155
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-15T07:31:32.735
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -54,8 +54,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [lazy]="true" (onLazyLoad)="clienteListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
 		            <tr>
+		            	<th [pSortableColumn]="'tipoPessoa'">{{ getTranslation('financeiro.contas_receber.cliente_tipoPessoa_grid') }}<p-sortIcon [field]="'tipoPessoa'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.contas_receber.cliente_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'cpfCNPJ'">{{ getTranslation('financeiro.contas_receber.cliente_cpfCNPJ_grid') }}<p-sortIcon [field]="'cpfCNPJ'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'cnpjCPF'">{{ getTranslation('financeiro.contas_receber.cliente_cnpjCPF_grid') }}<p-sortIcon [field]="'cnpjCPF'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -63,10 +64,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-cliente>
 		            <tr [pSelectableRow]="cliente">
 		            	<td>
+		            		{{ getTranslation('financeiro.contas_receber.cliente_tipoPessoa' + '_' + cliente?.tipoPessoa?.toLowerCase()) }}
+		            	</td>
+		            	<td>
 		            		{{cliente?.nome}}
 		            	</td>
 		            	<td>
-		            		{{cliente?.cpfCNPJ}}
+		            		{{cliente?.cnpjCPF}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/cliente', cliente.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -79,7 +83,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="3">
+				        <td [attr.colspan]="4">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

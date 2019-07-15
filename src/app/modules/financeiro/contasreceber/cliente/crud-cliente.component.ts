@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:22:13.033
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-15T07:31:32.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -16,6 +16,9 @@ import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
 
+import { TipoPessoa } from './../enums/financeiro-contasreceber-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
+
 
 @Component({
   selector: 'app-crud-cliente.component',
@@ -25,16 +28,19 @@ import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-
 
 export class ClienteComponent implements OnInit {
 	cliente = new Cliente();
+	clienteTipoPessoaOptions: TipoPessoa[];
 	
 	constructor(
 	    private clienteService: ClienteService,
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
+		this.initializeClienteTipoPessoaOptions();
 	}
 	
 	ngOnInit() {
+		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getClienteById(id);
@@ -45,6 +51,7 @@ export class ClienteComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
+	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
 	
@@ -78,10 +85,10 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -89,10 +96,10 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.update(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -100,7 +107,7 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.retrieve(id)
 	    .then((cliente) => this.cliente = cliente)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -108,17 +115,19 @@ export class ClienteComponent implements OnInit {
 	    return Boolean(this.cliente.id);
 	}
 	
-	
-	
-	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
+	initializeEnumFieldsWithDefault() {
+		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
 	}
 	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
+	
+	
+	private initializeClienteTipoPessoaOptions() {
+	    this.clienteTipoPessoaOptions = [
+	    	{ label: this.getTranslation('financeiro.contas_receber.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
 	}
+	  
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

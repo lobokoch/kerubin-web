@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,6 +24,7 @@ import { BancoAutoComplete } from './../banco/banco.model';
 import { BandeiraCartaoService } from './../bandeiracartao/bandeiracartao.service';
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    
 	    private bandeiraCartaoService: BandeiraCartaoService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 	}
 	
@@ -99,10 +100,10 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -110,10 +111,10 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.update(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -121,7 +122,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.retrieve(id)
 	    .then((cartaoCredito) => this.cartaoCredito = cartaoCredito)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -144,7 +145,7 @@ export class CartaoCreditoComponent implements OnInit {
 	        this.cartaoCreditoBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -170,7 +171,7 @@ export class CartaoCreditoComponent implements OnInit {
 	        this.cartaoCreditoBandeiraCartaoAutoCompleteSuggestions = result as BandeiraCartaoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -182,14 +183,6 @@ export class CartaoCreditoComponent implements OnInit {
 		}
 	}
 	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

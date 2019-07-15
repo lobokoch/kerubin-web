@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,6 +21,7 @@ import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { TipoPlanoContaFinanceiro } from './../enums/financeiro-contaspagar-enums.model';
 
 import { TipoReceitaDespesa } from './../enums/financeiro-contaspagar-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class PlanoContaComponent implements OnInit {
 	    private planoContaService: PlanoContaService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializePlanoContaTipoFinanceiroOptions();
 		
@@ -94,10 +95,10 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -105,10 +106,10 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.update(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -116,7 +117,7 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.retrieve(id)
 	    .then((planoConta) => this.planoConta = planoConta)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -142,13 +143,13 @@ export class PlanoContaComponent implements OnInit {
 	        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
 		if (planoContaPai) {
-			return (planoContaPai.codigo || '<nulo>') + ' - ' + (planoContaPai.descricao || '<nulo>');
+			return (planoContaPai.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -168,14 +169,6 @@ export class PlanoContaComponent implements OnInit {
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

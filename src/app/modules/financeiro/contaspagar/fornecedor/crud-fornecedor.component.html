@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:59.322
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:19.067
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,15 +23,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="fornecedor.id" name="id" readonly class="read-only">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
+		<div class="ui-g-12 ui-fluid">
+			<label for="tipoPessoa">{{ getTranslation('financeiro.contas_pagar.fornecedor_tipoPessoa') }}</label>
+			<p-dropdown [options]="fornecedorTipoPessoaOptions" placeholder="Selecione um item..." appFocus #tipoPessoa="ngModel" ngModel [(ngModel)]="fornecedor.tipoPessoa" name="tipoPessoa"></p-dropdown>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
 			<label for="nome">{{ getTranslation('financeiro.contas_pagar.fornecedor_nome') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText appFocus #nome="ngModel" ngModel [(ngModel)]="fornecedor.nome" name="nome" required>
+			<input type="text" pInputText #nome="ngModel" ngModel [(ngModel)]="fornecedor.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="cpfCNPJ">{{ getTranslation('financeiro.contas_pagar.fornecedor_cpfCNPJ') }}</label>
-			<input type="text" pInputText #cpfCNPJ="ngModel" ngModel [(ngModel)]="fornecedor.cpfCNPJ" name="cpfCNPJ">
+		<div class="ui-g-12 ui-fluid">
+			<label for="cnpjCPF">{{ getTranslation('financeiro.contas_pagar.fornecedor_cnpjCPF') }}</label>
+			<input type="text" pInputText #cnpjCPF="ngModel" ngModel [(ngModel)]="fornecedor.cnpjCPF" name="cnpjCPF">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">

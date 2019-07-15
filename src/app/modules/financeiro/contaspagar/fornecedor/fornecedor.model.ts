@@ -1,11 +1,12 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
+import { TipoPessoa } from './../enums/financeiro-contaspagar-enums.model';
 
 export class SortField {
   field: string;
@@ -39,8 +40,9 @@ export class FornecedorListFilter extends PaginationFilter {
 
 export class Fornecedor {
 	id: string;
+	tipoPessoa: TipoPessoa;
 	nome: string;
-	cpfCNPJ: string;
+	cnpjCPF: string;
 	deleted: boolean = false;
 }
 

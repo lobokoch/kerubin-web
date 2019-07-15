@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -16,6 +16,9 @@ import { Fornecedor } from './fornecedor.model';
 import { FornecedorService } from './fornecedor.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
 
+import { TipoPessoa } from './../enums/financeiro-contaspagar-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
+
 
 @Component({
   selector: 'app-crud-fornecedor.component',
@@ -25,16 +28,19 @@ import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-co
 
 export class FornecedorComponent implements OnInit {
 	fornecedor = new Fornecedor();
+	fornecedorTipoPessoaOptions: TipoPessoa[];
 	
 	constructor(
 	    private fornecedorService: FornecedorService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
+		this.initializeFornecedorTipoPessoaOptions();
 	}
 	
 	ngOnInit() {
+		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getFornecedorById(id);
@@ -45,6 +51,7 @@ export class FornecedorComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.fornecedor = new Fornecedor();
+	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
 	
@@ -78,10 +85,10 @@ export class FornecedorComponent implements OnInit {
 	    this.fornecedorService.create(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -89,10 +96,10 @@ export class FornecedorComponent implements OnInit {
 	    this.fornecedorService.update(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -100,7 +107,7 @@ export class FornecedorComponent implements OnInit {
 	    this.fornecedorService.retrieve(id)
 	    .then((fornecedor) => this.fornecedor = fornecedor)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -108,17 +115,19 @@ export class FornecedorComponent implements OnInit {
 	    return Boolean(this.fornecedor.id);
 	}
 	
-	
-	
-	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
+	initializeEnumFieldsWithDefault() {
+		this.fornecedor.tipoPessoa = this.fornecedorTipoPessoaOptions[0].value;
 	}
 	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
+	
+	
+	private initializeFornecedorTipoPessoaOptions() {
+	    this.fornecedorTipoPessoaOptions = [
+	    	{ label: this.getTranslation('financeiro.contas_pagar.fornecedor_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.fornecedor_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
 	}
+	  
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

@@ -261,10 +261,11 @@ export class PlanoContaTreeComponent implements OnInit {
   }
 
   deletePlanoConta() {
-    if (this.selectedNode.children.length > 0) {
+    /*if (this.selectedNode.children.length > 0) {
       this.messageHandlerService.showError('Esse item de plano de contas possui filhos, primeiro devem ser excluídos os filhos.');
       return;
-    }
+    }*/
+
     if (!this.planoConta) {
       this.messageHandlerService.showError('Selecione um item de plano de contas.');
       return;

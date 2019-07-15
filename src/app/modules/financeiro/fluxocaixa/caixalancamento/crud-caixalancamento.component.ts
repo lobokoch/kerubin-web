@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:22:37.371
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-15T08:06:11.793
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -46,6 +46,7 @@ import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -103,7 +104,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    
 	    private fornecedorService: FornecedorService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeCaixaLancamentoTipoLancamentoFinanceiroOptions();
 		
@@ -162,10 +163,10 @@ export class CaixaLancamentoComponent implements OnInit {
 	    this.caixaLancamentoService.create(this.caixaLancamento)
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -173,10 +174,10 @@ export class CaixaLancamentoComponent implements OnInit {
 	    this.caixaLancamentoService.update(this.caixaLancamento)
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -184,7 +185,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    this.caixaLancamentoService.retrieve(id)
 	    .then((caixaLancamento) => this.caixaLancamento = caixaLancamento)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -212,7 +213,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoCaixaDiarioAutoCompleteSuggestions = result as CaixaDiarioAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -238,7 +239,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoContaBancariaAutoCompleteSuggestions = result as ContaBancariaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -264,7 +265,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoCartaoCreditoAutoCompleteSuggestions = result as CartaoCreditoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -294,13 +295,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoPlanoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
+			return (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -320,7 +321,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoClienteAutoCompleteSuggestions = result as ClienteAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -346,7 +347,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	        this.caixaLancamentoFornecedorAutoCompleteSuggestions = result as FornecedorAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -385,14 +386,6 @@ export class CaixaLancamentoComponent implements OnInit {
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

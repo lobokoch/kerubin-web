@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:58.939
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-14T22:12:18.621
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { BandeiraCartao } from './bandeiracartao.model';
 import { BandeiraCartaoService } from './bandeiracartao.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    private bandeiraCartaoService: BandeiraCartaoService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 	}
 	
@@ -78,10 +79,10 @@ export class BandeiraCartaoComponent implements OnInit {
 	    this.bandeiraCartaoService.create(this.bandeiraCartao)
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -89,10 +90,10 @@ export class BandeiraCartaoComponent implements OnInit {
 	    this.bandeiraCartaoService.update(this.bandeiraCartao)
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -100,7 +101,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    this.bandeiraCartaoService.retrieve(id)
 	    .then((bandeiraCartao) => this.bandeiraCartao = bandeiraCartao)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -111,14 +112,6 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	
 	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

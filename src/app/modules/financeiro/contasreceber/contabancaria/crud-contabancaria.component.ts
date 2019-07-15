@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:22:13.033
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-15T07:31:32.718
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,6 +22,7 @@ import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
 import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancaria.model';
 
 import { TipoContaBancaria } from './../enums/financeiro-contasreceber-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -43,7 +44,7 @@ export class ContaBancariaComponent implements OnInit {
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
 	    private agenciaBancariaService: AgenciaBancariaService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeContaBancariaTipoContaBancariaOptions();
 	}
@@ -95,10 +96,10 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -106,10 +107,10 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.update(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -117,7 +118,7 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.retrieve(id)
 	    .then((contaBancaria) => this.contaBancaria = contaBancaria)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -143,7 +144,7 @@ export class ContaBancariaComponent implements OnInit {
 	        this.contaBancariaAgenciaAutoCompleteSuggestions = result as AgenciaBancariaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
@@ -164,14 +165,6 @@ export class ContaBancariaComponent implements OnInit {
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
