@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -136,6 +136,14 @@ export class ContaBancariaComponent implements OnInit {
 		this.contaBancaria.agencia = null;
 	}
 	
+	contaBancariaAgenciaAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaBancaria.agencia) === '') {
+			this.contaBancaria.agencia = null;
+		}
+	}
+	
 	contaBancariaAgenciaAutoComplete(event) {
 	    const query = event.query;
 	    this.contaBancariaService
@@ -149,11 +157,35 @@ export class ContaBancariaComponent implements OnInit {
 	}
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
+		let text = '';
 		if (agencia) {
-			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
-		} else {
-			return null;
+			if (agencia.numeroAgencia) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.numeroAgencia; 
+			}
+			
+			if (agencia.digitoAgencia) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.digitoAgencia; 
+			}
+			
+			if (agencia.endereco) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.endereco; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializeContaBancariaTipoContaBancariaOptions() {

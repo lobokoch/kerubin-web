@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.906
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.140
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,43 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Descrição do(s) lançamento(s)</label>
+							<p-autoComplete name="caixaLancamentoDescricaoAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="caixaLancamentoListFilter.descricao" [multiple]="true"
+							[suggestions]="caixaLancamentoDescricaoAutoCompleteSuggestions"
+							(completeMethod)="caixaLancamentoDescricaoAutoComplete($event)"
+							field="descricao"></p-autoComplete>
+						</div>
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label style="display: block">Intervalo de tempo</label>
+						        <p-dropdown #caixaLancamentoDataLancamentoIsBetweenOptions 
+							        [options]="dateFilterIntervalDropdownItems" 
+							        [(ngModel)]="caixaLancamentoDataLancamentoIsBetweenOptionsSelected"
+							        optionLabel="label" (click)="caixaLancamentoDataLancamentoIsBetweenOptionsOnClick(caixaLancamentoDataLancamentoIsBetweenOptions)">
+						        </p-dropdown>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						      	<label class="label-r">Lançamentos de</label>
+						        <p-calendar name="dataLancamentoFrom"
+						        dateFormat="dd/mm/yy" [(ngModel)]="caixaLancamentoListFilter.dataLancamentoFrom"></p-calendar>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label class="label-l label-r">Até</label>
+						        <p-calendar name="dataLancamentoTo" dateFormat="dd/mm/yy"
+						        [(ngModel)]="caixaLancamentoListFilter.dataLancamentoTo"></p-calendar>
+						    </div>
+						    
+						</div>
+						
 					</div>
 					
 					<div>

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-flu
 import { Cliente } from './cliente.model';
 import { ClienteListFilter } from './cliente.model';
 import { SortField } from './cliente.model';
+import { ClienteNomeAutoComplete } from './cliente.model';
 
 @Component({
   selector: 'app-list-cliente.component',
@@ -31,6 +32,8 @@ export class ClienteListComponent implements OnInit {
 	clienteListTotalElements = 0;
 	clienteListFilter = new ClienteListFilter();
 	
+	clienteNomeAutoCompleteSuggestions: ClienteNomeAutoComplete[];
+	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
 	constructor(
@@ -84,6 +87,17 @@ export class ClienteListComponent implements OnInit {
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.clienteList(pageNumber);
+	}
+	
+	clienteNomeAutoComplete(event) {
+	    const query = event.query;
+	    this.clienteService.clienteNomeAutoComplete(query)
+	    .then((result) => {
+	      this.clienteNomeAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
 	}
 	
 	

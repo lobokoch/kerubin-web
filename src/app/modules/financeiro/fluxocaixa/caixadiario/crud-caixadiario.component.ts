@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -136,6 +136,14 @@ export class CaixaDiarioComponent implements OnInit {
 		this.caixaDiario.caixa = null;
 	}
 	
+	caixaDiarioCaixaAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaDiario.caixa) === '') {
+			this.caixaDiario.caixa = null;
+		}
+	}
+	
 	caixaDiarioCaixaAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaDiarioService
@@ -149,11 +157,21 @@ export class CaixaDiarioComponent implements OnInit {
 	}
 	
 	caixaDiarioCaixaAutoCompleteFieldConverter(caixa: CaixaAutoComplete) {
+		let text = '';
 		if (caixa) {
-			return (caixa.nome || '<nulo>');
-		} else {
-			return null;
+			if (caixa.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += caixa.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializeCaixaDiarioCaixaDiarioSituacaoOptions() {

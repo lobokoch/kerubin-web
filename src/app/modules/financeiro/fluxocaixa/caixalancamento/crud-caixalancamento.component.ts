@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -205,6 +205,14 @@ export class CaixaLancamentoComponent implements OnInit {
 		this.caixaLancamento.caixaDiario = null;
 	}
 	
+	caixaLancamentoCaixaDiarioAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.caixaDiario) === '') {
+			this.caixaLancamento.caixaDiario = null;
+		}
+	}
+	
 	caixaLancamentoCaixaDiarioAutoComplete(event) {
 	    const query = event.query;
 	    this.caixaLancamentoService
@@ -218,17 +226,42 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
+		let text = '';
 		if (caixaDiario) {
-			return (caixaDiario.caixa.nome || '<nulo>') + ' - ' + (moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m') || '<nulo>');
-		} else {
-			return null;
+			if (caixaDiario.caixa.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += caixaDiario.caixa.nome; 
+			}
+			
+			if (caixaDiario.dataHoraAbertura) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m'); 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	caixaLancamentoContaBancariaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.contaBancaria = null;
+	}
+	
+	caixaLancamentoContaBancariaAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.contaBancaria) === '') {
+			this.caixaLancamento.contaBancaria = null;
+		}
 	}
 	
 	caixaLancamentoContaBancariaAutoComplete(event) {
@@ -244,17 +277,42 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
+		let text = '';
 		if (contaBancaria) {
-			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
-		} else {
-			return null;
+			if (contaBancaria.nomeTitular) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += contaBancaria.nomeTitular; 
+			}
+			
+			if (contaBancaria.numeroConta) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += contaBancaria.numeroConta; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	caixaLancamentoCartaoCreditoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.cartaoCredito = null;
+	}
+	
+	caixaLancamentoCartaoCreditoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.cartaoCredito) === '') {
+			this.caixaLancamento.cartaoCredito = null;
+		}
 	}
 	
 	caixaLancamentoCartaoCreditoAutoComplete(event) {
@@ -270,17 +328,42 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
+		let text = '';
 		if (cartaoCredito) {
-			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
-		} else {
-			return null;
+			if (cartaoCredito.nomeTitular) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cartaoCredito.nomeTitular; 
+			}
+			
+			if (cartaoCredito.numeroCartao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cartaoCredito.numeroCartao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	caixaLancamentoPlanoContasAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.planoContas = null;
+	}
+	
+	caixaLancamentoPlanoContasAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.planoContas) === '') {
+			this.caixaLancamento.planoContas = null;
+		}
 	}
 	
 	caixaLancamentoPlanoContasAutoComplete(event) {
@@ -300,17 +383,35 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
+		let text = '';
 		if (planoContas) {
-			return (planoContas.descricao || '<nulo>');
-		} else {
-			return null;
+			if (planoContas.descricao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContas.descricao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	caixaLancamentoClienteAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.cliente = null;
+	}
+	
+	caixaLancamentoClienteAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.cliente) === '') {
+			this.caixaLancamento.cliente = null;
+		}
 	}
 	
 	caixaLancamentoClienteAutoComplete(event) {
@@ -326,17 +427,35 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
+		let text = '';
 		if (cliente) {
-			return (cliente.nome || '<nulo>') + ' - ' + (cliente.cpfCNPJ || '<nulo>');
-		} else {
-			return null;
+			if (cliente.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cliente.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	caixaLancamentoFornecedorAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.caixaLancamento.fornecedor = null;
+	}
+	
+	caixaLancamentoFornecedorAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.fornecedor) === '') {
+			this.caixaLancamento.fornecedor = null;
+		}
 	}
 	
 	caixaLancamentoFornecedorAutoComplete(event) {
@@ -352,11 +471,21 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
+		let text = '';
 		if (fornecedor) {
-			return (fornecedor.nome || '<nulo>') + ' - ' + (fornecedor.cpfCNPJ || '<nulo>');
-		} else {
-			return null;
+			if (fornecedor.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += fornecedor.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {

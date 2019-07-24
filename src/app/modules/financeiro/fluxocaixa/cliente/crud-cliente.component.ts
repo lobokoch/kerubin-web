@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -15,6 +15,8 @@ import {MessageService} from 'primeng/api';
 import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
+
+import { TipoPessoa } from './../enums/financeiro-fluxocaixa-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
@@ -26,6 +28,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 export class ClienteComponent implements OnInit {
 	cliente = new Cliente();
+	clienteTipoPessoaOptions: TipoPessoa[];
 	
 	constructor(
 	    private clienteService: ClienteService,
@@ -33,9 +36,11 @@ export class ClienteComponent implements OnInit {
 	    private route: ActivatedRoute,
 	    private messageHandler: MessageHandlerService
 	) { 
+		this.initializeClienteTipoPessoaOptions();
 	}
 	
 	ngOnInit() {
+		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getClienteById(id);
@@ -46,6 +51,7 @@ export class ClienteComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
+	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
 	
@@ -109,9 +115,19 @@ export class ClienteComponent implements OnInit {
 	    return Boolean(this.cliente.id);
 	}
 	
+	initializeEnumFieldsWithDefault() {
+		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
+	}
 	
 	
 	
+	private initializeClienteTipoPessoaOptions() {
+	    this.clienteTipoPessoaOptions = [
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
+	}
+	  
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

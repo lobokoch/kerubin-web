@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-flu
 import { CaixaLancamento } from './caixalancamento.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { SortField } from './caixalancamento.model';
+import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
 
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 
@@ -44,6 +45,11 @@ export class CaixaLancamentoListComponent implements OnInit {
 	caixaLancamentoListTotalElements = 0;
 	caixaLancamentoListFilter = new CaixaLancamentoListFilter();
 	
+	caixaLancamentoDescricaoAutoCompleteSuggestions: CaixaLancamentoDescricaoAutoComplete[];
+	
+	caixaLancamentoDataLancamentoIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
+	
+	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	caixaLancamentoSumFields = new CaixaLancamentoSumFields();
 	
@@ -55,6 +61,10 @@ export class CaixaLancamentoListComponent implements OnInit {
 	) { }
 	
 	ngOnInit() {
+		this.caixaLancamentoDataLancamentoIsBetweenOptionsOnClick(null);
+		this.initializeDateFilterIntervalDropdownItems();
+		
+		
 	}
 	
 	caixaLancamentoList(pageNumber = 0) {
@@ -110,6 +120,17 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    this.caixaLancamentoList(pageNumber);
 	}
 	
+	caixaLancamentoDescricaoAutoComplete(event) {
+	    const query = event.query;
+	    this.caixaLancamentoService.caixaLancamentoDescricaoAutoComplete(query)
+	    .then((result) => {
+	      this.caixaLancamentoDescricaoAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
 	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
 		if (caixaDiario) {
@@ -145,7 +166,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
-			return (cliente.nome || '<nulo>') + ' - ' + (cliente.cpfCNPJ || '<nulo>');
+			return (cliente.nome || '<nulo>');
 		} else {
 			return null;
 		}
@@ -153,13 +174,124 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
-			return (fornecedor.nome || '<nulo>') + ' - ' + (fornecedor.cpfCNPJ || '<nulo>');
+			return (fornecedor.nome || '<nulo>');
 		} else {
 			return null;
 		}
 	}
 	
 	
+	private initializeDateFilterIntervalDropdownItems() {
+		this.dateFilterIntervalDropdownItems = [
+		    {label: 'Minha competência', value: '12'},
+		    {label: 'Hoje', value: '0'},
+		    {label: 'Amanhã', value: '1'},
+		    {label: 'Esta semana', value: '2'},
+		    {label: 'Semana que vem', value: '3'},
+		    {label: 'Este mês', value: '4'},
+		    {label: 'Mês que vem', value: '5'},
+		    {label: 'Este ano', value: '6'},
+		    {label: 'Ano que vem', value: '7'},
+		    // Passado
+		    {label: 'Ontem', value: '8'},
+		    {label: 'Semana passada', value: '9'},
+		    {label: 'Mês passado', value: '10'},
+		    {label: 'Ano passado', value: '11'},
+		    {label: 'Personalizado', value: '99'}
+		  ];
+	}
+	
+	
+	caixaLancamentoDataLancamentoIsBetweenOptionsOnClick(dropdown: Dropdown) {
+		this.caixaLancamentoListFilter.dataLancamentoFrom = null;
+		this.caixaLancamentoListFilter.dataLancamentoTo = null;
+		
+		let dateFrom = null;
+		let dateTo = null;
+	
+		const valor = Number(this.caixaLancamentoDataLancamentoIsBetweenOptionsSelected.value);
+		switch (valor) {
+			case 0: // Hoje
+				dateFrom = moment();
+				dateTo = moment();
+				break;
+				//
+			case 1: // Amanhã
+				dateFrom = moment().add(1, 'day');
+				dateTo = moment().add(1, 'day');
+				break;
+				//
+			case 2: // Esta semana
+				dateFrom = moment().startOf('week');
+				dateTo = moment().endOf('week');
+				break;
+				//
+			case 3: // Semana que vem
+				dateFrom = moment().add(1, 'week').startOf('week');
+				dateTo = moment().add(1, 'week').endOf('week');
+				break;
+				//
+			case 4: // Este mês
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month');
+				break;
+				//
+			case 5: // Mês que vem
+				dateFrom = moment().add(1, 'month').startOf('month');
+				dateTo = moment().add(1, 'month').endOf('month');
+				break;
+				//
+			case 6: // Este ano
+				dateFrom = moment().startOf('year');
+				dateTo = moment().endOf('year');
+				break;
+				//
+			case 7: // Ano que vem
+				dateFrom = moment().add(1, 'year').startOf('year');
+				dateTo = moment().add(1, 'year').endOf('year');
+				break;
+				// Passado
+			case 8: // Ontem
+				dateFrom = moment().add(-1, 'day');
+				dateTo = moment().add(-1, 'day');
+				break;
+				//
+			case 9: // Semana passada
+				dateFrom = moment().add(-1, 'week').startOf('week');
+				dateTo = moment().add(-1, 'week').endOf('week');
+				break;
+				//
+			case 10: // Mês passado
+				dateFrom = moment().add(-1, 'month').startOf('month');
+				dateTo = moment().add(-1, 'month').endOf('month');
+				break;
+				//
+			case 11: // Ano passado
+				dateFrom = moment().add(-1, 'year').startOf('year');
+				dateTo = moment().add(-1, 'year').endOf('year');
+				break;
+				
+			case 12: // Minha competência
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
+				break;
+			
+			default:
+				break;
+		} // switch
+	
+		if (dateFrom != null) {
+		  this.caixaLancamentoListFilter.dataLancamentoFrom = dateFrom.toDate();
+		}
+		
+		if (dateTo != null) {
+		  this.caixaLancamentoListFilter.dataLancamentoTo = dateTo.toDate();
+		}
+		
+		if (dateFrom != null && dateTo != null) {
+		  // this.caixaLancamentoList(0);
+		}
+	}
 	
 	
 	// TODO: temporário, só para testes.

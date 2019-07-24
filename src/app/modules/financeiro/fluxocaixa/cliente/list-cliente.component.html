@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.906
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.140
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Nome do cliente</label>
+							<p-autoComplete name="clienteNomeAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="clienteListFilter.nome" [multiple]="true"
+							[suggestions]="clienteNomeAutoCompleteSuggestions"
+							(completeMethod)="clienteNomeAutoComplete($event)"
+							field="nome"></p-autoComplete>
+						</div>
 					</div>
 					
 					<div>
@@ -44,8 +54,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [lazy]="true" (onLazyLoad)="clienteListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
 		            <tr>
+		            	<th [pSortableColumn]="'tipoPessoa'">{{ getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa_grid') }}<p-sortIcon [field]="'tipoPessoa'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.fluxo_caixa.cliente_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'cpfCNPJ'">{{ getTranslation('financeiro.fluxo_caixa.cliente_cpfCNPJ_grid') }}<p-sortIcon [field]="'cpfCNPJ'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'cnpjCPF'">{{ getTranslation('financeiro.fluxo_caixa.cliente_cnpjCPF_grid') }}<p-sortIcon [field]="'cnpjCPF'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -53,10 +64,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-cliente>
 		            <tr [pSelectableRow]="cliente">
 		            	<td>
+		            		{{ getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa' + '_' + cliente?.tipoPessoa?.toLowerCase()) }}
+		            	</td>
+		            	<td>
 		            		{{cliente?.nome}}
 		            	</td>
 		            	<td>
-		            		{{cliente?.cpfCNPJ}}
+		            		{{cliente?.cnpjCPF}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/cliente', cliente.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -69,7 +83,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="3">
+				        <td [attr.colspan]="4">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

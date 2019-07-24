@@ -1,11 +1,12 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
+import { TipoPessoa } from './../enums/financeiro-fluxocaixa-enums.model';
 
 export class SortField {
   field: string;
@@ -28,21 +29,26 @@ export class PaginationFilter {
   }
 }
 
+export class ClienteNomeAutoComplete {
+	nome: string;
+}
+
 export class ClienteListFilter extends PaginationFilter {
 	
+	nome: ClienteNomeAutoComplete[];
 }
 
 export class Cliente {
 	id: string;
+	tipoPessoa: TipoPessoa;
 	nome: string;
-	cpfCNPJ: string;
+	cnpjCPF: string;
 	deleted: boolean = false;
 }
 
 export class ClienteAutoComplete {
 	id: string;
 	nome: string;
-	cpfCNPJ: string;
 }
 
 export class ClienteSumFields {

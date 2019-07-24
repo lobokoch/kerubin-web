@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -37,8 +37,16 @@ export class PaginationFilter {
   }
 }
 
+export class CaixaLancamentoDescricaoAutoComplete {
+	descricao: string;
+}
+
 export class CaixaLancamentoListFilter extends PaginationFilter {
 	
+	descricao: CaixaLancamentoDescricaoAutoComplete[];
+	
+	dataLancamentoFrom: Date;
+	dataLancamentoTo: Date;
 }
 
 export class CaixaLancamento {

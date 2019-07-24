@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-flu
 import { Fornecedor } from './fornecedor.model';
 import { FornecedorListFilter } from './fornecedor.model';
 import { SortField } from './fornecedor.model';
+import { FornecedorNomeAutoComplete } from './fornecedor.model';
 
 @Component({
   selector: 'app-list-fornecedor.component',
@@ -31,6 +32,8 @@ export class FornecedorListComponent implements OnInit {
 	fornecedorListTotalElements = 0;
 	fornecedorListFilter = new FornecedorListFilter();
 	
+	fornecedorNomeAutoCompleteSuggestions: FornecedorNomeAutoComplete[];
+	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
 	constructor(
@@ -84,6 +87,17 @@ export class FornecedorListComponent implements OnInit {
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.fornecedorList(pageNumber);
+	}
+	
+	fornecedorNomeAutoComplete(event) {
+	    const query = event.query;
+	    this.fornecedorService.fornecedorNomeAutoComplete(query)
+	    .then((result) => {
+	      this.fornecedorNomeAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
 	}
 	
 	

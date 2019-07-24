@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -137,6 +137,14 @@ export class CartaoCreditoComponent implements OnInit {
 		this.cartaoCredito.banco = null;
 	}
 	
+	cartaoCreditoBancoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.cartaoCredito.banco) === '') {
+			this.cartaoCredito.banco = null;
+		}
+	}
+	
 	cartaoCreditoBancoAutoComplete(event) {
 	    const query = event.query;
 	    this.cartaoCreditoService
@@ -150,17 +158,42 @@ export class CartaoCreditoComponent implements OnInit {
 	}
 	
 	cartaoCreditoBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
+		let text = '';
 		if (banco) {
-			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
-		} else {
-			return null;
+			if (banco.numero) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.numero; 
+			}
+			
+			if (banco.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.cartaoCredito.bandeiraCartao = null;
+	}
+	
+	cartaoCreditoBandeiraCartaoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.cartaoCredito.bandeiraCartao) === '') {
+			this.cartaoCredito.bandeiraCartao = null;
+		}
 	}
 	
 	cartaoCreditoBandeiraCartaoAutoComplete(event) {
@@ -176,11 +209,21 @@ export class CartaoCreditoComponent implements OnInit {
 	}
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
+		let text = '';
 		if (bandeiraCartao) {
-			return (bandeiraCartao.nomeBandeira || '<nulo>');
-		} else {
-			return null;
+			if (bandeiraCartao.nomeBandeira) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += bandeiraCartao.nomeBandeira; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	

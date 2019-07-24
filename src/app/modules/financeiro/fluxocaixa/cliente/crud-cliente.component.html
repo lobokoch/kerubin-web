@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.906
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.140
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,14 +24,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
+			<label for="tipoPessoa">{{ getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa') }}</label>
+			<p-dropdown [options]="clienteTipoPessoaOptions" placeholder="Selecione um item..." appFocus #tipoPessoa="ngModel" ngModel [(ngModel)]="cliente.tipoPessoa" name="tipoPessoa"></p-dropdown>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
 			<label for="nome">{{ getTranslation('financeiro.fluxo_caixa.cliente_nome') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText appFocus #nome="ngModel" ngModel [(ngModel)]="cliente.nome" name="nome" required>
+			<input type="text" pInputText #nome="ngModel" ngModel [(ngModel)]="cliente.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="cpfCNPJ">{{ getTranslation('financeiro.fluxo_caixa.cliente_cpfCNPJ') }}</label>
-			<input type="text" pInputText #cpfCNPJ="ngModel" ngModel [(ngModel)]="cliente.cpfCNPJ" name="cpfCNPJ">
+			<label for="cnpjCPF">{{ getTranslation('financeiro.fluxo_caixa.cliente_cnpjCPF') }}</label>
+			<input type="text" pInputText #cnpjCPF="ngModel" ngModel [(ngModel)]="cliente.cnpjCPF" name="cnpjCPF">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">

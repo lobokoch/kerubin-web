@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,7 @@ import { PlanoConta } from './../planoconta/planoconta.model';
 import { Cliente } from './../cliente/cliente.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
+import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
 import { environment } from 'src/environments/environment';
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
@@ -252,6 +253,21 @@ export class CaixaLancamentoService {
 	
 				
 	
+	caixaLancamentoDescricaoAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/caixaLancamentoDescricaoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CaixaLancamentoDescricaoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	caixaLancamentoList(caixaLancamentoListFilter: CaixaLancamentoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
@@ -299,6 +315,23 @@ export class CaixaLancamentoService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// descricao
+		if (filter.descricao) {
+			const descricao = filter.descricao.map(item => item.descricao).join(',');
+			params = params.set('descricao', descricao);
+		}
+		
+		// dataLancamentoFrom
+		if (filter.dataLancamentoFrom) {
+		const value = this.dateToStr(filter.dataLancamentoFrom);
+			params = params.set('dataLancamentoFrom', value);
+		}
+		
+		// dataLancamentoTo
+		if (filter.dataLancamentoTo) {
+		const value = this.dateToStr(filter.dataLancamentoTo);
+			params = params.set('dataLancamentoTo', value);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {

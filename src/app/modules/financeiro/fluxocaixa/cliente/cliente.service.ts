@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T08:06:11.793
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-24T07:02:34.124
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -17,6 +17,7 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { Cliente } from './cliente.model';
 import { ClienteAutoComplete } from './cliente.model';
 import { ClienteListFilter } from './cliente.model';
+import { ClienteNomeAutoComplete } from './cliente.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -92,6 +93,21 @@ export class ClienteService {
 	
 				
 	
+	clienteNomeAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/clienteNomeAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ClienteNomeAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	clienteList(clienteListFilter: ClienteListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
@@ -125,6 +141,11 @@ export class ClienteService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// nome
+		if (filter.nome) {
+			const nome = filter.nome.map(item => item.nome).join(',');
+			params = params.set('nome', nome);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {

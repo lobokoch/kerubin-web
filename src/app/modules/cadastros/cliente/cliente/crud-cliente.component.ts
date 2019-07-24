@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:48:09.982
+Code generated with MKL Plug-in version: 7.0.0
+Code generated at time stamp: 2019-07-22T05:49:59.640
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { CadastrosClienteTranslationService } from './../i18n/cadastros-cliente-
 import * as moment from 'moment';
 
 import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -31,15 +32,15 @@ export class ClienteComponent implements OnInit {
 	calendarLocale: any;
 	
 	cliente = new Cliente();
-	clienteTipoClienteOptions: TipoPessoa[];
+	clienteTipoPessoaOptions: TipoPessoa[];
 	
 	constructor(
 	    private clienteService: ClienteService,
 	    private cadastrosClienteTranslationService: CadastrosClienteTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
-		this.initializeClienteTipoClienteOptions();
+		this.initializeClienteTipoPessoaOptions();
 	}
 	
 	ngOnInit() {
@@ -89,10 +90,10 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -100,10 +101,10 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.update(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -111,7 +112,7 @@ export class ClienteComponent implements OnInit {
 	    this.clienteService.retrieve(id)
 	    .then((cliente) => this.cliente = cliente)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -120,26 +121,18 @@ export class ClienteComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.cliente.tipoCliente = this.clienteTipoClienteOptions[0].value;
+		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
 	}
 	
 	
 	
-	private initializeClienteTipoClienteOptions() {
-	    this.clienteTipoClienteOptions = [
-	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoCliente_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
-	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoCliente_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	private initializeClienteTipoPessoaOptions() {
+	    this.clienteTipoPessoaOptions = [
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
