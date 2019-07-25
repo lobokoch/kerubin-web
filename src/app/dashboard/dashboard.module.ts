@@ -1,3 +1,4 @@
+import { DashboardFluxoCaixaModule } from './dashboard-fluxocaixa/dashboard-fluxocaixa.module';
 import { PanelModule } from 'primeng/panel';
 import { DashboardContaPagarModule } from './dashboard-contapagar/dashboard-contapagar.module';
 import { DashboardContaReceberModule } from './dashboard-contareceber/dashboard-contareceber.module';
@@ -18,7 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PanelModule,
     DashboardRoutingModule,
     DashboardContaPagarModule,
-	DashboardContaReceberModule
+	  DashboardContaReceberModule,
+	  DashboardFluxoCaixaModule
   ],
 
   providers: [

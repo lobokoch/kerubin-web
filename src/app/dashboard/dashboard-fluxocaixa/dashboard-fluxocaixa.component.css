@@ -1,0 +1,25 @@
+hr.kb-card-hr {
+  border: 0px;
+  border-top: 1px solid rgb(200, 200, 200);
+}
+
+h3.kb-card-h3 {
+  border: 0px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  padding: 0px;
+  height: auto !important;
+
+}
+
+span.kb-card-title {
+  background-color:  rgb(244, 244, 244);
+  border-left: 1px solid rgb(200, 200, 200);
+  border-top: 1px solid rgb(200, 200, 200);
+  border-right: 1px solid rgb(200, 200, 200);
+  padding: 5px;
+  margin-bottom: 0px;
+  display: inline-block;
+}
+
+
+

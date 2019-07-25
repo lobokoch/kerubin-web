@@ -34,10 +34,10 @@ export class KerubinMenuComponent implements OnInit {
         items: [
 
           {
-            label: 'Contas',
+            label: 'Financeiro',
             icon: 'pi pi-fw ',
             items: [
-              { label: 'Situação das contas', icon: 'pi pi-fw', routerLink: '/dashboard' },
+              { label: 'Situação do financeiro', icon: 'pi pi-fw', routerLink: '/dashboard' },
             ]
           }
 
@@ -73,7 +73,7 @@ export class KerubinMenuComponent implements OnInit {
             items: [
               { label: 'Cliente', icon: 'pi pi-fw', routerLink: '/cliente' }
             ]
-          }		
+          }
         ]
       },
 
@@ -121,7 +121,7 @@ export class KerubinMenuComponent implements OnInit {
       	label: 'Segurança',
       	icon: 'pi pi-pw',
       	items: [
-      		
+
       		{
       			label: 'Autorização',
       			icon: 'pi pi-fw ',
@@ -129,7 +129,7 @@ export class KerubinMenuComponent implements OnInit {
       				{ label: 'Usuário', icon: 'pi pi-fw', routerLink: '/sysuser' }
       			]
       		}
-      		
+
       	]
       }
 
