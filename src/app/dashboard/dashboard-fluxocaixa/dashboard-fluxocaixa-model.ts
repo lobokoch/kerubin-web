@@ -5,4 +5,5 @@ export class FluxoCaixaMonthItem {
 	creditValue: number;
 	debitValue: number;
 	balanceValue: number;
+	balanceAccumulated: number;
 }

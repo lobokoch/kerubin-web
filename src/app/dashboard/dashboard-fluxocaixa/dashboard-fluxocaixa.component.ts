@@ -109,6 +109,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     const creditos = itemsFluxo.map(it => it.creditValue);
     const debitos = itemsFluxo.map(it => it.debitValue);
     const saldo = itemsFluxo.map(it => it.balanceValue);
+    const acumulado = itemsFluxo.map(it => it.balanceAccumulated);
 
     this.chartData = {
       labels: monthNames,
@@ -136,6 +137,15 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           borderWidth: '1',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
           data: saldo
+        },
+        {
+          type: 'line',
+          label: 'Saldo acumulado',
+          backgroundColor: 'rgba(255, 255, 255, 0)',
+          borderColor: 'rgba(255, 165, 0, 1)',
+          borderWidth: '2',
+          //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+          data: acumulado
         }
       ]
     };
