@@ -199,14 +199,14 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     const months = this.getMonthNames();
     monthIndex = moment().month() - monthIndex;
     const monthName = months[monthIndex];
-    return `Créditos do mês ${monthName.toUpperCase()} por plano de contas`;
+    return `Débitos do mês ${monthName.toUpperCase()} por plano de contas`;
   }
 
   getReceitasMensaisPorPlanoContasTitle(monthIndex: number): string {
     const months = this.getMonthNames();
     monthIndex = moment().month() - monthIndex;
     const monthName = months[monthIndex];
-    return `Débitos do mês ${monthName.toUpperCase()} por plano de contas`;
+    return `Créditos do mês ${monthName.toUpperCase()} por plano de contas`;
   }
 
   fillDespesasMensaisPorPlanoContasMesAtualChartData(item: FluxoCaixaPlanoContasForMonth): any {
@@ -260,13 +260,13 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           label: 'Créditos',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
           data: creditos,
-          backgroundColor: 'rgba(0, 191, 255, 0.4)',
+          backgroundColor: 'rgba(0, 191, 255, 0.4)', /* #00BFFF Azul */
           borderColor: 'rgba(0, 0, 255, 1)',
           borderWidth: '1'
         },
         {
           label: 'Débitos',
-          backgroundColor: 'rgba(255, 0, 0, 0.4)',
+          backgroundColor: 'rgba(255, 0, 0, 0.4)', /* #FF0000 Vermelho*/
           borderColor: 'rgba(255, 0, 0, 1)',
           borderWidth: '1',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
@@ -274,7 +274,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
         },
         {
           label: 'Saldo',
-          backgroundColor: 'rgba(0, 206, 0, 0.4)',
+          backgroundColor: 'rgba(0, 206, 0, 0.4)', /* #00CE00  Verde */
           borderColor: 'rgba(0, 206, 0, 1)',
           borderWidth: '1',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'

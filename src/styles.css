@@ -334,11 +334,11 @@ a, button {
 
 
 /* Begin Fluxo de caixa */
-.kb-fin-credito {
+.kb-fin-credito { /* #0F009E */
     color: rgb(15, 0, 158) !important;
 }
 
-.kb-fin-debito {
+.kb-fin-debito { /* #BB000F */
   color: rgb(187, 0, 15) !important;
 }
 /* End Fluxo de caixa */
