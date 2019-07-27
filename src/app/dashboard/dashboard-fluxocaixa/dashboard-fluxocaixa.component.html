@@ -9,4 +9,32 @@
     </p-panel>
   </div>
 
+  <!-- BEGIN Despesas mensais por plano de contas -->
+  <div class="ui-g-12 ui-md-6">
+    <p-panel [header]="getDespesasMensaisPorPlanoContasTitle(0)">
+      <p-chart type="pie" [options]="resumoPlanoContasOptions" [data]="resumoMensalPorPlanoContasDebitosMesAtualChartData"></p-chart>
+    </p-panel>
+  </div>
+
+  <div class="ui-g-12 ui-md-6">
+    <p-panel [header]="getDespesasMensaisPorPlanoContasTitle(1)">
+      <p-chart type="pie" [options]="resumoPlanoContasOptions" [data]="resumoMensalPorPlanoContasDebitosMesAnteriorChartData"></p-chart>
+    </p-panel>
+  </div>
+  <!-- END Despesas mensais por plano de contas -->
+
+  <!-- BEGIN Receitas mensais por plano de contas -->
+  <div class="ui-g-12 ui-md-6">
+    <p-panel [header]="getReceitasMensaisPorPlanoContasTitle(0)">
+      <p-chart type="pie" [options]="resumoPlanoContasOptions" [data]="resumoMensalPorPlanoContasCreditosMesAtualChartData"></p-chart>
+    </p-panel>
+  </div>
+
+  <div class="ui-g-12 ui-md-6">
+    <p-panel [header]="getReceitasMensaisPorPlanoContasTitle(1)">
+      <p-chart type="pie" [options]="resumoPlanoContasOptions" [data]="resumoMensalPorPlanoContasCreditosMesAnteriorChartData"></p-chart>
+    </p-panel>
+  </div>
+  <!-- END Receitas mensais por plano de contas -->
+
 </div>

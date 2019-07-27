@@ -1,4 +1,4 @@
-import { FluxoCaixaMonthItem } from './dashboard-fluxocaixa-model';
+import { FluxoCaixaMonthItem, FluxoCaixaPlanoContasForMonth } from './dashboard-fluxocaixa-model';
 import { MessageHandlerService } from './../../core/message-handler.service';
 import { DashboardFluxoCaixaService } from './dashboard-fluxocaixa.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -15,6 +15,25 @@ export class DashboardFluxoCaixaComponent implements OnInit {
 
   loadedItemsFluxo: FluxoCaixaMonthItem[];
   chartData: any;
+  resumoMensalPorPlanoContasDebitosMesAtualChartData: any;
+  resumoMensalPorPlanoContasDebitosMesAnteriorChartData: any;
+
+  resumoMensalPorPlanoContasCreditosMesAtualChartData: any;
+  resumoMensalPorPlanoContasCreditosMesAnteriorChartData: any;
+
+  resumoPlanoContasOptions = {
+      legend: {
+        position: 'right'
+      }
+  };
+
+  despesasMensaisPorPlanoContasMesAtualChartDataOptions: any;
+  colors = ['#FF6384', '#36A2EB', '#FFCE56', '#ff9f40', '#00FF7F', '#4bc0c0',
+            '#FF00000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#C0C0C0', '#808080', '#800000', '#808000',
+            '#008000',  '#800080', '#008080', '#000080', 'FF4500', '#FF8C00', '#DAA520', '#7FFF00', '#006400', '#4682B4',
+            '#87CEEB',  '#8B008B', '#DA70D6', '#FF1493', '#EE82EE', '#800080', '#F5F5DC', '#D2691E', '#F4A460', '#FFF8DC',
+            '#FFF0F5', '#B0C4DE', '#778899', '#F0FFFF', '#696969', '#FF1493', '#0000CD', '#6A5ACD', '#00CED1', '#ffcd56'
+          ];
 
   currentMonthName = '';
   nextMonthName = '';
@@ -53,7 +72,16 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     }
 
   ngOnInit() {
+
+    this.despesasMensaisPorPlanoContasMesAtualChartDataOptions = {
+      legend: {
+        position: 'bottom'
+      }
+    };
+
     this.getFluxoCaixaFromYear();
+    this.getResumoMensalPorPlanoContasDebitos();
+    this.getResumoMensalPorPlanoContasCreditos();
   }
 
   private getFluxoCaixaFromYear() {
@@ -62,6 +90,50 @@ export class DashboardFluxoCaixaComponent implements OnInit {
       this.loadedItemsFluxo = response;
       //
       this.fillChartData(this.loadedItemsFluxo);
+    })
+    .catch(error => {
+      this.messageHandler.showError(error);
+    });
+  }
+
+  private getResumoMensalPorPlanoContasDebitos() {
+    this.dashboardService.getResumoMensalPorPlanoContasDebitos()
+    .then(response => {
+      const items = response;
+
+      let monthIndex = -1;
+      if (items) {
+        monthIndex = items.length - 1; // Current month
+      }
+      let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+      this.resumoMensalPorPlanoContasDebitosMesAtualChartData = chartData;
+
+      monthIndex--; // Previous month
+      chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+      this.resumoMensalPorPlanoContasDebitosMesAnteriorChartData = chartData;
+
+    })
+    .catch(error => {
+      this.messageHandler.showError(error);
+    });
+  }
+
+  private getResumoMensalPorPlanoContasCreditos() {
+    this.dashboardService.getResumoMensalPorPlanoContasCreditos()
+    .then(response => {
+      const items = response;
+      //
+      let monthIndex = -1;
+      if (items) {
+        monthIndex = items.length - 1; // Current month
+      }
+
+      let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+      this.resumoMensalPorPlanoContasCreditosMesAtualChartData = chartData;
+
+      monthIndex--; // Previous month
+      chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+      this.resumoMensalPorPlanoContasCreditosMesAnteriorChartData = chartData;
     })
     .catch(error => {
       this.messageHandler.showError(error);
@@ -103,6 +175,79 @@ export class DashboardFluxoCaixaComponent implements OnInit {
 
     return result;
   }
+
+  fillDespesasMensaisPorPlanoContasChartData(items: FluxoCaixaPlanoContasForMonth[], monthIndex: number): any {
+    if (monthIndex < 0) {
+      console.log('monthIndex < 0:' + monthIndex);
+      return null;
+    }
+
+
+    if (!items || !(items.length > monthIndex)) {
+      console.log('!items || !(items.length > monthIndex:' + monthIndex + '), items:' + items);
+      return null;
+    }
+
+    // const currentMonthItem = items[items.length - 1];
+    const monthItem = items[monthIndex];
+    if (!monthItem) {
+      console.log('!monthItem: ' + monthItem);
+      return null;
+    }
+
+    return this.fillDespesasMensaisPorPlanoContasMesAtualChartData(monthItem);
+  }
+
+  getDespesasMensaisPorPlanoContasTitle(monthIndex: number): string {
+    const months = this.getMonthNames();
+    monthIndex = moment().month() - monthIndex;
+    const monthName = months[monthIndex];
+    return `Créditos do mês ${monthName.toUpperCase()} por plano de contas`;
+  }
+
+  getReceitasMensaisPorPlanoContasTitle(monthIndex: number): string {
+    const months = this.getMonthNames();
+    monthIndex = moment().month() - monthIndex;
+    const monthName = months[monthIndex];
+    return `Débitos do mês ${monthName.toUpperCase()} por plano de contas`;
+  }
+
+  fillDespesasMensaisPorPlanoContasMesAtualChartData(item: FluxoCaixaPlanoContasForMonth): any {
+    const monthNames = this.getMonthNames();
+    const monthName = item.monthName;
+    const chartLabels = item.items.map(it => it.planoContaCode + ' - ' + it.planoContaDescription);
+    const chartData = item.items.map(it => it.value);
+    const backgroundColor = this.colors.slice(0, item.items.length);
+    console.log('backgroundColor:' + backgroundColor);
+
+    const pieChart = {
+      labels: chartLabels,
+      datasets: [
+        {
+          //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+          data: chartData,
+          backgroundColor: backgroundColor
+        }
+      ]
+    };
+
+    return pieChart;
+  }
+
+  getColors(size: number): string[] {
+
+    return null;
+  }
+
+
+  getRandomColor(): string {
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 200);
+
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
 
   fillChartData(itemsFluxo: FluxoCaixaMonthItem[]) {
     const monthNames = this.getMonthNames();

@@ -1,4 +1,4 @@
-import { FluxoCaixaMonthItem } from './dashboard-fluxocaixa-model';
+import { FluxoCaixaMonthItem, FluxoCaixaPlanoContasForMonth } from './dashboard-fluxocaixa-model';
 import { HttpClientWithToken } from './../../security/http-client-token';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
@@ -18,6 +18,28 @@ export class DashboardFluxoCaixaService {
     const headers = this.getHeaders();
 
     return this.http.get<FluxoCaixaMonthItem[]>(`${this.url}/getFluxoCaixaFromYear`, { headers })
+      .toPromise()
+      .then(response => {
+        const result = response;
+        return result;
+      });
+  }
+
+  getResumoMensalPorPlanoContasDebitos(): Promise<FluxoCaixaPlanoContasForMonth[]> {
+    const headers = this.getHeaders();
+
+    return this.http.get<FluxoCaixaPlanoContasForMonth[]>(`${this.url}/getResumoMensalPorPlanoContasDebitos`, { headers })
+      .toPromise()
+      .then(response => {
+        const result = response;
+        return result;
+      });
+  }
+
+  getResumoMensalPorPlanoContasCreditos(): Promise<FluxoCaixaPlanoContasForMonth[]> {
+    const headers = this.getHeaders();
+
+    return this.http.get<FluxoCaixaPlanoContasForMonth[]>(`${this.url}/getResumoMensalPorPlanoContasCreditos`, { headers })
       .toPromise()
       .then(response => {
         const result = response;
