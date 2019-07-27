@@ -72,13 +72,10 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.loadCharts();
+  }
 
-    this.despesasMensaisPorPlanoContasMesAtualChartDataOptions = {
-      legend: {
-        position: 'bottom'
-      }
-    };
-
+  loadCharts() {
     this.getFluxoCaixaFromYear();
     this.getResumoMensalPorPlanoContasDebitos();
     this.getResumoMensalPorPlanoContasCreditos();
