@@ -7,6 +7,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 .navbar {
   background-color: #1e94d2;
+  border-bottom: 1px solid #4682B4;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
 }
 
 .kb-logo {
@@ -152,8 +154,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 #navbar ul li {
   display: inline;
   padding-right: 5px;
-
-
 }
 
 .kb-item {
