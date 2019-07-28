@@ -208,7 +208,6 @@ export class ClienteComponent implements OnInit {
 
     this.cepSearchService.searchCEP(cep)
     .then(result => {
-      console.log('CEP result:' + JSON.stringify(result));
       this.clearEndereco();
       if (result.erro) {
         this.messageHandler.showError('CEP não encontrado.');
@@ -217,8 +216,6 @@ export class ClienteComponent implements OnInit {
       this.cliente.cep = result.cep;
       const uf = this.clienteUfOptions.find(it => it.value === result.uf);
 
-      console.log('UF:' + uf.value);
-
       this.cliente.uf = uf ? uf.value : null;
       this.cliente.cidade = result.localidade;
       this.cliente.bairro = result.bairro;
@@ -226,7 +223,6 @@ export class ClienteComponent implements OnInit {
       this.cliente.complemento = result.complemento;
     })
     .catch(e => {
-      console.log(e);
       this.clearEndereco();
       this.messageHandler.showError('Erro ao buscar CEP. Verifique se você informou um CEP válido.');
     });

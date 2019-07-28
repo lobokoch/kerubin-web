@@ -1,12 +1,13 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-22T05:47:14.663
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-28T20:07:34.683
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
 import { TipoPessoa } from './../enums/cadastros-fornecedor-enums.model';
+import { UF } from './../enums/cadastros-fornecedor-enums.model';
 
 export class SortField {
   field: string;
@@ -51,6 +52,7 @@ export class Fornecedor {
 	email: string;
 	site: string;
 	cep: string;
+	uf: UF;
 	cidade: string;
 	bairro: string;
 	endereco: string;

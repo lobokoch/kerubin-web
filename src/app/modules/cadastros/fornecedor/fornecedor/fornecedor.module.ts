@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-22T05:47:14.663
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-28T20:07:34.683
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,6 +34,10 @@ import { FornecedorListComponent } from './list-fornecedor.component';
 import { FornecedorComponent } from './crud-fornecedor.component';
 import { FornecedorRoutingModule } from './fornecedor-routing.module';
 // Kerubin - END
+
+// Begin_Code_Not_Generated
+import { CepSearchService } from './../../../../helper/cepsearch.service';
+// End_Code_Not_Generated
 
 @NgModule({
 
@@ -75,7 +79,12 @@ import { FornecedorRoutingModule } from './fornecedor-routing.module';
 
   providers: [
     FornecedorService,
-    CadastrosFornecedorTranslationService
+    CadastrosFornecedorTranslationService,
+
+    // Begin_Code_Not_Generated
+    CepSearchService
+    // End_Code_Not_Generated
+
   ]
 
 })
