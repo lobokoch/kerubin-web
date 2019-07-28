@@ -1,7 +1,6 @@
-import { CEPSearchDTO } from './../../../../helper/cepsearchdto';
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-22T05:49:59.640
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-28T18:58:30.722
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,12 +18,13 @@ import { CadastrosClienteTranslationService } from './../i18n/cadastros-cliente-
 import * as moment from 'moment';
 
 import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
+
+import { UF } from './../enums/cadastros-cliente-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 // Begin_Code_Not_Generated
 import { CepSearchService } from './../../../../helper/cepsearch.service';
 // End_Code_Not_Generated
-
 
 @Component({
   selector: 'app-crud-cliente.component',
@@ -39,6 +39,9 @@ export class ClienteComponent implements OnInit {
 	cliente = new Cliente();
 	clienteTipoPessoaOptions: TipoPessoa[];
 
+
+	clienteUfOptions: UF[];
+
 	constructor(
 	    private clienteService: ClienteService,
 	    private cadastrosClienteTranslationService: CadastrosClienteTranslationService,
@@ -47,6 +50,8 @@ export class ClienteComponent implements OnInit {
       private cepSearchService: CepSearchService
 	) {
 		this.initializeClienteTipoPessoaOptions();
+
+		this.initializeClienteUfOptions();
 	}
 
 	ngOnInit() {
@@ -128,6 +133,7 @@ export class ClienteComponent implements OnInit {
 
 	initializeEnumFieldsWithDefault() {
 		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
+		this.cliente.uf = this.clienteUfOptions[23].value;
 	}
 
 
@@ -136,6 +142,38 @@ export class ClienteComponent implements OnInit {
 	    this.clienteTipoPessoaOptions = [
 	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' },
 	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
+	    ];
+	}
+
+	private initializeClienteUfOptions() {
+	    this.clienteUfOptions = [
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ac'), value: 'AC' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_al'), value: 'AL' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ap'), value: 'AP' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_am'), value: 'AM' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ba'), value: 'BA' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ce'), value: 'CE' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_df'), value: 'DF' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_es'), value: 'ES' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_go'), value: 'GO' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ma'), value: 'MA' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_mt'), value: 'MT' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ms'), value: 'MS' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_mg'), value: 'MG' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_pa'), value: 'PA' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_pb'), value: 'PB' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_pr'), value: 'PR' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_pe'), value: 'PE' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_pi'), value: 'PI' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_rj'), value: 'RJ' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_rn'), value: 'RN' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_rs'), value: 'RS' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_ro'), value: 'RO' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_rr'), value: 'RR' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_sc'), value: 'SC' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_sp'), value: 'SP' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_se'), value: 'SE' },
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_uf_to'), value: 'TO' }
 	    ];
 	}
 
@@ -171,11 +209,17 @@ export class ClienteComponent implements OnInit {
     this.cepSearchService.searchCEP(cep)
     .then(result => {
       console.log('CEP result:' + JSON.stringify(result));
+      this.clearEndereco();
       if (result.erro) {
-        result = new CEPSearchDTO();
-        this.messageHandler.showError('Não foi possível encontrar este CEP. Verifique se você informou um CEP válido.');
+        this.messageHandler.showError('CEP não encontrado.');
+        return;
       }
       this.cliente.cep = result.cep;
+      const uf = this.clienteUfOptions.find(it => it.value === result.uf);
+
+      console.log('UF:' + uf.value);
+
+      this.cliente.uf = uf ? uf.value : null;
       this.cliente.cidade = result.localidade;
       this.cliente.bairro = result.bairro;
       this.cliente.endereco = result.logradouro;
@@ -183,9 +227,18 @@ export class ClienteComponent implements OnInit {
     })
     .catch(e => {
       console.log(e);
+      this.clearEndereco();
       this.messageHandler.showError('Erro ao buscar CEP. Verifique se você informou um CEP válido.');
     });
 
+  }
+
+  clearEndereco() {
+    this.cliente.uf = null;
+    this.cliente.cidade = null;
+    this.cliente.bairro = null;
+    this.cliente.endereco = null;
+    this.cliente.complemento = null;
   }
 
   // End_Code_Not_Generated

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-22T05:49:59.640
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-28T18:58:30.722
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,22 +22,22 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ClienteService {
-
+	
 	url = environment.apiUrl + '/cadastros/cliente/entities/cliente';
-
+	
 	constructor(private http: HttpClientWithToken) { }
-
+	
 	// TODO: Provisório
 	private getHeaders(): Headers {
 		const headers = new Headers();
-
+	    
 	    headers.append('Content-Type', 'application/json');
 	    return headers;
 	}
-
+	
 	create(cliente: Cliente): Promise<Cliente> {
-		const headers = this.getHeaders();
-
+		const headers = this.getHeaders();    
+	
 	    return this.http.post(this.url, cliente, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -46,10 +46,10 @@ export class ClienteService {
 	      return created;
 	    });
 	}
-
+	
 	update(cliente: Cliente): Promise<Cliente> {
 	    const headers = this.getHeaders();
-
+	
 	    return this.http.put(`${this.url}/${cliente.id}`, cliente, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -58,13 +58,13 @@ export class ClienteService {
 	      return updated;
 	    });
 	}
-
+	
 	delete(id: string): Promise<void> {
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
-
+	
 	retrieve(id: string): Promise<Cliente> {
 	    const headers = this.getHeaders();
 	    return this.http.get<Cliente>(`${this.url}/${id}`, { headers })
@@ -75,90 +75,90 @@ export class ClienteService {
 	      return cliente;
 	    });
 	}
-
-
+	
+	
 	private adjustEntityDates(entityList: Cliente[]) {
 		entityList.forEach(cliente => {
 		      if (cliente.dataFundacaoNascimento) {
 		        cliente.dataFundacaoNascimento = moment(cliente.dataFundacaoNascimento, 'YYYY-MM-DD').toDate();
 		      }
-
+		      	
 		});
 	}
-
-
+	
+	
 	autoComplete(query: string): Promise<ClienteAutoComplete[]> {
 	    const headers = this.getHeaders();
-
+	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-
+	
 	    return this.http.get<ClienteAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const result = response as ClienteAutoComplete[];
 	        return result;
 	      });
-
+	
 	}
-
-
-
+	
+				
+	
 	clienteNomeAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();
-
+	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-
+	
 	    return this.http.get<any>(`${this.url}/clienteNomeAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const result = response as ClienteNomeAutoComplete[];
 	        return result;
 	      });
-
+	
 	}
-
+	
 	clienteList(clienteListFilter: ClienteListFilter): Promise<any> {
 	    const headers = this.getHeaders();
-
+	
 	    const params = this.mountAndGetSearchParams(clienteListFilter);
-
+	
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const data = response;
 	        const items = data.content; /* array of Cliente */
 	        const totalElements = data.totalElements;
-
+	
 	        this.adjustEntityDates(items);
-
+	
 	        const result = {
 	          items,
 	          totalElements
 	        };
-
+	
 	        return result;
 	      });
 	}
-
-
+	
+	
 	mountAndGetSearchParams(filter: ClienteListFilter): HttpParams {
 	    let params = new HttpParams();
 	    if (filter.pageNumber) {
 	      params = params.set('page', filter.pageNumber.toString());
 	    }
-
+	
 	    if (filter.pageSize) {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
-
+		
 		// nome
 		if (filter.nome) {
 			const nome = filter.nome.map(item => item.nome).join(',');
 			params = params.set('nome', nome);
 		}
-
+	
 	    // Sort
 	    if (filter.sortField) {
 	      // search/nameStartsWith?name=K&sort=name,desc
@@ -166,19 +166,18 @@ export class ClienteService {
 	      const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
 	      params = params.set('sort', sortValue);
 	    }
-
+	
 	    return params;
 	  }
-
+	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');
-  }
-
-
+	}
+	
 	/*** TODO: avaliar se vai ser feito isso.
 	replicateCliente(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
-
+	
 	    const payload = new ReplicateClientePayload(id, quantity, groupId);
 	    return this.http.post(`${this.url}/replicateCliente`, payload, { headers } )
 	    .toPromise()
@@ -186,10 +185,10 @@ export class ClienteService {
 	      return response === true;
 	    });
 	}
-
+		
 	getTotaisfilterCliente(filter: ClienterListFilter): Promise<TotaisfilterCliente> {
 	    const headers = this.getHeaders();
-
+	
 	    const params = this.mountAndGetSearchParams(filter);
 	    return this.http.get<TotaisfilterCliente>(`${this.url}/getTotaisfilterCliente`, { headers, params })
 	    .toPromise()
