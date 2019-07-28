@@ -13,7 +13,7 @@
 	"financeiro.contas_receber.contaReceber_formaPagamento": "Forma de pagamento",
 	"financeiro.contas_receber.contaReceber_formaPagamento_grid": "Forma de pagamento",
 	"financeiro.contas_receber.contaReceber_formaPagamento_dinheiro": "Dinheiro",
-	"financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria": "Débito em conta",
+	"financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria": "Conta bancária",
 	"financeiro.contas_receber.contaReceber_formaPagamento_cartao_credito": "Cartão de crédito",
 	"financeiro.contas_receber.contaReceber_formaPagamento_vale_refeicao": "Vale refeição",
 	"financeiro.contas_receber.contaReceber_formaPagamento_vale_alimentacao": "Vale alimentação",

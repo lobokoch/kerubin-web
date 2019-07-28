@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T07:31:32.718
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-27T18:58:20.452
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -135,6 +135,14 @@ export class PlanoContaComponent implements OnInit {
 		this.planoConta.planoContaPai = null;
 	}
 	
+	planoContaPlanoContaPaiAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.planoConta.planoContaPai) === '') {
+			this.planoConta.planoContaPai = null;
+		}
+	}
+	
 	planoContaPlanoContaPaiAutoComplete(event) {
 	    const query = event.query;
 	    this.planoContaService
@@ -148,11 +156,21 @@ export class PlanoContaComponent implements OnInit {
 	}
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
+		let text = '';
 		if (planoContaPai) {
-			return (planoContaPai.descricao || '<nulo>');
-		} else {
-			return null;
+			if (planoContaPai.descricao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContaPai.descricao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializePlanoContaTipoFinanceiroOptions() {

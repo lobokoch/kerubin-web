@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T07:31:32.735
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-27T18:58:20.464
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -48,7 +48,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-7">
 			<label for="planoContaPai">{{ getTranslation('financeiro.contas_receber.planoConta_planoContaPai') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions" (completeMethod)="planoContaPlanoContaPaiAutoComplete($event)" (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)" [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter" #planoContaPai="ngModel" ngModel [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions"
+			 (completeMethod)="planoContaPlanoContaPaiAutoComplete($event)"
+			 (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)"
+			 (onBlur)="planoContaPlanoContaPaiAutoCompleteOnBlur($event)"
+			 [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter"
+			 #planoContaPai="ngModel" ngModel [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
 				<ng-template let-planoContaPai pTemplate="item">
 					<div class="ui-helper-clearfix">{{ planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai) }}</div>
 				</ng-template>

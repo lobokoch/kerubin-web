@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T07:31:32.735
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-27T18:58:20.464
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,7 +25,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="planoContas">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas') }}<span class="kb-label-required">*</span></label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions" (completeMethod)="contaReceberPlanoContasAutoComplete($event)" (onClear)="contaReceberPlanoContasAutoCompleteClear($event)" [field]="contaReceberPlanoContasAutoCompleteFieldConverter" #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions"
+			 (completeMethod)="contaReceberPlanoContasAutoComplete($event)"
+			 (onClear)="contaReceberPlanoContasAutoCompleteClear($event)"
+			 (onBlur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
+			 [field]="contaReceberPlanoContasAutoCompleteFieldConverter"
+			 #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -59,7 +66,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleContaBancariaAppyStyleClass()">
 			<label for="contaBancaria">{{ getTranslation('financeiro.contas_receber.contaReceber_contaBancaria') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions" (completeMethod)="contaReceberContaBancariaAutoComplete($event)" (onClear)="contaReceberContaBancariaAutoCompleteClear($event)" [field]="contaReceberContaBancariaAutoCompleteFieldConverter" #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions"
+			 (completeMethod)="contaReceberContaBancariaAutoComplete($event)"
+			 (onClear)="contaReceberContaBancariaAutoCompleteClear($event)"
+			 (onBlur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
+			 [field]="contaReceberContaBancariaAutoCompleteFieldConverter"
+			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
@@ -68,7 +82,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
 			<label for="cartaoCredito">{{ getTranslation('financeiro.contas_receber.contaReceber_cartaoCredito') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions" (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)" (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)" [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter" #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions"
+			 (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)"
+			 (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)"
+			 (onBlur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
+			 [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter"
+			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
@@ -112,7 +133,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="cliente">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente') }}</label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaReceberClienteAutoCompleteSuggestions" (completeMethod)="contaReceberClienteAutoComplete($event)" (onClear)="contaReceberClienteAutoCompleteClear($event)" [field]="contaReceberClienteAutoCompleteFieldConverter" #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaReceberClienteAutoCompleteSuggestions"
+			 (completeMethod)="contaReceberClienteAutoComplete($event)"
+			 (onClear)="contaReceberClienteAutoCompleteClear($event)"
+			 (onBlur)="contaReceberClienteAutoCompleteOnBlur($event)"
+			 [field]="contaReceberClienteAutoCompleteFieldConverter"
+			 #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberClienteAutoCompleteFieldConverter(cliente) }}</div>
 				</ng-template>

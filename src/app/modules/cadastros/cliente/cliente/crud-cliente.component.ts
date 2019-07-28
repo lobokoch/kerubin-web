@@ -1,3 +1,4 @@
+import { CEPSearchDTO } from './../../../../helper/cepsearchdto';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.0.0
 Code generated at time stamp: 2019-07-22T05:49:59.640
@@ -20,6 +21,10 @@ import * as moment from 'moment';
 import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
+// Begin_Code_Not_Generated
+import { CepSearchService } from './../../../../helper/cepsearch.service';
+// End_Code_Not_Generated
+
 
 @Component({
   selector: 'app-crud-cliente.component',
@@ -28,21 +33,22 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ClienteComponent implements OnInit {
-	
+
 	calendarLocale: any;
-	
+
 	cliente = new Cliente();
 	clienteTipoPessoaOptions: TipoPessoa[];
-	
+
 	constructor(
 	    private clienteService: ClienteService,
 	    private cadastrosClienteTranslationService: CadastrosClienteTranslationService,
 	    private route: ActivatedRoute,
-	    private messageHandler: MessageHandlerService
-	) { 
+      private messageHandler: MessageHandlerService,
+      private cepSearchService: CepSearchService
+	) {
 		this.initializeClienteTipoPessoaOptions();
 	}
-	
+
 	ngOnInit() {
 		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
@@ -51,7 +57,7 @@ export class ClienteComponent implements OnInit {
 	      this.getClienteById(id);
 	    }
 	}
-	
+
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
@@ -59,11 +65,11 @@ export class ClienteComponent implements OnInit {
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
-	
+
 	validateAllFormFields(form: FormGroup) {
 	    Object.keys(form.controls).forEach(field => {
 	      const control = form.get(field);
-	
+
 	      if (control instanceof FormControl) {
 	        control.markAsDirty({ onlySelf: true });
 	      } else if (control instanceof FormGroup) {
@@ -71,22 +77,22 @@ export class ClienteComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	save(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
+
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
 	      this.create();
 	    }
 	}
-	
+
 	create() {
-		
+
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
@@ -96,7 +102,7 @@ export class ClienteComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	update() {
 	    this.clienteService.update(this.cliente)
 	    .then((cliente) => {
@@ -107,7 +113,7 @@ export class ClienteComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	getClienteById(id: string) {
 	    this.clienteService.retrieve(id)
 	    .then((cliente) => this.cliente = cliente)
@@ -115,39 +121,73 @@ export class ClienteComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	get isEditing() {
 	    return Boolean(this.cliente.id);
 	}
-	
+
 	initializeEnumFieldsWithDefault() {
 		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
 	}
-	
-	
-	
+
+
+
 	private initializeClienteTipoPessoaOptions() {
 	    this.clienteTipoPessoaOptions = [
-	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
+	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' },
 	    	{ label: this.getTranslation('cadastros.cliente.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
 	    ];
 	}
-	  
-	
+
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.cadastrosClienteTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
-	
-	
+
+
+
+
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosClienteTranslationService.getCalendarLocaleSettings();
-	}
-	
+  }
+
+  // Begin_Code_Not_Generated
+  searchCEP() {
+    let cep = this.cliente.cep;
+    if (cep) {
+      cep = cep.trim().replace('-', '');
+    }
+
+    if (!cep || cep.length !== 8) {
+      this.messageHandler.showError('CEP inválido para busca.');
+      return;
+    }
+
+    this.cepSearchService.searchCEP(cep)
+    .then(result => {
+      console.log('CEP result:' + JSON.stringify(result));
+      if (result.erro) {
+        result = new CEPSearchDTO();
+        this.messageHandler.showError('Não foi possível encontrar este CEP. Verifique se você informou um CEP válido.');
+      }
+      this.cliente.cep = result.cep;
+      this.cliente.cidade = result.localidade;
+      this.cliente.bairro = result.bairro;
+      this.cliente.endereco = result.logradouro;
+      this.cliente.complemento = result.complemento;
+    })
+    .catch(e => {
+      console.log(e);
+      this.messageHandler.showError('Erro ao buscar CEP. Verifique se você informou um CEP válido.');
+    });
+
+  }
+
+  // End_Code_Not_Generated
+
 }

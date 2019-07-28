@@ -54,7 +54,7 @@
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento": "Forma de pagamento",
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_grid": "Forma de pagamento",
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_dinheiro": "Dinheiro",
-	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria": "Débito em conta",
+	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria": "Conta bancária",
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito": "Cartão de crédito",
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_refeicao": "Vale refeição",
 	"financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_alimentacao": "Vale alimentação",

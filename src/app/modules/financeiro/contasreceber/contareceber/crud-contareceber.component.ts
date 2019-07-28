@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T07:31:32.718
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-27T18:58:20.452
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -177,6 +177,14 @@ export class ContaReceberComponent implements OnInit {
 		this.contaReceber.planoContas = null;
 	}
 	
+	contaReceberPlanoContasAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaReceber.planoContas) === '') {
+			this.contaReceber.planoContas = null;
+		}
+	}
+	
 	contaReceberPlanoContasAutoComplete(event) {
 	    const query = event.query;
 	    this.contaReceberService
@@ -190,17 +198,35 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
+		let text = '';
 		if (planoContas) {
-			return (planoContas.descricao || '<nulo>');
-		} else {
-			return null;
+			if (planoContas.descricao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContas.descricao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	contaReceberContaBancariaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaReceber.contaBancaria = null;
+	}
+	
+	contaReceberContaBancariaAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaReceber.contaBancaria) === '') {
+			this.contaReceber.contaBancaria = null;
+		}
 	}
 	
 	contaReceberContaBancariaAutoComplete(event) {
@@ -216,17 +242,42 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
+		let text = '';
 		if (contaBancaria) {
-			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
-		} else {
-			return null;
+			if (contaBancaria.nomeTitular) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += contaBancaria.nomeTitular; 
+			}
+			
+			if (contaBancaria.numeroConta) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += contaBancaria.numeroConta; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	contaReceberCartaoCreditoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaReceber.cartaoCredito = null;
+	}
+	
+	contaReceberCartaoCreditoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaReceber.cartaoCredito) === '') {
+			this.contaReceber.cartaoCredito = null;
+		}
 	}
 	
 	contaReceberCartaoCreditoAutoComplete(event) {
@@ -242,17 +293,42 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
+		let text = '';
 		if (cartaoCredito) {
-			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
-		} else {
-			return null;
+			if (cartaoCredito.nomeTitular) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cartaoCredito.nomeTitular; 
+			}
+			
+			if (cartaoCredito.numeroCartao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cartaoCredito.numeroCartao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	contaReceberClienteAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaReceber.cliente = null;
+	}
+	
+	contaReceberClienteAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaReceber.cliente) === '') {
+			this.contaReceber.cliente = null;
+		}
 	}
 	
 	contaReceberClienteAutoComplete(event) {
@@ -268,11 +344,21 @@ export class ContaReceberComponent implements OnInit {
 	}
 	
 	contaReceberClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
+		let text = '';
 		if (cliente) {
-			return (cliente.nome || '<nulo>');
-		} else {
-			return null;
+			if (cliente.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += cliente.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializeContaReceberFormaPagamentoOptions() {

@@ -29,25 +29,25 @@ import { TenantAutoComplete } from './../tenant/tenant.model';
 })
 
 export class SysUserListComponent implements OnInit {
-	
+
 	sysUserListItems: SysUser[];
 	sysUserListTotalElements = 0;
 	sysUserListFilter = new SysUserListFilter();
-	
+
 	sysUserNameAutoCompleteSuggestions: SysUserNameAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
-	
-	
+
+
 	constructor(
 	    private sysUserService: SysUserService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-	
+
 	ngOnInit() {
 	}
-	
+
 	sysUserList(pageNumber = 0) {
 	    this.sysUserListFilter.pageNumber = pageNumber;
 	    this.sysUserService
@@ -55,16 +55,16 @@ export class SysUserListComponent implements OnInit {
 	    .then(result => {
 	      	this.sysUserListItems = result.items;
 	      	this.sysUserListTotalElements = result.totalElements;
-	      
+
 	    });
-		
+
 	}
-	
-	
+
+
 	sysUserFilterSearch() {
 	    this.sysUserList(0);
 	}
-	
+
 	deleteSysUser(sysUser: SysUser) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -75,12 +75,12 @@ export class SysUserListComponent implements OnInit {
 	          this.sysUserList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
 	}
-	
+
 	sysUserListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
 	      this.sysUserListFilter.sortField = new SortField(event.sortField, event.sortOrder);
@@ -90,7 +90,7 @@ export class SysUserListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.sysUserList(pageNumber);
 	}
-	
+
 	sysUserNameAutoComplete(event) {
 	    const query = event.query;
 	    this.sysUserService.sysUserNameAutoComplete(query)
@@ -101,8 +101,8 @@ export class SysUserListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
-	
+
+
 	sysUserTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {
 		if (tenant) {
 			return (tenant.name || '<nulo>');
@@ -110,18 +110,18 @@ export class SysUserListComponent implements OnInit {
 			return null;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.securityAuthorizationTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
+
+
 }

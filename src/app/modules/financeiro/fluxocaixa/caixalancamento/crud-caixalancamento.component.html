@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-24T07:02:34.140
+Code generated at time stamp: 2019-07-27T18:56:29.968
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -13,19 +13,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<p-header>
 			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento') }}</div>
 		</p-header>
-	
+
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
-  	
+
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_id') }}</label>
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="caixaLancamento.id" name="id" readonly class="read-only">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="caixaDiario">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario') }}<span class="kb-label-required">*</span></label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoCaixaDiarioAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoCaixaDiarioAutoComplete($event)"
@@ -39,44 +39,44 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-autoComplete>
 			<div class="invalid-message" *ngIf="caixaDiario.invalid && caixaDiario.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="descricao">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="caixaLancamento.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataLancamento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento') }}<span class="kb-label-required">*</span></label>
 			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataLancamento="ngModel" ngModel [(ngModel)]="caixaLancamento.dataLancamento" name="dataLancamento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataLancamento.invalid && dataLancamento.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="tipoLancamentoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="caixaLancamentoTipoLancamentoFinanceiroOptions" placeholder="Selecione um item..." #tipoLancamentoFinanceiro="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoLancamentoFinanceiro" name="tipoLancamentoFinanceiro" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoLancamentoFinanceiro.invalid && tipoLancamentoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-credito" [ngClass]="ruleValorCreditoAppyStyleClass()">
 			<label for="valorCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito') }}</label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorCredito" name="valorCredito">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-debito" [ngClass]="ruleValorDebitoAppyStyleClass()">
 			<label for="valorDebito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito') }}</label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDebito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorDebito" name="valorDebito">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="formaPagamento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="caixaLancamentoFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="caixaLancamento.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleContaBancariaAppyStyleClass()">
 			<label for="contaBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_contaBancaria') }}</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoContaBancariaAutoComplete($event)"
@@ -89,10 +89,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
 			<label for="cartaoCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cartaoCredito') }}</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoCartaoCreditoAutoComplete($event)"
@@ -105,15 +105,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleOutrosDescricaoAppyStyleClass()">
 			<label for="outrosDescricao">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_outrosDescricao') }}</label>
 			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="caixaLancamento.outrosDescricao" name="outrosDescricao">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-8">
 			<label for="planoContas">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_planoContas') }}</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoPlanoContasAutoComplete($event)"
@@ -126,16 +126,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [disabled]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleClienteAppyStyleClass()">
 			<label for="cliente">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cliente') }}</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoClienteAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoClienteAutoComplete($event)"
@@ -148,10 +148,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleFornecedorAppyStyleClass()">
 			<label for="fornecedor">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_fornecedor') }}</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoFornecedorAutoCompleteSuggestions"
 			 (completeMethod)="caixaLancamentoFornecedorAutoComplete($event)"
@@ -164,22 +164,22 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="documento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_documento') }}</label>
 			<input type="text" pInputText #documento="ngModel" ngModel [(ngModel)]="caixaLancamento.documento" name="documento">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="observacoes">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_observacoes') }}</label>
 			<textarea pInputTextarea rows="3" #observacoes="ngModel" ngModel [(ngModel)]="caixaLancamento.observacoes" name="observacoes"></textarea>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="version" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_version') }}</label>
 			<input type="hidden" pInputText #version="ngModel" ngModel [(ngModel)]="caixaLancamento.version" name="version">
 		</div>
-		
+
 		<div class="ui-g-12">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<button [disabled]="caixaLancamentoRuleDisableCUD()" class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
@@ -191,11 +191,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<a routerLink="/caixalancamento" pButton label="Pesquisar"></a>
 			</div>
 		</div>
-		
-	
+
+
 	</div>
   </form>
-  
+
   </p-panel>
-  
+
 </div>

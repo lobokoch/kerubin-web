@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.0
-Code generated at time stamp: 2019-07-15T07:31:32.735
+Code generated with MKL Plug-in version: 7.0.3
+Code generated at time stamp: 2019-07-27T18:58:20.464
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -31,7 +31,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="agencia">{{ getTranslation('financeiro.contas_receber.contaBancaria_agencia') }}<span class="kb-label-required">*</span></label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaBancariaAgenciaAutoCompleteSuggestions" (completeMethod)="contaBancariaAgenciaAutoComplete($event)" (onClear)="contaBancariaAgenciaAutoCompleteClear($event)" [field]="contaBancariaAgenciaAutoCompleteFieldConverter" #agencia="ngModel" ngModel [(ngModel)]="contaBancaria.agencia" name="agencia" required>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaBancariaAgenciaAutoCompleteSuggestions"
+			 (completeMethod)="contaBancariaAgenciaAutoComplete($event)"
+			 (onClear)="contaBancariaAgenciaAutoCompleteClear($event)"
+			 (onBlur)="contaBancariaAgenciaAutoCompleteOnBlur($event)"
+			 [field]="contaBancariaAgenciaAutoCompleteFieldConverter"
+			 #agencia="ngModel" ngModel [(ngModel)]="contaBancaria.agencia" name="agencia" required>
 				<ng-template let-agencia pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaBancariaAgenciaAutoCompleteFieldConverter(agencia) }}</div>
 				</ng-template>
