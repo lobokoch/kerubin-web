@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:58:20.452
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-03T07:01:20.434
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -90,10 +90,18 @@ export class ContaReceberService {
 	}
 	
 	 
-	actionBaixarContaComUmClique(id: string): Promise<void> {
+	actionBaixarContaComDataPagamentoHoje(id: string): Promise<void> {
 		const headers = this.getHeaders();
 		
-		return this.http.put(`${this.url}/actionBaixarContaComUmClique/${id}`, { headers })
+		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoHoje/${id}`, { headers })
+		.toPromise()
+		.then(() => null);
+	}
+	 
+	actionBaixarContaComDataPagamentoIgualDataVenciento(id: string): Promise<void> {
+		const headers = this.getHeaders();
+		
+		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoIgualDataVenciento/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
 	}

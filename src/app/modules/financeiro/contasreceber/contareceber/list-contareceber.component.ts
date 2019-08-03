@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:58:20.452
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-03T07:01:20.434
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -91,8 +91,8 @@ export class ContaReceberListComponent implements OnInit {
 		.then(response => {
 		  this.contaReceberSumFields = response;
 		})
-		.catch(error => {
-		  this.messageHandler.showError('Erro ao buscar totais:' + error);
+		.catch(e => {
+		  this.messageHandler.showError(e);
 		});
 	}
 	
@@ -110,7 +110,7 @@ export class ContaReceberListComponent implements OnInit {
 	          this.contaReceberList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -323,18 +323,34 @@ export class ContaReceberListComponent implements OnInit {
 	    return null;
 	}
 	
-	actionBaixarContaComUmCliqueWhen(contaReceber: ContaReceber) {
+	actionBaixarContaComDataPagamentoHojeWhen(contaReceber: ContaReceber) {
 		return !contaReceber.dataPagamento;
 	}
 	
-	actionBaixarContaComUmClique(contaReceber: ContaReceber) {
-		this.contaReceberService.actionBaixarContaComUmClique(contaReceber.id)
+	actionBaixarContaComDataPagamentoHoje(contaReceber: ContaReceber) {
+		this.contaReceberService.actionBaixarContaComDataPagamentoHoje(contaReceber.id)
 			.then(() => {
 			  this.messageHandler.showSuccess('Ação executada com sucesso!');
 			  this.contaReceberList(0);
 			})
 			.catch((e) => {
-				console.log('Erro ao executar a ação actionBaixarContaComUmClique: ' + e);
+				console.log('Erro ao executar a ação actionBaixarContaComDataPagamentoHoje: ' + e);
+			  	this.messageHandler.showError('Não foi possível executar a ação.');
+			});
+	}
+	
+	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaReceber: ContaReceber) {
+		return !contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment(), 'day');
+	}
+	
+	actionBaixarContaComDataPagamentoIgualDataVenciento(contaReceber: ContaReceber) {
+		this.contaReceberService.actionBaixarContaComDataPagamentoIgualDataVenciento(contaReceber.id)
+			.then(() => {
+			  this.messageHandler.showSuccess('Ação executada com sucesso!');
+			  this.contaReceberList(0);
+			})
+			.catch((e) => {
+				console.log('Erro ao executar a ação actionBaixarContaComDataPagamentoIgualDataVenciento: ' + e);
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
