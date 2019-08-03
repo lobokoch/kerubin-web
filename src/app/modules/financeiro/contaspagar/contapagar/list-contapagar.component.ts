@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.740
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-03T06:27:20.116
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -91,8 +91,8 @@ export class ContaPagarListComponent implements OnInit {
 		.then(response => {
 		  this.contaPagarSumFields = response;
 		})
-		.catch(error => {
-		  this.messageHandler.showError('Erro ao buscar totais:' + error);
+		.catch(e => {
+		  this.messageHandler.showError(e);
 		});
 	}
 	
@@ -110,7 +110,7 @@ export class ContaPagarListComponent implements OnInit {
 	          this.contaPagarList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -323,18 +323,34 @@ export class ContaPagarListComponent implements OnInit {
 	    return null;
 	}
 	
-	actionBaixarContaComUmCliqueWhen(contaPagar: ContaPagar) {
+	actionBaixarContaComDataPagamentoHojeWhen(contaPagar: ContaPagar) {
 		return !contaPagar.dataPagamento;
 	}
 	
-	actionBaixarContaComUmClique(contaPagar: ContaPagar) {
-		this.contaPagarService.actionBaixarContaComUmClique(contaPagar.id)
+	actionBaixarContaComDataPagamentoHoje(contaPagar: ContaPagar) {
+		this.contaPagarService.actionBaixarContaComDataPagamentoHoje(contaPagar.id)
 			.then(() => {
 			  this.messageHandler.showSuccess('Ação executada com sucesso!');
 			  this.contaPagarList(0);
 			})
 			.catch((e) => {
-				console.log('Erro ao executar a ação actionBaixarContaComUmClique: ' + e);
+				console.log('Erro ao executar a ação actionBaixarContaComDataPagamentoHoje: ' + e);
+			  	this.messageHandler.showError('Não foi possível executar a ação.');
+			});
+	}
+	
+	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaPagar: ContaPagar) {
+		return !contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBefore(moment(), 'day');
+	}
+	
+	actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar: ContaPagar) {
+		this.contaPagarService.actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar.id)
+			.then(() => {
+			  this.messageHandler.showSuccess('Ação executada com sucesso!');
+			  this.contaPagarList(0);
+			})
+			.catch((e) => {
+				console.log('Erro ao executar a ação actionBaixarContaComDataPagamentoIgualDataVenciento: ' + e);
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.753
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-03T06:27:20.132
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -13,96 +13,96 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<p-header>
 			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_pagar.contaPagar') }}</div>
 		</p-header>
-	
+
 
   	<div class="ui-g">
-		
+
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
 			<p-accordionTab header="Filtro">
-			
+
 				<div class="ui-g">
 					<div class="ui-g-12">
-						
+
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Contas</label>
-							<p-autoComplete name="contaPagarDescricaoAutoComplete" 
-							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							<p-autoComplete name="contaPagarDescricaoAutoComplete"
+							placeholder="Digite para pesquisar..." [dropdown]="true"
 							[(ngModel)]="contaPagarListFilter.descricao" [multiple]="true"
 							[suggestions]="contaPagarDescricaoAutoCompleteSuggestions"
 							(completeMethod)="contaPagarDescricaoAutoComplete($event)"
 							field="descricao"></p-autoComplete>
 						</div>
-						
-						
+
+
 						<div class="ui-g-12">
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label style="display: block">Intervalo de tempo</label>
-						        <p-dropdown #contaPagarDataVencimentoIsBetweenOptions 
-							        [options]="dateFilterIntervalDropdownItems" 
+						        <p-dropdown #contaPagarDataVencimentoIsBetweenOptions
+							        [options]="dateFilterIntervalDropdownItems"
 							        [(ngModel)]="contaPagarDataVencimentoIsBetweenOptionsSelected"
 							        optionLabel="label" (click)="contaPagarDataVencimentoIsBetweenOptionsOnClick(contaPagarDataVencimentoIsBetweenOptions)">
 						        </p-dropdown>
 						    </div>
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						      	<label class="label-r">Vencimento de</label>
 						        <p-calendar name="dataVencimentoFrom"
 						        dateFormat="dd/mm/yy" [(ngModel)]="contaPagarListFilter.dataVencimentoFrom"></p-calendar>
 						    </div>
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label class="label-l label-r">Até</label>
 						        <p-calendar name="dataVencimentoTo" dateFormat="dd/mm/yy"
 						        [(ngModel)]="contaPagarListFilter.dataVencimentoTo"></p-calendar>
 						    </div>
-						    
+
 						</div>
-						
-						
-						
+
+
+
 						<div class="ui-g-12 ui-md-2 ui-fluid">
 							<label style="display: block" class="label-l label-r">Pagas</label>
 							<p-inputSwitch [(ngModel)]="contaPagarListFilter.dataPagamentoIsNotNull"></p-inputSwitch>
 						</div>
-						
-						
+
+
 						<div class="ui-g-12 ui-md-2 ui-fluid">
 							<label style="display: block" class="label-l label-r">Em aberto</label>
 							<p-inputSwitch [(ngModel)]="contaPagarListFilter.dataPagamentoIsNull"></p-inputSwitch>
 						</div>
-						
-						
+
+
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Agrupador:</label>
-							<p-autoComplete name="contaPagarAgrupadorAutoComplete" 
-							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							<p-autoComplete name="contaPagarAgrupadorAutoComplete"
+							placeholder="Digite para pesquisar..." [dropdown]="true"
 							[(ngModel)]="contaPagarListFilter.agrupador" [multiple]="true"
 							[suggestions]="contaPagarAgrupadorAutoCompleteSuggestions"
 							(completeMethod)="contaPagarAgrupadorAutoComplete($event)"
 							field="agrupador"></p-autoComplete>
 						</div>
 					</div>
-					
+
 					<div>
 						<p-button label="Pesquisar" (click)="contaPagarFilterSearch()"></p-button>
 					</div>
 				</div>
-				
-			
+
+
 			</p-accordionTab>
 		</p-accordion>
 		<!-- End Filters -->
-		
+
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true"
 				[value]="contaPagarListItems"
-			    [rows]="contaPagarListFilter.pageSize" 
+			    [rows]="contaPagarListFilter.pageSize"
 			    [totalRecords]="contaPagarListTotalElements"
 			    [lazy]="true" (onLazyLoad)="contaPagarListOnLazyLoad($event)" >
-			    
+
 			    <ng-template pTemplate="caption">
 			    	Legenda:
 			    	<span class="kb-conta-vencida kb-conta-legenda">Conta vencida</span>
@@ -112,7 +112,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    	<span class="kb-conta-vence-esta-semana kb-conta-legenda">Conta vence esta semana</span>
 			    	<span class="kb-conta-paga kb-conta-legenda">Conta paga</span>
 			    </ng-template>
-			    
+
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
@@ -123,10 +123,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento_grid') }}<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'valorPago'">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorPago_grid') }}<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'fornecedor'">{{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor_grid') }}<p-sortIcon [field]="'fornecedor'"></p-sortIcon></th>
-						<th style="width: 12em">Ações</th>
+						<th style="width: 14em">Ações</th>
 		            </tr>
 		        </ng-template>
-		        
+
 			    <ng-template pTemplate="body" let-contaPagar>
 		            <tr [pSelectableRow]="contaPagar">
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
@@ -158,22 +158,28 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		              		<!-- <button (click)="mostrarPagarConta(contaPagar)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deleteContaPagar(contaPagar)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              		<button pButton
-		              		    [disabled]="!actionBaixarContaComUmCliqueWhen(contaPagar)"
-		              		    (click)="actionBaixarContaComUmClique(contaPagar)"
-		              		    icon="pi pi-arrow-down"  tooltipPosition="top"
-		              		    pTooltip="Baixar conta com um clique">
+		              		    [disabled]="!actionBaixarContaComDataPagamentoHojeWhen(contaPagar)"
+		              		    (click)="actionBaixarContaComDataPagamentoHoje(contaPagar)"
+		              		    icon="pi pi-clock"  tooltipPosition="top"
+		              		    pTooltip="Baixar a conta com a data de pagamento igual a data de hoje">
+		              		</button>
+		              		<button pButton
+		              		    [disabled]="!actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaPagar)"
+		              		    (click)="actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar)"
+		              		    icon="pi pi-calendar"  tooltipPosition="top"
+		              		    pTooltip="Baixar a conta com a data de pagamento igual a data de vencimento">
 		              		</button>
 		              		<button pButton
 		              		    [disabled]="!actionEstornarPagamentoContaComUmCliqueWhen(contaPagar)"
 		              		    (click)="actionEstornarPagamentoContaComUmClique(contaPagar)"
-		              		    icon="pi pi-arrow-up"  tooltipPosition="top"
-		              		    pTooltip="Estornar pagamento com um clique">
+		              		    icon="pi pi-undo"  tooltipPosition="top"
+		              		    pTooltip="Estornar o pagamento da conta">
 		              		</button>
 		              	</td>
 		            </tr>
 		        </ng-template>
-		        
-		        
+
+
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
 				        <td [attr.colspan]="9">
@@ -181,7 +187,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				        </td>
 				    </tr>
 				</ng-template>
-				
+
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais</td>
@@ -198,13 +204,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-table>
 		</div>
 		<!-- End GRID -->
-		
+
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/contapagar/novo" pButton label="Novo registro"></a>
 		</div>
-		
+
 		<!-- Begin Extras
-		
+
 		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
 		        [maximizable]="false" [baseZIndex]="10000">
 		      <div>
@@ -226,10 +232,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
 		        </p-footer>
 		</p-dialog>
-		
+
 		End Extras -->
 	</div>
-	
+
 	</p-panel>
-  
+
 </div>
