@@ -13,6 +13,13 @@ import * as moment from 'moment';
 })
 export class DashboardFluxoCaixaComponent implements OnInit {
 
+  // *******************
+  creditosDoMes = 0.0;
+  debitosDoMes = 0.0;
+  saldoDoMes = 0.0;
+  saldoAtual = 0.0;
+  // *******************
+
   loadedItemsFluxo: FluxoCaixaMonthItem[];
   chartData: any;
   resumoMensalPorPlanoContasDebitosMesAtualChartData: any;
@@ -87,6 +94,8 @@ export class DashboardFluxoCaixaComponent implements OnInit {
       this.loadedItemsFluxo = response;
       //
       this.fillChartData(this.loadedItemsFluxo);
+      this.pegarDadosDoMesAtual(this.loadedItemsFluxo);
+
     })
     .catch(error => {
       this.messageHandler.showError(error);
@@ -245,6 +254,16 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     return `rgb(${r}, ${g}, ${b})`;
   }
 
+  pegarDadosDoMesAtual(itemsFluxo: FluxoCaixaMonthItem[]) {
+    const month = moment().month() + 1;
+    const item = itemsFluxo.find(it => it.monthId === month);
+    if (item) {
+      this.creditosDoMes = item.creditValue;
+      this.debitosDoMes = item.debitValue;
+      this.saldoDoMes = item.balanceValue;
+      this.saldoAtual = item.balanceAccumulated;
+    }
+  }
 
   fillChartData(itemsFluxo: FluxoCaixaMonthItem[]) {
     const monthNames = this.getMonthNames();
@@ -285,7 +304,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           label: 'Saldo acumulado',
           backgroundColor: 'rgba(255, 255, 255, 0)',
           borderColor: 'rgba(255, 165, 0, 1)',
-          borderWidth: '2',
+          borderWidth: '5',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
           data: acumulado
         }
