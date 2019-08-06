@@ -1,0 +1,90 @@
+<div class="container" style="margin-top: 0px !important; padding-top: 0px !important;">
+  <div class="ui-g" style="margin-top: 0px !important; padding-top: 0px !important;">
+
+    <div class="ui-g-12" style="margin-top: 10px !important; padding-top: 0px !important;">
+
+      <p-panel header="Reposição de créditos" [toggleable]="false">
+
+        <div class="ui-g">
+
+          <div class="ui-g-12 ui-md-12 ui-fluid">
+            <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+          </div>
+
+          <!-- Begin valor do crédito -->
+          <div *ngIf="activeIndex == 0" class="ui-g-12 ui-md-12 ui-fluid" style="min-height: 310px;">
+              <p-panel header="Selecione um valor (aproveita a promoção especial e ganhe mais 10% em créditos sobre o valor pago)" [toggleable]="false">
+                  <div class="ui-g" style="width:450px;margin-bottom:10px">
+                      <div class="ui-g-12"><p-radioButton name="group2" value="10" label="R$ 10,00 (ganhe + R$ 1,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt1"></p-radioButton></div>
+                      <div class="ui-g-12"><p-radioButton name="group2" value="20" label="R$ 20,00 (ganhe + R$ 2,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt2"></p-radioButton></div>
+                      <div class="ui-g-12"><p-radioButton name="group2" value="50" label="R$ 50,00 (ganhe + R$ 5,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt3"></p-radioButton></div>
+                      <div class="ui-g-12"><p-radioButton name="group2" value="100" label="R$ 100,00 (ganhe + R$ 10,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt4"></p-radioButton></div>
+                      <div class="ui-g-12"><p-radioButton name="group2" value="500" label="R$ 500,00 (ganhe + R$ 50,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt5"></p-radioButton></div>
+                      <div class="ui-g-12"><p-radioButton name="group2" value="1000" label="R$ 1.000,00 (ganhe + R$ 100,00 em créditos)" [(ngModel)]="selectedValue" inputId="preopt6"></p-radioButton></div>
+                  </div>
+                  <p>Valor selecionado: <span style="font-weight: bold">{{ calculateValue() }}</span></p>
+              </p-panel>
+          </div>
+          <!-- End valor do crédito -->
+
+          <!-- Begin forma de pagamento -->
+          <div *ngIf="activeIndex == 1" class="ui-g-12 ui-md-12 ui-fluid" style="min-height: 313px;">
+              <p-panel header="Selecione o banco para você efetuar depósito ou transferência bancária" [toggleable]="false">
+                  <p-selectButton [options]="banks" [(ngModel)]="selectedBank" optionLabel="name">
+                      <ng-template let-item>
+                          <div style="padding: .5em 1em">
+                              <img style="vertical-align: middle; margin-right: .5em" src="assets/images/{{item.value.bank}}" height="70px"/>
+                              <span>{{item.name}}</span>
+                          </div>
+                      </ng-template>
+                  </p-selectButton>
+                  <p>Banco selecionado: <span style="font-weight: bold">{{selectedBank?.name}}</span></p>
+                  <br><br>
+                  <p><strong>Nota:</strong> Em breve teremos mais opções de pagamento, como <strong>cartão de crédito</strong> e <strong>boleto bancário</strong>.</p>
+              </p-panel>
+          </div>
+          <!-- End forma de pagamento -->
+
+          <!-- Begin finalizar -->
+          <div *ngIf="activeIndex == 2" class="ui-g-12 ui-md-12 ui-fluid" style="min-height: 313px;">
+              <p-panel header="Finalizar pedido de reposição de créditos" [toggleable]="false">
+                <p><span style="font-weight: bold">Ao clicar em "Finalizar",
+                  enviaremos um e-mail para você com o valor e os dados bancários do banco selecionado
+                  para poder efetuar o depótiso ou transferência bancária e renovar seus créditos.</span></p>
+                <br><br>
+                <p><span style="font-weight: bold">Resumo:</span></p>
+                <hr>
+                <p><span class="resumo-valor-left">Valor a pagar:</span><span style="color: blue;" class="resumo-valor-right">{{ calculateValue() }} </span></p>
+                <p><span class="resumo-valor-left">Bônus a receber:</span> <span class="resumo-valor-right">{{ calculateBonusValue() }} </span></p>
+                <p><span class="resumo-valor-left">Total de créditos a receber:</span> <span class="resumo-valor-right resumo-valor-total-right">{{ calculateTotalValue() }} </span></p>
+
+                <!--<p>Valor selecionado: <span style="font-weight: bold">{{ calculateValue() }} (você pagará {{ calculateValue() }} e recebrá {{ calculateTotalValue() }} em créditos devido ao bônus de 10%.)</span></p>-->
+                <br>
+                <p><span class="resumo-valor-left">Banco selecionado:</span> <span style="text-align: left" class="resumo-valor-right">{{selectedBank?.name}}</span></p>
+              </p-panel>
+          </div>
+          <!-- End finalizar -->
+
+
+        </div>
+
+        <p-footer>
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <button *ngIf="activeIndex > 0" pButton type="button" label="Anterior" icon="pi pi-chevron-left" [disabled]="activeIndex === 0" (click)="previousStep()"
+                class="ui-button-raised"></button>
+            </div>
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <button *ngIf="activeIndex != 2" pButton type="button" label="Próximo" icon="pi pi-chevron-right" iconPos="right" class="ui-button-raised" (click)="nextStep()"></button>
+              <button *ngIf="activeIndex == 2" pButton type="button" label="Finalizar" class="ui-button-raised ui-button-success" (click)="finishOrder()"></button>
+            </div>
+          </div>
+        </p-footer>
+      </p-panel>
+
+    </div>
+
+
+
+  </div>
+</div>

@@ -57,14 +57,18 @@ const routes: Routes = [
   // BEGIN ENTITIES FOR SERVICE: cadastros.fornecedor
   { path: 'fornecedor', loadChildren: './modules/cadastros/fornecedor/fornecedor/fornecedor.module#FornecedorModule' },
   // END ENTITIES FOR SERVICE: cadastros.fornecedor
-  
+
   // BEGIN ENTITIES FOR SERVICE: security.authorization
-  { path: 'sysuser', loadChildren: './modules/security/authorization/sysuser/sysuser.module#SysUserModule' }, 
+  { path: 'sysuser', loadChildren: './modules/security/authorization/sysuser/sysuser.module#SysUserModule' },
   // END ENTITIES FOR SERVICE: security.authorization
 
   // *****
   { path: 'mainmenu', loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  // BEGIN payment
+  { path: 'paymentplan', loadChildren: './payment/payment.module#PaymentModule' },
+  // END payment
 
   { path: 'login', component: LoginComponent },
   { path: 'confignewaccount', component: ConfigNewAccountComponent },

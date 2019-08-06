@@ -23,7 +23,7 @@
           <p-header>
             Débitos ({{ currentMonthName }})
           </p-header>
-          {{ debitosDoMes | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          {{ debitosDoMes * -1 | currency:'BRL':'symbol':'1.2-2':'pt' }}
         </p-card>
       </div>
 

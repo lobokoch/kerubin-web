@@ -5,6 +5,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import * as moment from 'moment';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-dashboard-fluxocaixa',
@@ -29,18 +30,31 @@ export class DashboardFluxoCaixaComponent implements OnInit {
   resumoMensalPorPlanoContasCreditosMesAnteriorChartData: any;
 
   resumoPlanoContasOptions = {
-      legend: {
-        position: 'right'
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          const dataset = data.datasets[tooltipItem.datasetIndex];
+          const value = dataset.data[tooltipItem.index];
+          let label = data.labels[tooltipItem.index];
+          label = label ? (' ' + label + ': ') : ' ';
+          // return label + this.decimalPipe.transform(value, '1.2-2');
+          return label + value.toLocaleString('pt', { style: 'currency', currency: 'BRL' });
+        }
       }
+    },
+
+    legend: {
+      position: 'right'
+    }
   };
 
   despesasMensaisPorPlanoContasMesAtualChartDataOptions: any;
   colors = ['#FF6384', '#36A2EB', '#FFCE56', '#ff9f40', '#00FF7F', '#4bc0c0',
-            '#FF00000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#C0C0C0', '#808080', '#800000', '#808000',
-            '#008000',  '#800080', '#008080', '#000080', 'FF4500', '#FF8C00', '#DAA520', '#7FFF00', '#006400', '#4682B4',
-            '#87CEEB',  '#8B008B', '#DA70D6', '#FF1493', '#EE82EE', '#800080', '#F5F5DC', '#D2691E', '#F4A460', '#FFF8DC',
-            '#FFF0F5', '#B0C4DE', '#778899', '#F0FFFF', '#696969', '#FF1493', '#0000CD', '#6A5ACD', '#00CED1', '#ffcd56'
-          ];
+    '#FF00000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#C0C0C0', '#808080', '#800000', '#808000',
+    '#008000', '#800080', '#008080', '#000080', 'FF4500', '#FF8C00', '#DAA520', '#7FFF00', '#006400', '#4682B4',
+    '#87CEEB', '#8B008B', '#DA70D6', '#FF1493', '#EE82EE', '#800080', '#F5F5DC', '#D2691E', '#F4A460', '#FFF8DC',
+    '#FFF0F5', '#B0C4DE', '#778899', '#F0FFFF', '#696969', '#FF1493', '#0000CD', '#6A5ACD', '#00CED1', '#ffcd56'
+  ];
 
   currentMonthName = '';
   nextMonthName = '';
@@ -54,7 +68,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           const value = dataset.data[tooltipItem.index];
           const label = dataset.label ? (' ' + dataset.label + ': ') : ' ';
           // return label + this.decimalPipe.transform(value, '1.2-2');
-          return label + value.toLocaleString('pt', {style: 'currency', currency: 'BRL'});
+          return label + value.toLocaleString('pt', { style: 'currency', currency: 'BRL' });
         }
       }
     },
@@ -62,8 +76,8 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     scales: {
       yAxes: [{
         ticks: {
-          callback: function(value, index, values) {
-            return value.toLocaleString('pt', {style: 'currency', currency: 'BRL'});
+          callback: function (value, index, values) {
+            return value.toLocaleString('pt', { style: 'currency', currency: 'BRL' });
           }
         }
       }]
@@ -74,9 +88,9 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     private dashboardService: DashboardFluxoCaixaService,
     private messageHandler: MessageHandlerService,
     private decimalPipe: DecimalPipe
-    ) {
+  ) {
 
-    }
+  }
 
   ngOnInit() {
     this.loadCharts();
@@ -90,60 +104,60 @@ export class DashboardFluxoCaixaComponent implements OnInit {
 
   private getFluxoCaixaFromYear() {
     this.dashboardService.getFluxoCaixaFromYear()
-    .then(response => {
-      this.loadedItemsFluxo = response;
-      //
-      this.fillChartData(this.loadedItemsFluxo);
-      this.pegarDadosDoMesAtual(this.loadedItemsFluxo);
+      .then(response => {
+        this.loadedItemsFluxo = response;
+        //
+        this.fillChartData(this.loadedItemsFluxo);
+        this.pegarDadosDoMesAtual(this.loadedItemsFluxo);
 
-    })
-    .catch(error => {
-      this.messageHandler.showError(error);
-    });
+      })
+      .catch(error => {
+        this.messageHandler.showError(error);
+      });
   }
 
   private getResumoMensalPorPlanoContasDebitos() {
     this.dashboardService.getResumoMensalPorPlanoContasDebitos()
-    .then(response => {
-      const items = response;
+      .then(response => {
+        const items = response;
 
-      let monthIndex = -1;
-      if (items) {
-        monthIndex = items.length - 1; // Current month
-      }
-      let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
-      this.resumoMensalPorPlanoContasDebitosMesAtualChartData = chartData;
+        let monthIndex = -1;
+        if (items) {
+          monthIndex = items.length - 1; // Current month
+        }
+        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        this.resumoMensalPorPlanoContasDebitosMesAtualChartData = chartData;
 
-      monthIndex--; // Previous month
-      chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
-      this.resumoMensalPorPlanoContasDebitosMesAnteriorChartData = chartData;
+        monthIndex--; // Previous month
+        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        this.resumoMensalPorPlanoContasDebitosMesAnteriorChartData = chartData;
 
-    })
-    .catch(error => {
-      this.messageHandler.showError(error);
-    });
+      })
+      .catch(error => {
+        this.messageHandler.showError(error);
+      });
   }
 
   private getResumoMensalPorPlanoContasCreditos() {
     this.dashboardService.getResumoMensalPorPlanoContasCreditos()
-    .then(response => {
-      const items = response;
-      //
-      let monthIndex = -1;
-      if (items) {
-        monthIndex = items.length - 1; // Current month
-      }
+      .then(response => {
+        const items = response;
+        //
+        let monthIndex = -1;
+        if (items) {
+          monthIndex = items.length - 1; // Current month
+        }
 
-      let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
-      this.resumoMensalPorPlanoContasCreditosMesAtualChartData = chartData;
+        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        this.resumoMensalPorPlanoContasCreditosMesAtualChartData = chartData;
 
-      monthIndex--; // Previous month
-      chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
-      this.resumoMensalPorPlanoContasCreditosMesAnteriorChartData = chartData;
-    })
-    .catch(error => {
-      this.messageHandler.showError(error);
-    });
+        monthIndex--; // Previous month
+        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        this.resumoMensalPorPlanoContasCreditosMesAnteriorChartData = chartData;
+      })
+      .catch(error => {
+        this.messageHandler.showError(error);
+      });
   }
 
   private getMonthNames(): Array<string> {

@@ -1,0 +1,19 @@
+.resumo-valor-left {
+  display: inline-block;
+  width: 178px;
+  text-align: right;
+  margin-right: 3px;
+}
+
+.resumo-valor-right {
+  display: inline-block;
+  min-width: 80px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.resumo-valor-total-right {
+  font-size: 130%;
+  color: red;
+  border-top: 1px solid #000;
+}

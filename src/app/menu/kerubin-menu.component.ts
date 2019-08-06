@@ -117,20 +117,35 @@ export class KerubinMenuComponent implements OnInit {
 
         ]
       },
-	  {
-      	label: 'Segurança',
-      	icon: 'pi pi-pw',
-      	items: [
+      {
+        label: 'Segurança',
+        icon: 'pi pi-pw',
+        items: [
 
-      		{
-      			label: 'Autorização',
-      			icon: 'pi pi-fw ',
-      			items: [
-      				{ label: 'Usuário', icon: 'pi pi-fw', routerLink: '/sysuser' }
-      			]
-      		}
+          {
+            label: 'Autorização',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Usuário', icon: 'pi pi-fw', routerLink: '/sysuser' }
+            ]
+          }
 
-      	]
+        ]
+      },
+      {
+        label: 'Kerubin',
+        icon: 'pi pi-pw',
+        items: [
+
+          {
+            label: 'Créditos',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Repor créditos', icon: 'pi pi-fw', routerLink: '/paymentplan' }
+            ]
+          }
+
+        ]
       }
 
 
