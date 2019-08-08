@@ -1,3 +1,6 @@
+import { PaymentService } from './payment.service';
+import { CreditOrderModule } from './../modules/security/authorization/creditorder/creditorder.module';
+import { CreditOrderService } from './../modules/security/authorization/creditorder/creditorder.service';
 import { FormsModule } from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
@@ -28,7 +31,8 @@ import { PaymentRoutingModule } from './payment-routing.module';
   ],
 
   providers: [
-    DecimalPipe
+    DecimalPipe,
+    PaymentService
   ]
 })
 export class PaymentModule { }

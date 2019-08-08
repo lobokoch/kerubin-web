@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.11.0
-Code generated at time stamp: 2019-07-06T11:24:40.670
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-06T07:20:02.873
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -73,7 +73,7 @@ export class TenantListComponent implements OnInit {
 	          this.tenantList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });

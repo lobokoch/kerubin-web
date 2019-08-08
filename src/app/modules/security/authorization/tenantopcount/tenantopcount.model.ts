@@ -6,6 +6,7 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
+import { Tenant } from './../tenant/tenant.model';
 
 export class SortField {
   field: string;
@@ -28,27 +29,31 @@ export class PaginationFilter {
   }
 }
 
-export class TenantNameAutoComplete {
-	name: string;
-}
-
-export class TenantListFilter extends PaginationFilter {
+export class TenantOpCountListFilter extends PaginationFilter {
 	
-	name: TenantNameAutoComplete[];
 }
 
-export class Tenant {
+export class TenantOpCount {
 	id: string;
-	name: string;
-	maxUsers: number;
-	balance: number;
-	active: boolean = false;
+	description: string;
+	tenant: Tenant;
+	yearOp: number;
+	monthOp: number;
+	dayOp: number;
+	hourOp: number;
+	countGet: number;
+	countPost: number;
+	countPut: number;
+	countDelete: number;
+	countList: number;
+	countAutoComplete: number;
+	countOp: number;
 }
 
-export class TenantAutoComplete {
+export class TenantOpCountAutoComplete {
 	id: string;
-	name: string;
+	description: string;
 }
 
-export class TenantSumFields {
+export class TenantOpCountSumFields {
 }

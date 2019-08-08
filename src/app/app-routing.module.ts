@@ -68,6 +68,7 @@ const routes: Routes = [
 
   // BEGIN payment
   { path: 'paymentplan', loadChildren: './payment/payment.module#PaymentModule' },
+  { path: 'paymentCreditOrder', loadChildren: './modules/security/authorization/creditorder/creditorder.module#CreditOrderModule' },
   // END payment
 
   { path: 'login', component: LoginComponent },

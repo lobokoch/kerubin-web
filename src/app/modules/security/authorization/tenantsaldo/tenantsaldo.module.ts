@@ -29,10 +29,11 @@ import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { SecurityAuthorizationTranslationService } from './../i18n/./../i18n/security-authorization-translation.service';
-import { TenantService } from './tenant.service';
-import { TenantListComponent } from './list-tenant.component';
-import { TenantComponent } from './crud-tenant.component';
-import { TenantRoutingModule } from './tenant-routing.module';
+import { TenantSaldoService } from './tenantsaldo.service';
+import { TenantSaldoListComponent } from './list-tenantsaldo.component';
+import { TenantSaldoComponent } from './crud-tenantsaldo.component';
+import { TenantSaldoRoutingModule } from './tenantsaldo-routing.module';
+import { TenantModule } from '../tenant/tenant.module';
 // Kerubin - END
 
 @NgModule({
@@ -60,13 +61,14 @@ import { TenantRoutingModule } from './tenant-routing.module';
 	CardModule,
 
     // Kerubin
-    TenantRoutingModule
+    TenantSaldoRoutingModule,
+	TenantModule
 
   ],
 
   declarations: [
-    TenantComponent,
-    TenantListComponent
+    TenantSaldoComponent,
+    TenantSaldoListComponent
   ],
 
   exports: [
@@ -74,10 +76,10 @@ import { TenantRoutingModule } from './tenant-routing.module';
   ],
 
   providers: [
-    TenantService,
+    TenantSaldoService,
     SecurityAuthorizationTranslationService
   ]
 
 })
 
-export class TenantModule { }
+export class TenantSaldoModule { }

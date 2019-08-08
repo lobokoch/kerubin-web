@@ -12,57 +12,51 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
-import { SysUser } from './sysuser.model';
-import { SysUserService } from './sysuser.service';
+import { TenantSaldo } from './tenantsaldo.model';
+import { TenantSaldoService } from './tenantsaldo.service';
 import { SecurityAuthorizationTranslationService } from './../i18n/security-authorization-translation.service';
 import * as moment from 'moment';
 
 import { TenantService } from './../tenant/tenant.service';
 import { Tenant } from './../tenant/tenant.model';
 import { TenantAutoComplete } from './../tenant/tenant.model';
-
-import { AccountType } from './../enums/security-authorization-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-sysuser.component',
-  templateUrl: './crud-sysuser.component.html',
-  styleUrls: ['./crud-sysuser.component.css']
+  selector: 'app-crud-tenantsaldo.component',
+  templateUrl: './crud-tenantsaldo.component.html',
+  styleUrls: ['./crud-tenantsaldo.component.css']
 })
 
-export class SysUserComponent implements OnInit {
+export class TenantSaldoComponent implements OnInit {
 	
 	calendarLocale: any;
 	
-	sysUser = new SysUser();
-	sysUserTenantAutoCompleteSuggestions: TenantAutoComplete[];
-	sysUserAccountTypeOptions: AccountType[];
+	tenantSaldo = new TenantSaldo();
+	tenantSaldoTenantAutoCompleteSuggestions: TenantAutoComplete[];
 	
 	constructor(
-	    private sysUserService: SysUserService,
+	    private tenantSaldoService: TenantSaldoService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private tenantService: TenantService,
 	    private route: ActivatedRoute,
 	    private messageHandler: MessageHandlerService
 	) { 
-		this.initializeSysUserAccountTypeOptions();
 	}
 	
 	ngOnInit() {
 		this.initLocaleSettings();
-		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
-	      this.getSysUserById(id);
+	      this.getTenantSaldoById(id);
 	    }
 	}
 	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
-	      this.sysUser = new SysUser();
-	      this.initializeEnumFieldsWithDefault();
+	      this.tenantSaldo = new TenantSaldo();
 	    }.bind(this), 1);
 	}
 	
@@ -93,9 +87,9 @@ export class SysUserComponent implements OnInit {
 	
 	create() {
 		
-	    this.sysUserService.create(this.sysUser)
-	    .then((sysUser) => {
-	      this.sysUser = sysUser;
+	    this.tenantSaldoService.create(this.tenantSaldo)
+	    .then((tenantSaldo) => {
+	      this.tenantSaldo = tenantSaldo;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
@@ -104,9 +98,9 @@ export class SysUserComponent implements OnInit {
 	}
 	
 	update() {
-	    this.sysUserService.update(this.sysUser)
-	    .then((sysUser) => {
-	      this.sysUser = sysUser;
+	    this.tenantSaldoService.update(this.tenantSaldo)
+	    .then((tenantSaldo) => {
+	      this.tenantSaldo = tenantSaldo;
 	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
@@ -114,49 +108,46 @@ export class SysUserComponent implements OnInit {
 	    });
 	}
 	
-	getSysUserById(id: string) {
-	    this.sysUserService.retrieve(id)
-	    .then((sysUser) => this.sysUser = sysUser)
+	getTenantSaldoById(id: string) {
+	    this.tenantSaldoService.retrieve(id)
+	    .then((tenantSaldo) => this.tenantSaldo = tenantSaldo)
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
 	}
 	
 	get isEditing() {
-	    return Boolean(this.sysUser.id);
-	}
-	
-	initializeEnumFieldsWithDefault() {
-		this.sysUser.accountType = this.sysUserAccountTypeOptions[0].value;
+	    return Boolean(this.tenantSaldo.id);
 	}
 	
 	
-	sysUserTenantAutoCompleteClear(event) {
+	
+	tenantSaldoTenantAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
-		this.sysUser.tenant = null;
+		this.tenantSaldo.tenant = null;
 	}
 	
-	sysUserTenantAutoCompleteOnBlur(event) {
+	tenantSaldoTenantAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
-		if (String(this.sysUser.tenant) === '') {
-			this.sysUser.tenant = null;
+		if (String(this.tenantSaldo.tenant) === '') {
+			this.tenantSaldo.tenant = null;
 		}
 	}
 	
-	sysUserTenantAutoComplete(event) {
+	tenantSaldoTenantAutoComplete(event) {
 	    const query = event.query;
-	    this.sysUserService
+	    this.tenantSaldoService
 	      .tenantTenantAutoComplete(query)
 	      .then((result) => {
-	        this.sysUserTenantAutoCompleteSuggestions = result as TenantAutoComplete[];
+	        this.tenantSaldoTenantAutoCompleteSuggestions = result as TenantAutoComplete[];
 	      })
 	      .catch(error => {
 	        this.messageHandler.showError(error);
 	      });
 	}
 	
-	sysUserTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {
+	tenantSaldoTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {
 		let text = '';
 		if (tenant) {
 			if (tenant.name) {
@@ -174,13 +165,6 @@ export class SysUserComponent implements OnInit {
 		return text;
 	}
 	
-	private initializeSysUserAccountTypeOptions() {
-	    this.sysUserAccountTypeOptions = [
-	    	{ label: this.getTranslation('security.authorization.sysUser_accountType_personal'), value: 'PERSONAL' }, 
-	    	{ label: this.getTranslation('security.authorization.sysUser_accountType_corporate'), value: 'CORPORATE' }
-	    ];
-	}
-	  
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.11.0
-Code generated at time stamp: 2019-07-06T11:24:40.691
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-06T07:20:02.884
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,10 +23,22 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="tenant.id" name="id" readonly class="read-only">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-10">
+		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="name">{{ getTranslation('security.authorization.tenant_name') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #name="ngModel" ngModel [(ngModel)]="tenant.name" name="name" required>
 			<div class="invalid-message" *ngIf="name.invalid && name.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="maxUsers">{{ getTranslation('security.authorization.tenant_maxUsers') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #maxUsers="ngModel" ngModel [(ngModel)]="tenant.maxUsers" name="maxUsers" required>
+			<div class="invalid-message" *ngIf="maxUsers.invalid && maxUsers.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="balance">{{ getTranslation('security.authorization.tenant_balance') }}<span class="kb-label-required">*</span></label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #balance="ngModel" ngModel [(ngModel)]="tenant.balance" name="balance" required>
+			<div class="invalid-message" *ngIf="balance.invalid && balance.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">

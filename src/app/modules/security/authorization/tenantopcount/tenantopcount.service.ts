@@ -14,18 +14,17 @@ import * as moment from 'moment';
 
 import { HttpClientWithToken } from '../../../../security/http-client-token';
 
-import { SysUser } from './sysuser.model';
-import { SysUserAutoComplete } from './sysuser.model';
+import { TenantOpCount } from './tenantopcount.model';
+import { TenantOpCountAutoComplete } from './tenantopcount.model';
 import { Tenant } from './../tenant/tenant.model';
-import { SysUserListFilter } from './sysuser.model';
-import { SysUserNameAutoComplete } from './sysuser.model';
+import { TenantOpCountListFilter } from './tenantopcount.model';
 import { environment } from 'src/environments/environment';
 import { TenantAutoComplete } from './../tenant/tenant.model';
 
 @Injectable()
-export class SysUserService {
+export class TenantOpCountService {
 	
-	url = environment.apiUrl + '/security/authorization/entities/sysUser';
+	url = environment.apiUrl + '/security/authorization/entities/tenantOpCount';
 	
 	constructor(private http: HttpClientWithToken) { }
 	
@@ -37,28 +36,26 @@ export class SysUserService {
 	    return headers;
 	}
 	
-	create(sysUser: SysUser): Promise<SysUser> {
+	create(tenantOpCount: TenantOpCount): Promise<TenantOpCount> {
 		const headers = this.getHeaders();    
 	
-	    return this.http.post(this.url, sysUser, { headers })
+	    return this.http.post(this.url, tenantOpCount, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const created = response as SysUser;
+	      const created = response as TenantOpCount;
 	      this.adjustNullEntitySlots([created]);
-	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
 	
-	update(sysUser: SysUser): Promise<SysUser> {
+	update(tenantOpCount: TenantOpCount): Promise<TenantOpCount> {
 	    const headers = this.getHeaders();
 	
-	    return this.http.put(`${this.url}/${sysUser.id}`, sysUser, { headers })
+	    return this.http.put(`${this.url}/${tenantOpCount.id}`, tenantOpCount, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const updated = response as SysUser;
+	      const updated = response as TenantOpCount;
 	      this.adjustNullEntitySlots([updated]);
-	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
@@ -69,52 +66,38 @@ export class SysUserService {
 	    .then(() => null);
 	}
 	
-	retrieve(id: string): Promise<SysUser> {
+	retrieve(id: string): Promise<TenantOpCount> {
 	    const headers = this.getHeaders();
-	    return this.http.get<SysUser>(`${this.url}/${id}`, { headers })
+	    return this.http.get<TenantOpCount>(`${this.url}/${id}`, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const sysUser = response as SysUser;
-	      this.adjustNullEntitySlots([sysUser]);
-	      this.adjustEntityDates([sysUser]);
-	      return sysUser;
+	      const tenantOpCount = response as TenantOpCount;
+	      this.adjustNullEntitySlots([tenantOpCount]);
+	      return tenantOpCount;
 	    });
 	}
 	
 	
-	private adjustEntityDates(entityList: SysUser[]) {
-		entityList.forEach(sysUser => {
-		      if (sysUser.activationDate) {
-		        sysUser.activationDate = moment(sysUser.activationDate, 'YYYY-MM-DD H:m:s').toDate();
-		      }
-		      	
-		      
-		      if (sysUser.confirmationDate) {
-		        sysUser.confirmationDate = moment(sysUser.confirmationDate, 'YYYY-MM-DD H:m:s').toDate();
-		      }
-		      	
-		});
-	}
 	
-	private adjustNullEntitySlots(entityList: SysUser[]) {
-		/*entityList.forEach(sysUser => {
-		      if (!sysUser.tenant) {
-		        sysUser.tenant = new Tenant();
+	private adjustNullEntitySlots(entityList: TenantOpCount[]) {
+		/*entityList.forEach(tenantOpCount => {
+		      if (!tenantOpCount.tenant) {
+		        tenantOpCount.tenant = new Tenant();
 		      }
 		      	
 		});*/
 	}
 	
-	autoComplete(query: string): Promise<SysUserAutoComplete[]> {
+	autoComplete(query: string): Promise<TenantOpCountAutoComplete[]> {
 	    const headers = this.getHeaders();
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 	
-	    return this.http.get<SysUserAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
+	    return this.http.get<TenantOpCountAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
-	        const result = response as SysUserAutoComplete[];
+	        const result = response as TenantOpCountAutoComplete[];
 	        return result;
 	      });
 	
@@ -142,35 +125,19 @@ export class SysUserService {
 	
 				
 	
-	sysUserNameAutoComplete(query: string): Promise<any> {
+	tenantOpCountList(tenantOpCountListFilter: TenantOpCountListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
-	    let params = new HttpParams();
-	    params = params.set('query', query);
-	
-	    return this.http.get<any>(`${this.url}/sysUserNameAutoComplete`, { headers, params })
-	      .toPromise()
-	      .then(response => {
-	        const result = response as SysUserNameAutoComplete[];
-	        return result;
-	      });
-	
-	}
-	
-	sysUserList(sysUserListFilter: SysUserListFilter): Promise<any> {
-	    const headers = this.getHeaders();
-	
-	    const params = this.mountAndGetSearchParams(sysUserListFilter);
+	    const params = this.mountAndGetSearchParams(tenantOpCountListFilter);
 	
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const data = response;
-	        const items = data.content; /* array of SysUser */
+	        const items = data.content; /* array of TenantOpCount */
 	        const totalElements = data.totalElements;
 	
 	        this.adjustNullEntitySlots(items);
-	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,
@@ -182,7 +149,7 @@ export class SysUserService {
 	}
 	
 	
-	mountAndGetSearchParams(filter: SysUserListFilter): HttpParams {
+	mountAndGetSearchParams(filter: TenantOpCountListFilter): HttpParams {
 	    let params = new HttpParams();
 	    if (filter.pageNumber) {
 	      params = params.set('page', filter.pageNumber.toString());
@@ -192,11 +159,6 @@ export class SysUserService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
-		// name
-		if (filter.name) {
-			const name = filter.name.map(item => item.name).join(',');
-			params = params.set('name', name);
-		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -214,25 +176,25 @@ export class SysUserService {
 	}
 	
 	/*** TODO: avaliar se vai ser feito isso.
-	replicateSysUser(id: string, groupId: string, quantity: number): Promise<boolean> {
+	replicateTenantOpCount(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
 	
-	    const payload = new ReplicateSysUserPayload(id, quantity, groupId);
-	    return this.http.post(`${this.url}/replicateSysUser`, payload, { headers } )
+	    const payload = new ReplicateTenantOpCountPayload(id, quantity, groupId);
+	    return this.http.post(`${this.url}/replicateTenantOpCount`, payload, { headers } )
 	    .toPromise()
 	    .then(response => {
 	      return response === true;
 	    });
 	}
 		
-	getTotaisfilterSysUser(filter: SysUserrListFilter): Promise<TotaisfilterSysUser> {
+	getTotaisfilterTenantOpCount(filter: TenantOpCountrListFilter): Promise<TotaisfilterTenantOpCount> {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(filter);
-	    return this.http.get<TotaisfilterSysUser>(`${this.url}/getTotaisfilterSysUser`, { headers, params })
+	    return this.http.get<TotaisfilterTenantOpCount>(`${this.url}/getTotaisfilterTenantOpCount`, { headers, params })
 	    .toPromise()
 	    .then(response => {
-	      const result = response as TotaisfilterSysUser;
+	      const result = response as TotaisfilterTenantOpCount;
 	      return result;
 	    });
 	}

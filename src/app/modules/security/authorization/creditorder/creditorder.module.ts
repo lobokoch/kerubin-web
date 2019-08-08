@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.873
+Code generated with MKL Plug-in version: 7.13.0
+Code generated at time stamp: 2019-08-08T00:01:06.900
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -29,10 +29,11 @@ import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { SecurityAuthorizationTranslationService } from './../i18n/./../i18n/security-authorization-translation.service';
-import { TenantService } from './tenant.service';
-import { TenantListComponent } from './list-tenant.component';
-import { TenantComponent } from './crud-tenant.component';
-import { TenantRoutingModule } from './tenant-routing.module';
+import { CreditOrderService } from './creditorder.service';
+import { CreditOrderListComponent } from './list-creditorder.component';
+import { CreditOrderComponent } from './crud-creditorder.component';
+import { CreditOrderRoutingModule } from './creditorder-routing.module';
+import { SysUserModule } from '../sysuser/sysuser.module';
 // Kerubin - END
 
 @NgModule({
@@ -60,13 +61,14 @@ import { TenantRoutingModule } from './tenant-routing.module';
 	CardModule,
 
     // Kerubin
-    TenantRoutingModule
+    CreditOrderRoutingModule,
+	SysUserModule
 
   ],
 
   declarations: [
-    TenantComponent,
-    TenantListComponent
+    CreditOrderComponent,
+    CreditOrderListComponent
   ],
 
   exports: [
@@ -74,10 +76,10 @@ import { TenantRoutingModule } from './tenant-routing.module';
   ],
 
   providers: [
-    TenantService,
+    CreditOrderService,
     SecurityAuthorizationTranslationService
   ]
 
 })
 
-export class TenantModule { }
+export class CreditOrderModule { }

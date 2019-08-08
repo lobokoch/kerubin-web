@@ -13,33 +13,32 @@ import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
-import { SysUserService } from './sysuser.service';
+import { TenantSaldoService } from './tenantsaldo.service';
 import { SecurityAuthorizationTranslationService } from './../i18n/security-authorization-translation.service';
-import { SysUser } from './sysuser.model';
-import { SysUserListFilter } from './sysuser.model';
-import { SortField } from './sysuser.model';
-import { SysUserNameAutoComplete } from './sysuser.model';
+import { TenantSaldo } from './tenantsaldo.model';
+import { TenantSaldoListFilter } from './tenantsaldo.model';
+import { SortField } from './tenantsaldo.model';
 
 import { TenantAutoComplete } from './../tenant/tenant.model';
+import { TenantSaldoSumFields } from './tenantsaldo.model';
 
 @Component({
-  selector: 'app-list-sysuser.component',
-  templateUrl: './list-sysuser.component.html',
-  styleUrls: ['./list-sysuser.component.css']
+  selector: 'app-list-tenantsaldo.component',
+  templateUrl: './list-tenantsaldo.component.html',
+  styleUrls: ['./list-tenantsaldo.component.css']
 })
 
-export class SysUserListComponent implements OnInit {
+export class TenantSaldoListComponent implements OnInit {
 	
-	sysUserListItems: SysUser[];
-	sysUserListTotalElements = 0;
-	sysUserListFilter = new SysUserListFilter();
+	tenantSaldoListItems: TenantSaldo[];
+	tenantSaldoListTotalElements = 0;
+	tenantSaldoListFilter = new TenantSaldoListFilter();
 	
-	sysUserNameAutoCompleteSuggestions: SysUserNameAutoComplete[];
-	dateFilterIntervalDropdownItems: SelectItem[];
 	
+	tenantSaldoSumFields = new TenantSaldoSumFields();
 	
 	constructor(
-	    private sysUserService: SysUserService,
+	    private tenantSaldoService: TenantSaldoService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
@@ -48,31 +47,41 @@ export class SysUserListComponent implements OnInit {
 	ngOnInit() {
 	}
 	
-	sysUserList(pageNumber = 0) {
-	    this.sysUserListFilter.pageNumber = pageNumber;
-	    this.sysUserService
-	    .sysUserList(this.sysUserListFilter)
+	tenantSaldoList(pageNumber = 0) {
+	    this.tenantSaldoListFilter.pageNumber = pageNumber;
+	    this.tenantSaldoService
+	    .tenantSaldoList(this.tenantSaldoListFilter)
 	    .then(result => {
-	      	this.sysUserListItems = result.items;
-	      	this.sysUserListTotalElements = result.totalElements;
+	      	this.tenantSaldoListItems = result.items;
+	      	this.tenantSaldoListTotalElements = result.totalElements;
 	      
+			this.getTenantSaldoSumFields();
 	    });
 		
 	}
 	
-	
-	sysUserFilterSearch() {
-	    this.sysUserList(0);
+	getTenantSaldoSumFields() {
+	    this.tenantSaldoService.getTenantSaldoSumFields(this.tenantSaldoListFilter)
+		.then(response => {
+		  this.tenantSaldoSumFields = response;
+		})
+		.catch(e => {
+		  this.messageHandler.showError(e);
+		});
 	}
 	
-	deleteSysUser(sysUser: SysUser) {
+	tenantSaldoFilterSearch() {
+	    this.tenantSaldoList(0);
+	}
+	
+	deleteTenantSaldo(tenantSaldo: TenantSaldo) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
 	      accept: () => {
-	        this.sysUserService.delete(sysUser.id)
+	        this.tenantSaldoService.delete(tenantSaldo.id)
 	        .then(() => {
 	          this.messageHandler.showSuccess('Registro excluído!');
-	          this.sysUserList(0);
+	          this.tenantSaldoList(0);
 	        })
 	        .catch((e) => {
 	          this.messageHandler.showError(e);
@@ -81,29 +90,18 @@ export class SysUserListComponent implements OnInit {
 	    });
 	}
 	
-	sysUserListOnLazyLoad(event: LazyLoadEvent) {
+	tenantSaldoListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
-	      this.sysUserListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	      this.tenantSaldoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
 	    } else {
-	      this.sysUserListFilter.sortField = new SortField('id', 1); // asc
+	      this.tenantSaldoListFilter.sortField = new SortField('id', 1); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
-	    this.sysUserList(pageNumber);
-	}
-	
-	sysUserNameAutoComplete(event) {
-	    const query = event.query;
-	    this.sysUserService.sysUserNameAutoComplete(query)
-	    .then((result) => {
-	      this.sysUserNameAutoCompleteSuggestions = result;
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
-	    });
+	    this.tenantSaldoList(pageNumber);
 	}
 	
 	
-	sysUserTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {
+	tenantSaldoTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {
 		if (tenant) {
 			return (tenant.name || '<nulo>');
 		} else {

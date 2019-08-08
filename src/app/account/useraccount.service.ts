@@ -27,7 +27,6 @@ export class UserAccountService {
     return this.http.post<String>(`${this.url}/changePassword`, user)
       .toPromise()
       .then(response => {
-        console.log('response: ' + response);
         return response;
       });
   }
@@ -36,7 +35,6 @@ export class UserAccountService {
     return this.http.post<String>(`${this.url}/changePasswordForgotten`, user)
       .toPromise()
       .then(response => {
-        console.log('response: ' + response);
         return response;
       });
   }
@@ -45,7 +43,6 @@ export class UserAccountService {
     return this.http.post<AccountCreatedDTO>(`${this.url}/createAccount`, userAccount)
       .toPromise()
       .then(response => {
-        console.log('response: ' + response);
         return response;
       });
   }
@@ -54,7 +51,6 @@ export class UserAccountService {
     return this.http.post<string>(`${this.url}/sendChangePasswordLink`, email)
       .toPromise()
       .then(response => {
-        console.log('response: ' + response);
         return response;
       });
   }
@@ -63,9 +59,7 @@ export class UserAccountService {
     return this.http.put<SysUser>(`${this.url}/confirmAccount/${id}`, {})
       .toPromise()
       .then(response => {
-        console.log('response: ' + response);
         const confirmedUser = response as SysUser;
-        console.log('confirmedUser: ' + confirmedUser);
         return confirmedUser;
       });
   }

@@ -141,7 +141,8 @@ export class KerubinMenuComponent implements OnInit {
             label: 'Créditos',
             icon: 'pi pi-fw ',
             items: [
-              { label: 'Repor créditos', icon: 'pi pi-fw', routerLink: '/paymentplan' }
+              { label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/paymentplan' },
+              { label: 'Consultar pedidos', icon: 'pi pi-fw', routerLink: '/paymentCreditOrder' }
             ]
           }
 

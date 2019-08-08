@@ -1,0 +1,130 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 7.13.0
+Code generated at time stamp: 2019-08-08T00:01:06.919
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.creditOrder') }}</div>
+		</p-header>
+	
+
+  	<div class="ui-g">
+		
+		<!-- Begin Filters -->
+		<p-accordion class="ui-g-12">
+			<p-accordionTab header="Filtro">
+			
+				<div class="ui-g">
+					<div class="ui-g-12">
+					</div>
+					
+					<div>
+						<p-button label="Pesquisar" (click)="creditOrderFilterSearch()"></p-button>
+					</div>
+				</div>
+				
+			
+			</p-accordionTab>
+		</p-accordion>
+		<!-- End Filters -->
+		
+		<!-- Begin GRID -->
+		<div class="ui-g-12" name="data-grid">
+			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+				[value]="creditOrderListItems"
+			    [rows]="creditOrderListFilter.pageSize" 
+			    [totalRecords]="creditOrderListTotalElements"
+			    [lazy]="true" (onLazyLoad)="creditOrderListOnLazyLoad($event)" >
+			    <ng-template pTemplate="header">
+		            <tr>
+		            	<th style="width: 150px" [pSortableColumn]="'orderUserName'">{{ getTranslation('security.authorization.creditOrder_orderUserName_grid') }}<p-sortIcon [field]="'orderUserName'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'orderDate'">{{ getTranslation('security.authorization.creditOrder_orderDate_grid') }}<p-sortIcon [field]="'orderDate'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderValue'">{{ getTranslation('security.authorization.creditOrder_orderValue_grid') }}<p-sortIcon [field]="'orderValue'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderBonusValue'">{{ getTranslation('security.authorization.creditOrder_orderBonusValue_grid') }}<p-sortIcon [field]="'orderBonusValue'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderTotalCredits'">{{ getTranslation('security.authorization.creditOrder_orderTotalCredits_grid') }}<p-sortIcon [field]="'orderTotalCredits'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'paymentMethod'">{{ getTranslation('security.authorization.creditOrder_paymentMethod_grid') }}<p-sortIcon [field]="'paymentMethod'"></p-sortIcon></th>
+		            	<th style="width: 100px" [pSortableColumn]="'paymentMethodDescription'">{{ getTranslation('security.authorization.creditOrder_paymentMethodDescription_grid') }}<p-sortIcon [field]="'paymentMethodDescription'"></p-sortIcon></th>
+		            	<th style="width: 90px" [pSortableColumn]="'orderStatus'">{{ getTranslation('security.authorization.creditOrder_orderStatus_grid') }}<p-sortIcon [field]="'orderStatus'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'orderPaidDate'">{{ getTranslation('security.authorization.creditOrder_orderPaidDate_grid') }}<p-sortIcon [field]="'orderPaidDate'"></p-sortIcon></th>
+		            	<th style="width: 95px" [pSortableColumn]="'orderCanceledDate'">{{ getTranslation('security.authorization.creditOrder_orderCanceledDate_grid') }}<p-sortIcon [field]="'orderCanceledDate'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'orderHistory'">{{ getTranslation('security.authorization.creditOrder_orderHistory_grid') }}<p-sortIcon [field]="'orderHistory'"></p-sortIcon></th>
+		            </tr>
+		        </ng-template>
+		        
+			    <ng-template pTemplate="body" let-creditOrder>
+		            <tr [pSelectableRow]="creditOrder">
+		            	<td>
+		            		{{creditOrder?.orderUserName}}
+		            	</td>
+		            	<td>
+		            		{{creditOrder?.orderDate | date:'dd/MM/yyyy'}}
+		            	</td>
+		            	<td class="kb-field-money">
+		            		{{creditOrder?.orderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td class="kb-field-money">
+		            		{{creditOrder?.orderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td class="kb-field-money">
+		            		{{creditOrder?.orderTotalCredits | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td>
+		            		{{ getTranslation('security.authorization.creditOrder_paymentMethod' + '_' + creditOrder?.paymentMethod?.toLowerCase()) }}
+		            	</td>
+		            	<td>
+		            		{{creditOrder?.paymentMethodDescription}}
+		            	</td>
+		            	<td>
+		            		{{ getTranslation('security.authorization.creditOrder_orderStatus' + '_' + creditOrder?.orderStatus?.toLowerCase()) }}
+		            	</td>
+		            	<td>
+		            		{{creditOrder?.orderPaidDate | date:'dd/MM/yyyy'}}
+		            	</td>
+		            	<td>
+		            		{{creditOrder?.orderCanceledDate | date:'dd/MM/yyyy'}}
+		            	</td>
+		            	<td>
+		            		{{creditOrder?.orderHistory}}
+		            	</td>
+		            </tr>
+		        </ng-template>
+		        
+		        
+		        <ng-template pTemplate="emptymessage" let-columns>
+				    <tr>
+				        <td [attr.colspan]="11">
+				            Nenhum registro encontrado.
+				        </td>
+				    </tr>
+				</ng-template>
+				
+				<ng-template pTemplate="footer">
+					<tr>
+						<td class="kb-sum-footer">Totais </td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer sumField">{{ creditOrderSumFields.sumOrderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer sumField">{{ creditOrderSumFields.sumOrderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer sumField">{{ creditOrderSumFields.sumOrderTotalCredits | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		<!-- End GRID -->
+	</div>
+	
+	</p-panel>
+  
+</div>

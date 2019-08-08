@@ -1,0 +1,159 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-06T07:20:02.884
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.tenantOpCount') }}</div>
+		</p-header>
+	
+
+  	<div class="ui-g">
+		
+		<!-- Begin Filters -->
+		<p-accordion class="ui-g-12">
+			<p-accordionTab header="Filtro">
+			
+				<div class="ui-g">
+					<div class="ui-g-12">
+					</div>
+					
+					<div>
+						<p-button label="Pesquisar" (click)="tenantOpCountFilterSearch()"></p-button>
+					</div>
+				</div>
+				
+			
+			</p-accordionTab>
+		</p-accordion>
+		<!-- End Filters -->
+		
+		<!-- Begin GRID -->
+		<div class="ui-g-12" name="data-grid">
+			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+				[value]="tenantOpCountListItems"
+			    [rows]="tenantOpCountListFilter.pageSize" 
+			    [totalRecords]="tenantOpCountListTotalElements"
+			    [lazy]="true" (onLazyLoad)="tenantOpCountListOnLazyLoad($event)" >
+			    <ng-template pTemplate="header">
+		            <tr>
+		            	<th [pSortableColumn]="'description'">{{ getTranslation('security.authorization.tenantOpCount_description_grid') }}<p-sortIcon [field]="'description'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'tenant'">{{ getTranslation('security.authorization.tenantOpCount_tenant_grid') }}<p-sortIcon [field]="'tenant'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'yearOp'">{{ getTranslation('security.authorization.tenantOpCount_yearOp_grid') }}<p-sortIcon [field]="'yearOp'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'monthOp'">{{ getTranslation('security.authorization.tenantOpCount_monthOp_grid') }}<p-sortIcon [field]="'monthOp'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'dayOp'">{{ getTranslation('security.authorization.tenantOpCount_dayOp_grid') }}<p-sortIcon [field]="'dayOp'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'hourOp'">{{ getTranslation('security.authorization.tenantOpCount_hourOp_grid') }}<p-sortIcon [field]="'hourOp'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countGet'">{{ getTranslation('security.authorization.tenantOpCount_countGet_grid') }}<p-sortIcon [field]="'countGet'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countPost'">{{ getTranslation('security.authorization.tenantOpCount_countPost_grid') }}<p-sortIcon [field]="'countPost'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countPut'">{{ getTranslation('security.authorization.tenantOpCount_countPut_grid') }}<p-sortIcon [field]="'countPut'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countDelete'">{{ getTranslation('security.authorization.tenantOpCount_countDelete_grid') }}<p-sortIcon [field]="'countDelete'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countList'">{{ getTranslation('security.authorization.tenantOpCount_countList_grid') }}<p-sortIcon [field]="'countList'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countAutoComplete'">{{ getTranslation('security.authorization.tenantOpCount_countAutoComplete_grid') }}<p-sortIcon [field]="'countAutoComplete'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'countOp'">{{ getTranslation('security.authorization.tenantOpCount_countOp_grid') }}<p-sortIcon [field]="'countOp'"></p-sortIcon></th>
+						<th style="width: 12em">Ações</th>
+		            </tr>
+		        </ng-template>
+		        
+			    <ng-template pTemplate="body" let-tenantOpCount>
+		            <tr [pSelectableRow]="tenantOpCount">
+		            	<td>
+		            		{{tenantOpCount?.description}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCountTenantAutoCompleteFieldConverter(tenantOpCount?.tenant)}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.yearOp}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.monthOp}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.dayOp}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.hourOp}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countGet}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countPost}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countPut}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countDelete}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countList}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countAutoComplete}}
+		            	</td>
+		            	<td>
+		            		{{tenantOpCount?.countOp}}
+		            	</td>
+		              	<td class="kb-actions">
+		              		<a pButton [routerLink]="['/tenantopcount', tenantOpCount.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+		              		<!-- <button (click)="mostrarPagarConta(tenantOpCount)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
+		              		<button (click)="deleteTenantOpCount(tenantOpCount)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
+		              	</td>
+		            </tr>
+		        </ng-template>
+		        
+		        
+		        <ng-template pTemplate="emptymessage" let-columns>
+				    <tr>
+				        <td [attr.colspan]="14">
+				            Nenhum registro encontrado.
+				        </td>
+				    </tr>
+				</ng-template>
+				
+			</p-table>
+		</div>
+		<!-- End GRID -->
+		
+		<div class="ui-g-12 ui-md-2 ui-fluid">
+			<a routerLink="/tenantopcount/novo" pButton label="Novo registro"></a>
+		</div>
+		
+		<!-- Begin Extras
+		
+		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
+		        [maximizable]="false" [baseZIndex]="10000">
+		      <div>
+		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
+		          <div>
+		              <label style="display: block">Valor pago</label>
+		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
+		          </div>
+		          <div>
+		              <label style="display: block">Data pagamento</label>
+		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
+		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
+		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
+		          </div>
+		      </div>
+		        <p-footer>
+		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
+		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
+		        </p-footer>
+		</p-dialog>
+		
+		End Extras -->
+	</div>
+	
+	</p-panel>
+  
+</div>

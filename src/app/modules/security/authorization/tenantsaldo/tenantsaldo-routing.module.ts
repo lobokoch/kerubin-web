@@ -6,28 +6,28 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { TenantComponent } from './crud-tenant.component';
+import { TenantSaldoComponent } from './crud-tenantsaldo.component';
 import { AuthGuard } from '../../../../security/auth.guard';
-import { TenantListComponent } from './list-tenant.component';
+import { TenantSaldoListComponent } from './list-tenantsaldo.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   // Must add in forRoot
-  // { path: 'tenant', loadChildren: './modules/security/authorization/tenant/tenant.module#TenantModule' }
+  // { path: 'tenantsaldo', loadChildren: './modules/security/authorization/tenantsaldo/tenantsaldo.module#TenantSaldoModule' }
   {
     path: '',
-    component: TenantListComponent,
+    component: TenantSaldoListComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'novo',
-    component: TenantComponent,
+    component: TenantSaldoComponent,
     canActivate: [AuthGuard]
   },
   {
     path: ':id',
-    component: TenantComponent,
+    component: TenantSaldoComponent,
     canActivate: [AuthGuard]
   }
 ];
@@ -45,4 +45,4 @@ const routes: Routes = [
 
 })
 
-export class TenantRoutingModule { }
+export class TenantSaldoRoutingModule { }

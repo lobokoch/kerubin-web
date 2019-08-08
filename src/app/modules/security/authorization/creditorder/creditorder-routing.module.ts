@@ -1,33 +1,33 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.873
+Code generated with MKL Plug-in version: 7.13.0
+Code generated at time stamp: 2019-08-08T00:01:06.900
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { TenantComponent } from './crud-tenant.component';
+import { CreditOrderComponent } from './crud-creditorder.component';
 import { AuthGuard } from '../../../../security/auth.guard';
-import { TenantListComponent } from './list-tenant.component';
+import { CreditOrderListComponent } from './list-creditorder.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   // Must add in forRoot
-  // { path: 'tenant', loadChildren: './modules/security/authorization/tenant/tenant.module#TenantModule' }
+  // { path: 'creditorder', loadChildren: './modules/security/authorization/creditorder/creditorder.module#CreditOrderModule' }
   {
     path: '',
-    component: TenantListComponent,
+    component: CreditOrderListComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'novo',
-    component: TenantComponent,
+    component: CreditOrderComponent,
     canActivate: [AuthGuard]
   },
   {
     path: ':id',
-    component: TenantComponent,
+    component: CreditOrderComponent,
     canActivate: [AuthGuard]
   }
 ];
@@ -45,4 +45,4 @@ const routes: Routes = [
 
 })
 
-export class TenantRoutingModule { }
+export class CreditOrderRoutingModule { }

@@ -11,7 +11,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.sysUser') }}</div>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.tenantSaldo') }}</div>
 		</p-header>
 	
 
@@ -23,20 +23,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
-						
-						<div class="ui-g-12 ui-md-12 ui-fluid">
-							<label class="label-r">Nome do(s) usuário(s)</label>
-							<p-autoComplete name="sysUserNameAutoComplete" 
-							placeholder="Digite para pesquisar..." [dropdown]="true" 
-							[(ngModel)]="sysUserListFilter.name" [multiple]="true"
-							[suggestions]="sysUserNameAutoCompleteSuggestions"
-							(completeMethod)="sysUserNameAutoComplete($event)"
-							field="name"></p-autoComplete>
-						</div>
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="sysUserFilterSearch()"></p-button>
+						<p-button label="Pesquisar" (click)="tenantSaldoFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -48,38 +38,38 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
 			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
-				[value]="sysUserListItems"
-			    [rows]="sysUserListFilter.pageSize" 
-			    [totalRecords]="sysUserListTotalElements"
-			    [lazy]="true" (onLazyLoad)="sysUserListOnLazyLoad($event)" >
+				[value]="tenantSaldoListItems"
+			    [rows]="tenantSaldoListFilter.pageSize" 
+			    [totalRecords]="tenantSaldoListTotalElements"
+			    [lazy]="true" (onLazyLoad)="tenantSaldoListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
 		            <tr>
-		            	<th [pSortableColumn]="'name'">{{ getTranslation('security.authorization.sysUser_name_grid') }}<p-sortIcon [field]="'name'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'email'">{{ getTranslation('security.authorization.sysUser_email_grid') }}<p-sortIcon [field]="'email'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'active'">{{ getTranslation('security.authorization.sysUser_active_grid') }}<p-sortIcon [field]="'active'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'administrator'">{{ getTranslation('security.authorization.sysUser_administrator_grid') }}<p-sortIcon [field]="'administrator'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('security.authorization.tenantSaldo_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'saldoInicial'">{{ getTranslation('security.authorization.tenantSaldo_saldoInicial_grid') }}<p-sortIcon [field]="'saldoInicial'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'valorCredito'">{{ getTranslation('security.authorization.tenantSaldo_valorCredito_grid') }}<p-sortIcon [field]="'valorCredito'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'saldo'">{{ getTranslation('security.authorization.tenantSaldo_saldo_grid') }}<p-sortIcon [field]="'saldo'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
 		        
-			    <ng-template pTemplate="body" let-sysUser>
-		            <tr [pSelectableRow]="sysUser">
+			    <ng-template pTemplate="body" let-tenantSaldo>
+		            <tr [pSelectableRow]="tenantSaldo">
 		            	<td>
-		            		{{sysUser?.name}}
+		            		{{tenantSaldo?.descricao}}
 		            	</td>
-		            	<td>
-		            		{{sysUser?.email}}
+		            	<td class="kb-field-money">
+		            		{{tenantSaldo?.saldoInicial | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td>
-		            		{{sysUser?.active? 'Sim': 'Não' }}
+		            	<td class="kb-field-money">
+		            		{{tenantSaldo?.valorCredito | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td>
-		            		{{sysUser?.administrator? 'Sim': 'Não' }}
+		            	<td class="kb-field-money">
+		            		{{tenantSaldo?.saldo | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
 		              	<td class="kb-actions">
-		              		<a pButton [routerLink]="['/sysuser', sysUser.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(sysUser)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
-		              		<button (click)="deleteSysUser(sysUser)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
+		              		<a pButton [routerLink]="['/tenantsaldo', tenantSaldo.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+		              		<!-- <button (click)="mostrarPagarConta(tenantSaldo)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
+		              		<button (click)="deleteTenantSaldo(tenantSaldo)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              	</td>
 		            </tr>
 		        </ng-template>
@@ -93,12 +83,21 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				    </tr>
 				</ng-template>
 				
+				<ng-template pTemplate="footer">
+					<tr>
+						<td class="kb-sum-footer">Totais</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer sumField kb-conta-valor-pago">A: {{ tenantSaldoSumFields.sumValorCredito | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+					</tr>
+				</ng-template>
 			</p-table>
 		</div>
 		<!-- End GRID -->
 		
 		<div class="ui-g-12 ui-md-2 ui-fluid">
-			<a routerLink="/sysuser/novo" pButton label="Novo registro"></a>
+			<a routerLink="/tenantsaldo/novo" pButton label="Novo registro"></a>
 		</div>
 		
 		<!-- Begin Extras

@@ -1,0 +1,132 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 7.0.4
+Code generated at time stamp: 2019-08-06T07:20:02.884
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.tenantOpCount') }}</div>
+		</p-header>
+	
+
+  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  	<div class="ui-g">
+  	
+		<div class="ui-g-12 ui-fluid hidden">
+			<label for="id" class="hidden">{{ getTranslation('security.authorization.tenantOpCount_id') }}</label>
+			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="tenantOpCount.id" name="id" readonly class="read-only">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="description">{{ getTranslation('security.authorization.tenantOpCount_description') }}</label>
+			<input type="text" pInputText appFocus #description="ngModel" ngModel [(ngModel)]="tenantOpCount.description" name="description">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tenant">{{ getTranslation('security.authorization.tenantOpCount_tenant') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="tenantOpCountTenantAutoCompleteSuggestions"
+			 (completeMethod)="tenantOpCountTenantAutoComplete($event)"
+			 (onClear)="tenantOpCountTenantAutoCompleteClear($event)"
+			 (onBlur)="tenantOpCountTenantAutoCompleteOnBlur($event)"
+			 [field]="tenantOpCountTenantAutoCompleteFieldConverter"
+			 #tenant="ngModel" ngModel [(ngModel)]="tenantOpCount.tenant" name="tenant" required>
+				<ng-template let-tenant pTemplate="item">
+					<div class="ui-helper-clearfix">{{ tenantOpCountTenantAutoCompleteFieldConverter(tenant) }}</div>
+				</ng-template>
+			</p-autoComplete>
+			<div class="invalid-message" *ngIf="tenant.invalid && tenant.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="yearOp">{{ getTranslation('security.authorization.tenantOpCount_yearOp') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #yearOp="ngModel" ngModel [(ngModel)]="tenantOpCount.yearOp" name="yearOp" required>
+			<div class="invalid-message" *ngIf="yearOp.invalid && yearOp.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="monthOp">{{ getTranslation('security.authorization.tenantOpCount_monthOp') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #monthOp="ngModel" ngModel [(ngModel)]="tenantOpCount.monthOp" name="monthOp" required>
+			<div class="invalid-message" *ngIf="monthOp.invalid && monthOp.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="dayOp">{{ getTranslation('security.authorization.tenantOpCount_dayOp') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #dayOp="ngModel" ngModel [(ngModel)]="tenantOpCount.dayOp" name="dayOp" required>
+			<div class="invalid-message" *ngIf="dayOp.invalid && dayOp.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="hourOp">{{ getTranslation('security.authorization.tenantOpCount_hourOp') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #hourOp="ngModel" ngModel [(ngModel)]="tenantOpCount.hourOp" name="hourOp" required>
+			<div class="invalid-message" *ngIf="hourOp.invalid && hourOp.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countGet">{{ getTranslation('security.authorization.tenantOpCount_countGet') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countGet="ngModel" ngModel [(ngModel)]="tenantOpCount.countGet" name="countGet" required>
+			<div class="invalid-message" *ngIf="countGet.invalid && countGet.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countPost">{{ getTranslation('security.authorization.tenantOpCount_countPost') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countPost="ngModel" ngModel [(ngModel)]="tenantOpCount.countPost" name="countPost" required>
+			<div class="invalid-message" *ngIf="countPost.invalid && countPost.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countPut">{{ getTranslation('security.authorization.tenantOpCount_countPut') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countPut="ngModel" ngModel [(ngModel)]="tenantOpCount.countPut" name="countPut" required>
+			<div class="invalid-message" *ngIf="countPut.invalid && countPut.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countDelete">{{ getTranslation('security.authorization.tenantOpCount_countDelete') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countDelete="ngModel" ngModel [(ngModel)]="tenantOpCount.countDelete" name="countDelete" required>
+			<div class="invalid-message" *ngIf="countDelete.invalid && countDelete.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countList">{{ getTranslation('security.authorization.tenantOpCount_countList') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countList="ngModel" ngModel [(ngModel)]="tenantOpCount.countList" name="countList" required>
+			<div class="invalid-message" *ngIf="countList.invalid && countList.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countAutoComplete">{{ getTranslation('security.authorization.tenantOpCount_countAutoComplete') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countAutoComplete="ngModel" ngModel [(ngModel)]="tenantOpCount.countAutoComplete" name="countAutoComplete" required>
+			<div class="invalid-message" *ngIf="countAutoComplete.invalid && countAutoComplete.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="countOp">{{ getTranslation('security.authorization.tenantOpCount_countOp') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #countOp="ngModel" ngModel [(ngModel)]="tenantOpCount.countOp" name="countOp" required>
+			<div class="invalid-message" *ngIf="countOp.invalid && countOp.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12">
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<a routerLink="/tenantopcount" pButton label="Pesquisar"></a>
+			</div>
+		</div>
+		
+	
+	</div>
+  </form>
+  
+  </p-panel>
+  
+</div>

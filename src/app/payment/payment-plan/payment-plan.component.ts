@@ -1,7 +1,10 @@
+import { CreditOrder } from './../payment.model';
 import { PaymentService } from './../payment.service';
 import { DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-plan',
@@ -10,21 +13,26 @@ import { MenuItem, MessageService } from 'primeng/api';
 })
 export class PaymentPlanComponent implements OnInit {
 
-  activeIndex = 2;
+  activeIndex = 0;
   MAX_STEPS = 3;
 
   items: MenuItem[];
-  selectedValue = 1000;
+  selectedValue = 50;
 
   banks: any[];
   bankBradesco = {name: 'Bradesco', bank: 'bradesco.png'};
   selectedBank: any = this.bankBradesco;
 
+  finalizing = false;
+  finishedOrderSuccess = false;
+
+  responseText = null;
 
   constructor(
-    private messageService: MessageService,
     private decimalPipe: DecimalPipe,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private messageHandler: MessageHandlerService,
+    private sanitizer: DomSanitizer
     ) { }
 
   ngOnInit() {
@@ -69,7 +77,23 @@ export class PaymentPlanComponent implements OnInit {
   }
 
   finishOrder() {
+    const creditOrder = new CreditOrder();
+    creditOrder.orderValue = this.selectedValue;
+    creditOrder.paymentMethod = 'BANK_ACCOUNT';
+    creditOrder.paymentMethodDescription = 'Bradesco';
 
+    this.finishedOrderSuccess = false;
+    this.finalizing = true;
+    this.paymentService.createCreditOrder(creditOrder)
+    .then((response => {
+      this.finishedOrderSuccess = true;
+      this.finalizing = false;
+      this.responseText = this.sanitizer.bypassSecurityTrustHtml(response.text);
+    }))
+    .catch(error => {
+      this.finalizing = false;
+      this.messageHandler.showError(error);
+    });
   }
 
 }

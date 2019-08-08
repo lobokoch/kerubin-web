@@ -14,18 +14,18 @@ import * as moment from 'moment';
 
 import { HttpClientWithToken } from '../../../../security/http-client-token';
 
-import { SysUser } from './sysuser.model';
-import { SysUserAutoComplete } from './sysuser.model';
+import { TenantSaldo } from './tenantsaldo.model';
+import { TenantSaldoAutoComplete } from './tenantsaldo.model';
 import { Tenant } from './../tenant/tenant.model';
-import { SysUserListFilter } from './sysuser.model';
-import { SysUserNameAutoComplete } from './sysuser.model';
+import { TenantSaldoListFilter } from './tenantsaldo.model';
+import { TenantSaldoSumFields } from './tenantsaldo.model';
 import { environment } from 'src/environments/environment';
 import { TenantAutoComplete } from './../tenant/tenant.model';
 
 @Injectable()
-export class SysUserService {
+export class TenantSaldoService {
 	
-	url = environment.apiUrl + '/security/authorization/entities/sysUser';
+	url = environment.apiUrl + '/security/authorization/entities/tenantSaldo';
 	
 	constructor(private http: HttpClientWithToken) { }
 	
@@ -37,26 +37,26 @@ export class SysUserService {
 	    return headers;
 	}
 	
-	create(sysUser: SysUser): Promise<SysUser> {
+	create(tenantSaldo: TenantSaldo): Promise<TenantSaldo> {
 		const headers = this.getHeaders();    
 	
-	    return this.http.post(this.url, sysUser, { headers })
+	    return this.http.post(this.url, tenantSaldo, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const created = response as SysUser;
+	      const created = response as TenantSaldo;
 	      this.adjustNullEntitySlots([created]);
 	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
 	
-	update(sysUser: SysUser): Promise<SysUser> {
+	update(tenantSaldo: TenantSaldo): Promise<TenantSaldo> {
 	    const headers = this.getHeaders();
 	
-	    return this.http.put(`${this.url}/${sysUser.id}`, sysUser, { headers })
+	    return this.http.put(`${this.url}/${tenantSaldo.id}`, tenantSaldo, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const updated = response as SysUser;
+	      const updated = response as TenantSaldo;
 	      this.adjustNullEntitySlots([updated]);
 	      this.adjustEntityDates([updated]);
 	      return updated;
@@ -69,52 +69,43 @@ export class SysUserService {
 	    .then(() => null);
 	}
 	
-	retrieve(id: string): Promise<SysUser> {
+	retrieve(id: string): Promise<TenantSaldo> {
 	    const headers = this.getHeaders();
-	    return this.http.get<SysUser>(`${this.url}/${id}`, { headers })
+	    return this.http.get<TenantSaldo>(`${this.url}/${id}`, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const sysUser = response as SysUser;
-	      this.adjustNullEntitySlots([sysUser]);
-	      this.adjustEntityDates([sysUser]);
-	      return sysUser;
+	      const tenantSaldo = response as TenantSaldo;
+	      this.adjustNullEntitySlots([tenantSaldo]);
+	      this.adjustEntityDates([tenantSaldo]);
+	      return tenantSaldo;
 	    });
 	}
 	
 	
-	private adjustEntityDates(entityList: SysUser[]) {
-		entityList.forEach(sysUser => {
-		      if (sysUser.activationDate) {
-		        sysUser.activationDate = moment(sysUser.activationDate, 'YYYY-MM-DD H:m:s').toDate();
-		      }
-		      	
-		      
-		      if (sysUser.confirmationDate) {
-		        sysUser.confirmationDate = moment(sysUser.confirmationDate, 'YYYY-MM-DD H:m:s').toDate();
-		      }
-		      	
+	private adjustEntityDates(entityList: TenantSaldo[]) {
+		entityList.forEach(tenantSaldo => {
 		});
 	}
 	
-	private adjustNullEntitySlots(entityList: SysUser[]) {
-		/*entityList.forEach(sysUser => {
-		      if (!sysUser.tenant) {
-		        sysUser.tenant = new Tenant();
+	private adjustNullEntitySlots(entityList: TenantSaldo[]) {
+		/*entityList.forEach(tenantSaldo => {
+		      if (!tenantSaldo.tenant) {
+		        tenantSaldo.tenant = new Tenant();
 		      }
 		      	
 		});*/
 	}
 	
-	autoComplete(query: string): Promise<SysUserAutoComplete[]> {
+	autoComplete(query: string): Promise<TenantSaldoAutoComplete[]> {
 	    const headers = this.getHeaders();
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 	
-	    return this.http.get<SysUserAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
+	    return this.http.get<TenantSaldoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
-	        const result = response as SysUserAutoComplete[];
+	        const result = response as TenantSaldoAutoComplete[];
 	        return result;
 	      });
 	
@@ -142,31 +133,16 @@ export class SysUserService {
 	
 				
 	
-	sysUserNameAutoComplete(query: string): Promise<any> {
+	tenantSaldoList(tenantSaldoListFilter: TenantSaldoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
-	    let params = new HttpParams();
-	    params = params.set('query', query);
-	
-	    return this.http.get<any>(`${this.url}/sysUserNameAutoComplete`, { headers, params })
-	      .toPromise()
-	      .then(response => {
-	        const result = response as SysUserNameAutoComplete[];
-	        return result;
-	      });
-	
-	}
-	
-	sysUserList(sysUserListFilter: SysUserListFilter): Promise<any> {
-	    const headers = this.getHeaders();
-	
-	    const params = this.mountAndGetSearchParams(sysUserListFilter);
+	    const params = this.mountAndGetSearchParams(tenantSaldoListFilter);
 	
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const data = response;
-	        const items = data.content; /* array of SysUser */
+	        const items = data.content; /* array of TenantSaldo */
 	        const totalElements = data.totalElements;
 	
 	        this.adjustNullEntitySlots(items);
@@ -182,7 +158,19 @@ export class SysUserService {
 	}
 	
 	
-	mountAndGetSearchParams(filter: SysUserListFilter): HttpParams {
+	getTenantSaldoSumFields(tenantSaldoListFilter: TenantSaldoListFilter): Promise<TenantSaldoSumFields> {
+	    const headers = this.getHeaders();
+	    
+		const params = this.mountAndGetSearchParams(tenantSaldoListFilter);
+		return this.http.get<any>(`${this.url}/tenantSaldoSumFields`, { headers, params })
+		  .toPromise()
+		  .then(response => {
+		    const result = response;
+		    return result;
+		  });
+	}
+	
+	mountAndGetSearchParams(filter: TenantSaldoListFilter): HttpParams {
 	    let params = new HttpParams();
 	    if (filter.pageNumber) {
 	      params = params.set('page', filter.pageNumber.toString());
@@ -192,11 +180,6 @@ export class SysUserService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
-		// name
-		if (filter.name) {
-			const name = filter.name.map(item => item.name).join(',');
-			params = params.set('name', name);
-		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -214,25 +197,25 @@ export class SysUserService {
 	}
 	
 	/*** TODO: avaliar se vai ser feito isso.
-	replicateSysUser(id: string, groupId: string, quantity: number): Promise<boolean> {
+	replicateTenantSaldo(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
 	
-	    const payload = new ReplicateSysUserPayload(id, quantity, groupId);
-	    return this.http.post(`${this.url}/replicateSysUser`, payload, { headers } )
+	    const payload = new ReplicateTenantSaldoPayload(id, quantity, groupId);
+	    return this.http.post(`${this.url}/replicateTenantSaldo`, payload, { headers } )
 	    .toPromise()
 	    .then(response => {
 	      return response === true;
 	    });
 	}
 		
-	getTotaisfilterSysUser(filter: SysUserrListFilter): Promise<TotaisfilterSysUser> {
+	getTotaisfilterTenantSaldo(filter: TenantSaldorListFilter): Promise<TotaisfilterTenantSaldo> {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(filter);
-	    return this.http.get<TotaisfilterSysUser>(`${this.url}/getTotaisfilterSysUser`, { headers, params })
+	    return this.http.get<TotaisfilterTenantSaldo>(`${this.url}/getTotaisfilterTenantSaldo`, { headers, params })
 	    .toPromise()
 	    .then(response => {
-	      const result = response as TotaisfilterSysUser;
+	      const result = response as TotaisfilterTenantSaldo;
 	      return result;
 	    });
 	}
