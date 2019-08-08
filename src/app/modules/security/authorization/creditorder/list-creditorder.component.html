@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
 Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T00:01:06.919
+Code generated at time stamp: 2019-08-08T07:21:02.044
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -42,6 +42,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [rows]="creditOrderListFilter.pageSize" 
 			    [totalRecords]="creditOrderListTotalElements"
 			    [lazy]="true" (onLazyLoad)="creditOrderListOnLazyLoad($event)" >
+			    
+			    <ng-template pTemplate="caption">
+			    	Legenda:
+			    	<span class="kb-conta-paga kb-conta-legenda">Pedido pago</span>
+			    	<span class="kb-conta-vence-hoje kb-conta-legenda">Pedido cancelado</span>
+			    </ng-template>
+			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th style="width: 150px" [pSortableColumn]="'orderUserName'">{{ getTranslation('security.authorization.creditOrder_orderUserName_grid') }}<p-sortIcon [field]="'orderUserName'"></p-sortIcon></th>
@@ -60,37 +67,37 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 			    <ng-template pTemplate="body" let-creditOrder>
 		            <tr [pSelectableRow]="creditOrder">
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.orderUserName}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.orderDate | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td class="kb-field-money">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)" class="kb-field-money">
 		            		{{creditOrder?.orderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td class="kb-field-money">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)" class="kb-field-money">
 		            		{{creditOrder?.orderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td class="kb-field-money">
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)" class="kb-field-money">
 		            		{{creditOrder?.orderTotalCredits | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{ getTranslation('security.authorization.creditOrder_paymentMethod' + '_' + creditOrder?.paymentMethod?.toLowerCase()) }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.paymentMethodDescription}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{ getTranslation('security.authorization.creditOrder_orderStatus' + '_' + creditOrder?.orderStatus?.toLowerCase()) }}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.orderPaidDate | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.orderCanceledDate | date:'dd/MM/yyyy'}}
 		            	</td>
-		            	<td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{creditOrder?.orderHistory}}
 		            	</td>
 		            </tr>

@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T00:01:06.900
+Code generated at time stamp: 2019-08-08T07:21:02.036
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -111,6 +111,18 @@ export class CreditOrderListComponent implements OnInit {
 	
 	
 	
+	applyAndGetRuleGridRowStyleClass(creditOrder: CreditOrder): String {
+		
+		if (creditOrder.id && creditOrder.orderPaidDate) {
+			return 'kb-conta-paga';
+		}
+		
+		if (creditOrder.id && creditOrder.orderCanceledDate) {
+			return 'kb-conta-vence-hoje';
+		}
+	
+	    return null;
+	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
