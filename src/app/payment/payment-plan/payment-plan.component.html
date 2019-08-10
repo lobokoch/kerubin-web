@@ -86,7 +86,7 @@
             </div>
             <div class="ui-g-12 ui-md-2 ui-fluid">
               <button [disabled]="finalizing" *ngIf="activeIndex != 2" pButton type="button" label="Próximo" icon="pi pi-chevron-right" iconPos="right" class="ui-button-raised" (click)="nextStep()"></button>
-              <button [disabled]="finalizing || finishedOrderSuccess" *ngIf="activeIndex == 2" pButton type="button" label="Finalizar" class="ui-button-raised ui-button-success" (click)="finishOrder()"></button>
+              <button [disabled]="finalizing || finishedOrderSuccess" *ngIf="activeIndex == 2" pButton type="button" [label]="lblFinalizar" class="ui-button-raised ui-button-success" (click)="finishOrder()"></button>
             </div>
           </div>
         </p-footer>

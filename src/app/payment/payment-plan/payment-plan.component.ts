@@ -28,6 +28,8 @@ export class PaymentPlanComponent implements OnInit {
 
   responseText = null;
 
+  lblFinalizar = 'Finalizar';
+
   constructor(
     private decimalPipe: DecimalPipe,
     private paymentService: PaymentService,
@@ -84,13 +86,16 @@ export class PaymentPlanComponent implements OnInit {
 
     this.finishedOrderSuccess = false;
     this.finalizing = true;
+    this.lblFinalizar = 'Finalizando...';
     this.paymentService.createCreditOrder(creditOrder)
     .then((response => {
+      this.lblFinalizar = 'Sucesso';
       this.finishedOrderSuccess = true;
       this.finalizing = false;
       this.responseText = this.sanitizer.bypassSecurityTrustHtml(response.text);
     }))
     .catch(error => {
+      this.lblFinalizar = 'Finalizar';
       this.finalizing = false;
       this.messageHandler.showError(error);
     });
