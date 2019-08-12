@@ -4,6 +4,8 @@
 	"security.authorization.sysUser_id_grid": "#id",
 	"security.authorization.sysUser_name": "Nome do usuário",
 	"security.authorization.sysUser_name_grid": "Nome do usuário",
+	"security.authorization.sysUser_cnpjCPF": "Documento (CNPJ/CPF)",
+	"security.authorization.sysUser_cnpjCPF_grid": "Documento (CNPJ/CPF)",
 	"security.authorization.sysUser_email": "E-mail (usuário para login no sistema)",
 	"security.authorization.sysUser_email_grid": "E-mail (usuário para login no sistema)",
 	"security.authorization.sysUser_password": "Senha",

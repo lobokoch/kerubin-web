@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.884
+Code generated with MKL Plug-in version: 7.13.0
+Code generated at time stamp: 2019-08-10T07:19:17.244
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,10 +23,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="sysUser.id" name="id" readonly class="read-only">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-12">
+		<div class="ui-g-12 ui-fluid ui-md-8">
 			<label for="name">{{ getTranslation('security.authorization.sysUser_name') }}<span class="kb-label-required">*</span></label>
 			<input type="text" pInputText appFocus #name="ngModel" ngModel [(ngModel)]="sysUser.name" name="name" required>
 			<div class="invalid-message" *ngIf="name.invalid && name.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4">
+			<label for="cnpjCPF">{{ getTranslation('security.authorization.sysUser_cnpjCPF') }}</label>
+			<input type="text" pInputText #cnpjCPF="ngModel" ngModel [(ngModel)]="sysUser.cnpjCPF" name="cnpjCPF">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

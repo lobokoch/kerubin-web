@@ -69,7 +69,9 @@
                 <div [innerHTML]="responseText"></div>
               </div>
 
-
+              <div *ngIf="finalizing">
+                <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+              </div>
 
               </p-panel>
           </div>

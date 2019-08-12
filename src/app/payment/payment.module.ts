@@ -13,6 +13,7 @@ import {StepsModule} from 'primeng/steps';
 import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { PaymentRoutingModule } from './payment-routing.module';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PaymentRoutingModule } from './payment-routing.module';
     ButtonModule,
     SelectButtonModule,
     PaymentRoutingModule,
-    StepsModule
+    StepsModule,
+    ProgressBarModule
   ],
 
   providers: [
