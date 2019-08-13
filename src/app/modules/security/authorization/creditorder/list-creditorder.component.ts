@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T07:21:02.036
+Code generated with MKL Plug-in version: 7.17.5
+Code generated at time stamp: 2019-08-13T07:29:42.831
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { SecurityAuthorizationTranslationService } from './../i18n/security-auth
 import { CreditOrder } from './creditorder.model';
 import { CreditOrderListFilter } from './creditorder.model';
 import { SortField } from './creditorder.model';
+import { CreditOrderOrderUserNameAutoComplete } from './creditorder.model';
 
 import { SysUserAutoComplete } from './../sysuser/sysuser.model';
 import { CreditOrderSumFields } from './creditorder.model';
@@ -34,6 +35,13 @@ export class CreditOrderListComponent implements OnInit {
 	creditOrderListTotalElements = 0;
 	creditOrderListFilter = new CreditOrderListFilter();
 	
+	creditOrderOrderUserNameAutoCompleteSuggestions: CreditOrderOrderUserNameAutoComplete[];
+	
+	creditOrderOrderDateIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
+	
+	
+	
+	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	creditOrderSumFields = new CreditOrderSumFields();
 	
@@ -45,6 +53,12 @@ export class CreditOrderListComponent implements OnInit {
 	) { }
 	
 	ngOnInit() {
+		this.creditOrderOrderDateIsBetweenOptionsOnClick(null);
+		this.initializeDateFilterIntervalDropdownItems();
+		
+		
+		
+		
 	}
 	
 	creditOrderList(pageNumber = 0) {
@@ -100,6 +114,17 @@ export class CreditOrderListComponent implements OnInit {
 	    this.creditOrderList(pageNumber);
 	}
 	
+	creditOrderOrderUserNameAutoComplete(event) {
+	    const query = event.query;
+	    this.creditOrderService.creditOrderOrderUserNameAutoComplete(query)
+	    .then((result) => {
+	      this.creditOrderOrderUserNameAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
 	
 	creditOrderOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
 		if (orderUser) {
@@ -110,6 +135,117 @@ export class CreditOrderListComponent implements OnInit {
 	}
 	
 	
+	private initializeDateFilterIntervalDropdownItems() {
+		this.dateFilterIntervalDropdownItems = [
+		    {label: 'Minha competência', value: '12'},
+		    {label: 'Hoje', value: '0'},
+		    {label: 'Amanhã', value: '1'},
+		    {label: 'Esta semana', value: '2'},
+		    {label: 'Semana que vem', value: '3'},
+		    {label: 'Este mês', value: '4'},
+		    {label: 'Mês que vem', value: '5'},
+		    {label: 'Este ano', value: '6'},
+		    {label: 'Ano que vem', value: '7'},
+		    // Passado
+		    {label: 'Ontem', value: '8'},
+		    {label: 'Semana passada', value: '9'},
+		    {label: 'Mês passado', value: '10'},
+		    {label: 'Ano passado', value: '11'},
+		    {label: 'Personalizado', value: '99'}
+		  ];
+	}
+	
+	
+	creditOrderOrderDateIsBetweenOptionsOnClick(dropdown: Dropdown) {
+		this.creditOrderListFilter.orderDateFrom = null;
+		this.creditOrderListFilter.orderDateTo = null;
+		
+		let dateFrom = null;
+		let dateTo = null;
+	
+		const valor = Number(this.creditOrderOrderDateIsBetweenOptionsSelected.value);
+		switch (valor) {
+			case 0: // Hoje
+				dateFrom = moment();
+				dateTo = moment();
+				break;
+				//
+			case 1: // Amanhã
+				dateFrom = moment().add(1, 'day');
+				dateTo = moment().add(1, 'day');
+				break;
+				//
+			case 2: // Esta semana
+				dateFrom = moment().startOf('week');
+				dateTo = moment().endOf('week');
+				break;
+				//
+			case 3: // Semana que vem
+				dateFrom = moment().add(1, 'week').startOf('week');
+				dateTo = moment().add(1, 'week').endOf('week');
+				break;
+				//
+			case 4: // Este mês
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month');
+				break;
+				//
+			case 5: // Mês que vem
+				dateFrom = moment().add(1, 'month').startOf('month');
+				dateTo = moment().add(1, 'month').endOf('month');
+				break;
+				//
+			case 6: // Este ano
+				dateFrom = moment().startOf('year');
+				dateTo = moment().endOf('year');
+				break;
+				//
+			case 7: // Ano que vem
+				dateFrom = moment().add(1, 'year').startOf('year');
+				dateTo = moment().add(1, 'year').endOf('year');
+				break;
+				// Passado
+			case 8: // Ontem
+				dateFrom = moment().add(-1, 'day');
+				dateTo = moment().add(-1, 'day');
+				break;
+				//
+			case 9: // Semana passada
+				dateFrom = moment().add(-1, 'week').startOf('week');
+				dateTo = moment().add(-1, 'week').endOf('week');
+				break;
+				//
+			case 10: // Mês passado
+				dateFrom = moment().add(-1, 'month').startOf('month');
+				dateTo = moment().add(-1, 'month').endOf('month');
+				break;
+				//
+			case 11: // Ano passado
+				dateFrom = moment().add(-1, 'year').startOf('year');
+				dateTo = moment().add(-1, 'year').endOf('year');
+				break;
+				
+			case 12: // Minha competência
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
+				break;
+			
+			default:
+				break;
+		} // switch
+	
+		if (dateFrom != null) {
+		  this.creditOrderListFilter.orderDateFrom = dateFrom.toDate();
+		}
+		
+		if (dateTo != null) {
+		  this.creditOrderListFilter.orderDateTo = dateTo.toDate();
+		}
+		
+		if (dateFrom != null && dateTo != null) {
+		  // this.creditOrderList(0);
+		}
+	}
 	
 	applyAndGetRuleGridRowStyleClass(creditOrder: CreditOrder): String {
 		

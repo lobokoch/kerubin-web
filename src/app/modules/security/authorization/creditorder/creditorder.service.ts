@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T07:21:02.036
+Code generated with MKL Plug-in version: 7.17.5
+Code generated at time stamp: 2019-08-13T07:29:42.831
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -18,6 +18,7 @@ import { CreditOrder } from './creditorder.model';
 import { CreditOrderAutoComplete } from './creditorder.model';
 import { SysUser } from './../sysuser/sysuser.model';
 import { CreditOrderListFilter } from './creditorder.model';
+import { CreditOrderOrderUserNameAutoComplete } from './creditorder.model';
 import { CreditOrderSumFields } from './creditorder.model';
 import { environment } from 'src/environments/environment';
 import { SysUserAutoComplete } from './../sysuser/sysuser.model';
@@ -147,6 +148,21 @@ export class CreditOrderService {
 	
 				
 	
+	creditOrderOrderUserNameAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/creditOrderOrderUserNameAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CreditOrderOrderUserNameAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	creditOrderList(creditOrderListFilter: CreditOrderListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
@@ -194,6 +210,31 @@ export class CreditOrderService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// orderUserName
+		if (filter.orderUserName) {
+			const orderUserName = filter.orderUserName.map(item => item.orderUserName).join(',');
+			params = params.set('orderUserName', orderUserName);
+		}
+		
+		// orderDateFrom
+		if (filter.orderDateFrom) {
+		const value = this.dateToStr(filter.orderDateFrom);
+		}
+		
+		// orderDateTo
+		if (filter.orderDateTo) {
+		const value = this.dateToStr(filter.orderDateTo);
+		}
+		
+		// orderValueFrom
+		if (filter.orderValueFrom) {
+		const value = filter.orderValueFrom.toString();
+		}
+		
+		// orderValueTo
+		if (filter.orderValueTo) {
+		const value = filter.orderValueTo.toString();
+		}
 	
 	    // Sort
 	    if (filter.sortField) {

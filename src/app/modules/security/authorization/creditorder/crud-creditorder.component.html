@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T07:21:02.044
+Code generated with MKL Plug-in version: 7.17.5
+Code generated at time stamp: 2019-08-13T07:29:42.840
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -58,7 +58,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<div class="invalid-message" *ngIf="orderDate.invalid && orderDate.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2">
+		<div class="ui-g-12 ui-fluid ui-md-3">
 			<label for="orderValue">{{ getTranslation('security.authorization.creditOrder_orderValue') }}<span class="kb-label-required">*</span></label>
 			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderValue="ngModel" ngModel [(ngModel)]="creditOrder.orderValue" name="orderValue" required>
 			<div class="invalid-message" *ngIf="orderValue.invalid && orderValue.dirty">Campo obrigatório.</div>

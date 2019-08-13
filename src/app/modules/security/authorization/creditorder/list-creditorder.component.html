@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-08T07:21:02.044
+Code generated with MKL Plug-in version: 7.17.5
+Code generated at time stamp: 2019-08-13T07:29:42.840
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -23,6 +23,63 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Usuário solicitante</label>
+							<p-autoComplete name="creditOrderOrderUserNameAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="creditOrderListFilter.orderUserName" [multiple]="true"
+							[suggestions]="creditOrderOrderUserNameAutoCompleteSuggestions"
+							(completeMethod)="creditOrderOrderUserNameAutoComplete($event)"
+							field="orderUserName"></p-autoComplete>
+						</div>
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label style="display: block">Período dos pedidos</label>
+						        <p-dropdown #creditOrderOrderDateIsBetweenOptions 
+							        [options]="dateFilterIntervalDropdownItems" 
+							        [(ngModel)]="creditOrderOrderDateIsBetweenOptionsSelected"
+							        optionLabel="label" (click)="creditOrderOrderDateIsBetweenOptionsOnClick(creditOrderOrderDateIsBetweenOptions)">
+						        </p-dropdown>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						      	<label class="label-r">Pedidos de</label>
+						        <p-calendar name="orderDateFrom"
+						        dateFormat="dd/mm/yy" [(ngModel)]="creditOrderListFilter.orderDateFrom"></p-calendar>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label class="label-l label-r">Até</label>
+						        <p-calendar name="orderDateTo" dateFormat="dd/mm/yy"
+						        [(ngModel)]="creditOrderListFilter.orderDateTo"></p-calendar>
+						    </div>
+						    
+						</div>
+						
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						      	<label class="label-r">Pedid. com valores de</label>
+						        <input pInputText type="text" name="orderValueFrom"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="creditOrderListFilter.orderValueFrom" />
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label class="label-l label-r">Até</label>
+						        <input pInputText type="text" name="orderValueTo"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="creditOrderListFilter.orderValueTo" />
+						    </div>
+						    
+						</div>
+						
 					</div>
 					
 					<div>
@@ -37,7 +94,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="creditOrderListItems"
 			    [rows]="creditOrderListFilter.pageSize" 
 			    [totalRecords]="creditOrderListTotalElements"
@@ -51,6 +109,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    
 			    <ng-template pTemplate="header">
 		            <tr>
+		            	<th style="width: 90px" [pSortableColumn]="'id'">{{ getTranslation('security.authorization.creditOrder_id_grid') }}<p-sortIcon [field]="'id'"></p-sortIcon></th>
 		            	<th style="width: 150px" [pSortableColumn]="'orderUserName'">{{ getTranslation('security.authorization.creditOrder_orderUserName_grid') }}<p-sortIcon [field]="'orderUserName'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'orderDate'">{{ getTranslation('security.authorization.creditOrder_orderDate_grid') }}<p-sortIcon [field]="'orderDate'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'orderValue'">{{ getTranslation('security.authorization.creditOrder_orderValue_grid') }}<p-sortIcon [field]="'orderValue'"></p-sortIcon></th>
@@ -67,11 +126,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 			    <ng-template pTemplate="body" let-creditOrder>
 		            <tr [pSelectableRow]="creditOrder">
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.orderUserName}}
+		            	<td style="text-align: center" [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
+		            		<i *ngIf="creditOrder?.id" class="pi pi-info-circle" style="font-size: 2em" [pTooltip]=creditOrder?.id></i>
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.orderDate | date:'dd/MM/yyyy'}}
+		            		{{ creditOrder?.orderUserName }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
+		            		{{creditOrder?.orderDate | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)" class="kb-field-money">
 		            		{{creditOrder?.orderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
@@ -86,19 +148,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ getTranslation('security.authorization.creditOrder_paymentMethod' + '_' + creditOrder?.paymentMethod?.toLowerCase()) }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.paymentMethodDescription}}
+		            		{{ creditOrder?.paymentMethodDescription }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
 		            		{{ getTranslation('security.authorization.creditOrder_orderStatus' + '_' + creditOrder?.orderStatus?.toLowerCase()) }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.orderPaidDate | date:'dd/MM/yyyy'}}
+		            		{{creditOrder?.orderPaidDate | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.orderCanceledDate | date:'dd/MM/yyyy'}}
+		            		{{creditOrder?.orderCanceledDate | date:'dd/MM/yyyy' }}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
-		            		{{creditOrder?.orderHistory}}
+		            	<td style="text-align: center" [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
+		            		<i *ngIf="creditOrder?.orderHistory" class="pi pi-clock" style="font-size: 2em" [pTooltip]=creditOrder?.orderHistory></i>
 		            	</td>
 		            </tr>
 		        </ng-template>
@@ -106,7 +168,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="11">
+				        <td [attr.colspan]="12">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
@@ -115,6 +177,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais </td>
+						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer sumField">{{ creditOrderSumFields.sumOrderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer sumField">{{ creditOrderSumFields.sumOrderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
