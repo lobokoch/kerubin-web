@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.17.5
-Code generated at time stamp: 2019-08-13T07:29:42.831
+Code generated with MKL Plug-in version: 7.18.3
+Code generated at time stamp: 2019-08-14T06:16:59.117
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -37,6 +37,8 @@ export class CreditOrderOrderUserNameAutoComplete {
 
 export class CreditOrderListFilter extends PaginationFilter {
 	
+	id: string;
+	
 	orderUserName: CreditOrderOrderUserNameAutoComplete[];
 	
 	orderDateFrom: Date;
@@ -44,6 +46,8 @@ export class CreditOrderListFilter extends PaginationFilter {
 	
 	orderValueFrom: number;
 	orderValueTo: number;
+	
+	orderStatus: OrderStatus;
 }
 
 export class CreditOrder {

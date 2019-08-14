@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.17.6
-Code generated at time stamp: 2019-08-13T19:22:27.942
+Code generated with MKL Plug-in version: 7.18.1
+Code generated at time stamp: 2019-08-13T23:21:07.772
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,8 @@ import { CreditOrderListFilter } from './creditorder.model';
 import { SortField } from './creditorder.model';
 import { CreditOrderOrderUserNameAutoComplete } from './creditorder.model';
 
+import { OrderStatus } from './../enums/security-authorization-enums.model';
+
 import { SysUserAutoComplete } from './../sysuser/sysuser.model';
 import { CreditOrderSumFields } from './creditorder.model';
 
@@ -30,50 +32,55 @@ import { CreditOrderSumFields } from './creditorder.model';
 })
 
 export class CreditOrderListComponent implements OnInit {
-	
+
 	creditOrderListItems: CreditOrder[];
 	creditOrderListTotalElements = 0;
 	creditOrderListFilter = new CreditOrderListFilter();
-	
+
 	creditOrderOrderUserNameAutoCompleteSuggestions: CreditOrderOrderUserNameAutoComplete[];
-	
+
 	creditOrderOrderDateIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
-	
-	
-	
+
+
+
+	creditOrderOrderStatusOptions: OrderStatus[];
 	dateFilterIntervalDropdownItems: SelectItem[];
-	
+
+
 	creditOrderSumFields = new CreditOrderSumFields();
-	
+
 	constructor(
 	    private creditOrderService: CreditOrderService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-	
+
 	ngOnInit() {
 		this.creditOrderOrderDateIsBetweenOptionsOnClick(null);
 		this.initializeDateFilterIntervalDropdownItems();
-		
-		
-		
-		
+
+
+
+
+		this.initializeCreditOrderOrderStatusOptions();
 	}
-	
+
 	creditOrderList(pageNumber = 0) {
-	    this.creditOrderListFilter.pageNumber = pageNumber;
+      this.creditOrderListFilter.pageNumber = pageNumber;
+
+
 	    this.creditOrderService
 	    .creditOrderList(this.creditOrderListFilter)
 	    .then(result => {
 	      	this.creditOrderListItems = result.items;
 	      	this.creditOrderListTotalElements = result.totalElements;
-	      
+
 			this.getCreditOrderSumFields();
 	    });
-		
+
 	}
-	
+
 	getCreditOrderSumFields() {
 	    this.creditOrderService.getCreditOrderSumFields(this.creditOrderListFilter)
 		.then(response => {
@@ -83,11 +90,11 @@ export class CreditOrderListComponent implements OnInit {
 		  this.messageHandler.showError(e);
 		});
 	}
-	
+
 	creditOrderFilterSearch() {
 	    this.creditOrderList(0);
 	}
-	
+
 	deleteCreditOrder(creditOrder: CreditOrder) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -103,7 +110,7 @@ export class CreditOrderListComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	creditOrderListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
 	      this.creditOrderListFilter.sortField = new SortField(event.sortField, event.sortOrder);
@@ -113,7 +120,7 @@ export class CreditOrderListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.creditOrderList(pageNumber);
 	}
-	
+
 	creditOrderOrderUserNameAutoComplete(event) {
 	    const query = event.query;
 	    this.creditOrderService.creditOrderOrderUserNameAutoComplete(query)
@@ -124,8 +131,18 @@ export class CreditOrderListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
-	
+
+
+	private initializeCreditOrderOrderStatusOptions() {
+	    this.creditOrderOrderStatusOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_awaiting_payment'), value: 'AWAITING_PAYMENT' },
+	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_paid'), value: 'PAID' },
+	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_canceled'), value: 'CANCELED' }
+	    ];
+	}
+
+
 	creditOrderOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
 		if (orderUser) {
 			return (orderUser.name || '<nulo>') + ' - ' + (orderUser.email || '<nulo>');
@@ -133,8 +150,8 @@ export class CreditOrderListComponent implements OnInit {
 			return null;
 		}
 	}
-	
-	
+
+
 	private initializeDateFilterIntervalDropdownItems() {
 		this.dateFilterIntervalDropdownItems = [
 		    {label: 'Minha competência', value: '12'},
@@ -154,15 +171,15 @@ export class CreditOrderListComponent implements OnInit {
 		    {label: 'Personalizado', value: '99'}
 		  ];
 	}
-	
-	
+
+
 	creditOrderOrderDateIsBetweenOptionsOnClick(dropdown: Dropdown) {
 		this.creditOrderListFilter.orderDateFrom = null;
 		this.creditOrderListFilter.orderDateTo = null;
-		
+
 		let dateFrom = null;
 		let dateTo = null;
-	
+
 		const valor = Number(this.creditOrderOrderDateIsBetweenOptionsSelected.value);
 		switch (valor) {
 			case 0: // Hoje
@@ -224,50 +241,50 @@ export class CreditOrderListComponent implements OnInit {
 				dateFrom = moment().add(-1, 'year').startOf('year');
 				dateTo = moment().add(-1, 'year').endOf('year');
 				break;
-				
+
 			case 12: // Minha competência
 				dateFrom = moment().startOf('month');
 				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
 				break;
-			
+
 			default:
 				break;
 		} // switch
-	
+
 		if (dateFrom != null) {
 		  this.creditOrderListFilter.orderDateFrom = dateFrom.toDate();
 		}
-		
+
 		if (dateTo != null) {
 		  this.creditOrderListFilter.orderDateTo = dateTo.toDate();
 		}
-		
+
 		if (dateFrom != null && dateTo != null) {
 		  // this.creditOrderList(0);
 		}
 	}
-	
+
 	applyAndGetRuleGridRowStyleClass(creditOrder: CreditOrder): String {
-		
+
 		if (creditOrder.id && creditOrder.orderPaidDate) {
 			return 'kb-conta-paga';
 		}
-		
+
 		if (creditOrder.id && creditOrder.orderCanceledDate) {
 			return 'kb-conta-vence-hoje';
 		}
-	
+
 	    return null;
 	}
-	
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.securityAuthorizationTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
+
+
 }

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.17.6
-Code generated at time stamp: 2019-08-13T19:22:28.088
+Code generated with MKL Plug-in version: 7.18.1
+Code generated at time stamp: 2019-08-13T23:21:07.794
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -13,100 +13,112 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<p-header>
 			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.creditOrder') }}</div>
 		</p-header>
-	
+
 
   	<div class="ui-g">
-		
+
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
 			<p-accordionTab header="Filtro">
-			
+
 				<div class="ui-g">
 					<div class="ui-g-12">
-						
+
+						<div class="ui-g-12 ui-md-2 ui-fluid">
+							<label class="label-r">Protocolo</label>
+							<input pInputText type="text" name="id"
+							[(ngModel)]="creditOrderListFilter.id" />
+						</div>
+
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Usuário solicitante</label>
-							<p-autoComplete name="creditOrderOrderUserNameAutoComplete" 
-							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							<p-autoComplete name="creditOrderOrderUserNameAutoComplete"
+							placeholder="Digite para pesquisar..." [dropdown]="true"
 							[(ngModel)]="creditOrderListFilter.orderUserName" [multiple]="true"
 							[suggestions]="creditOrderOrderUserNameAutoCompleteSuggestions"
 							(completeMethod)="creditOrderOrderUserNameAutoComplete($event)"
 							field="orderUserName"></p-autoComplete>
 						</div>
-						
-						
+
+
 						<div class="ui-g-12">
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label style="display: block">Período dos pedidos</label>
-						        <p-dropdown #creditOrderOrderDateIsBetweenOptions 
-							        [options]="dateFilterIntervalDropdownItems" 
+						        <p-dropdown #creditOrderOrderDateIsBetweenOptions
+							        [options]="dateFilterIntervalDropdownItems"
 							        [(ngModel)]="creditOrderOrderDateIsBetweenOptionsSelected"
 							        optionLabel="label" (click)="creditOrderOrderDateIsBetweenOptionsOnClick(creditOrderOrderDateIsBetweenOptions)">
 						        </p-dropdown>
 						    </div>
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						      	<label class="label-r">Pedidos de</label>
 						        <p-calendar name="orderDateFrom"
 						        dateFormat="dd/mm/yy" [(ngModel)]="creditOrderListFilter.orderDateFrom"></p-calendar>
 						    </div>
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label class="label-l label-r">Até</label>
 						        <p-calendar name="orderDateTo" dateFormat="dd/mm/yy"
 						        [(ngModel)]="creditOrderListFilter.orderDateTo"></p-calendar>
 						    </div>
-						    
+
 						</div>
-						
-						
-						
+
+
+
 						<div class="ui-g-12">
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						      	<label class="label-r">Pedid. com valores de</label>
 						        <input pInputText type="text" name="orderValueFrom"
 						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
 						        [(ngModel)]="creditOrderListFilter.orderValueFrom" />
 						    </div>
-						
+
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label class="label-l label-r">Até</label>
 						        <input pInputText type="text" name="orderValueTo"
 						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
 						        [(ngModel)]="creditOrderListFilter.orderValueTo" />
 						    </div>
-						    
+
 						</div>
-						
+
+
+						<div class="ui-g-12 ui-md-2 ui-fluid">
+							<label class="label-r">Situação</label>
+							<p-dropdown [options]="creditOrderOrderStatusOptions" placeholder="Selecione um item..."
+							ngModel [(ngModel)]="creditOrderListFilter.orderStatus" name="orderStatus" ></p-dropdown>
+						</div>
 					</div>
-					
+
 					<div>
 						<p-button label="Pesquisar" (click)="creditOrderFilterSearch()"></p-button>
 					</div>
 				</div>
-				
-			
+
+
 			</p-accordionTab>
 		</p-accordion>
 		<!-- End Filters -->
-		
+
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" 
+			<p-table selectionMode="single" [loading]="loading"
 				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="creditOrderListItems"
-			    [rows]="creditOrderListFilter.pageSize" 
+			    [rows]="creditOrderListFilter.pageSize"
 			    [totalRecords]="creditOrderListTotalElements"
 			    [lazy]="true" (onLazyLoad)="creditOrderListOnLazyLoad($event)" >
-			    
+
 			    <ng-template pTemplate="caption">
 			    	Legenda:
 			    	<span class="kb-conta-paga kb-conta-legenda">Pedido pago</span>
 			    	<span class="kb-conta-vence-hoje kb-conta-legenda">Pedido cancelado</span>
 			    </ng-template>
-			    
+
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th style="width: 90px" [pSortableColumn]="'id'">{{ getTranslation('security.authorization.creditOrder_id_grid') }}<p-sortIcon [field]="'id'"></p-sortIcon></th>
@@ -123,7 +135,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'orderHistory'">{{ getTranslation('security.authorization.creditOrder_orderHistory_grid') }}<p-sortIcon [field]="'orderHistory'"></p-sortIcon></th>
 		            </tr>
 		        </ng-template>
-		        
+
 			    <ng-template pTemplate="body" let-creditOrder>
 		            <tr [pSelectableRow]="creditOrder">
 		            	<td style="text-align: center" [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrder)">
@@ -164,8 +176,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	</td>
 		            </tr>
 		        </ng-template>
-		        
-		        
+
+
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
 				        <td [attr.colspan]="12">
@@ -173,7 +185,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				        </td>
 				    </tr>
 				</ng-template>
-				
+
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais </td>
@@ -194,7 +206,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		<!-- End GRID -->
 	</div>
-	
+
 	</p-panel>
-  
+
 </div>
