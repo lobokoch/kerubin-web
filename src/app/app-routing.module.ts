@@ -70,6 +70,10 @@ const routes: Routes = [
   { path: 'paymentplan', loadChildren: './payment/payment.module#PaymentModule' },
   { path: 'paymentCreditOrder', loadChildren: './modules/security/authorization/creditorder/creditorder.module#CreditOrderModule' },
   // END payment
+  
+  // BEGIN Kerubin Admin 
+  { path: 'creditorderadmin', loadChildren: './modules/security/authorization/creditorderadmin/creditorderadmin.module#CreditOrderAdminModule' },
+  // END Kerubin Admin
 
   { path: 'login', component: LoginComponent },
   { path: 'confignewaccount', component: ConfigNewAccountComponent },

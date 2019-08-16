@@ -1,0 +1,242 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 7.18.7
+Code generated at time stamp: 2019-08-15T06:20:44.470
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.creditOrderAdmin') }}</div>
+		</p-header>
+	
+
+  	<div class="ui-g">
+		
+		<!-- Begin Filters -->
+		<p-accordion class="ui-g-12">
+			<p-accordionTab header="Filtros">
+			
+				<div class="ui-g">
+					<div class="ui-g-12">
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Protocolo de identificação</label>
+							<input pInputText type="text"
+							[(ngModel)]="creditOrderAdminListFilter.id"/>
+						</div>
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Usuário solicitante</label>
+							<p-autoComplete name="creditOrderAdminOrderUserNameAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="creditOrderAdminListFilter.orderUserName" [multiple]="true"
+							[suggestions]="creditOrderAdminOrderUserNameAutoCompleteSuggestions"
+							(completeMethod)="creditOrderAdminOrderUserNameAutoComplete($event)"
+							field="orderUserName"></p-autoComplete>
+						</div>
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label class="label-r">Tenant solicitante</label>
+							<p-autoComplete name="creditOrderAdminOrderTenantNameAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="creditOrderAdminListFilter.orderTenantName" [multiple]="true"
+							[suggestions]="creditOrderAdminOrderTenantNameAutoCompleteSuggestions"
+							(completeMethod)="creditOrderAdminOrderTenantNameAutoComplete($event)"
+							field="orderTenantName"></p-autoComplete>
+						</div>
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label style="display: block">Data dos pedidos</label>
+						        <p-dropdown #creditOrderAdminOrderDateIsBetweenOptions 
+							        [options]="dateFilterIntervalDropdownItems" 
+							        [(ngModel)]="creditOrderAdminOrderDateIsBetweenOptionsSelected"
+							        optionLabel="label" (click)="creditOrderAdminOrderDateIsBetweenOptionsOnClick(creditOrderAdminOrderDateIsBetweenOptions)">
+						        </p-dropdown>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						      	<label class="label-r">Pedidos de</label>
+						        <p-calendar name="orderDateFrom"
+						        dateFormat="dd/mm/yy" [(ngModel)]="creditOrderAdminListFilter.orderDateFrom"></p-calendar>
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-2 ui-fluid">
+						        <label class="label-l label-r">até</label>
+						        <p-calendar name="orderDateTo" dateFormat="dd/mm/yy"
+						        [(ngModel)]="creditOrderAdminListFilter.orderDateTo"></p-calendar>
+						    </div>
+						    
+						</div>
+						
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-3 ui-fluid">
+						      	<label class="label-r">Pedidos com valores de</label>
+						        <input pInputText type="text" name="orderValueFrom"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="creditOrderAdminListFilter.orderValueFrom" />
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-3 ui-fluid">
+						        <label class="label-l label-r">até</label>
+						        <input pInputText type="text" name="orderValueTo"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="creditOrderAdminListFilter.orderValueTo" />
+						    </div>
+						    
+						</div>
+						
+						
+						<div class="ui-g-12 ui-md-4 ui-fluid">
+							<label class="label-r">Situação do pedido</label>
+							<p-dropdown [options]="creditOrderAdminOrderStatusOptions" placeholder="Selecione um item..."
+							[(ngModel)]="creditOrderAdminListFilter.orderStatus"></p-dropdown>
+						</div>
+					</div>
+					
+					<div>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="creditOrderAdminFilterSearch()"></p-button>
+					</div>
+				</div>
+				
+			
+			</p-accordionTab>
+		</p-accordion>
+		<!-- End Filters -->
+		
+		<!-- Begin GRID -->
+		<div class="ui-g-12" name="data-grid">
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
+				[value]="creditOrderAdminListItems"
+			    [rows]="creditOrderAdminListFilter.pageSize" 
+			    [totalRecords]="creditOrderAdminListTotalElements"
+			    [lazy]="true" (onLazyLoad)="creditOrderAdminListOnLazyLoad($event)" >
+			    
+			    <ng-template pTemplate="caption">
+			    	Legenda:
+			    	<span class="kb-conta-paga kb-conta-legenda">Pedido pago</span>
+			    	<span class="kb-conta-vence-hoje kb-conta-legenda">Pedido cancelado</span>
+			    </ng-template>
+			    
+			    <ng-template pTemplate="header">
+		            <tr>
+		            	<th style="width: 90px" [pSortableColumn]="'id'">{{ getTranslation('security.authorization.creditOrderAdmin_id_grid') }}<p-sortIcon [field]="'id'"></p-sortIcon></th>
+		            	<th style="width: 150px" [pSortableColumn]="'orderUserName'">{{ getTranslation('security.authorization.creditOrderAdmin_orderUserName_grid') }}<p-sortIcon [field]="'orderUserName'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'orderTenantName'">{{ getTranslation('security.authorization.creditOrderAdmin_orderTenantName_grid') }}<p-sortIcon [field]="'orderTenantName'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'orderUser'">{{ getTranslation('security.authorization.creditOrderAdmin_orderUser_grid') }}<p-sortIcon [field]="'orderUser'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'orderDate'">{{ getTranslation('security.authorization.creditOrderAdmin_orderDate_grid') }}<p-sortIcon [field]="'orderDate'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderValue'">{{ getTranslation('security.authorization.creditOrderAdmin_orderValue_grid') }}<p-sortIcon [field]="'orderValue'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderBonusValue'">{{ getTranslation('security.authorization.creditOrderAdmin_orderBonusValue_grid') }}<p-sortIcon [field]="'orderBonusValue'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'orderTotalCredits'">{{ getTranslation('security.authorization.creditOrderAdmin_orderTotalCredits_grid') }}<p-sortIcon [field]="'orderTotalCredits'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'paymentMethod'">{{ getTranslation('security.authorization.creditOrderAdmin_paymentMethod_grid') }}<p-sortIcon [field]="'paymentMethod'"></p-sortIcon></th>
+		            	<th style="width: 100px" [pSortableColumn]="'paymentMethodDescription'">{{ getTranslation('security.authorization.creditOrderAdmin_paymentMethodDescription_grid') }}<p-sortIcon [field]="'paymentMethodDescription'"></p-sortIcon></th>
+		            	<th style="width: 90px" [pSortableColumn]="'orderStatus'">{{ getTranslation('security.authorization.creditOrderAdmin_orderStatus_grid') }}<p-sortIcon [field]="'orderStatus'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'orderPaidDate'">{{ getTranslation('security.authorization.creditOrderAdmin_orderPaidDate_grid') }}<p-sortIcon [field]="'orderPaidDate'"></p-sortIcon></th>
+		            	<th style="width: 95px" [pSortableColumn]="'orderCanceledDate'">{{ getTranslation('security.authorization.creditOrderAdmin_orderCanceledDate_grid') }}<p-sortIcon [field]="'orderCanceledDate'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'orderHistory'">{{ getTranslation('security.authorization.creditOrderAdmin_orderHistory_grid') }}<p-sortIcon [field]="'orderHistory'"></p-sortIcon></th>
+						<th style="width: 12em">Ações</th>
+		            </tr>
+		        </ng-template>
+		        
+			    <ng-template pTemplate="body" let-creditOrderAdmin>
+		            <tr [pSelectableRow]="creditOrderAdmin">
+		            	<td style="text-align: center" [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		<i *ngIf="creditOrderAdmin?.id" class="pi pi-info-circle" style="font-size: 2em" [pTooltip]=creditOrderAdmin?.id></i>
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{ creditOrderAdmin?.orderUserName }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{ creditOrderAdmin?.orderTenantName }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{creditOrderAdminOrderUserAutoCompleteFieldConverter(creditOrderAdmin?.orderUser)}}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{creditOrderAdmin?.orderDate | date:'dd/MM/yyyy' }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)" class="kb-field-money">
+		            		{{creditOrderAdmin?.orderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)" class="kb-field-money">
+		            		{{creditOrderAdmin?.orderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)" class="kb-field-money">
+		            		{{creditOrderAdmin?.orderTotalCredits | currency:'BRL':'symbol':'1.2-2':'pt' }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{ getTranslation('security.authorization.creditOrderAdmin_paymentMethod' + '_' + creditOrderAdmin?.paymentMethod?.toLowerCase()) }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{ creditOrderAdmin?.paymentMethodDescription }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{ getTranslation('security.authorization.creditOrderAdmin_orderStatus' + '_' + creditOrderAdmin?.orderStatus?.toLowerCase()) }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{creditOrderAdmin?.orderPaidDate | date:'dd/MM/yyyy' }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		{{creditOrderAdmin?.orderCanceledDate | date:'dd/MM/yyyy' }}
+		            	</td>
+		            	<td style="text-align: center" [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
+		            		<i *ngIf="creditOrderAdmin?.orderHistory" class="pi pi-clock" style="font-size: 2em" [pTooltip]=creditOrderAdmin?.orderHistory></i>
+		            	</td>
+		              	<td class="kb-actions">
+		              		<a pButton [routerLink]="['/creditorderadmin', creditOrderAdmin.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+		              		<button (click)="deleteCreditOrderAdmin(creditOrderAdmin)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
+		              	</td>
+		            </tr>
+		        </ng-template>
+		        
+		        
+		        <ng-template pTemplate="emptymessage" let-columns>
+				    <tr>
+				        <td [attr.colspan]="15">
+				            Nenhum registro encontrado.
+				        </td>
+				    </tr>
+				</ng-template>
+				
+				<ng-template pTemplate="footer">
+					<tr>
+						<td class="kb-sum-footer">Totais</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer sumField">{{ creditOrderAdminSumFields.sumOrderValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer sumField">{{ creditOrderAdminSumFields.sumOrderBonusValue | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer sumField">{{ creditOrderAdminSumFields.sumOrderTotalCredits | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+		<!-- End GRID -->
+		
+		<div class="ui-g-12 ui-md-2 ui-fluid">
+			<a routerLink="/creditorderadmin/novo" pButton label="Novo registro"></a>
+		</div>
+	</div>
+	
+	</p-panel>
+  
+</div>

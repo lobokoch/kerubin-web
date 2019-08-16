@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated at time stamp: 2019-08-15T06:20:44.459
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -12,8 +12,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
-import { CreditOrder } from './creditorder.model';
-import { CreditOrderService } from './creditorder.service';
+import { CreditOrderAdmin } from './creditorderadmin.model';
+import { CreditOrderAdminService } from './creditorderadmin.service';
 import { SecurityAuthorizationTranslationService } from './../i18n/security-authorization-translation.service';
 import * as moment from 'moment';
 
@@ -28,32 +28,32 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-creditorder.component',
-  templateUrl: './crud-creditorder.component.html',
-  styleUrls: ['./crud-creditorder.component.css']
+  selector: 'app-crud-creditorderadmin.component',
+  templateUrl: './crud-creditorderadmin.component.html',
+  styleUrls: ['./crud-creditorderadmin.component.css']
 })
 
-export class CreditOrderComponent implements OnInit {
+export class CreditOrderAdminComponent implements OnInit {
 	
 	calendarLocale: any;
 	
-	creditOrder = new CreditOrder();
-	creditOrderOrderUserAutoCompleteSuggestions: SysUserAutoComplete[];
-	creditOrderPaymentMethodOptions: PaymentMethod[];
+	creditOrderAdmin = new CreditOrderAdmin();
+	creditOrderAdminOrderUserAutoCompleteSuggestions: SysUserAutoComplete[];
+	creditOrderAdminPaymentMethodOptions: PaymentMethod[];
 	
 	
-	creditOrderOrderStatusOptions: OrderStatus[];
+	creditOrderAdminOrderStatusOptions: OrderStatus[];
 	
 	constructor(
-	    private creditOrderService: CreditOrderService,
+	    private creditOrderAdminService: CreditOrderAdminService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private sysUserService: SysUserService,
 	    private route: ActivatedRoute,
 	    private messageHandler: MessageHandlerService
 	) { 
-		this.initializeCreditOrderPaymentMethodOptions();
+		this.initializeCreditOrderAdminPaymentMethodOptions();
 		
-		this.initializeCreditOrderOrderStatusOptions();
+		this.initializeCreditOrderAdminOrderStatusOptions();
 	}
 	
 	ngOnInit() {
@@ -61,14 +61,14 @@ export class CreditOrderComponent implements OnInit {
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
-	      this.getCreditOrderById(id);
+	      this.getCreditOrderAdminById(id);
 	    }
 	}
 	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
-	      this.creditOrder = new CreditOrder();
+	      this.creditOrderAdmin = new CreditOrderAdmin();
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
@@ -100,9 +100,9 @@ export class CreditOrderComponent implements OnInit {
 	
 	create() {
 		
-	    this.creditOrderService.create(this.creditOrder)
-	    .then((creditOrder) => {
-	      this.creditOrder = creditOrder;
+	    this.creditOrderAdminService.create(this.creditOrderAdmin)
+	    .then((creditOrderAdmin) => {
+	      this.creditOrderAdmin = creditOrderAdmin;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
@@ -111,9 +111,9 @@ export class CreditOrderComponent implements OnInit {
 	}
 	
 	update() {
-	    this.creditOrderService.update(this.creditOrder)
-	    .then((creditOrder) => {
-	      this.creditOrder = creditOrder;
+	    this.creditOrderAdminService.update(this.creditOrderAdmin)
+	    .then((creditOrderAdmin) => {
+	      this.creditOrderAdmin = creditOrderAdmin;
 	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
@@ -121,50 +121,50 @@ export class CreditOrderComponent implements OnInit {
 	    });
 	}
 	
-	getCreditOrderById(id: string) {
-	    this.creditOrderService.retrieve(id)
-	    .then((creditOrder) => this.creditOrder = creditOrder)
+	getCreditOrderAdminById(id: string) {
+	    this.creditOrderAdminService.retrieve(id)
+	    .then((creditOrderAdmin) => this.creditOrderAdmin = creditOrderAdmin)
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
 	}
 	
 	get isEditing() {
-	    return Boolean(this.creditOrder.id);
+	    return Boolean(this.creditOrderAdmin.id);
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.creditOrder.paymentMethod = this.creditOrderPaymentMethodOptions[0].value;
-		this.creditOrder.orderStatus = this.creditOrderOrderStatusOptions[0].value;
+		this.creditOrderAdmin.paymentMethod = this.creditOrderAdminPaymentMethodOptions[0].value;
+		this.creditOrderAdmin.orderStatus = this.creditOrderAdminOrderStatusOptions[0].value;
 	}
 	
 	
-	creditOrderOrderUserAutoCompleteClear(event) {
+	creditOrderAdminOrderUserAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
-		this.creditOrder.orderUser = null;
+		this.creditOrderAdmin.orderUser = null;
 	}
 	
-	creditOrderOrderUserAutoCompleteOnBlur(event) {
+	creditOrderAdminOrderUserAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
-		if (String(this.creditOrder.orderUser) === '') {
-			this.creditOrder.orderUser = null;
+		if (String(this.creditOrderAdmin.orderUser) === '') {
+			this.creditOrderAdmin.orderUser = null;
 		}
 	}
 	
-	creditOrderOrderUserAutoComplete(event) {
+	creditOrderAdminOrderUserAutoComplete(event) {
 	    const query = event.query;
-	    this.creditOrderService
+	    this.creditOrderAdminService
 	      .sysUserOrderUserAutoComplete(query)
 	      .then((result) => {
-	        this.creditOrderOrderUserAutoCompleteSuggestions = result as SysUserAutoComplete[];
+	        this.creditOrderAdminOrderUserAutoCompleteSuggestions = result as SysUserAutoComplete[];
 	      })
 	      .catch(error => {
 	        this.messageHandler.showError(error);
 	      });
 	}
 	
-	creditOrderOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
+	creditOrderAdminOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
 		let text = '';
 		if (orderUser) {
 			if (orderUser.name) {
@@ -196,22 +196,22 @@ export class CreditOrderComponent implements OnInit {
 		return text;
 	}
 	
-	private initializeCreditOrderPaymentMethodOptions() {
-	    this.creditOrderPaymentMethodOptions = [
+	private initializeCreditOrderAdminPaymentMethodOptions() {
+	    this.creditOrderAdminPaymentMethodOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('security.authorization.creditOrder_paymentMethod_cash'), value: 'CASH' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_paymentMethod_bank_account'), value: 'BANK_ACCOUNT' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_paymentMethod_credit_card'), value: 'CREDIT_CARD' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_paymentMethod_bank_slip'), value: 'BANK_SLIP' }
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_paymentMethod_cash'), value: 'CASH' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_paymentMethod_bank_account'), value: 'BANK_ACCOUNT' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_paymentMethod_credit_card'), value: 'CREDIT_CARD' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_paymentMethod_bank_slip'), value: 'BANK_SLIP' }
 	    ];
 	}
 	  
-	private initializeCreditOrderOrderStatusOptions() {
-	    this.creditOrderOrderStatusOptions = [
+	private initializeCreditOrderAdminOrderStatusOptions() {
+	    this.creditOrderAdminOrderStatusOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_awaiting_payment'), value: 'AWAITING_PAYMENT' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_paid'), value: 'PAID' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_canceled'), value: 'CANCELED' }
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_awaiting_payment'), value: 'AWAITING_PAYMENT' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_paid'), value: 'PAID' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_canceled'), value: 'CANCELED' }
 	    ];
 	}
 	  

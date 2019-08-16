@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.18.1
-Code generated at time stamp: 2019-08-13T23:21:07.794
+Code generated with MKL Plug-in version: 7.18.7
+Code generated at time stamp: 2019-08-14T08:12:54.153
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -87,7 +87,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #paymentMethodDescription="ngModel" ngModel [(ngModel)]="creditOrder.paymentMethodDescription" name="paymentMethodDescription">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2">
+		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="orderStatus">{{ getTranslation('security.authorization.creditOrder_orderStatus') }}<span class="kb-label-required">*</span></label>
 			<p-dropdown [options]="creditOrderOrderStatusOptions" placeholder="Selecione um item..." #orderStatus="ngModel" ngModel [(ngModel)]="creditOrder.orderStatus" name="orderStatus" required></p-dropdown>
 			<div class="invalid-message" *ngIf="orderStatus.invalid && orderStatus.dirty">Campo obrigatório.</div>

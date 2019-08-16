@@ -133,7 +133,7 @@ export class KerubinMenuComponent implements OnInit {
         ]
       },
       {
-        label: 'Kerubin',
+        label: 'Administração',
         icon: 'pi pi-pw',
         items: [
 
@@ -147,8 +147,24 @@ export class KerubinMenuComponent implements OnInit {
           }
 
         ]
+      },
+	  
+	  
+	  {
+      	label: 'Kerubin',
+      	icon: 'pi pi-pw',
+      	items: [
+      		
+      		{
+      			label: 'Autorização',
+      			icon: 'pi pi-fw ',
+      			items: [      				
+      				{ label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/creditorderadmin' }
+      			]
+      		}
+      		
+      	]
       }
-
 
     ];
   }

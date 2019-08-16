@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated at time stamp: 2019-08-15T06:20:44.459
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -31,15 +31,21 @@ export class PaginationFilter {
   }
 }
 
-export class CreditOrderOrderUserNameAutoComplete {
+export class CreditOrderAdminOrderUserNameAutoComplete {
 	orderUserName: string;
 }
 
-export class CreditOrderListFilter extends PaginationFilter {
+export class CreditOrderAdminOrderTenantNameAutoComplete {
+	orderTenantName: string;
+}
+
+export class CreditOrderAdminListFilter extends PaginationFilter {
 	
 	id: string;
 	
-	orderUserName: CreditOrderOrderUserNameAutoComplete[];
+	orderUserName: CreditOrderAdminOrderUserNameAutoComplete[];
+	
+	orderTenantName: CreditOrderAdminOrderTenantNameAutoComplete[];
 	
 	orderDateFrom: Date;
 	orderDateTo: Date;
@@ -50,7 +56,7 @@ export class CreditOrderListFilter extends PaginationFilter {
 	orderStatus: OrderStatus;
 }
 
-export class CreditOrder {
+export class CreditOrderAdmin {
 	id: string;
 	orderUserName: string;
 	orderTenantName: string;
@@ -67,12 +73,12 @@ export class CreditOrder {
 	orderHistory: string;
 }
 
-export class CreditOrderAutoComplete {
+export class CreditOrderAdminAutoComplete {
 	id: string;
 	orderUserName: string;
 }
 
-export class CreditOrderSumFields {
+export class CreditOrderAdminSumFields {
 	sumOrderValue: number;
 	sumOrderBonusValue: number;
 	sumOrderTotalCredits: number;

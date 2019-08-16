@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated at time stamp: 2019-08-15T06:20:44.459
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -29,10 +29,10 @@ import {CardModule} from 'primeng/card';
 
 // Kerubin - BEGIN
 import { SecurityAuthorizationTranslationService } from './../i18n/./../i18n/security-authorization-translation.service';
-import { CreditOrderService } from './creditorder.service';
-import { CreditOrderListComponent } from './list-creditorder.component';
-import { CreditOrderComponent } from './crud-creditorder.component';
-import { CreditOrderRoutingModule } from './creditorder-routing.module';
+import { CreditOrderAdminService } from './creditorderadmin.service';
+import { CreditOrderAdminListComponent } from './list-creditorderadmin.component';
+import { CreditOrderAdminComponent } from './crud-creditorderadmin.component';
+import { CreditOrderAdminRoutingModule } from './creditorderadmin-routing.module';
 import { SysUserModule } from '../sysuser/sysuser.module';
 // Kerubin - END
 
@@ -61,14 +61,14 @@ import { SysUserModule } from '../sysuser/sysuser.module';
 	CardModule,
 
     // Kerubin
-    CreditOrderRoutingModule,
+    CreditOrderAdminRoutingModule,
 	SysUserModule
 
   ],
 
   declarations: [
-    CreditOrderComponent,
-    CreditOrderListComponent
+    CreditOrderAdminComponent,
+    CreditOrderAdminListComponent
   ],
 
   exports: [
@@ -76,10 +76,10 @@ import { SysUserModule } from '../sysuser/sysuser.module';
   ],
 
   providers: [
-    CreditOrderService,
+    CreditOrderAdminService,
     SecurityAuthorizationTranslationService
   ]
 
 })
 
-export class CreditOrderModule { }
+export class CreditOrderAdminModule { }

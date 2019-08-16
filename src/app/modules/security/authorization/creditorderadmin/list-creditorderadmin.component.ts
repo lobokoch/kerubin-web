@@ -1,6 +1,6 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated at time stamp: 2019-08-15T06:20:44.459
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -13,94 +13,96 @@ import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
-import { CreditOrderService } from './creditorder.service';
+import { CreditOrderAdminService } from './creditorderadmin.service';
 import { SecurityAuthorizationTranslationService } from './../i18n/security-authorization-translation.service';
-import { CreditOrder } from './creditorder.model';
-import { CreditOrderListFilter } from './creditorder.model';
-import { SortField } from './creditorder.model';
-import { CreditOrderOrderUserNameAutoComplete } from './creditorder.model';
+import { CreditOrderAdmin } from './creditorderadmin.model';
+import { CreditOrderAdminListFilter } from './creditorderadmin.model';
+import { SortField } from './creditorderadmin.model';
+import { CreditOrderAdminOrderUserNameAutoComplete } from './creditorderadmin.model';
+import { CreditOrderAdminOrderTenantNameAutoComplete } from './creditorderadmin.model';
 
 import { OrderStatus } from './../enums/security-authorization-enums.model';
 
 import { SysUserAutoComplete } from './../sysuser/sysuser.model';
-import { CreditOrderSumFields } from './creditorder.model';
+import { CreditOrderAdminSumFields } from './creditorderadmin.model';
 
 @Component({
-  selector: 'app-list-creditorder.component',
-  templateUrl: './list-creditorder.component.html',
-  styleUrls: ['./list-creditorder.component.css']
+  selector: 'app-list-creditorderadmin.component',
+  templateUrl: './list-creditorderadmin.component.html',
+  styleUrls: ['./list-creditorderadmin.component.css']
 })
 
-export class CreditOrderListComponent implements OnInit {
+export class CreditOrderAdminListComponent implements OnInit {
 	
-	creditOrderListItems: CreditOrder[];
-	creditOrderListTotalElements = 0;
-	creditOrderListFilter = new CreditOrderListFilter();
+	creditOrderAdminListItems: CreditOrderAdmin[];
+	creditOrderAdminListTotalElements = 0;
+	creditOrderAdminListFilter = new CreditOrderAdminListFilter();
 	
-	creditOrderOrderUserNameAutoCompleteSuggestions: CreditOrderOrderUserNameAutoComplete[];
+	creditOrderAdminOrderUserNameAutoCompleteSuggestions: CreditOrderAdminOrderUserNameAutoComplete[];
+	creditOrderAdminOrderTenantNameAutoCompleteSuggestions: CreditOrderAdminOrderTenantNameAutoComplete[];
 	
-	creditOrderOrderDateIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
+	creditOrderAdminOrderDateIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
 	
 	
 	
-	creditOrderOrderStatusOptions: OrderStatus[];
+	creditOrderAdminOrderStatusOptions: OrderStatus[];
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
-	creditOrderSumFields = new CreditOrderSumFields();
+	creditOrderAdminSumFields = new CreditOrderAdminSumFields();
 	
 	constructor(
-	    private creditOrderService: CreditOrderService,
+	    private creditOrderAdminService: CreditOrderAdminService,
 	    private securityAuthorizationTranslationService: SecurityAuthorizationTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
 	
 	ngOnInit() {
-		this.creditOrderOrderDateIsBetweenOptionsOnClick(null);
+		this.creditOrderAdminOrderDateIsBetweenOptionsOnClick(null);
 		this.initializeDateFilterIntervalDropdownItems();
 		
 		
 		
 		
-		this.initializeCreditOrderOrderStatusOptions();
+		this.initializeCreditOrderAdminOrderStatusOptions();
 	}
 	
-	creditOrderList(pageNumber = 0) {
-	    this.creditOrderListFilter.pageNumber = pageNumber;
-	    this.creditOrderService
-	    .creditOrderList(this.creditOrderListFilter)
+	creditOrderAdminList(pageNumber = 0) {
+	    this.creditOrderAdminListFilter.pageNumber = pageNumber;
+	    this.creditOrderAdminService
+	    .creditOrderAdminList(this.creditOrderAdminListFilter)
 	    .then(result => {
-	      	this.creditOrderListItems = result.items;
-	      	this.creditOrderListTotalElements = result.totalElements;
+	      	this.creditOrderAdminListItems = result.items;
+	      	this.creditOrderAdminListTotalElements = result.totalElements;
 	      
-			this.getCreditOrderSumFields();
+			this.getCreditOrderAdminSumFields();
 	    });
 		
 	}
 	
-	getCreditOrderSumFields() {
-	    this.creditOrderService.getCreditOrderSumFields(this.creditOrderListFilter)
+	getCreditOrderAdminSumFields() {
+	    this.creditOrderAdminService.getCreditOrderAdminSumFields(this.creditOrderAdminListFilter)
 		.then(response => {
-		  this.creditOrderSumFields = response;
+		  this.creditOrderAdminSumFields = response;
 		})
 		.catch(e => {
 		  this.messageHandler.showError(e);
 		});
 	}
 	
-	creditOrderFilterSearch() {
-	    this.creditOrderList(0);
+	creditOrderAdminFilterSearch() {
+	    this.creditOrderAdminList(0);
 	}
 	
-	deleteCreditOrder(creditOrder: CreditOrder) {
+	deleteCreditOrderAdmin(creditOrderAdmin: CreditOrderAdmin) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
 	      accept: () => {
-	        this.creditOrderService.delete(creditOrder.id)
+	        this.creditOrderAdminService.delete(creditOrderAdmin.id)
 	        .then(() => {
 	          this.messageHandler.showSuccess('Registro excluído!');
-	          this.creditOrderList(0);
+	          this.creditOrderAdminList(0);
 	        })
 	        .catch((e) => {
 	          this.messageHandler.showError(e);
@@ -109,21 +111,32 @@ export class CreditOrderListComponent implements OnInit {
 	    });
 	}
 	
-	creditOrderListOnLazyLoad(event: LazyLoadEvent) {
+	creditOrderAdminListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
-	      this.creditOrderListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	      this.creditOrderAdminListFilter.sortField = new SortField(event.sortField, event.sortOrder);
 	    } else {
-	      this.creditOrderListFilter.sortField = new SortField('id', 1); // asc
+	      this.creditOrderAdminListFilter.sortField = new SortField('id', 1); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
-	    this.creditOrderList(pageNumber);
+	    this.creditOrderAdminList(pageNumber);
 	}
 	
-	creditOrderOrderUserNameAutoComplete(event) {
+	creditOrderAdminOrderUserNameAutoComplete(event) {
 	    const query = event.query;
-	    this.creditOrderService.creditOrderOrderUserNameAutoComplete(query)
+	    this.creditOrderAdminService.creditOrderAdminOrderUserNameAutoComplete(query)
 	    .then((result) => {
-	      this.creditOrderOrderUserNameAutoCompleteSuggestions = result;
+	      this.creditOrderAdminOrderUserNameAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
+	creditOrderAdminOrderTenantNameAutoComplete(event) {
+	    const query = event.query;
+	    this.creditOrderAdminService.creditOrderAdminOrderTenantNameAutoComplete(query)
+	    .then((result) => {
+	      this.creditOrderAdminOrderTenantNameAutoCompleteSuggestions = result;
 	    })
 	    .catch(erro => {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
@@ -131,17 +144,17 @@ export class CreditOrderListComponent implements OnInit {
 	}
 	
 	
-	private initializeCreditOrderOrderStatusOptions() {
-	    this.creditOrderOrderStatusOptions = [
+	private initializeCreditOrderAdminOrderStatusOptions() {
+	    this.creditOrderAdminOrderStatusOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_awaiting_payment'), value: 'AWAITING_PAYMENT' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_paid'), value: 'PAID' }, 
-	    	{ label: this.getTranslation('security.authorization.creditOrder_orderStatus_canceled'), value: 'CANCELED' }
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_awaiting_payment'), value: 'AWAITING_PAYMENT' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_paid'), value: 'PAID' }, 
+	    	{ label: this.getTranslation('security.authorization.creditOrderAdmin_orderStatus_canceled'), value: 'CANCELED' }
 	    ];
 	}
 	  
 	
-	creditOrderOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
+	creditOrderAdminOrderUserAutoCompleteFieldConverter(orderUser: SysUserAutoComplete) {
 		if (orderUser) {
 			return (orderUser.name || '<nulo>') + ' - ' + (orderUser.email || '<nulo>');
 		} else {
@@ -171,14 +184,14 @@ export class CreditOrderListComponent implements OnInit {
 	}
 	
 	
-	creditOrderOrderDateIsBetweenOptionsOnClick(dropdown: Dropdown) {
-		this.creditOrderListFilter.orderDateFrom = null;
-		this.creditOrderListFilter.orderDateTo = null;
+	creditOrderAdminOrderDateIsBetweenOptionsOnClick(dropdown: Dropdown) {
+		this.creditOrderAdminListFilter.orderDateFrom = null;
+		this.creditOrderAdminListFilter.orderDateTo = null;
 		
 		let dateFrom = null;
 		let dateTo = null;
 	
-		const valor = Number(this.creditOrderOrderDateIsBetweenOptionsSelected.value);
+		const valor = Number(this.creditOrderAdminOrderDateIsBetweenOptionsSelected.value);
 		switch (valor) {
 			case 0: // Hoje
 				dateFrom = moment();
@@ -250,25 +263,25 @@ export class CreditOrderListComponent implements OnInit {
 		} // switch
 	
 		if (dateFrom != null) {
-		  this.creditOrderListFilter.orderDateFrom = dateFrom.toDate();
+		  this.creditOrderAdminListFilter.orderDateFrom = dateFrom.toDate();
 		}
 		
 		if (dateTo != null) {
-		  this.creditOrderListFilter.orderDateTo = dateTo.toDate();
+		  this.creditOrderAdminListFilter.orderDateTo = dateTo.toDate();
 		}
 		
 		if (dateFrom != null && dateTo != null) {
-		  // this.creditOrderList(0);
+		  // this.creditOrderAdminList(0);
 		}
 	}
 	
-	applyAndGetRuleGridRowStyleClass(creditOrder: CreditOrder): String {
+	applyAndGetRuleGridRowStyleClass(creditOrderAdmin: CreditOrderAdmin): String {
 		
-		if (creditOrder.id && creditOrder.orderPaidDate) {
+		if (creditOrderAdmin.id && creditOrderAdmin.orderPaidDate) {
 			return 'kb-conta-paga';
 		}
 		
-		if (creditOrder.id && creditOrder.orderCanceledDate) {
+		if (creditOrderAdmin.id && creditOrderAdmin.orderCanceledDate) {
 			return 'kb-conta-vence-hoje';
 		}
 	

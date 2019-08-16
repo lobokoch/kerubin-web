@@ -1,0 +1,129 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 7.18.7
+Code generated at time stamp: 2019-08-15T06:20:44.470
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('security.authorization.creditOrderAdmin') }}</div>
+		</p-header>
+	
+
+  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  	<div class="ui-g">
+  	
+		<div class="ui-g-12 ui-fluid hidden">
+			<label for="id" class="hidden">{{ getTranslation('security.authorization.creditOrderAdmin_id') }}</label>
+			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="creditOrderAdmin.id" name="id" readonly class="read-only">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="orderUserName">{{ getTranslation('security.authorization.creditOrderAdmin_orderUserName') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText appFocus #orderUserName="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderUserName" name="orderUserName" required>
+			<div class="invalid-message" *ngIf="orderUserName.invalid && orderUserName.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="orderTenantName">{{ getTranslation('security.authorization.creditOrderAdmin_orderTenantName') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #orderTenantName="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderTenantName" name="orderTenantName" required>
+			<div class="invalid-message" *ngIf="orderTenantName.invalid && orderTenantName.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="orderUser">{{ getTranslation('security.authorization.creditOrderAdmin_orderUser') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="creditOrderAdminOrderUserAutoCompleteSuggestions"
+			 (completeMethod)="creditOrderAdminOrderUserAutoComplete($event)"
+			 (onClear)="creditOrderAdminOrderUserAutoCompleteClear($event)"
+			 (onBlur)="creditOrderAdminOrderUserAutoCompleteOnBlur($event)"
+			 [field]="creditOrderAdminOrderUserAutoCompleteFieldConverter"
+			 #orderUser="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderUser" name="orderUser" required>
+				<ng-template let-orderUser pTemplate="item">
+					<div class="ui-helper-clearfix">{{ creditOrderAdminOrderUserAutoCompleteFieldConverter(orderUser) }}</div>
+				</ng-template>
+			</p-autoComplete>
+			<div class="invalid-message" *ngIf="orderUser.invalid && orderUser.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="orderDate">{{ getTranslation('security.authorization.creditOrderAdmin_orderDate') }}<span class="kb-label-required">*</span></label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderDate="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderDate" name="orderDate" required></p-calendar>
+			<div class="invalid-message" *ngIf="orderDate.invalid && orderDate.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3">
+			<label for="orderValue">{{ getTranslation('security.authorization.creditOrderAdmin_orderValue') }}<span class="kb-label-required">*</span></label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderValue="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderValue" name="orderValue" required>
+			<div class="invalid-message" *ngIf="orderValue.invalid && orderValue.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="orderBonusValue">{{ getTranslation('security.authorization.creditOrderAdmin_orderBonusValue') }}<span class="kb-label-required">*</span></label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderBonusValue="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderBonusValue" name="orderBonusValue" required>
+			<div class="invalid-message" *ngIf="orderBonusValue.invalid && orderBonusValue.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="orderTotalCredits">{{ getTranslation('security.authorization.creditOrderAdmin_orderTotalCredits') }}<span class="kb-label-required">*</span></label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderTotalCredits="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderTotalCredits" name="orderTotalCredits" required>
+			<div class="invalid-message" *ngIf="orderTotalCredits.invalid && orderTotalCredits.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="paymentMethod">{{ getTranslation('security.authorization.creditOrderAdmin_paymentMethod') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="creditOrderAdminPaymentMethodOptions" placeholder="Selecione um item..." #paymentMethod="ngModel" ngModel [(ngModel)]="creditOrderAdmin.paymentMethod" name="paymentMethod" required></p-dropdown>
+			<div class="invalid-message" *ngIf="paymentMethod.invalid && paymentMethod.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-10">
+			<label for="paymentMethodDescription">{{ getTranslation('security.authorization.creditOrderAdmin_paymentMethodDescription') }}</label>
+			<input type="text" pInputText #paymentMethodDescription="ngModel" ngModel [(ngModel)]="creditOrderAdmin.paymentMethodDescription" name="paymentMethodDescription">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4">
+			<label for="orderStatus">{{ getTranslation('security.authorization.creditOrderAdmin_orderStatus') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="creditOrderAdminOrderStatusOptions" placeholder="Selecione um item..." #orderStatus="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderStatus" name="orderStatus" required></p-dropdown>
+			<div class="invalid-message" *ngIf="orderStatus.invalid && orderStatus.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="orderPaidDate">{{ getTranslation('security.authorization.creditOrderAdmin_orderPaidDate') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderPaidDate="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderPaidDate" name="orderPaidDate"></p-calendar>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2">
+			<label for="orderCanceledDate">{{ getTranslation('security.authorization.creditOrderAdmin_orderCanceledDate') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderCanceledDate="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderCanceledDate" name="orderCanceledDate"></p-calendar>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="orderHistory">{{ getTranslation('security.authorization.creditOrderAdmin_orderHistory') }}</label>
+			<input type="text" pInputText #orderHistory="ngModel" ngModel [(ngModel)]="creditOrderAdmin.orderHistory" name="orderHistory">
+		</div>
+		
+		<div class="ui-g-12">
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<a routerLink="/creditorderadmin" pButton label="Pesquisar"></a>
+			</div>
+		</div>
+		
+	
+	</div>
+  </form>
+  
+  </p-panel>
+  
+</div>

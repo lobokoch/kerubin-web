@@ -1,33 +1,33 @@
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated at time stamp: 2019-08-15T06:20:44.459
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { CreditOrderComponent } from './crud-creditorder.component';
+import { CreditOrderAdminComponent } from './crud-creditorderadmin.component';
 import { AuthGuard } from '../../../../security/auth.guard';
-import { CreditOrderListComponent } from './list-creditorder.component';
+import { CreditOrderAdminListComponent } from './list-creditorderadmin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   // Must add in forRoot
-  // { path: 'creditorder', loadChildren: './modules/security/authorization/creditorder/creditorder.module#CreditOrderModule' }
+  // { path: 'creditorderadmin', loadChildren: './modules/security/authorization/creditorderadmin/creditorderadmin.module#CreditOrderAdminModule' }
   {
     path: '',
-    component: CreditOrderListComponent,
+    component: CreditOrderAdminListComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'novo',
-    component: CreditOrderComponent,
+    component: CreditOrderAdminComponent,
     canActivate: [AuthGuard]
   },
   {
     path: ':id',
-    component: CreditOrderComponent,
+    component: CreditOrderAdminComponent,
     canActivate: [AuthGuard]
   }
 ];
@@ -45,4 +45,4 @@ const routes: Routes = [
 
 })
 
-export class CreditOrderRoutingModule { }
+export class CreditOrderAdminRoutingModule { }
