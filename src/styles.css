@@ -342,6 +342,34 @@ a, button {
 }
 /* End Fluxo de Caixa */
 
+/* BEGIN SALDO DE CRÉDITOS*/
+.saldo-critico .ui-card {
+  background-color: rgba(255, 0, 0, 0.5);
+  border: 1px solid rgba(255, 0, 0, 1);
+  min-width: 170px;
+}
+
+.saldo-baixo .ui-card {
+  background-color: rgba(255, 128, 0, 0.5);
+  border: 1px solid rgba(255, 165, 0, 1);
+  min-width: 170px;
+}
+
+.saldo-normal .ui-card {
+  background-color: rgba(0, 191, 255, 0.4);
+  border: 1px solid rgba(0, 0, 255, 1);
+  min-width: 170px;
+}
+
+.saldo-alto .ui-card {
+  background-color: rgba(0, 206, 0, 0.4);
+  border: 1px solid rgba(0, 206, 0, 1);
+  min-width: 170px;
+}
+
+
+/* END SALDO DE CRÉDITOS*/
+
 .div-card-7dias .ui-card {
   background-color: rgba(192, 192, 192, 0.5);
 }

@@ -69,9 +69,10 @@ const routes: Routes = [
   // BEGIN payment
   { path: 'paymentplan', loadChildren: './payment/payment.module#PaymentModule' },
   { path: 'paymentCreditOrder', loadChildren: './modules/security/authorization/creditorder/creditorder.module#CreditOrderModule' },
+  { path: 'creditBalance', loadChildren: './modules/custom/creditbalance/creditbalance.module#CreditBalanceModule' },
   // END payment
-  
-  // BEGIN Kerubin Admin 
+
+  // BEGIN Kerubin Admin
   { path: 'creditorderadmin', loadChildren: './modules/security/authorization/creditorderadmin/creditorderadmin.module#CreditOrderAdminModule' },
   // END Kerubin Admin
 

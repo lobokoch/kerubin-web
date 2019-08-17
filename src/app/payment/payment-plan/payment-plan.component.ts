@@ -82,7 +82,7 @@ export class PaymentPlanComponent implements OnInit {
     const creditOrder = new CreditOrder();
     creditOrder.orderValue = this.selectedValue;
     creditOrder.paymentMethod = 'BANK_ACCOUNT';
-    creditOrder.paymentMethodDescription = 'Bradesco';
+    creditOrder.paymentMethodDescription = this.selectedBank.name;
 
     this.finishedOrderSuccess = false;
     this.finalizing = true;

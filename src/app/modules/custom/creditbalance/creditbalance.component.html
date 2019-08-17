@@ -1,0 +1,26 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <h3 class="kb-card-h3"><span class="kb-card-title">Créditos</span></h3>
+  </div>
+
+  <div class="ui-g-12 ui-md-6">
+    <p-panel header="Saldo de créditos">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <div *ngIf="!loading" [class]="getSaldoClass()">
+            <p-card>
+              <p-header>
+                {{ getSaldoTitle() }}
+              </p-header>
+              {{ balance | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              <div *ngIf="isSaldoCritico()"><br>Considere repor créditos</div>
+            </p-card>
+          </div>
+          <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+
+
+</div>

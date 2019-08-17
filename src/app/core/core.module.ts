@@ -1,4 +1,3 @@
-import { PaymentModule } from './../payment/payment.module';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -37,6 +36,9 @@ import { SecurityModule } from './../security/security.module';
 import { KerubinAccountModule } from './../account/kerubin-account.module';
 // Kerubin - END
 
+import { CreditBalanceModule } from './../modules/custom/creditbalance/creditbalance.module';
+import { PaymentModule } from './../payment/payment.module';
+
 
 registerLocaleData(localePt, 'pt', localeExtraPT);
 
@@ -60,7 +62,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     KerubinMenuModule,
     KerubinAccountModule,
     SecurityModule,
-    PaymentModule
+    PaymentModule,
+    CreditBalanceModule
   ],
 
   declarations: [

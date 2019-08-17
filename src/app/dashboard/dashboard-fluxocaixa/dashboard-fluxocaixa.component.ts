@@ -198,20 +198,17 @@ export class DashboardFluxoCaixaComponent implements OnInit {
 
   fillDespesasMensaisPorPlanoContasChartData(items: FluxoCaixaPlanoContasForMonth[], monthIndex: number): any {
     if (monthIndex < 0) {
-      console.log('monthIndex < 0:' + monthIndex);
       return null;
     }
 
 
     if (!items || !(items.length > monthIndex)) {
-      console.log('!items || !(items.length > monthIndex:' + monthIndex + '), items:' + items);
       return null;
     }
 
     // const currentMonthItem = items[items.length - 1];
     const monthItem = items[monthIndex];
     if (!monthItem) {
-      console.log('!monthItem: ' + monthItem);
       return null;
     }
 
@@ -238,7 +235,6 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     const chartLabels = item.items.map(it => it.planoContaCode + ' - ' + it.planoContaDescription);
     const chartData = item.items.map(it => it.value);
     const backgroundColor = this.colors.slice(0, item.items.length);
-    console.log('backgroundColor:' + backgroundColor);
 
     const pieChart = {
       labels: chartLabels,
