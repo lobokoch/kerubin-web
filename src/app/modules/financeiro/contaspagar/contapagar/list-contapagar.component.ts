@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-03T06:27:20.116
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-18T11:25:25.413
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,8 @@ import { ContaPagarListFilter } from './contapagar.model';
 import { SortField } from './contapagar.model';
 import { ContaPagarDescricaoAutoComplete } from './contapagar.model';
 import { ContaPagarAgrupadorAutoComplete } from './contapagar.model';
+
+import { FormaPagamento } from './../enums/financeiro-contaspagar-enums.model';
 
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
@@ -48,9 +50,13 @@ export class ContaPagarListComponent implements OnInit {
 	
 	
 	
+	contaPagarFormaPagamentoOptions: FormaPagamento[];
+	
+	
 	
 	contaPagarAgrupadorAutoCompleteSuggestions: ContaPagarAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	contaPagarSumFields = new ContaPagarSumFields();
 	
@@ -66,6 +72,9 @@ export class ContaPagarListComponent implements OnInit {
 		this.initializeDateFilterIntervalDropdownItems();
 		
 		
+		
+		
+		this.initializeContaPagarFormaPagamentoOptions();
 		
 		this.contaPagarListFilter.dataPagamentoIsNotNull = false;
 		
@@ -148,6 +157,20 @@ export class ContaPagarListComponent implements OnInit {
 	    });
 	}
 	
+	
+	private initializeContaPagarFormaPagamentoOptions() {
+	    this.contaPagarFormaPagamentoOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_outros'), value: 'OUTROS' }
+	    ];
+	}
+	  
 	
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {

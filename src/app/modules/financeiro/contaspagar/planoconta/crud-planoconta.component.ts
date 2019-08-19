@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.740
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-18T11:25:25.413
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -175,6 +175,7 @@ export class PlanoContaComponent implements OnInit {
 	
 	private initializePlanoContaTipoFinanceiroOptions() {
 	    this.planoContaTipoFinanceiroOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.contas_pagar.planoConta_tipoFinanceiro_receita'), value: 'RECEITA' }, 
 	    	{ label: this.getTranslation('financeiro.contas_pagar.planoConta_tipoFinanceiro_despesa'), value: 'DESPESA' }
 	    ];
@@ -182,6 +183,7 @@ export class PlanoContaComponent implements OnInit {
 	  
 	private initializePlanoContaTipoReceitaDespesaOptions() {
 	    this.planoContaTipoReceitaDespesaOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.contas_pagar.planoConta_tipoReceitaDespesa_variavel'), value: 'VARIAVEL' }, 
 	    	{ label: this.getTranslation('financeiro.contas_pagar.planoConta_tipoReceitaDespesa_fixo'), value: 'FIXO' }
 	    ];

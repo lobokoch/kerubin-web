@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.740
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-18T11:25:25.413
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -190,6 +190,7 @@ export class ContaBancariaComponent implements OnInit {
 	
 	private initializeContaBancariaTipoContaBancariaOptions() {
 	    this.contaBancariaTipoContaBancariaOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.contas_pagar.contaBancaria_tipoContaBancaria_conta_corrente'), value: 'CONTA_CORRENTE' }, 
 	    	{ label: this.getTranslation('financeiro.contas_pagar.contaBancaria_tipoContaBancaria_conta_poupanca'), value: 'CONTA_POUPANCA' }, 
 	    	{ label: this.getTranslation('financeiro.contas_pagar.contaBancaria_tipoContaBancaria_conta_salario'), value: 'CONTA_SALARIO' }, 

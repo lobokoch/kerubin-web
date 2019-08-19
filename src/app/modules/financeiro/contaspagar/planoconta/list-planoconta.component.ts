@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.740
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-18T11:25:25.413
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -41,6 +41,7 @@ export class PlanoContaListComponent implements OnInit {
 	
 	
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	
 	constructor(
@@ -85,7 +86,7 @@ export class PlanoContaListComponent implements OnInit {
 	          this.planoContaList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -122,6 +123,7 @@ export class PlanoContaListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
+	
 	
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {

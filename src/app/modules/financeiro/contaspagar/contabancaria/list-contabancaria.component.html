@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:57:53.753
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-18T11:25:25.431
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,7 +19,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
+			<p-accordionTab header="Filtros">
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
@@ -36,7 +36,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="contaBancariaFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="contaBancariaFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -47,7 +47,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="contaBancariaListItems"
 			    [rows]="contaBancariaListFilter.pageSize" 
 			    [totalRecords]="contaBancariaListTotalElements"
@@ -61,6 +62,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'digito'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_digito_grid') }}<p-sortIcon [field]="'digito'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataValidade'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_dataValidade_grid') }}<p-sortIcon [field]="'dataValidade'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'ativo'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_ativo_grid') }}<p-sortIcon [field]="'ativo'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.contas_pagar.contaBancaria_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -68,7 +70,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-contaBancaria>
 		            <tr [pSelectableRow]="contaBancaria">
 		            	<td>
-		            		{{contaBancaria?.nomeTitular}}
+		            		{{ contaBancaria?.nomeTitular }}
 		            	</td>
 		            	<td>
 		            		{{contaBancariaAgenciaAutoCompleteFieldConverter(contaBancaria?.agencia)}}
@@ -77,20 +79,22 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ getTranslation('financeiro.contas_pagar.contaBancaria_tipoContaBancaria' + '_' + contaBancaria?.tipoContaBancaria?.toLowerCase()) }}
 		            	</td>
 		            	<td>
-		            		{{contaBancaria?.numeroConta}}
+		            		{{ contaBancaria?.numeroConta }}
 		            	</td>
 		            	<td>
-		            		{{contaBancaria?.digito}}
+		            		{{ contaBancaria?.digito }}
 		            	</td>
 		            	<td>
-		            		{{contaBancaria?.dataValidade | date:'dd/MM/yyyy'}}
+		            		{{contaBancaria?.dataValidade | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td>
 		            		{{contaBancaria?.ativo? 'Sim': 'Não' }}
 		            	</td>
+		            	<td>
+		            		{{contaBancaria?.deleted? 'Sim': 'Não' }}
+		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/contabancaria', contaBancaria.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(contaBancaria)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deleteContaBancaria(contaBancaria)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              	</td>
 		            </tr>
@@ -99,7 +103,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="8">
+				        <td [attr.colspan]="9">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
@@ -112,32 +116,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/contabancaria/novo" pButton label="Novo registro"></a>
 		</div>
-		
-		<!-- Begin Extras
-		
-		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
-		        [maximizable]="false" [baseZIndex]="10000">
-		      <div>
-		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
-		          <div>
-		              <label style="display: block">Valor pago</label>
-		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
-		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
-		          </div>
-		          <div>
-		              <label style="display: block">Data pagamento</label>
-		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
-		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
-		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
-		          </div>
-		      </div>
-		        <p-footer>
-		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
-		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
-		        </p-footer>
-		</p-dialog>
-		
-		End Extras -->
 	</div>
 	
 	</p-panel>

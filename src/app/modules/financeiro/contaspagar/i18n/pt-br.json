@@ -52,7 +52,6 @@
 	"financeiro.contas_pagar.fornecedor_tipoPessoa_grid": "Tipo da pessoa",
 	"financeiro.contas_pagar.fornecedor_tipoPessoa_pessoa_juridica": "Pessoa jurídica",
 	"financeiro.contas_pagar.fornecedor_tipoPessoa_pessoa_fisica": "Pessoa física",
-	"financeiro.contas_pagar.fornecedor_tipoPessoa_null": "",
 	"financeiro.contas_pagar.fornecedor_nome": "Nome",
 	"financeiro.contas_pagar.fornecedor_nome_grid": "Nome",
 	"financeiro.contas_pagar.fornecedor_cnpjCPF": "Documento (CNPJ/CPF)",
