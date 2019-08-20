@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.949
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-19T20:15:47.778
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,12 @@ import { CaixaLancamento } from './caixalancamento.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { SortField } from './caixalancamento.model';
 import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
+
+import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
+
+import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
+
+import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 
@@ -49,7 +55,15 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoDataLancamentoIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
 	
+	caixaLancamentoTipoLancamentoFinanceiroOptions: TipoLancamentoFinanceiro[];
+	
+	
+	
+	
+	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
+	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	caixaLancamentoSumFields = new CaixaLancamentoSumFields();
 	
@@ -65,6 +79,13 @@ export class CaixaLancamentoListComponent implements OnInit {
 		this.initializeDateFilterIntervalDropdownItems();
 		
 		
+		this.initializeCaixaLancamentoTipoLancamentoFinanceiroOptions();
+		
+		
+		
+		
+		this.initializeCaixaLancamentoFormaPagamentoOptions();
+		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
 	}
 	
 	caixaLancamentoList(pageNumber = 0) {
@@ -85,8 +106,8 @@ export class CaixaLancamentoListComponent implements OnInit {
 		.then(response => {
 		  this.caixaLancamentoSumFields = response;
 		})
-		.catch(error => {
-		  this.messageHandler.showError('Erro ao buscar totais:' + error);
+		.catch(e => {
+		  this.messageHandler.showError(e);
 		});
 	}
 	
@@ -104,7 +125,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	          this.caixaLancamentoList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -131,6 +152,37 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    });
 	}
 	
+	
+	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
+	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_credito'), value: 'CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro_debito'), value: 'DEBITO' }
+	    ];
+	}
+	  
+	private initializeCaixaLancamentoFormaPagamentoOptions() {
+	    this.caixaLancamentoFormaPagamentoOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_outros'), value: 'OUTROS' }
+	    ];
+	}
+	  
+	private initializeCaixaLancamentoTipoFonteMovimentoOptions() {
+	    this.caixaLancamentoTipoFonteMovimentoOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' }, 
+	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_receber'), value: 'CONTAS_RECEBER' }
+	    ];
+	}
+	  
 	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
 		if (caixaDiario) {

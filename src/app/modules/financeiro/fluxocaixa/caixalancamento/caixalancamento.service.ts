@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.949
+Code generated with MKL Plug-in version: 7.19.6
+Code generated at time stamp: 2019-08-19T20:15:47.778
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -331,6 +331,48 @@ export class CaixaLancamentoService {
 		if (filter.dataLancamentoTo) {
 		const value = this.dateToStr(filter.dataLancamentoTo);
 			params = params.set('dataLancamentoTo', value);
+		}
+		
+		// tipoLancamentoFinanceiro
+		if (filter.tipoLancamentoFinanceiro) {
+			const value = String(filter.tipoLancamentoFinanceiro);
+			params = params.set('tipoLancamentoFinanceiro', value);
+		}
+		
+		// valorCreditoFrom
+		if (filter.valorCreditoFrom) {
+		const value = filter.valorCreditoFrom.toString();
+			params = params.set('valorCreditoFrom', value);
+		}
+		
+		// valorCreditoTo
+		if (filter.valorCreditoTo) {
+		const value = filter.valorCreditoTo.toString();
+			params = params.set('valorCreditoTo', value);
+		}
+		
+		// valorDebitoFrom
+		if (filter.valorDebitoFrom) {
+		const value = filter.valorDebitoFrom.toString();
+			params = params.set('valorDebitoFrom', value);
+		}
+		
+		// valorDebitoTo
+		if (filter.valorDebitoTo) {
+		const value = filter.valorDebitoTo.toString();
+			params = params.set('valorDebitoTo', value);
+		}
+		
+		// formaPagamento
+		if (filter.formaPagamento) {
+			const value = String(filter.formaPagamento);
+			params = params.set('formaPagamento', value);
+		}
+		
+		// tipoFonteMovimento
+		if (filter.tipoFonteMovimento) {
+			const value = String(filter.tipoFonteMovimento);
+			params = params.set('tipoFonteMovimento', value);
 		}
 	
 	    // Sort

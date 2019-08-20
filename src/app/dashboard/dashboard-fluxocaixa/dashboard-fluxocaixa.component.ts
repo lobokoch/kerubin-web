@@ -21,6 +21,9 @@ export class DashboardFluxoCaixaComponent implements OnInit {
   saldoAtual = 0.0;
   // *******************
 
+  colorMapCreditos = new Map<string, string>();
+  colorMapDebitos = new Map<string, string>();
+
   loadedItemsFluxo: FluxoCaixaMonthItem[];
   chartData: any;
   resumoMensalPorPlanoContasDebitosMesAtualChartData: any;
@@ -125,11 +128,11 @@ export class DashboardFluxoCaixaComponent implements OnInit {
         if (items) {
           monthIndex = items.length - 1; // Current month
         }
-        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex, this.colorMapDebitos);
         this.resumoMensalPorPlanoContasDebitosMesAtualChartData = chartData;
 
         monthIndex--; // Previous month
-        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex, this.colorMapDebitos);
         this.resumoMensalPorPlanoContasDebitosMesAnteriorChartData = chartData;
 
       })
@@ -148,11 +151,11 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           monthIndex = items.length - 1; // Current month
         }
 
-        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        let chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex, this.colorMapCreditos);
         this.resumoMensalPorPlanoContasCreditosMesAtualChartData = chartData;
 
         monthIndex--; // Previous month
-        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex);
+        chartData = this.fillDespesasMensaisPorPlanoContasChartData(items, monthIndex, this.colorMapCreditos);
         this.resumoMensalPorPlanoContasCreditosMesAnteriorChartData = chartData;
       })
       .catch(error => {
@@ -196,7 +199,9 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     return result;
   }
 
-  fillDespesasMensaisPorPlanoContasChartData(items: FluxoCaixaPlanoContasForMonth[], monthIndex: number): any {
+  fillDespesasMensaisPorPlanoContasChartData(items: FluxoCaixaPlanoContasForMonth[],
+      monthIndex: number, colorMap: Map<string, string>): any {
+
     if (monthIndex < 0) {
       return null;
     }
@@ -212,7 +217,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
       return null;
     }
 
-    return this.fillDespesasMensaisPorPlanoContasMesAtualChartData(monthItem);
+    return this.fillValoresMensaisPorPlanoContasMesAtualChartData(monthItem, colorMap);
   }
 
   getDespesasMensaisPorPlanoContasTitle(monthIndex: number): string {
@@ -229,12 +234,16 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     return `Créditos do mês ${monthName.toUpperCase()} por plano de contas`;
   }
 
-  fillDespesasMensaisPorPlanoContasMesAtualChartData(item: FluxoCaixaPlanoContasForMonth): any {
-    const monthNames = this.getMonthNames();
-    const monthName = item.monthName;
+  fillValoresMensaisPorPlanoContasMesAtualChartData(item: FluxoCaixaPlanoContasForMonth, colorMap: Map<string, string>): any {
+    // const monthNames = this.getMonthNames();
+    // const monthName = item.monthName;
     const chartLabels = item.items.map(it => it.planoContaCode + ' - ' + it.planoContaDescription);
     const chartData = item.items.map(it => it.value);
-    const backgroundColor = this.colors.slice(0, item.items.length);
+
+    const myColors = this.getMyColors(chartLabels, colorMap);
+
+    // const backgroundColor = this.colors.slice(0, item.items.length);
+    const backgroundColor = myColors;
 
     const pieChart = {
       labels: chartLabels,
@@ -248,6 +257,23 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     };
 
     return pieChart;
+  }
+
+  getMyColors(labels: string[], colorMap: Map<string, string>): string[] {
+    const myColors = labels.map(label => {
+      let color = colorMap.get(label);
+      if (!color) {
+        let index = colorMap.size;
+        if (index >= this.colors.length) {
+          index = this.colors.length - 1;
+        }
+        color = this.colors[index];
+        colorMap.set(label, color);
+      }
+      return color;
+    });
+
+    return myColors;
   }
 
   getColors(size: number): string[] {
