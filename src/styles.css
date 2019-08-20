@@ -211,8 +211,8 @@ a, button {
 }
 
 .primeiro-mes-gratis {
-  font-size: 1.2em;
-  background-color: orangered;
+  font-size: 1em;
+  background-color: /*#1e94d2;*/  #4285f4;
   border: 1px solid black;
   height: 50px;
   line-height: 50px;

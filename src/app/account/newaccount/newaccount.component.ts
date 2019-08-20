@@ -72,6 +72,11 @@ export class NewAccountComponent implements OnInit {
       return;
     }
 
+    if (this.userAccount.password !== this.userAccount.confirmPassword) {
+      this.messageHandler.showError('A Senha e a confirmação da senha devem ser iguais.');
+      return;
+    }
+
     this.disabled = true;
     this.btnLabel = 'Criando a conta, aguarde...';
     this.userAccount.accountType = this.accountTypeSelected.value;

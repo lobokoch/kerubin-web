@@ -36,6 +36,7 @@ export class UserAccount {
 	name: string;
 	email: string;
 	password: string;
+	confirmPassword: string;
 	accountType: string;
 }
 
@@ -55,6 +56,7 @@ export class SysUser {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
   accountType: string;
 }
 

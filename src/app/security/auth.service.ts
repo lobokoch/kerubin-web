@@ -123,4 +123,15 @@ export class AuthService {
     }
   }
 
+  isCurrentUserSuperAdmin(): boolean {
+    let result = false;
+    if (this.jwtPayload && this.jwtPayload.superAdmin) {
+      result = this.jwtPayload.superAdmin;
+    } else {
+      result = false;
+    }
+
+    return result;
+  }
+
 }

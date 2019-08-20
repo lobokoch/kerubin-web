@@ -1,3 +1,4 @@
+import { AuthService } from './../security/auth.service';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -19,13 +20,17 @@ export class KerubinMenuComponent implements OnInit {
   items: MenuItem[];
 
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.loadMenu();
   }
 
   loadMenu() {
+    const isSuperAdmin = this.authService.isCurrentUserSuperAdmin();
+
     this.items = [
 
       {
@@ -153,7 +158,8 @@ export class KerubinMenuComponent implements OnInit {
 
 	  {
       	label: 'Kerubin',
-      	icon: 'pi pi-pw',
+        icon: 'pi pi-pw',
+        visible: isSuperAdmin,
       	items: [
 
       		{
