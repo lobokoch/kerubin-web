@@ -28,6 +28,16 @@ article{
   font-weight: bold;
 }
 
+.kerubin-logo {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: center;
+}
+
+
+
 /*section {
   background-image:url('./img/bg2.jpg');
   background-attachment:fixed;
