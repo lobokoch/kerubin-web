@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-03T07:01:20.450
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:36.663
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -13,96 +13,123 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<p-header>
 			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_receber.contaReceber') }}</div>
 		</p-header>
-
+	
 
   	<div class="ui-g">
-
+		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
-
+			<p-accordionTab header="Filtros">
+			
 				<div class="ui-g">
 					<div class="ui-g-12">
-
+						
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Contas</label>
-							<p-autoComplete name="contaReceberDescricaoAutoComplete"
-							placeholder="Digite para pesquisar..." [dropdown]="true"
+							<p-autoComplete name="contaReceberDescricaoAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
 							[(ngModel)]="contaReceberListFilter.descricao" [multiple]="true"
 							[suggestions]="contaReceberDescricaoAutoCompleteSuggestions"
 							(completeMethod)="contaReceberDescricaoAutoComplete($event)"
 							field="descricao"></p-autoComplete>
 						</div>
-
-
+						
+						
 						<div class="ui-g-12">
-
+						
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label style="display: block">Intervalo de tempo</label>
-						        <p-dropdown #contaReceberDataVencimentoIsBetweenOptions
-							        [options]="dateFilterIntervalDropdownItems"
+						        <p-dropdown #contaReceberDataVencimentoIsBetweenOptions 
+							        [options]="dateFilterIntervalDropdownItems" 
 							        [(ngModel)]="contaReceberDataVencimentoIsBetweenOptionsSelected"
 							        optionLabel="label" (click)="contaReceberDataVencimentoIsBetweenOptionsOnClick(contaReceberDataVencimentoIsBetweenOptions)">
 						        </p-dropdown>
 						    </div>
-
+						
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						      	<label class="label-r">Vencimento de</label>
 						        <p-calendar name="dataVencimentoFrom"
 						        dateFormat="dd/mm/yy" [(ngModel)]="contaReceberListFilter.dataVencimentoFrom"></p-calendar>
 						    </div>
-
+						
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label class="label-l label-r">Até</label>
 						        <p-calendar name="dataVencimentoTo" dateFormat="dd/mm/yy"
 						        [(ngModel)]="contaReceberListFilter.dataVencimentoTo"></p-calendar>
 						    </div>
-
+						    
 						</div>
-
-
-
+						
+						
+						
+						<div class="ui-g-12">
+						
+						    <div class="ui-g-12 ui-md-3 ui-fluid">
+						      	<label class="label-r">Contas com valores de</label>
+						        <input pInputText type="text" name="valorFrom"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="contaReceberListFilter.valorFrom" />
+						    </div>
+						
+						    <div class="ui-g-12 ui-md-3 ui-fluid">
+						        <label class="label-l label-r">até</label>
+						        <input pInputText type="text" name="valorTo"
+						        currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+						        [(ngModel)]="contaReceberListFilter.valorTo" />
+						    </div>
+						    
+						</div>
+						
+						
+						<div class="ui-g-12 ui-md-4 ui-fluid">
+							<label class="label-r">Forma de pagamento</label>
+							<p-dropdown [options]="contaReceberFormaPagamentoOptions" placeholder="Selecione um item..."
+							[(ngModel)]="contaReceberListFilter.formaPagamento"></p-dropdown>
+						</div>
+						
+						
 						<div class="ui-g-12 ui-md-2 ui-fluid">
 							<label style="display: block" class="label-l label-r">Pagas</label>
 							<p-inputSwitch [(ngModel)]="contaReceberListFilter.dataPagamentoIsNotNull"></p-inputSwitch>
 						</div>
-
-
+						
+						
 						<div class="ui-g-12 ui-md-2 ui-fluid">
 							<label style="display: block" class="label-l label-r">Em aberto</label>
 							<p-inputSwitch [(ngModel)]="contaReceberListFilter.dataPagamentoIsNull"></p-inputSwitch>
 						</div>
-
-
+						
+						
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Agrupador:</label>
-							<p-autoComplete name="contaReceberAgrupadorAutoComplete"
-							placeholder="Digite para pesquisar..." [dropdown]="true"
+							<p-autoComplete name="contaReceberAgrupadorAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
 							[(ngModel)]="contaReceberListFilter.agrupador" [multiple]="true"
 							[suggestions]="contaReceberAgrupadorAutoCompleteSuggestions"
 							(completeMethod)="contaReceberAgrupadorAutoComplete($event)"
 							field="agrupador"></p-autoComplete>
 						</div>
 					</div>
-
+					
 					<div>
-						<p-button label="Pesquisar" (click)="contaReceberFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="contaReceberFilterSearch()"></p-button>
 					</div>
 				</div>
-
-
+				
+			
 			</p-accordionTab>
 		</p-accordion>
 		<!-- End Filters -->
-
+		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true"
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="contaReceberListItems"
-			    [rows]="contaReceberListFilter.pageSize"
+			    [rows]="contaReceberListFilter.pageSize" 
 			    [totalRecords]="contaReceberListTotalElements"
 			    [lazy]="true" (onLazyLoad)="contaReceberListOnLazyLoad($event)" >
-
+			    
 			    <ng-template pTemplate="caption">
 			    	Legenda:
 			    	<span class="kb-conta-vencida kb-conta-legenda">Conta vencida</span>
@@ -112,7 +139,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    	<span class="kb-conta-vence-esta-semana kb-conta-legenda">Conta vence esta semana</span>
 			    	<span class="kb-conta-paga kb-conta-legenda">Conta paga</span>
 			    </ng-template>
-
+			    
 			    <ng-template pTemplate="header">
 		            <tr>
 		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
@@ -126,17 +153,17 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						<th style="width: 14em">Ações</th>
 		            </tr>
 		        </ng-template>
-
+		        
 			    <ng-template pTemplate="body" let-contaReceber>
 		            <tr [pSelectableRow]="contaReceber">
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
 		            		{{contaReceberPlanoContasAutoCompleteFieldConverter(contaReceber?.planoContas)}}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
-		            		{{contaReceber?.descricao}}
+		            		{{ contaReceber?.descricao }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
-		            		{{contaReceber?.dataVencimento | date:'dd/MM/yyyy'}}
+		            		{{contaReceber?.dataVencimento | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)" class="kb-field-money">
 		            		{{contaReceber?.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
@@ -145,7 +172,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ getTranslation('financeiro.contas_receber.contaReceber_formaPagamento' + '_' + contaReceber?.formaPagamento?.toLowerCase()) }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
-		            		{{contaReceber?.dataPagamento | date:'dd/MM/yyyy'}}
+		            		{{contaReceber?.dataPagamento | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)" class="kb-field-money">
 		            		{{contaReceber?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
@@ -155,7 +182,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/contareceber', contaReceber.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(contaReceber)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deleteContaReceber(contaReceber)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              		<button pButton
 		              		    [disabled]="!actionBaixarContaComDataPagamentoHojeWhen(contaReceber)"
@@ -178,8 +204,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		              	</td>
 		            </tr>
 		        </ng-template>
-
-
+		        
+		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
 				        <td [attr.colspan]="9">
@@ -187,7 +213,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				        </td>
 				    </tr>
 				</ng-template>
-
+				
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais</td>
@@ -204,38 +230,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-table>
 		</div>
 		<!-- End GRID -->
-
+		
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/contareceber/novo" pButton label="Novo registro"></a>
 		</div>
-
-		<!-- Begin Extras
-
-		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
-		        [maximizable]="false" [baseZIndex]="10000">
-		      <div>
-		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
-		          <div>
-		              <label style="display: block">Valor pago</label>
-		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
-		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
-		          </div>
-		          <div>
-		              <label style="display: block">Data pagamento</label>
-		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
-		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
-		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
-		          </div>
-		      </div>
-		        <p-footer>
-		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
-		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
-		        </p-footer>
-		</p-dialog>
-
-		End Extras -->
 	</div>
-
+	
 	</p-panel>
-
+  
 </div>

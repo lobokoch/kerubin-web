@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:07.893
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:10:50.936
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -31,7 +31,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="agencia">{{ getTranslation('cadastros.banco.contaBancaria_agencia') }}<span class="kb-label-required">*</span></label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaBancariaAgenciaAutoCompleteSuggestions" (completeMethod)="contaBancariaAgenciaAutoComplete($event)" (onClear)="contaBancariaAgenciaAutoCompleteClear($event)" [field]="contaBancariaAgenciaAutoCompleteFieldConverter" #agencia="ngModel" ngModel [(ngModel)]="contaBancaria.agencia" name="agencia" required>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaBancariaAgenciaAutoCompleteSuggestions"
+			 (completeMethod)="contaBancariaAgenciaAutoComplete($event)"
+			 (onClear)="contaBancariaAgenciaAutoCompleteClear($event)"
+			 (onBlur)="contaBancariaAgenciaAutoCompleteOnBlur($event)"
+			 [field]="contaBancariaAgenciaAutoCompleteFieldConverter"
+			 #agencia="ngModel" ngModel [(ngModel)]="contaBancaria.agencia" name="agencia" required>
 				<ng-template let-agencia pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaBancariaAgenciaAutoCompleteFieldConverter(agencia) }}</div>
 				</ng-template>
@@ -78,7 +85,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
 			<label for="bandeiraCartao">{{ getTranslation('cadastros.banco.contaBancaria_bandeiraCartao') }}<span class="kb-label-required">*</span></label>
-			<p-autoComplete p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true" [suggestions]="contaBancariaBandeiraCartaoAutoCompleteSuggestions" (completeMethod)="contaBancariaBandeiraCartaoAutoComplete($event)" (onClear)="contaBancariaBandeiraCartaoAutoCompleteClear($event)" [field]="contaBancariaBandeiraCartaoAutoCompleteFieldConverter" #bandeiraCartao="ngModel" ngModel [(ngModel)]="contaBancaria.bandeiraCartao" name="bandeiraCartao" required>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaBancariaBandeiraCartaoAutoCompleteSuggestions"
+			 (completeMethod)="contaBancariaBandeiraCartaoAutoComplete($event)"
+			 (onClear)="contaBancariaBandeiraCartaoAutoCompleteClear($event)"
+			 (onBlur)="contaBancariaBandeiraCartaoAutoCompleteOnBlur($event)"
+			 [field]="contaBancariaBandeiraCartaoAutoCompleteFieldConverter"
+			 #bandeiraCartao="ngModel" ngModel [(ngModel)]="contaBancaria.bandeiraCartao" name="bandeiraCartao" required>
 				<ng-template let-bandeiraCartao pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaBancariaBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao) }}</div>
 				</ng-template>

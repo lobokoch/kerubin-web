@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-28T18:58:30.722
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:43.968
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,8 +34,6 @@ import { ClienteListComponent } from './list-cliente.component';
 import { ClienteComponent } from './crud-cliente.component';
 import { ClienteRoutingModule } from './cliente-routing.module';
 // Kerubin - END
-
-import { CepSearchService } from './../../../../helper/cepsearch.service';
 
 @NgModule({
 
@@ -77,8 +75,7 @@ import { CepSearchService } from './../../../../helper/cepsearch.service';
 
   providers: [
     ClienteService,
-    CadastrosClienteTranslationService,
-    CepSearchService
+    CadastrosClienteTranslationService
   ]
 
 })

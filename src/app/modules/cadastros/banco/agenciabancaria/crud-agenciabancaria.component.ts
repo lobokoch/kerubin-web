@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:07.884
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:10:50.897
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { BancoService } from './../banco/banco.service';
 import { Banco } from './../banco/banco.model';
 import { BancoAutoComplete } from './../banco/banco.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
 	    private bancoService: BancoService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 	}
 	
@@ -89,10 +90,10 @@ export class AgenciaBancariaComponent implements OnInit {
 	    this.agenciaBancariaService.create(this.agenciaBancaria)
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -100,10 +101,10 @@ export class AgenciaBancariaComponent implements OnInit {
 	    this.agenciaBancariaService.update(this.agenciaBancaria)
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -111,7 +112,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    this.agenciaBancariaService.retrieve(id)
 	    .then((agenciaBancaria) => this.agenciaBancaria = agenciaBancaria)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -126,6 +127,14 @@ export class AgenciaBancariaComponent implements OnInit {
 		this.agenciaBancaria.banco = null;
 	}
 	
+	agenciaBancariaBancoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.agenciaBancaria.banco) === '') {
+			this.agenciaBancaria.banco = null;
+		}
+	}
+	
 	agenciaBancariaBancoAutoComplete(event) {
 	    const query = event.query;
 	    this.agenciaBancariaService
@@ -134,26 +143,35 @@ export class AgenciaBancariaComponent implements OnInit {
 	        this.agenciaBancariaBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	agenciaBancariaBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
+		let text = '';
 		if (banco) {
-			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
-		} else {
-			return null;
+			if (banco.numero) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.numero; 
+			}
+			
+			if (banco.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

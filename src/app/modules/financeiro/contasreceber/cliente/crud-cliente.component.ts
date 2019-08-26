@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:58:20.452
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:36.492
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -116,13 +116,14 @@ export class ClienteComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[0].value;
+		this.cliente.tipoPessoa = this.clienteTipoPessoaOptions[1].value;
 	}
 	
 	
 	
 	private initializeClienteTipoPessoaOptions() {
 	    this.clienteTipoPessoaOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.contas_receber.cliente_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
 	    	{ label: this.getTranslation('financeiro.contas_receber.cliente_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
 	    ];

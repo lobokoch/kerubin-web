@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.968
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T07:53:46.132
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,8 +24,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoPessoa">{{ getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa') }}</label>
-			<p-dropdown [options]="clienteTipoPessoaOptions" placeholder="Selecione um item..." appFocus #tipoPessoa="ngModel" ngModel [(ngModel)]="cliente.tipoPessoa" name="tipoPessoa"></p-dropdown>
+			<label for="tipoPessoa">{{ getTranslation('financeiro.fluxo_caixa.cliente_tipoPessoa') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="clienteTipoPessoaOptions" placeholder="Selecione um item..." appFocus #tipoPessoa="ngModel" ngModel [(ngModel)]="cliente.tipoPessoa" name="tipoPessoa" required></p-dropdown>
+			<div class="invalid-message" *ngIf="tipoPessoa.invalid && tipoPessoa.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">

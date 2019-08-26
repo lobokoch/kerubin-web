@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:07.884
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:10:50.897
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -26,6 +26,7 @@ import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
 
 import { TipoContaBancaria } from './../enums/cadastros-banco-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ContaBancariaComponent implements OnInit {
 	    
 	    private bandeiraCartaoService: BandeiraCartaoService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeContaBancariaTipoContaBancariaOptions();
 	}
@@ -105,10 +106,10 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -116,10 +117,10 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.update(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -127,7 +128,7 @@ export class ContaBancariaComponent implements OnInit {
 	    this.contaBancariaService.retrieve(id)
 	    .then((contaBancaria) => this.contaBancaria = contaBancaria)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -136,13 +137,21 @@ export class ContaBancariaComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.contaBancaria.tipoContaBancaria = this.contaBancariaTipoContaBancariaOptions[0].value;
+		this.contaBancaria.tipoContaBancaria = this.contaBancariaTipoContaBancariaOptions[1].value;
 	}
 	
 	
 	contaBancariaAgenciaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaBancaria.agencia = null;
+	}
+	
+	contaBancariaAgenciaAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaBancaria.agencia) === '') {
+			this.contaBancaria.agencia = null;
+		}
 	}
 	
 	contaBancariaAgenciaAutoComplete(event) {
@@ -153,22 +162,54 @@ export class ContaBancariaComponent implements OnInit {
 	        this.contaBancariaAgenciaAutoCompleteSuggestions = result as AgenciaBancariaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	contaBancariaAgenciaAutoCompleteFieldConverter(agencia: AgenciaBancariaAutoComplete) {
+		let text = '';
 		if (agencia) {
-			return (agencia.numeroAgencia || '<nulo>') + ' - ' + (agencia.digitoAgencia || '<nulo>') + ' - ' + (agencia.endereco || '<nulo>');
-		} else {
-			return null;
+			if (agencia.numeroAgencia) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.numeroAgencia; 
+			}
+			
+			if (agencia.digitoAgencia) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.digitoAgencia; 
+			}
+			
+			if (agencia.endereco) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += agencia.endereco; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	contaBancariaBandeiraCartaoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaBancaria.bandeiraCartao = null;
+	}
+	
+	contaBancariaBandeiraCartaoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.contaBancaria.bandeiraCartao) === '') {
+			this.contaBancaria.bandeiraCartao = null;
+		}
 	}
 	
 	contaBancariaBandeiraCartaoAutoComplete(event) {
@@ -179,20 +220,31 @@ export class ContaBancariaComponent implements OnInit {
 	        this.contaBancariaBandeiraCartaoAutoCompleteSuggestions = result as BandeiraCartaoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	contaBancariaBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
+		let text = '';
 		if (bandeiraCartao) {
-			return (bandeiraCartao.nomeBandeira || '<nulo>');
-		} else {
-			return null;
+			if (bandeiraCartao.nomeBandeira) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += bandeiraCartao.nomeBandeira; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializeContaBancariaTipoContaBancariaOptions() {
 	    this.contaBancariaTipoContaBancariaOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('cadastros.banco.contaBancaria_tipoContaBancaria_conta_corrente'), value: 'CONTA_CORRENTE' }, 
 	    	{ label: this.getTranslation('cadastros.banco.contaBancaria_tipoContaBancaria_conta_poupanca'), value: 'CONTA_POUPANCA' }, 
 	    	{ label: this.getTranslation('cadastros.banco.contaBancaria_tipoContaBancaria_conta_salario'), value: 'CONTA_SALARIO' }, 
@@ -200,14 +252,6 @@ export class ContaBancariaComponent implements OnInit {
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

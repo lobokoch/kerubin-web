@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.19.6
-Code generated at time stamp: 2019-08-18T11:25:25.413
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:26.760
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -116,7 +116,7 @@ export class FornecedorComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.fornecedor.tipoPessoa = this.fornecedorTipoPessoaOptions[0].value;
+		this.fornecedor.tipoPessoa = this.fornecedorTipoPessoaOptions[1].value;
 	}
 	
 	

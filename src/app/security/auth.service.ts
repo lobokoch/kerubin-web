@@ -116,6 +116,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
+    console.log('getCurrentUser:' + this.jwtPayload);
     if (this.jwtPayload && this.jwtPayload.user_name) {
       return this.jwtPayload.user_name;
     } else {
@@ -132,6 +133,14 @@ export class AuthService {
     }
 
     return result;
+  }
+
+  getCurrentUserTenantAccountType(): string {
+    if (this.jwtPayload && this.jwtPayload.tenantAccountType) {
+      return this.jwtPayload.tenantAccountType;
+    }
+
+    return null;
   }
 
 }

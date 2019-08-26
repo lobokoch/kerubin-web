@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:07.884
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:10:50.897
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,6 +34,7 @@ export class CartaoCreditoListComponent implements OnInit {
 	cartaoCreditoListItems: CartaoCredito[];
 	cartaoCreditoListTotalElements = 0;
 	cartaoCreditoListFilter = new CartaoCreditoListFilter();
+	
 	
 	
 	
@@ -74,7 +75,7 @@ export class CartaoCreditoListComponent implements OnInit {
 	          this.cartaoCreditoList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -89,6 +90,7 @@ export class CartaoCreditoListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.cartaoCreditoList(pageNumber);
 	}
+	
 	
 	
 	cartaoCreditoBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {

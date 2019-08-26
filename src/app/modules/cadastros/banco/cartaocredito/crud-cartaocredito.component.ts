@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:07.884
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:10:50.897
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,6 +24,7 @@ import { BancoAutoComplete } from './../banco/banco.model';
 import { BandeiraCartaoService } from './../bandeiracartao/bandeiracartao.service';
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    
 	    private bandeiraCartaoService: BandeiraCartaoService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 	}
 	
@@ -99,10 +100,10 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -110,10 +111,10 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.update(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -121,7 +122,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    this.cartaoCreditoService.retrieve(id)
 	    .then((cartaoCredito) => this.cartaoCredito = cartaoCredito)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -136,6 +137,14 @@ export class CartaoCreditoComponent implements OnInit {
 		this.cartaoCredito.banco = null;
 	}
 	
+	cartaoCreditoBancoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.cartaoCredito.banco) === '') {
+			this.cartaoCredito.banco = null;
+		}
+	}
+	
 	cartaoCreditoBancoAutoComplete(event) {
 	    const query = event.query;
 	    this.cartaoCreditoService
@@ -144,22 +153,47 @@ export class CartaoCreditoComponent implements OnInit {
 	        this.cartaoCreditoBancoAutoCompleteSuggestions = result as BancoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	cartaoCreditoBancoAutoCompleteFieldConverter(banco: BancoAutoComplete) {
+		let text = '';
 		if (banco) {
-			return (banco.numero || '<nulo>') + ' - ' + (banco.nome || '<nulo>');
-		} else {
-			return null;
+			if (banco.numero) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.numero; 
+			}
+			
+			if (banco.nome) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += banco.nome; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.cartaoCredito.bandeiraCartao = null;
+	}
+	
+	cartaoCreditoBandeiraCartaoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.cartaoCredito.bandeiraCartao) === '') {
+			this.cartaoCredito.bandeiraCartao = null;
+		}
 	}
 	
 	cartaoCreditoBandeiraCartaoAutoComplete(event) {
@@ -170,26 +204,28 @@ export class CartaoCreditoComponent implements OnInit {
 	        this.cartaoCreditoBandeiraCartaoAutoCompleteSuggestions = result as BandeiraCartaoAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao: BandeiraCartaoAutoComplete) {
+		let text = '';
 		if (bandeiraCartao) {
-			return (bandeiraCartao.nomeBandeira || '<nulo>');
-		} else {
-			return null;
+			if (bandeiraCartao.nomeBandeira) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += bandeiraCartao.nomeBandeira; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-28T20:07:34.683
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:03.970
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,6 +34,7 @@ export class FornecedorListComponent implements OnInit {
 	
 	fornecedorNomeAutoCompleteSuggestions: FornecedorNomeAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	
 	constructor(
@@ -73,7 +74,7 @@ export class FornecedorListComponent implements OnInit {
 	          this.fornecedorList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -99,6 +100,7 @@ export class FornecedorListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
+	
 	
 	
 	

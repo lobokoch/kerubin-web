@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-28T20:07:34.683
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:03.970
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,10 +22,6 @@ import { TipoPessoa } from './../enums/cadastros-fornecedor-enums.model';
 import { UF } from './../enums/cadastros-fornecedor-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
-// Begin_Code_Not_Generated
-import { CepSearchService } from './../../../../helper/cepsearch.service';
-// End_Code_Not_Generated
-
 
 @Component({
   selector: 'app-crud-fornecedor.component',
@@ -34,27 +30,26 @@ import { CepSearchService } from './../../../../helper/cepsearch.service';
 })
 
 export class FornecedorComponent implements OnInit {
-
+	
 	calendarLocale: any;
-
+	
 	fornecedor = new Fornecedor();
 	fornecedorTipoPessoaOptions: TipoPessoa[];
-
-
+	
+	
 	fornecedorUfOptions: UF[];
-
+	
 	constructor(
 	    private fornecedorService: FornecedorService,
 	    private cadastrosFornecedorTranslationService: CadastrosFornecedorTranslationService,
 	    private route: ActivatedRoute,
-      private messageHandler: MessageHandlerService,
-      private cepSearchService: CepSearchService
-	) {
+	    private messageHandler: MessageHandlerService
+	) { 
 		this.initializeFornecedorTipoPessoaOptions();
-
+		
 		this.initializeFornecedorUfOptions();
 	}
-
+	
 	ngOnInit() {
 		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
@@ -63,7 +58,7 @@ export class FornecedorComponent implements OnInit {
 	      this.getFornecedorById(id);
 	    }
 	}
-
+	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
@@ -71,11 +66,11 @@ export class FornecedorComponent implements OnInit {
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
-
+	
 	validateAllFormFields(form: FormGroup) {
 	    Object.keys(form.controls).forEach(field => {
 	      const control = form.get(field);
-
+	
 	      if (control instanceof FormControl) {
 	        control.markAsDirty({ onlySelf: true });
 	      } else if (control instanceof FormGroup) {
@@ -83,22 +78,22 @@ export class FornecedorComponent implements OnInit {
 	      }
 	    });
 	}
-
+	
 	save(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-
+		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
 	      this.create();
 	    }
 	}
-
+	
 	create() {
-
+		
 	    this.fornecedorService.create(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
@@ -108,7 +103,7 @@ export class FornecedorComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-
+	
 	update() {
 	    this.fornecedorService.update(this.fornecedor)
 	    .then((fornecedor) => {
@@ -119,7 +114,7 @@ export class FornecedorComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-
+	
 	getFornecedorById(id: string) {
 	    this.fornecedorService.retrieve(id)
 	    .then((fornecedor) => this.fornecedor = fornecedor)
@@ -127,117 +122,74 @@ export class FornecedorComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-
+	
 	get isEditing() {
 	    return Boolean(this.fornecedor.id);
 	}
-
+	
 	initializeEnumFieldsWithDefault() {
-		this.fornecedor.tipoPessoa = this.fornecedorTipoPessoaOptions[0].value;
-		this.fornecedor.uf = this.fornecedorUfOptions[23].value;
+		this.fornecedor.tipoPessoa = this.fornecedorTipoPessoaOptions[1].value;
+		this.fornecedor.uf = this.fornecedorUfOptions[24].value;
 	}
-
-
-
+	
+	
+	
 	private initializeFornecedorTipoPessoaOptions() {
 	    this.fornecedorTipoPessoaOptions = [
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' },
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_tipoPessoa_pessoa_juridica'), value: 'PESSOA_JURIDICA' }, 
 	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_tipoPessoa_pessoa_fisica'), value: 'PESSOA_FISICA' }
 	    ];
 	}
-
+	  
 	private initializeFornecedorUfOptions() {
 	    this.fornecedorUfOptions = [
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ac'), value: 'AC' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_al'), value: 'AL' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ap'), value: 'AP' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_am'), value: 'AM' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ba'), value: 'BA' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ce'), value: 'CE' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_df'), value: 'DF' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_es'), value: 'ES' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_go'), value: 'GO' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ma'), value: 'MA' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_mt'), value: 'MT' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ms'), value: 'MS' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_mg'), value: 'MG' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pa'), value: 'PA' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pb'), value: 'PB' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pr'), value: 'PR' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pe'), value: 'PE' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pi'), value: 'PI' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rj'), value: 'RJ' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rn'), value: 'RN' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rs'), value: 'RS' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ro'), value: 'RO' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rr'), value: 'RR' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_sc'), value: 'SC' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_sp'), value: 'SP' },
-	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_se'), value: 'SE' },
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ac'), value: 'AC' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_al'), value: 'AL' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ap'), value: 'AP' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_am'), value: 'AM' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ba'), value: 'BA' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ce'), value: 'CE' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_df'), value: 'DF' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_es'), value: 'ES' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_go'), value: 'GO' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ma'), value: 'MA' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_mt'), value: 'MT' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ms'), value: 'MS' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_mg'), value: 'MG' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pa'), value: 'PA' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pb'), value: 'PB' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pr'), value: 'PR' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pe'), value: 'PE' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_pi'), value: 'PI' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rj'), value: 'RJ' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rn'), value: 'RN' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rs'), value: 'RS' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_ro'), value: 'RO' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_rr'), value: 'RR' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_sc'), value: 'SC' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_sp'), value: 'SP' }, 
+	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_se'), value: 'SE' }, 
 	    	{ label: this.getTranslation('cadastros.fornecedor.fornecedor_uf_to'), value: 'TO' }
 	    ];
 	}
-
-
+	  
+	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.cadastrosFornecedorTranslationService.getTranslation(key);
 		return value;
-
+		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-
-
-
-
+	
+	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosFornecedorTranslationService.getCalendarLocaleSettings();
-  }
-
-  // Begin_Code_Not_Generated
-  searchCEP() {
-    let cep = this.fornecedor.cep;
-    if (cep) {
-      cep = cep.trim().replace('-', '');
-    }
-
-    if (!cep || cep.length !== 8) {
-      this.messageHandler.showError('CEP inválido para busca.');
-      return;
-    }
-
-    this.cepSearchService.searchCEP(cep)
-    .then(result => {
-      this.clearEndereco();
-      if (result.erro) {
-        this.messageHandler.showError('CEP não encontrado.');
-        return;
-      }
-      this.fornecedor.cep = result.cep;
-      const uf = this.fornecedorUfOptions.find(it => it.value === result.uf);
-
-      this.fornecedor.uf = uf ? uf.value : null;
-      this.fornecedor.cidade = result.localidade;
-      this.fornecedor.bairro = result.bairro;
-      this.fornecedor.endereco = result.logradouro;
-      this.fornecedor.complemento = result.complemento;
-    })
-    .catch(e => {
-      this.clearEndereco();
-      this.messageHandler.showError('Erro ao buscar CEP. Verifique se você informou um CEP válido.');
-    });
-
-  }
-
-  clearEndereco() {
-    this.fornecedor.uf = null;
-    this.fornecedor.cidade = null;
-    this.fornecedor.bairro = null;
-    this.fornecedor.endereco = null;
-    this.fornecedor.complemento = null;
-  }
-
-  // End_Code_Not_Generated
-
+	}
+	
 }

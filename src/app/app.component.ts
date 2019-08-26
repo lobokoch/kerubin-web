@@ -27,4 +27,16 @@ export class AppComponent {
     const exists = this.urls.some(it => url.includes(it));
     return !exists;
   }
+
+  getRouterOutletCssClass(): string {
+    let result = 'ui-g-12 ui-fluid ui-md-10';
+    if (!this.canShowMenu()) {
+      result = 'ui-g-12 ui-fluid ui-md-12';
+    }
+
+    // console.log('getRouterOutletCssClass:' + result);
+
+    return result;
+  }
+
 }

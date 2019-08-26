@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-03T07:01:20.434
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:36.492
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -338,6 +338,24 @@ export class ContaReceberService {
 		if (filter.dataVencimentoTo) {
 		const value = this.dateToStr(filter.dataVencimentoTo);
 			params = params.set('dataVencimentoTo', value);
+		}
+		
+		// valorFrom
+		if (filter.valorFrom) {
+		const value = filter.valorFrom.toString();
+			params = params.set('valorFrom', value);
+		}
+		
+		// valorTo
+		if (filter.valorTo) {
+		const value = filter.valorTo.toString();
+			params = params.set('valorTo', value);
+		}
+		
+		// formaPagamento
+		if (filter.formaPagamento) {
+			const value = String(filter.formaPagamento);
+			params = params.set('formaPagamento', value);
 		}
 		
 		// dataPagamentoIsNotNull

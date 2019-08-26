@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.949
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T07:53:46.108
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -127,7 +127,7 @@ export class CaixaDiarioComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.caixaDiario.caixaDiarioSituacao = this.caixaDiarioCaixaDiarioSituacaoOptions[0].value;
+		this.caixaDiario.caixaDiarioSituacao = this.caixaDiarioCaixaDiarioSituacaoOptions[1].value;
 	}
 	
 	
@@ -176,6 +176,7 @@ export class CaixaDiarioComponent implements OnInit {
 	
 	private initializeCaixaDiarioCaixaDiarioSituacaoOptions() {
 	    this.caixaDiarioCaixaDiarioSituacaoOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao_nao_iniciado'), value: 'NAO_INICIADO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao_aberto'), value: 'ABERTO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao_fechado'), value: 'FECHADO' }

@@ -15,7 +15,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       <app-kerubin-menu *ngIf="canShowMenu()"></app-kerubin-menu>
     </div>
 
-    <div class="ui-g-12 ui-fluid ui-md-10" style="margin: 0px !important; padding-top: 0px !important; ">
+    <div [ngClass]="getRouterOutletCssClass()" style="margin: 0px !important; padding-top: 0px !important; ">
       <router-outlet></router-outlet>
     </div>
 

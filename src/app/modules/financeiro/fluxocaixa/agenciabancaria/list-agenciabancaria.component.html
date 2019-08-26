@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.968
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T07:53:46.132
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,14 +19,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
+			<p-accordionTab header="Filtros">
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="agenciaBancariaFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="agenciaBancariaFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -37,7 +37,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="agenciaBancariaListItems"
 			    [rows]="agenciaBancariaListFilter.pageSize" 
 			    [totalRecords]="agenciaBancariaListTotalElements"
@@ -48,6 +49,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'numeroAgencia'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia_grid') }}<p-sortIcon [field]="'numeroAgencia'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'digitoAgencia'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia_grid') }}<p-sortIcon [field]="'digitoAgencia'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'endereco'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco_grid') }}<p-sortIcon [field]="'endereco'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -58,17 +60,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{agenciaBancariaBancoAutoCompleteFieldConverter(agenciaBancaria?.banco)}}
 		            	</td>
 		            	<td>
-		            		{{agenciaBancaria?.numeroAgencia}}
+		            		{{ agenciaBancaria?.numeroAgencia }}
 		            	</td>
 		            	<td>
-		            		{{agenciaBancaria?.digitoAgencia}}
+		            		{{ agenciaBancaria?.digitoAgencia }}
 		            	</td>
 		            	<td>
-		            		{{agenciaBancaria?.endereco}}
+		            		{{ agenciaBancaria?.endereco }}
+		            	</td>
+		            	<td>
+		            		{{agenciaBancaria?.deleted? 'Sim': 'Não' }}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/agenciabancaria', agenciaBancaria.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(agenciaBancaria)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deleteAgenciaBancaria(agenciaBancaria)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              	</td>
 		            </tr>
@@ -77,7 +81,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="5">
+				        <td [attr.colspan]="6">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
@@ -90,32 +94,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/agenciabancaria/novo" pButton label="Novo registro"></a>
 		</div>
-		
-		<!-- Begin Extras
-		
-		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
-		        [maximizable]="false" [baseZIndex]="10000">
-		      <div>
-		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
-		          <div>
-		              <label style="display: block">Valor pago</label>
-		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
-		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
-		          </div>
-		          <div>
-		              <label style="display: block">Data pagamento</label>
-		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
-		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
-		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
-		          </div>
-		      </div>
-		        <p-footer>
-		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
-		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
-		        </p-footer>
-		</p-dialog>
-		
-		End Extras -->
 	</div>
 	
 	</p-panel>

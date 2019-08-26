@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.3
-Code generated at time stamp: 2019-07-27T18:56:29.949
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T07:53:46.108
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -32,6 +32,7 @@ export class PlanoContaListComponent implements OnInit {
 	planoContaListItems: PlanoConta[];
 	planoContaListTotalElements = 0;
 	planoContaListFilter = new PlanoContaListFilter();
+	
 	
 	
 	
@@ -72,7 +73,7 @@ export class PlanoContaListComponent implements OnInit {
 	          this.planoContaList(0);
 	        })
 	        .catch((e) => {
-	          this.messageHandler.showError('Erro ao excluir registro: ' + e);
+	          this.messageHandler.showError(e);
 	        });
 	      }
 	    });
@@ -87,6 +88,7 @@ export class PlanoContaListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.planoContaList(pageNumber);
 	}
+	
 	
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {

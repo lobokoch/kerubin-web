@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-03T07:01:20.434
+Code generated with MKL Plug-in version: 20.1.1
+Code generated at time stamp: 2019-08-25T08:11:36.492
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,8 @@ import { ContaReceberListFilter } from './contareceber.model';
 import { SortField } from './contareceber.model';
 import { ContaReceberDescricaoAutoComplete } from './contareceber.model';
 import { ContaReceberAgrupadorAutoComplete } from './contareceber.model';
+
+import { FormaPagamento } from './../enums/financeiro-contasreceber-enums.model';
 
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
@@ -48,9 +50,13 @@ export class ContaReceberListComponent implements OnInit {
 	
 	
 	
+	contaReceberFormaPagamentoOptions: FormaPagamento[];
+	
+	
 	
 	contaReceberAgrupadorAutoCompleteSuggestions: ContaReceberAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	contaReceberSumFields = new ContaReceberSumFields();
 	
@@ -66,6 +72,9 @@ export class ContaReceberListComponent implements OnInit {
 		this.initializeDateFilterIntervalDropdownItems();
 		
 		
+		
+		
+		this.initializeContaReceberFormaPagamentoOptions();
 		
 		this.contaReceberListFilter.dataPagamentoIsNotNull = false;
 		
@@ -148,6 +157,20 @@ export class ContaReceberListComponent implements OnInit {
 	    });
 	}
 	
+	
+	private initializeContaReceberFormaPagamentoOptions() {
+	    this.contaReceberFormaPagamentoOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_outros'), value: 'OUTROS' }
+	    ];
+	}
+	  
 	
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
