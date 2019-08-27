@@ -14,9 +14,11 @@
 
             <p-button style="margin-bottom: 5px;" (onClick)="reloadTree($event)" label="Recarregar" icon="pi pi-replay" iconPos="right"></p-button>
 
-            <p-tree [style]="{'width': '100%', 'max-height':'600px', 'overflow':'auto'}" [value]="planoContasTree"
+            <p-tree [style]="{'width': '100%', 'max-height':'600px', 'overflow':'auto'}"
+              [value]="planoContasTree"
               [filter]="true" filterMode="strict"
               [loading]="loadingTree" selectionMode="single"
+              emptyMessage="Nenhum registro encontrado."
               [(selection)]="selectedNode" (onNodeSelect)="nodeSelect($event)"
               (onNodeUnselect)="nodeUnselect($event)">
             </p-tree>
