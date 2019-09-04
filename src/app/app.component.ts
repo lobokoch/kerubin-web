@@ -1,3 +1,4 @@
+import { AuthService } from './security/auth.service';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -18,14 +19,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Kerubin';
   urls = ['/login', '/newaccount', '/confirmaccount', '/forgotpassword', '/changepasswordforgotten'];
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private auth: AuthService
+    ) {
     //
   }
 
   canShowMenu() {
     const url = this.router.url.toLowerCase();
     const exists = this.urls.some(it => url.includes(it));
-    return !exists;
+    return !exists && this.auth.isLoginValid();
   }
 
   getRouterOutletCssClass(): string {

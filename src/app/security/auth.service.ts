@@ -33,6 +33,12 @@ export class AuthService {
     return !token || this.jwtHelper.isTokenExpired(token);
   }
 
+  isLoginValid() {
+    const result = !this.isAccessTokenInvalid() && this.getCurrentUser();
+
+    return result;
+  }
+
   refreshAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
@@ -76,6 +82,7 @@ export class AuthService {
   cleanAccessToken() {
     localStorage.removeItem('token');
     this.jwtPayload = null;
+    // console.log('cleanAccessToken');
   }
 
   private storeToken(token: string) {
@@ -85,6 +92,8 @@ export class AuthService {
 
   private loadToken() {
     const token = localStorage.getItem('token');
+    // console.log('loadToken:' + token);
+
 
     if (token) {
       this.jwtPayload = this.jwtHelper.decodeToken(token);
@@ -98,11 +107,11 @@ export class AuthService {
     const password = 'Kerubin_Anonymous@!1';
     return this.login(username, password)
       .then(() => {
-        console.log('Anonymous login success!');
+        // console.log('Anonymous login success!');
         return true;
       })
       .catch(e => {
-        console.log('Anonymous login failed: ' + e);
+        // console.log('Anonymous login failed: ' + e);
         return false;
       });
   }
@@ -116,7 +125,6 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    console.log('getCurrentUser:' + this.jwtPayload);
     if (this.jwtPayload && this.jwtPayload.user_name) {
       return this.jwtPayload.user_name;
     } else {
