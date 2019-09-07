@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:11:36.663
+Code generated with MKL Plug-in version: 22.0.6
+Code generated at time stamp: 2019-09-07T12:27:36.666
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,7 +30,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberPlanoContasAutoComplete($event)"
 			 (onClear)="contaReceberPlanoContasAutoCompleteClear($event)"
-			 (onBlur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
+			 (blur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaReceberPlanoContasAutoCompleteFieldConverter"
 			 #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
@@ -54,7 +54,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valor">{{ getTranslation('financeiro.contas_receber.contaReceber_valor') }}<span class="kb-label-required">*</span></label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaReceber.valor" name="valor" required>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaReceber.valor" name="valor" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			 required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -71,7 +72,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberContaBancariaAutoComplete($event)"
 			 (onClear)="contaReceberContaBancariaAutoCompleteClear($event)"
-			 (onBlur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
+			 (blur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaReceberContaBancariaAutoCompleteFieldConverter"
 			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
@@ -87,7 +88,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)"
 			 (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)"
-			 (onBlur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
+			 (blur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter"
 			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
@@ -103,32 +104,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataPagamento">{{ getTranslation('financeiro.contas_receber.contaReceber_dataPagamento') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento" (onBlur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			 (onClose)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorDesconto">{{ getTranslation('financeiro.contas_receber.contaReceber_valorDesconto') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaReceber.valorDesconto" name="valorDesconto">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaReceber.valorDesconto" name="valorDesconto" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorMulta">{{ getTranslation('financeiro.contas_receber.contaReceber_valorMulta') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaReceber.valorMulta" name="valorMulta">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaReceber.valorMulta" name="valorMulta" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorJuros">{{ getTranslation('financeiro.contas_receber.contaReceber_valorJuros') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaReceber.valorJuros" name="valorJuros">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaReceber.valorJuros" name="valorJuros" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorAcrescimos">{{ getTranslation('financeiro.contas_receber.contaReceber_valorAcrescimos') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaReceber.valorAcrescimos" name="valorAcrescimos">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaReceber.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorPago">{{ getTranslation('financeiro.contas_receber.contaReceber_valorPago') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaReceber.valorPago" name="valorPago">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaReceber.valorPago" name="valorPago" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -138,7 +146,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberClienteAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberClienteAutoComplete($event)"
 			 (onClear)="contaReceberClienteAutoCompleteClear($event)"
-			 (onBlur)="contaReceberClienteAutoCompleteOnBlur($event)"
+			 (blur)="contaReceberClienteAutoCompleteOnBlur($event)"
 			 [field]="contaReceberClienteAutoCompleteFieldConverter"
 			 #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">

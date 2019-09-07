@@ -12,17 +12,22 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
+const DEFAULT_LOGIN_HEIGHT = 310;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   btnLabel = 'Entrar';
   username = '';
   password = '';
   autenticando = false;
+
+  loginHeight = DEFAULT_LOGIN_HEIGHT;
 
   constructor(
     private auth: AuthService,
@@ -31,12 +36,16 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.loginHeight = DEFAULT_LOGIN_HEIGHT;
   }
 
   // login(username: string, password: string) {
   login(form: FormGroup) {
+
+    this.loginHeight = DEFAULT_LOGIN_HEIGHT;
     if (!form.valid) {
       this.validateAllFormFields(form);
+      this.onFieldChange(null);
       return;
     }
 
@@ -71,6 +80,24 @@ export class LoginComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+}
+
+getLoginSize() {
+  const size = {width: '360px', height:  this.loginHeight + 'px'};
+  console.log(size);
+  return size;
+}
+
+onFieldChange(event) {
+  console.log('onFieldChange');
+  this.loginHeight = DEFAULT_LOGIN_HEIGHT;
+  if (!this.username || this.username.length === 0) {
+    this.loginHeight += 20;
+  }
+
+  if (!this.password || this.password.length === 0) {
+    this.loginHeight += 20;
+  }
 }
 
 }

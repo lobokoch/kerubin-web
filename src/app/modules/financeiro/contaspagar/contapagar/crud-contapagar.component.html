@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:11:26.976
+Code generated with MKL Plug-in version: 22.0.6
+Code generated at time stamp: 2019-09-07T12:25:54.875
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,7 +30,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarPlanoContasAutoComplete($event)"
 			 (onClear)="contaPagarPlanoContasAutoCompleteClear($event)"
-			 (onBlur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
+			 (blur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaPagarPlanoContasAutoCompleteFieldConverter"
 			 #planoContas="ngModel" ngModel [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
@@ -54,7 +54,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valor">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor') }}<span class="kb-label-required">*</span></label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaPagar.valor" name="valor" required>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaPagar.valor" name="valor" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			 required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -71,7 +72,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarContaBancariaAutoComplete($event)"
 			 (onClear)="contaPagarContaBancariaAutoCompleteClear($event)"
-			 (onBlur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
+			 (blur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaPagarContaBancariaAutoCompleteFieldConverter"
 			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
@@ -87,7 +88,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)"
 			 (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)"
-			 (onBlur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
+			 (blur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter"
 			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
@@ -103,32 +104,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataPagamento">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento" (onBlur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			 (onClose)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorDesconto">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorDesconto') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorMulta">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorMulta') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaPagar.valorMulta" name="valorMulta">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaPagar.valorMulta" name="valorMulta" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorJuros">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorJuros') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaPagar.valorJuros" name="valorJuros">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaPagar.valorJuros" name="valorJuros" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorAcrescimos">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorAcrescimos') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorPago">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorPago') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaPagar.valorPago" name="valorPago">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaPagar.valorPago" name="valorPago" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -138,7 +146,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarFornecedorAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarFornecedorAutoComplete($event)"
 			 (onClear)="contaPagarFornecedorAutoCompleteClear($event)"
-			 (onBlur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
+			 (blur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
 			 [field]="contaPagarFornecedorAutoCompleteFieldConverter"
 			 #fornecedor="ngModel" ngModel [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
 				<ng-template let-fornecedor pTemplate="item">

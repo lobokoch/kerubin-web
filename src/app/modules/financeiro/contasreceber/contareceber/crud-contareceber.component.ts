@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:11:36.492
+Code generated with MKL Plug-in version: 22.0.6
+Code generated at time stamp: 2019-09-07T12:27:36.647
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -448,6 +448,23 @@ export class ContaReceberComponent implements OnInit {
 		
 	}
 	// End Begin RuleWithSlotAppyStyleClass
+	
+										
+	// Begin RulesWithSlotAppyMathExpression 
+	ruleContaReceberValorPagoOnAppyMathExpression(event) {
+		if (this.contaReceber) {
+			const whenExpression = this.contaReceber.dataPagamento !== null;
+			if (whenExpression) {
+				this.contaReceber.valorPago = (Number(this.contaReceber.valor) -
+				Number(this.contaReceber.valorDesconto) +
+				Number(this.contaReceber.valorMulta) +
+				Number(this.contaReceber.valorJuros) +
+				Number(this.contaReceber.valorAcrescimos));
+			}
+		}
+		
+	}
+	// End Begin RulesWithSlotAppyMathExpression
 	
 	
 	initLocaleSettings() {

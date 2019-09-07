@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:11:26.976
+Code generated with MKL Plug-in version: 22.0.6
+Code generated at time stamp: 2019-09-07T12:25:54.875
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,7 +30,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="cartaoCreditoBancoAutoCompleteSuggestions"
 			 (completeMethod)="cartaoCreditoBancoAutoComplete($event)"
 			 (onClear)="cartaoCreditoBancoAutoCompleteClear($event)"
-			 (onBlur)="cartaoCreditoBancoAutoCompleteOnBlur($event)"
+			 (blur)="cartaoCreditoBancoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBancoAutoCompleteFieldConverter"
 			 #banco="ngModel" ngModel [(ngModel)]="cartaoCredito.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
@@ -69,7 +69,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="cartaoCreditoBandeiraCartaoAutoCompleteSuggestions"
 			 (completeMethod)="cartaoCreditoBandeiraCartaoAutoComplete($event)"
 			 (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)"
-			 (onBlur)="cartaoCreditoBandeiraCartaoAutoCompleteOnBlur($event)"
+			 (blur)="cartaoCreditoBandeiraCartaoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter"
 			 #bandeiraCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
 				<ng-template let-bandeiraCartao pTemplate="item">

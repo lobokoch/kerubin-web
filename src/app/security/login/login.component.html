@@ -12,7 +12,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   <article>
     <!--{{ auth.jwtPayload | json }}-->
     <!--div class="login-kb-logok"><img class="logok" src="assets/images/logo2.png"></div-->
-    <p-card [style]="{width: '360px', height: '370px'}" styleClass="ui-card-shadow">
+    <p-card [style]="getLoginSize()" styleClass="ui-card-shadow">
 
         <!--<p-header [style]="{width: '200px', height: '49px'}">
             <div><img width="200" height="49" src="assets/images/logo.jpeg">Teste</div>
@@ -28,7 +28,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           <div class="ui-g-12 ui-fluid">
             <div class="ui-inputgroup">
               <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-              <input appFocus pInputText type="email" #usernameLocal="ngModel" name="username" [(ngModel)]="username" placeholder="Seu e-mail" ngModel required>
+              <input (keydown)="onFieldChange($event)" (keyup)="onFieldChange($event)" appFocus pInputText type="email" #usernameLocal="ngModel" name="username" [(ngModel)]="username" placeholder="Seu e-mail" ngModel required>
             </div>
             <div style="display: block" class="invalid-message" *ngIf="usernameLocal.invalid && usernameLocal.dirty">Informe seu usuário.</div>
           </div>
@@ -36,7 +36,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           <div class="ui-g-12 ui-fluid">
             <div class="ui-inputgroup">
               <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-              <input pInputText type="password" #passwordLocal="ngModel" name="password" placeholder="Sua senha" [(ngModel)]="password" ngModel required>
+              <input (keydown)="onFieldChange($event)" (keyup)="onFieldChange($event)" pInputText type="password" #passwordLocal="ngModel" name="password" placeholder="Sua senha" [(ngModel)]="password" ngModel required>
             </div>
             <div style="display: block" class="invalid-message" *ngIf="passwordLocal.invalid && passwordLocal.dirty">Informe sua senha.</div>
           </div>

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T07:53:46.132
+Code generated with MKL Plug-in version: 22.0.6
+Code generated at time stamp: 2019-09-07T12:27:13.706
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -36,7 +36,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaBancariaAgenciaAutoCompleteSuggestions"
 			 (completeMethod)="contaBancariaAgenciaAutoComplete($event)"
 			 (onClear)="contaBancariaAgenciaAutoCompleteClear($event)"
-			 (onBlur)="contaBancariaAgenciaAutoCompleteOnBlur($event)"
+			 (blur)="contaBancariaAgenciaAutoCompleteOnBlur($event)"
 			 [field]="contaBancariaAgenciaAutoCompleteFieldConverter"
 			 #agencia="ngModel" ngModel [(ngModel)]="contaBancaria.agencia" name="agencia" required>
 				<ng-template let-agencia pTemplate="item">
