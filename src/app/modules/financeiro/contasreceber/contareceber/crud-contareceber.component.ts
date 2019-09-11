@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.0.6
-Code generated at time stamp: 2019-09-07T12:27:36.647
+Code generated with MKL Plug-in version: 22.1.1
+Code generated at time stamp: 2019-09-10T21:40:39.525
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -123,7 +123,6 @@ export class ContaReceberComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -453,13 +452,13 @@ export class ContaReceberComponent implements OnInit {
 	// Begin RulesWithSlotAppyMathExpression 
 	ruleContaReceberValorPagoOnAppyMathExpression(event) {
 		if (this.contaReceber) {
-			const whenExpression = this.contaReceber.dataPagamento !== null;
+			const whenExpression = this.contaReceber.dataPagamento;
 			if (whenExpression) {
-				this.contaReceber.valorPago = (Number(this.contaReceber.valor) -
-				Number(this.contaReceber.valorDesconto) +
-				Number(this.contaReceber.valorMulta) +
-				Number(this.contaReceber.valorJuros) +
-				Number(this.contaReceber.valorAcrescimos));
+				this.contaReceber.valorPago = ((this.contaReceber.valor || 0) -
+				(this.contaReceber.valorDesconto || 0) +
+				(this.contaReceber.valorMulta || 0) +
+				(this.contaReceber.valorJuros || 0) +
+				(this.contaReceber.valorAcrescimos || 0));
 			}
 		}
 		
@@ -470,5 +469,6 @@ export class ContaReceberComponent implements OnInit {
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroContasReceberTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.0.6
-Code generated at time stamp: 2019-09-07T12:27:13.685
+Code generated with MKL Plug-in version: 22.1.1
+Code generated at time stamp: 2019-09-10T21:40:50.823
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -60,6 +60,10 @@ export class CaixaLancamentoComponent implements OnInit {
 	calendarLocale: any;
 	
 	caixaLancamento = new CaixaLancamento();
+	
+	// Remember fields values
+	caixaLancamentoRememberValue = new CaixaLancamento();
+	
 	caixaLancamentoCaixaDiarioAutoCompleteSuggestions: CaixaDiarioAutoComplete[];
 	
 	
@@ -130,6 +134,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.caixaLancamento = new CaixaLancamento();
 	      this.rulesOnInit();
 	      this.initializeEnumFieldsWithDefault();
+		  
+		  this.caixaLancamentoApplyRememberValues();
+		  
 	    }.bind(this), 1);
 	}
 	
@@ -150,7 +157,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
+		
+		this.caixaLancamentoRememberValues();
+		
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -602,7 +611,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	
 	caixaLancamentoRuleDisableCUD() {
-		const expression = this.caixaLancamento.id !== null && (String(this.caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
+		const expression = this.caixaLancamento.id && (String(this.caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
 		return expression;
 		
 	}
@@ -611,4 +620,30 @@ export class CaixaLancamentoComponent implements OnInit {
 		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
 	}
 	
+	
+	caixaLancamentoApplyRememberValues() {
+		if (this.caixaLancamento) {
+			this.caixaLancamento.caixaDiario = this.caixaLancamentoRememberValue.caixaDiario;
+			this.caixaLancamento.dataLancamento = this.caixaLancamentoRememberValue.dataLancamento;
+			this.caixaLancamento.formaPagamento = this.caixaLancamentoRememberValue.formaPagamento;
+			this.caixaLancamento.contaBancaria = this.caixaLancamentoRememberValue.contaBancaria;
+			this.caixaLancamento.cartaoCredito = this.caixaLancamentoRememberValue.cartaoCredito;
+			this.caixaLancamento.planoContas = this.caixaLancamentoRememberValue.planoContas;
+			this.caixaLancamento.cliente = this.caixaLancamentoRememberValue.cliente;
+			this.caixaLancamento.fornecedor = this.caixaLancamentoRememberValue.fornecedor;
+		}
+	}
+	
+	caixaLancamentoRememberValues() {
+		if (this.caixaLancamento) {
+			this.caixaLancamentoRememberValue.caixaDiario = this.caixaLancamento.caixaDiario;
+			this.caixaLancamentoRememberValue.dataLancamento = this.caixaLancamento.dataLancamento;
+			this.caixaLancamentoRememberValue.formaPagamento = this.caixaLancamento.formaPagamento;
+			this.caixaLancamentoRememberValue.contaBancaria = this.caixaLancamento.contaBancaria;
+			this.caixaLancamentoRememberValue.cartaoCredito = this.caixaLancamento.cartaoCredito;
+			this.caixaLancamentoRememberValue.planoContas = this.caixaLancamento.planoContas;
+			this.caixaLancamentoRememberValue.cliente = this.caixaLancamento.cliente;
+			this.caixaLancamentoRememberValue.fornecedor = this.caixaLancamento.fornecedor;
+		}
+	}
 }

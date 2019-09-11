@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.0.6
-Code generated at time stamp: 2019-09-07T12:25:54.827
+Code generated with MKL Plug-in version: 22.1.1
+Code generated at time stamp: 2019-09-10T21:41:33.371
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -82,7 +82,6 @@ export class PlanoContaComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -198,6 +197,7 @@ export class PlanoContaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
 	
 	
 	

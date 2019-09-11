@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.0.6
-Code generated at time stamp: 2019-09-07T12:27:13.685
+Code generated with MKL Plug-in version: 22.1.1
+Code generated at time stamp: 2019-09-10T21:40:50.823
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -73,7 +73,6 @@ export class CaixaComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -138,7 +137,7 @@ export class CaixaComponent implements OnInit {
 	
 	
 	caixaRuleDisableCUD() {
-		const expression = this.caixa.id !== null && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
+		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
 		return expression;
 		
 	}
@@ -146,5 +145,6 @@ export class CaixaComponent implements OnInit {
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

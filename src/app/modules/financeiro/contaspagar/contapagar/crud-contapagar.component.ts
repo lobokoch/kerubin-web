@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.0.6
-Code generated at time stamp: 2019-09-07T12:25:54.827
+Code generated with MKL Plug-in version: 22.1.1
+Code generated at time stamp: 2019-09-10T21:41:33.371
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -123,7 +123,6 @@ export class ContaPagarComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -453,13 +452,13 @@ export class ContaPagarComponent implements OnInit {
 	// Begin RulesWithSlotAppyMathExpression 
 	ruleContaPagarValorPagoOnAppyMathExpression(event) {
 		if (this.contaPagar) {
-			const whenExpression = this.contaPagar.dataPagamento !== null;
+			const whenExpression = this.contaPagar.dataPagamento;
 			if (whenExpression) {
-				this.contaPagar.valorPago = (Number(this.contaPagar.valor) -
-				Number(this.contaPagar.valorDesconto) +
-				Number(this.contaPagar.valorMulta) +
-				Number(this.contaPagar.valorJuros) +
-				Number(this.contaPagar.valorAcrescimos));
+				this.contaPagar.valorPago = ((this.contaPagar.valor || 0) -
+				(this.contaPagar.valorDesconto || 0) +
+				(this.contaPagar.valorMulta || 0) +
+				(this.contaPagar.valorJuros || 0) +
+				(this.contaPagar.valorAcrescimos || 0));
 			}
 		}
 		
@@ -470,5 +469,6 @@ export class ContaPagarComponent implements OnInit {
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroContasPagarTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }
