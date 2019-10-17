@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:41:33.560
+Code generated with MKL Plug-in version: 22.2.3
+Code generated at time stamp: 2019-09-11T06:24:19.694
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,7 +30,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarPlanoContasAutoComplete($event)"
 			 (onClear)="contaPagarPlanoContasAutoCompleteClear($event)"
-			 (blur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
+			 (onBlur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaPagarPlanoContasAutoCompleteFieldConverter"
 			 #planoContas="ngModel" ngModel [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
@@ -72,7 +72,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarContaBancariaAutoComplete($event)"
 			 (onClear)="contaPagarContaBancariaAutoCompleteClear($event)"
-			 (blur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
+			 (onBlur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaPagarContaBancariaAutoCompleteFieldConverter"
 			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
@@ -88,7 +88,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)"
 			 (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)"
-			 (blur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
+			 (onBlur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter"
 			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
@@ -146,7 +146,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaPagarFornecedorAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarFornecedorAutoComplete($event)"
 			 (onClear)="contaPagarFornecedorAutoCompleteClear($event)"
-			 (blur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
+			 (onBlur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
 			 [field]="contaPagarFornecedorAutoCompleteFieldConverter"
 			 #fornecedor="ngModel" ngModel [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
 				<ng-template let-fornecedor pTemplate="item">

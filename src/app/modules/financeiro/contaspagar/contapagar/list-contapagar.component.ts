@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:41:33.371
+Code generated with MKL Plug-in version: 22.2.3
+Code generated at time stamp: 2019-09-11T06:24:19.516
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -363,7 +363,7 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaPagar: ContaPagar) {
-		return !contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBefore(moment(), 'day');
+		return !contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar: ContaPagar) {
