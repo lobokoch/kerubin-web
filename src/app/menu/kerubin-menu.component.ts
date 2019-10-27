@@ -118,6 +118,13 @@ export class KerubinMenuComponent implements OnInit {
             items: [
               { label: 'Contas a receber', icon: 'pi pi-fw', routerLink: '/contareceber' }
             ]
+          },
+          {
+            label: 'Banco',
+            icon: 'pi pi-fw ',
+            items: [
+              { label: 'Conciliação bancária', icon: 'pi pi-fw', routerLink: '/conciliacaobancaria' }
+            ]
           }
 
         ]

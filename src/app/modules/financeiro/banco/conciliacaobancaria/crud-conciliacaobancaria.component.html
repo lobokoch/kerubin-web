@@ -1,0 +1,125 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 26.0.4
+Code generated at time stamp: 2019-10-18T05:55:37.180
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+
+  <div class="ui-g">
+    <div class="ui-g-12 ui-fluid">
+<!--
+        <p-fileUpload name="arquivoConciliacao" mode="basic" auto="true" maxFileSize="100000000"
+        chooseLabel="Anexar" accept=".ofx"
+        [url]="urlUploadArquivoConciliacao"
+        (onBeforeSend)="antesUploadAnexo($event)"></p-fileUpload>
+    -->
+
+      <h3 class="first">Advanced</h3>
+      <p-fileUpload name="arquivoConciliacao" [url]="urlUploadArquivoConciliacao" (onUpload)="onUpload($event)" (onBeforeSend)="antesUploadAnexo($event)" accept=".ofx"
+        chooseLabel="Escolher arquivo" uploadLabel="Enviar arquivo" cancelLabel="Cancelar"
+        maxFileSize="1000000">
+        <ng-template pTemplate="content">
+          <ul *ngIf="arquivoConciliacao.length">
+            <li *ngFor="let file of arquivoConciliacao">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+
+    </div>
+  </div>
+
+
+  <p-panel>
+    <p-header>
+      <div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoBancaria') }}</div>
+    </p-header>
+
+
+    <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+      <div class="ui-g">
+
+        <div class="ui-g-12 ui-fluid hidden">
+          <label for="id" class="hidden">{{ getTranslation('cadastros.banco.conciliacaoBancaria_id') }}</label>
+          <input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.id" name="id" readonly
+            class="read-only">
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-3">
+          <label for="bancoId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_bancoId') }}<span
+              class="kb-label-required">*</span></label>
+          <input type="text" pInputText appFocus #bancoId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.bancoId"
+            name="bancoId" required>
+          <div class="invalid-message" *ngIf="bancoId.invalid && bancoId.dirty">Campo obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-1">
+          <label for="agenciaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_agenciaId') }}<span
+              class="kb-label-required">*</span></label>
+          <input type="text" pInputText #agenciaId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.agenciaId"
+            name="agenciaId" required>
+          <div class="invalid-message" *ngIf="agenciaId.invalid && agenciaId.dirty">Campo obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-2">
+          <label for="contaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_contaId') }}<span
+              class="kb-label-required">*</span></label>
+          <input type="text" pInputText #contaId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.contaId"
+            name="contaId" required>
+          <div class="invalid-message" *ngIf="contaId.invalid && contaId.dirty">Campo obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-2">
+          <label for="dataIni">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataIni') }}<span
+              class="kb-label-required">*</span></label>
+          <p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataIni="ngModel" ngModel
+            [(ngModel)]="conciliacaoBancaria.dataIni" name="dataIni" required></p-calendar>
+          <div class="invalid-message" *ngIf="dataIni.invalid && dataIni.dirty">Campo obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-2">
+          <label for="dataFim">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataFim') }}<span
+              class="kb-label-required">*</span></label>
+          <p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataFim="ngModel" ngModel
+            [(ngModel)]="conciliacaoBancaria.dataFim" name="dataFim" required></p-calendar>
+          <div class="invalid-message" *ngIf="dataFim.invalid && dataFim.dirty">Campo obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12 ui-fluid ui-md-2">
+          <label
+            for="situacaoConciliacao">{{ getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao') }}<span
+              class="kb-label-required">*</span></label>
+          <p-dropdown [options]="conciliacaoBancariaSituacaoConciliacaoOptions" placeholder="Selecione um item..."
+            #situacaoConciliacao="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.situacaoConciliacao"
+            name="situacaoConciliacao" required></p-dropdown>
+          <div class="invalid-message" *ngIf="situacaoConciliacao.invalid && situacaoConciliacao.dirty">Campo
+            obrigatório.</div>
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-2 ui-fluid">
+            <button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+          </div>
+          <div class="ui-g-12 ui-md-2 ui-fluid">
+            <button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+          </div>
+          <div class="ui-g-12 ui-md-2 ui-fluid">
+            <a routerLink="/conciliacaobancaria" pButton label="Pesquisar"></a>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+
+  </p-panel>
+
+</div>
+
+<div class="ui-g-12">
+  <app-list-conciliacaotransacao></app-list-conciliacaotransacao>
+</div>

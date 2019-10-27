@@ -46,6 +46,11 @@ const routes: Routes = [
   { path: 'contapagar', loadChildren: './modules/financeiro/contaspagar/contapagar/contapagar.module#ContaPagarModule' },
   // END ENTITIES FOR SERVICE: financeiro.contas_pagar
 
+  // BEGIN ENTITIES FOR SERVICE: financeiro.bancos.conciliacaobancaria
+  { path: 'conciliacaobancaria', loadChildren: './modules/financeiro/banco/conciliacaobancaria/conciliacaobancaria.module#ConciliacaoBancariaModule' },
+  // { path: 'conciliacaobancaria', loadChildren: './modules/financeiro/banco/conciliacao/conciliacao.module#ConciliacaoModule' },
+  // END ENTITIES FOR SERVICE: financeiro.bancos.conciliacaobancaria
+
   // BEGIN ENTITIES FOR SERVICE: cadastros.banco
   { path: 'banco', loadChildren: './modules/cadastros/banco/banco/banco.module#BancoModule' },
   { path: 'agenciabancaria', loadChildren: './modules/cadastros/banco/agenciabancaria/agenciabancaria.module#AgenciaBancariaModule' },
