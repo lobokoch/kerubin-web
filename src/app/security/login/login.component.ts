@@ -84,12 +84,10 @@ export class LoginComponent implements OnInit {
 
 getLoginSize() {
   const size = {width: '360px', height:  this.loginHeight + 'px'};
-  console.log(size);
   return size;
 }
 
 onFieldChange(event) {
-  console.log('onFieldChange');
   this.loginHeight = DEFAULT_LOGIN_HEIGHT;
   if (!this.username || this.username.length === 0) {
     this.loginHeight += 20;

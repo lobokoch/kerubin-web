@@ -7,7 +7,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, SelectItem} from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
@@ -33,7 +33,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	conciliacaoTransacaoListTotalElements = 0;
 	conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
 
-
+  @Input() conciliacaoBancariaId: string;
 
 
 	constructor(
@@ -44,10 +44,27 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-	}
+    console.log('ConciliacaoTransacaoListComponent.ngOnInit');
+    this.conciliacaoTransacaoList(0);
+  }
 
 	conciliacaoTransacaoList(pageNumber = 0) {
-	    this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
+      if (!this.conciliacaoBancariaId) {
+        console.log('SKIP conciliacaoTransacaoList');
+        return;
+      } else {
+        console.log('WILL CALL conciliacaoTransacaoList');
+      }
+
+      this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
+
+      /*if (!this.conciliacaoBancariaId) {
+        this.conciliacaoBancariaId = '61ebbc2b-b1df-45a6-adc4-cd880f9b794f';
+      }*/
+
+      console.log('Chamou conciliacaoTransacaoList, this.conciliacaoBancariaId=' + this.conciliacaoBancariaId);
+
+	    this.conciliacaoTransacaoListFilter.conciliacaoBancariaId = this.conciliacaoBancariaId;
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {
@@ -59,7 +76,14 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 
+	conciliacaoTransacaoFilterSearchByConciliacaoId(id: string) {
+    this.conciliacaoBancariaId = id;
+    this.conciliacaoTransacaoFilterSearch();
+  }
+
 	conciliacaoTransacaoFilterSearch() {
+      this.conciliacaoTransacaoList(0);
+
 	    this.conciliacaoTransacaoList(0);
 	}
 

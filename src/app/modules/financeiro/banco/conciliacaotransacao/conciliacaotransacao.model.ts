@@ -32,7 +32,8 @@ export class PaginationFilter {
 }
 
 export class ConciliacaoTransacaoListFilter extends PaginationFilter {
-	
+  conciliacaoBancariaId: string;
+
 }
 
 export class ConciliacaoTransacao {
