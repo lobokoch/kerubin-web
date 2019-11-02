@@ -58,6 +58,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   private startPollingConciliacaoBancaria() {
+    this.conciliacaoTransacaoList.startPolling();
     this.pollingInterval = setInterval(() => {
       this.pollingConciliacaoBancaria();
     }, 3000);
@@ -68,6 +69,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   private stopPollingConciliacaoBancaria() {
+    this.conciliacaoTransacaoList.stopPolling();
     clearInterval(this.pollingInterval);
   }
 

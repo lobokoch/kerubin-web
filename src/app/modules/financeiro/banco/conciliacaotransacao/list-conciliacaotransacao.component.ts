@@ -31,9 +31,25 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
-	conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
+  conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
+
+  private pollingInterval: any;
 
   @Input() conciliacaoBancariaId: string;
+
+  startPolling() {
+    this.pollingInterval = setInterval(() => {
+      this.doPolling();
+    }, 3000);
+  }
+
+  stopPolling() {
+    clearInterval(this.pollingInterval);
+  }
+
+  private doPolling() {
+    this.conciliacaoTransacaoFilterSearch();
+  }
 
 
 	constructor(
