@@ -1,13 +1,13 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 26.0.4
-Code generated at time stamp: 2019-10-17T21:44:20.610
+Code generated with MKL Plug-in version: 27.0.12
+Code generated at time stamp: 2019-11-03T20:17:31.336
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, SelectItem} from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
@@ -28,81 +28,46 @@ import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/concil
 })
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
-
+	
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
-  conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
-
-  private pollingInterval: any;
-
-  @Input() conciliacaoBancariaId: string;
-
-  startPolling() {
-    this.pollingInterval = setInterval(() => {
-      this.doPolling();
-    }, 3000);
-  }
-
-  stopPolling() {
-    clearInterval(this.pollingInterval);
-  }
-
-  private doPolling() {
-    this.conciliacaoTransacaoFilterSearch();
-  }
-
-
+	conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
+	
+	dateFilterIntervalDropdownItems: SelectItem[];
+	
+	
+	
+	// Begin polling reference variables
+	private pollingRecarregarTransacoesRef: any;
+	// End polling reference variables
+	
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
 	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-
+	
 	ngOnInit() {
-    console.log('ConciliacaoTransacaoListComponent.ngOnInit');
-    this.conciliacaoTransacaoList(0);
-  }
-
+	}
+	
 	conciliacaoTransacaoList(pageNumber = 0) {
-      if (!this.conciliacaoBancariaId) {
-        console.log('SKIP conciliacaoTransacaoList');
-        return;
-      } else {
-        console.log('WILL CALL conciliacaoTransacaoList');
-      }
-
-      this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
-
-      /*if (!this.conciliacaoBancariaId) {
-        this.conciliacaoBancariaId = '61ebbc2b-b1df-45a6-adc4-cd880f9b794f';
-      }*/
-
-      console.log('Chamou conciliacaoTransacaoList, this.conciliacaoBancariaId=' + this.conciliacaoBancariaId);
-
-	    this.conciliacaoTransacaoListFilter.conciliacaoBancariaId = this.conciliacaoBancariaId;
+	    this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {
 	      	this.conciliacaoTransacaoListItems = result.items;
 	      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
-
+	      
 	    });
-
+		
 	}
-
-
-	conciliacaoTransacaoFilterSearchByConciliacaoId(id: string) {
-    this.conciliacaoBancariaId = id;
-    this.conciliacaoTransacaoFilterSearch();
-  }
-
+	
+	
 	conciliacaoTransacaoFilterSearch() {
-      this.conciliacaoTransacaoList(0);
-
 	    this.conciliacaoTransacaoList(0);
 	}
-
+	
 	deleteConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -118,7 +83,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	      }
 	    });
 	}
-
+	
 	conciliacaoTransacaoListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
 	      this.conciliacaoTransacaoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
@@ -128,9 +93,9 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoTransacaoList(pageNumber);
 	}
-
-
-
+	
+	
+	
 	conciliacaoTransacaoConciliacaoBancariaAutoCompleteFieldConverter(conciliacaoBancaria: ConciliacaoBancariaAutoComplete) {
 		if (conciliacaoBancaria) {
 			return (conciliacaoBancaria.bancoId || '<nulo>');
@@ -138,18 +103,36 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 			return null;
 		}
 	}
-
-
-
-
+	
+	
+	
+	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.cadastrosBancoTranslationService.getTranslation(key);
 		return value;
-
+		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-
-
+	
+	
+	
+	// Begin polling methods for: recarregarTransacoes
+	startPollingRecarregarTransacoes() {
+	  this.pollingRecarregarTransacoesRef = setInterval(() => {
+	    this.runPollingRecarregarTransacoes();
+	  }, 3000);
+	}
+	
+	stopPollingRecarregarTransacoes() {
+	  clearInterval(this.pollingRecarregarTransacoesRef);
+	}
+	
+	runPollingRecarregarTransacoes() {
+	  // You can replace this code for your code.
+	  this.conciliacaoTransacaoFilterSearch();
+	}
+	// End polling methods for: recarregarTransacoes
+	
 }

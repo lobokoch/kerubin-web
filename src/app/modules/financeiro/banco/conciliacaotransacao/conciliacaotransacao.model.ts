@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 26.0.4
-Code generated at time stamp: 2019-10-17T21:44:20.610
+Code generated with MKL Plug-in version: 27.0.10
+Code generated at time stamp: 2019-11-03T07:57:18.876
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -32,8 +32,8 @@ export class PaginationFilter {
 }
 
 export class ConciliacaoTransacaoListFilter extends PaginationFilter {
-  conciliacaoBancariaId: string;
-
+	
+	conciliacaoBancariaId: string;
 }
 
 export class ConciliacaoTransacao {

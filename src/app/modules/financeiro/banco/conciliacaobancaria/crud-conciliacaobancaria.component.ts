@@ -23,14 +23,13 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-conciliacaobancaria.component',
+  selector: 'app-crud-conciliacaobancaria',
   templateUrl: './crud-conciliacaobancaria.component.html',
   styleUrls: ['./crud-conciliacaobancaria.component.css']
 })
 
 export class ConciliacaoBancariaComponent implements OnInit {
 
-  private pollingInterval: any;
 
   arquivoConciliacao: any[] = [];
 
@@ -43,10 +42,9 @@ export class ConciliacaoBancariaComponent implements OnInit {
 
   @ViewChild('conciliacaoTransacaoList') conciliacaoTransacaoList: ConciliacaoTransacaoListComponent;
 
-  /*getConciliacaoBancariaId(): string {
-    console.log('Chamou getConciliacaoBancariaId:' + this.conciliacaoId);
-    return this.conciliacaoId;
-  }*/
+	// Begin polling reference variables
+	private pollingRecarregarConciliacaoRef: any;
+	// End polling reference variables
 
 	constructor(
 	    private conciliacaoBancariaService: ConciliacaoBancariaService,
@@ -55,22 +53,6 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	    private messageHandler: MessageHandlerService
 	) {
 		this.initializeConciliacaoBancariaSituacaoConciliacaoOptions();
-  }
-
-  private startPollingConciliacaoBancaria() {
-    this.conciliacaoTransacaoList.startPolling();
-    this.pollingInterval = setInterval(() => {
-      this.pollingConciliacaoBancaria();
-    }, 3000);
-  }
-
-  private pollingConciliacaoBancaria() {
-    this.getConciliacaoBancariaByIdPolling(this.conciliacaoId);
-  }
-
-  private stopPollingConciliacaoBancaria() {
-    this.conciliacaoTransacaoList.stopPolling();
-    clearInterval(this.pollingInterval);
   }
 
   get urlUploadArquivoConciliacao() {
@@ -94,13 +76,8 @@ export class ConciliacaoBancariaComponent implements OnInit {
     this.conciliacaoId = null;
     if (event && event.originalEvent && event.originalEvent.body && event.originalEvent.body.conciliacaoId) {
       this.conciliacaoId = event.originalEvent.body.conciliacaoId;
-      this.loadConciliacaoTransacaoList();
-      this.startPollingConciliacaoBancaria();
+      this.startPollingRecarregarConciliacao();
     }
-  }
-
-  loadConciliacaoTransacaoList() {
-    this.conciliacaoTransacaoList.conciliacaoTransacaoFilterSearchByConciliacaoId(this.conciliacaoId);
   }
 
 	ngOnInit() {
@@ -174,7 +151,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
       const situacao = this.conciliacaoBancaria.situacaoConciliacao;
       console.log('situacaoConciliacao:' + situacao);
       if ('TRANSACOES_ANALISADAS' === String(situacao)) {
-        this.stopPollingConciliacaoBancaria();
+        this.stopPollingRecarregarConciliacao();
       }
     })
     .catch(error => {
@@ -226,13 +203,33 @@ export class ConciliacaoBancariaComponent implements OnInit {
 		// return result;
 	}
 
-
-
-
-
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
+  }
+
+  loadConciliacaoTransacaoList() {
+    this.conciliacaoTransacaoList.conciliacaoTransacaoListFilter.conciliacaoBancariaId = this.conciliacaoId;
+    this.conciliacaoTransacaoList.conciliacaoTransacaoFilterSearch();
+  }
+
+	// Begin polling methods for: recarregarConciliacao
+	startPollingRecarregarConciliacao() {
+    	this.loadConciliacaoTransacaoList();
+    	this.conciliacaoTransacaoList.startPollingRecarregarTransacoes();
+
+	  this.pollingRecarregarConciliacaoRef = setInterval(() => {
+	    this.runPollingRecarregarConciliacao();
+	  }, 3000);
 	}
 
+	stopPollingRecarregarConciliacao() {
+    this.conciliacaoTransacaoList.stopPollingRecarregarTransacoes();
+	  clearInterval(this.pollingRecarregarConciliacaoRef);
+	}
+
+	runPollingRecarregarConciliacao() {
+	  this.getConciliacaoBancariaByIdPolling(this.conciliacaoId);
+	}
+	// End polling methods for: recarregarConciliacao
 
 }
