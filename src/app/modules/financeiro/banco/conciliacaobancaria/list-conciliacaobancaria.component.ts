@@ -20,7 +20,7 @@ import { ConciliacaoBancariaListFilter } from './conciliacaobancaria.model';
 import { SortField } from './conciliacaobancaria.model';
 
 @Component({
-  selector: 'app-list-conciliacaobancaria.component',
+  selector: 'app-list-conciliacaobancaria',
   templateUrl: './list-conciliacaobancaria.component.html',
   styleUrls: ['./list-conciliacaobancaria.component.css']
 })

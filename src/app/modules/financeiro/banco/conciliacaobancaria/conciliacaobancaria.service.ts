@@ -78,8 +78,20 @@ export class ConciliacaoBancariaService {
 	      return conciliacaoBancaria;
 	    });
 	}
-
-
+	
+	conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
+	    const headers = this.getHeaders();
+	
+	    return this.http.put(`${this.url}/conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria/${conciliacaoBancaria.id}`, conciliacaoBancaria, { headers })
+	    .toPromise()
+	    .then(response => {
+	      const updated = response as ConciliacaoBancaria;
+	      this.adjustEntityDates([updated]);
+	      return updated;
+	    });
+	}
+	
+	
 	private adjustEntityDates(entityList: ConciliacaoBancaria[]) {
 		entityList.forEach(conciliacaoBancaria => {
 		      if (conciliacaoBancaria.dataIni) {

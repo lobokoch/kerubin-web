@@ -114,6 +114,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           <div class="ui-g-12 ui-md-2 ui-fluid">
             <a routerLink="/conciliacaobancaria" pButton label="Pesquisar"></a>
           </div>
+			<!-- Begin rule functions -->
+			
+			
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton [disabled]="!aplicarConciliacaoWhenCondition()" (click)="aplicarConciliacao()" type="button" pTooltip="Aplicar conciliação" tooltipPosition="top" icon="pi pi-play" label="Aplicar conciliação" class="ui-button-success"></button>
+			</div>
+			
+			
+			<!-- End rule functions -->
         </div>
 
 

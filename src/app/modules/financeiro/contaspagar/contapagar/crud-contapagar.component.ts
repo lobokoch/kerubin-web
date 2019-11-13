@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:24:19.516
+Code generated with MKL Plug-in version: 27.0.12
+Code generated at time stamp: 2019-11-06T06:15:02.141
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -39,7 +39,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-contapagar.component',
+  selector: 'app-crud-contapagar',
   templateUrl: './crud-contapagar.component.html',
   styleUrls: ['./crud-contapagar.component.css']
 })
@@ -199,6 +199,13 @@ export class ContaPagarComponent implements OnInit {
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		let text = '';
 		if (planoContas) {
+			if (planoContas.codigo) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContas.codigo; 
+			}
+			
 			if (planoContas.descricao) {
 			    if (text !== '') {
 			      text += ' - ';
@@ -439,6 +446,24 @@ export class ContaPagarComponent implements OnInit {
 	}
 	ruleOutrosDescricaoAppyStyleClass() {
 		const expression = (String(this.contaPagar.formaPagamento) === 'CONTA_BANCARIA') || (String(this.contaPagar.formaPagamento) === 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleNumDocConcBancariaAppyStyleClass() {
+		const expression = (!this.contaPagar.numDocConcBancaria || this.contaPagar.numDocConcBancaria.trim().length == 0);
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleHistConcBancariaAppyStyleClass() {
+		const expression = (!this.contaPagar.numDocConcBancaria || this.contaPagar.numDocConcBancaria.trim().length == 0);
 		if (expression) {
 			return 'hidden';
 		} else {

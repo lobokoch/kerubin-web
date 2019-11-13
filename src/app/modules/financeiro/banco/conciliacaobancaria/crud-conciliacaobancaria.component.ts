@@ -202,7 +202,32 @@ export class ConciliacaoBancariaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-
+	
+	aplicarConciliacaoWhenCondition(): boolean {
+		return this.conciliacaoBancaria.id && (String(this.conciliacaoBancaria.situacaoConciliacao) === 'TRANSACOES_ANALISADAS');
+	}
+	  
+	aplicarConciliacao() {
+		this.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria();
+	}
+	
+	conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria() {
+	    this.conciliacaoBancariaService.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(this.conciliacaoBancaria)
+	    .then((conciliacaoBancaria) => {
+	      if (conciliacaoBancaria) { // Can be null
+	      	this.conciliacaoBancaria = conciliacaoBancaria;
+	      }
+	      this.messageHandler.showSuccess('Operação executada com sucesso.');
+	    })
+	    .catch(error => {
+	      this.messageHandler.showError(error);
+	    });
+	}
+	
+	
+	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
   }

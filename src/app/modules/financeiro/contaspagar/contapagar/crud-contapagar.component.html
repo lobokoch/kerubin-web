@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:24:19.694
+Code generated with MKL Plug-in version: 27.0.12
+Code generated at time stamp: 2019-11-06T06:15:02.155
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -158,6 +158,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="numDocumento">{{ getTranslation('financeiro.contas_pagar.contaPagar_numDocumento') }}</label>
 			<input type="text" pInputText #numDocumento="ngModel" ngModel [(ngModel)]="contaPagar.numDocumento" name="numDocumento">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleNumDocConcBancariaAppyStyleClass()">
+			<label for="numDocConcBancaria">{{ getTranslation('financeiro.contas_pagar.contaPagar_numDocConcBancaria') }}</label>
+			<input type="text" pInputText [disabled]="true" #numDocConcBancaria="ngModel" ngModel [(ngModel)]="contaPagar.numDocConcBancaria" name="numDocConcBancaria">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-8" [ngClass]="ruleHistConcBancariaAppyStyleClass()">
+			<label for="histConcBancaria">{{ getTranslation('financeiro.contas_pagar.contaPagar_histConcBancaria') }}</label>
+			<input type="text" pInputText [disabled]="true" #histConcBancaria="ngModel" ngModel [(ngModel)]="contaPagar.histConcBancaria" name="histConcBancaria">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

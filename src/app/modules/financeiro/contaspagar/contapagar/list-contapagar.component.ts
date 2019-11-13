@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:24:19.516
+Code generated with MKL Plug-in version: 27.0.12
+Code generated at time stamp: 2019-11-06T06:15:02.141
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -33,7 +33,7 @@ import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 import { ContaPagarSumFields } from './contapagar.model';
 
 @Component({
-  selector: 'app-list-contapagar.component',
+  selector: 'app-list-contapagar',
   templateUrl: './list-contapagar.component.html',
   styleUrls: ['./list-contapagar.component.css']
 })
@@ -51,6 +51,9 @@ export class ContaPagarListComponent implements OnInit {
 	
 	
 	contaPagarFormaPagamentoOptions: FormaPagamento[];
+	
+	
+	
 	
 	
 	
@@ -79,6 +82,10 @@ export class ContaPagarListComponent implements OnInit {
 		this.contaPagarListFilter.dataPagamentoIsNotNull = false;
 		
 		this.contaPagarListFilter.dataPagamentoIsNull = true;
+		
+		
+		this.contaPagarListFilter.numDocConcBancariaIsNotNull = false;
+		
 		
 	}
 	
@@ -174,7 +181,7 @@ export class ContaPagarListComponent implements OnInit {
 	
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return (planoContas.descricao || '<nulo>');
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
