@@ -24,8 +24,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
+			<label for="trnId">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnId') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText appFocus #trnId="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnId" name="trnId" required>
+			<div class="invalid-message" *ngIf="trnId.invalid && trnId.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
 			<label for="trnData">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnData') }}<span class="kb-label-required">*</span></label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" appFocus #trnData="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnData" name="trnData" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #trnData="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnData" name="trnData" required></p-calendar>
 			<div class="invalid-message" *ngIf="trnData.invalid && trnData.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -83,7 +89,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid">
 			<label for="tituloConciliadoDesc">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc') }}</label>
-			<input type="text" pInputText #tituloConciliadoDesc="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoDesc" name="tituloConciliadoDesc" readonly class="read-only">
+			<input type="text" pInputText #tituloConciliadoDesc="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoDesc" name="tituloConciliadoDesc">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">

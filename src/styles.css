@@ -404,3 +404,6 @@ a, button {
   font-weight: bold;
 }
 
+.hidden {
+	display: none;
+}

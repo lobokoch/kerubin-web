@@ -9,127 +9,284 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 -->
 
 <div class="container">
-	<p-panel>
-		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoTransacao') }}</div>
-		</p-header>
-	
+  <p-panel>
+    <p-header>
+      <div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoTransacao') }}</div>
+    </p-header>
 
-  	<div class="ui-g">
-		
-		<!-- Begin Filters -->
-		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtros">
-			
-				<div class="ui-g">
-					<div class="ui-g-12">
-						
-						<div class="ui-g-12 ui-md-4 ui-fluid">
-							<label class="label-r">Conciliação bancária</label>
-							<input pInputText type="text"
-							[(ngModel)]="conciliacaoTransacaoListFilter.conciliacaoBancariaId"/>
-						</div>
-					</div>
-					
-					<div>
-						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="conciliacaoTransacaoFilterSearch()"></p-button>
-					</div>
-				</div>
-				
-			
-			</p-accordionTab>
-		</p-accordion>
-		<!-- End Filters -->
-		
-		<!-- Begin GRID -->
-		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" 
-				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
-				[value]="conciliacaoTransacaoListItems"
-			    [rows]="conciliacaoTransacaoListFilter.pageSize" 
-			    [totalRecords]="conciliacaoTransacaoListTotalElements"
-			    [lazy]="true" (onLazyLoad)="conciliacaoTransacaoListOnLazyLoad($event)" >
-			    <ng-template pTemplate="header">
-		            <tr>
-		            	<th style="width: 7em" [pSortableColumn]="'trnData'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnData_grid') }}<p-sortIcon [field]="'trnData'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'trnHistorico'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnHistorico_grid') }}<p-sortIcon [field]="'trnHistorico'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'trnDocumento'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento_grid') }}<p-sortIcon [field]="'trnDocumento'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'trnTipo'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_grid') }}<p-sortIcon [field]="'trnTipo'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'trnValor'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnValor_grid') }}<p-sortIcon [field]="'trnValor'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'conciliacaoBancaria'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliacaoBancaria_grid') }}<p-sortIcon [field]="'conciliacaoBancaria'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'situacaoConciliacaoTrn'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_grid') }}<p-sortIcon [field]="'situacaoConciliacaoTrn'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'tituloConciliadoId'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoId_grid') }}<p-sortIcon [field]="'tituloConciliadoId'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'tituloConciliadoDesc'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc_grid') }}<p-sortIcon [field]="'tituloConciliadoDesc'"></p-sortIcon></th>
-		            	<th style="width: 7em" [pSortableColumn]="'dataConciliacao'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_dataConciliacao_grid') }}<p-sortIcon [field]="'dataConciliacao'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'conciliadoComErro'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoComErro_grid') }}<p-sortIcon [field]="'conciliadoComErro'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'conciliadoMsg'">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon [field]="'conciliadoMsg'"></p-sortIcon></th>
-						<th style="width: 12em">Ações</th>
-		            </tr>
-		        </ng-template>
-		        
-			    <ng-template pTemplate="body" let-conciliacaoTransacao>
-		            <tr [pSelectableRow]="conciliacaoTransacao">
-		            	<td>
-		            		{{conciliacaoTransacao?.trnData | date:'dd/MM/yyyy' }}
-		            	</td>
-		            	<td>
-		            		{{ conciliacaoTransacao?.trnHistorico }}
-		            	</td>
-		            	<td>
-		            		{{ conciliacaoTransacao?.trnDocumento }}
-		            	</td>
-		            	<td>
-		            		{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo' + '_' + conciliacaoTransacao?.trnTipo?.toLowerCase()) }}
-		            	</td>
-		            	<td class="kb-field-money">
-		            		{{conciliacaoTransacao?.trnValor | currency:'BRL':'symbol':'1.2-2':'pt' }}
-		            	</td>
-		            	<td>
-		            		{{conciliacaoTransacaoConciliacaoBancariaAutoCompleteFieldConverter(conciliacaoTransacao?.conciliacaoBancaria)}}
-		            	</td>
-		            	<td>
-		            		{{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn' + '_' + conciliacaoTransacao?.situacaoConciliacaoTrn?.toLowerCase()) }}
-		            	</td>
-		            	<td>
-		            		{{ conciliacaoTransacao?.tituloConciliadoId }}
-		            	</td>
-		            	<td>
-		            		{{ conciliacaoTransacao?.tituloConciliadoDesc }}
-		            	</td>
-		            	<td>
-		            		{{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
-		            	</td>
-		            	<td>
-		            		{{conciliacaoTransacao?.conciliadoComErro? 'Sim': 'Não' }}
-		            	</td>
-		            	<td>
-		            		{{ conciliacaoTransacao?.conciliadoMsg }}
-		            	</td>
-		              	<td class="kb-actions">
-		              		<a pButton [routerLink]="['/conciliacaotransacao', conciliacaoTransacao.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<button (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
-		              	</td>
-		            </tr>
-		        </ng-template>
-		        
-		        
-		        <ng-template pTemplate="emptymessage" let-columns>
-				    <tr>
-				        <td [attr.colspan]="13">
-				            Nenhum registro encontrado.
-				        </td>
-				    </tr>
-				</ng-template>
-				
-			</p-table>
-		</div>
-		<!-- End GRID -->
-		
-		<div class="ui-g-12 ui-md-2 ui-fluid">
-			<a routerLink="/conciliacaotransacao/novo" pButton label="Novo registro"></a>
-		</div>
-	</div>
-	
-	</p-panel>
-  
+
+    <div class="ui-g">
+
+      <!-- Begin Filters -->
+      <p-accordion class="ui-g-12">
+        <p-accordionTab header="Filtros">
+
+          <div class="ui-g">
+            <div class="ui-g-12">
+
+
+              <div class="ui-g-12">
+
+                <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label style="display: block">Intervalo de tempo</label>
+                  <p-dropdown #conciliacaoTransacaoTrnDataIsBetweenOptions [options]="dateFilterIntervalDropdownItems"
+                    [(ngModel)]="conciliacaoTransacaoTrnDataIsBetweenOptionsSelected" optionLabel="label"
+                    (click)="conciliacaoTransacaoTrnDataIsBetweenOptionsOnClick(conciliacaoTransacaoTrnDataIsBetweenOptions)">
+                  </p-dropdown>
+                </div>
+
+                <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label class="label-r">Movimento de</label>
+                  <p-calendar name="trnDataFrom" dateFormat="dd/mm/yy"
+                    [(ngModel)]="conciliacaoTransacaoListFilter.trnDataFrom"></p-calendar>
+                </div>
+
+                <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label class="label-l label-r">Até</label>
+                  <p-calendar name="trnDataTo" dateFormat="dd/mm/yy"
+                    [(ngModel)]="conciliacaoTransacaoListFilter.trnDataTo"></p-calendar>
+                </div>
+
+              </div>
+
+
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label class="label-r">Histórico</label>
+                <p-autoComplete name="conciliacaoTransacaoTrnHistoricoAutoComplete"
+                  placeholder="Digite para pesquisar..." [dropdown]="true"
+                  [(ngModel)]="conciliacaoTransacaoListFilter.trnHistorico" [multiple]="true"
+                  [suggestions]="conciliacaoTransacaoTrnHistoricoAutoCompleteSuggestions"
+                  (completeMethod)="conciliacaoTransacaoTrnHistoricoAutoComplete($event)" field="trnHistorico">
+                </p-autoComplete>
+              </div>
+
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label class="label-r">Documento</label>
+                <p-autoComplete name="conciliacaoTransacaoTrnDocumentoAutoComplete"
+                  placeholder="Digite para pesquisar..." [dropdown]="true"
+                  [(ngModel)]="conciliacaoTransacaoListFilter.trnDocumento" [multiple]="true"
+                  [suggestions]="conciliacaoTransacaoTrnDocumentoAutoCompleteSuggestions"
+                  (completeMethod)="conciliacaoTransacaoTrnDocumentoAutoComplete($event)" field="trnDocumento">
+                </p-autoComplete>
+              </div>
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label class="label-r">Crédito/Débito</label>
+                <p-dropdown [options]="conciliacaoTransacaoTrnTipoOptions" placeholder="Selecione um item..."
+                  [(ngModel)]="conciliacaoTransacaoListFilter.trnTipo"></p-dropdown>
+              </div>
+
+
+              <div class="ui-g-12 ui-fluid ui-md-9">
+
+                <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label class="label-r">Valores de</label>
+                  <input pInputText type="text" name="trnValorFrom" currencyMask
+                    [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+                    [(ngModel)]="conciliacaoTransacaoListFilter.trnValorFrom" />
+                </div>
+
+                <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label class="label-l label-r">até</label>
+                  <input pInputText type="text" name="trnValorTo" currencyMask
+                    [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00"
+                    [(ngModel)]="conciliacaoTransacaoListFilter.trnValorTo" />
+                </div>
+
+              </div>
+
+
+              <div class="ui-g-12 ui-md-4 ui-fluid hidden">
+                <label class="label-r hidden">Conciliação bancária</label>
+                <input pInputText type="hidden" [(ngModel)]="conciliacaoTransacaoListFilter.conciliacaoBancariaId" />
+              </div>
+
+              <div class="ui-g-12 ui-md-9 ui-fluid">
+                <label class="label-r">Situação</label>
+                <p-dropdown [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions"
+                  placeholder="Selecione um item..."
+                  [(ngModel)]="conciliacaoTransacaoListFilter.situacaoConciliacaoTrn"></p-dropdown>
+              </div>
+
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label style="display: block" class="label-l label-r">Com erro</label>
+                <p-inputSwitch [(ngModel)]="conciliacaoTransacaoListFilter.conciliadoComErroIsNotNull"></p-inputSwitch>
+              </div>
+
+
+            </div>
+
+            <div>
+              <p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left"
+                (click)="conciliacaoTransacaoFilterSearch()"></p-button>
+            </div>
+          </div>
+
+
+        </p-accordionTab>
+      </p-accordion>
+      <!-- End Filters -->
+
+      <!-- Begin GRID -->
+      <div class="ui-g-12" name="data-grid">
+        <p-table selectionMode="single" [loading]="loading" (onRowSelect)="onRowSelect($event)" [responsive]="true"
+          [customSort]="true" [paginator]="true" [resizableColumns]="true" [value]="conciliacaoTransacaoListItems"
+          [rows]="conciliacaoTransacaoListFilter.pageSize" [totalRecords]="conciliacaoTransacaoListTotalElements"
+          [lazy]="true" (onLazyLoad)="conciliacaoTransacaoListOnLazyLoad($event)">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 7em" [pSortableColumn]="'trnData'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnData_grid') }}<p-sortIcon
+                  [field]="'trnData'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'trnHistorico'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnHistorico_grid') }}<p-sortIcon
+                  [field]="'trnHistorico'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'trnDocumento'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento_grid') }}<p-sortIcon
+                  [field]="'trnDocumento'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'trnTipo'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_grid') }}<p-sortIcon
+                  [field]="'trnTipo'"></p-sortIcon>
+              </th>
+              <th style="width: 8em" [pSortableColumn]="'trnValor'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnValor_grid') }}<p-sortIcon
+                  [field]="'trnValor'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'situacaoConciliacaoTrn'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_grid') }}<p-sortIcon
+                  [field]="'situacaoConciliacaoTrn'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'tituloConciliadoId'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoId_grid') }}<p-sortIcon
+                  [field]="'tituloConciliadoId'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'tituloConciliadoDesc'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc_grid') }}<p-sortIcon
+                  [field]="'tituloConciliadoDesc'"></p-sortIcon>
+              </th>
+              <th style="width: 7em" [pSortableColumn]="'dataConciliacao'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_dataConciliacao_grid') }}<p-sortIcon
+                  [field]="'dataConciliacao'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'conciliacaoTransacaoTitulos'">Qtde. títulos<p-sortIcon
+                  [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
+              </th>
+              <th [pSortableColumn]="'conciliadoMsg'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon
+                  [field]="'conciliadoMsg'"></p-sortIcon>
+              </th>
+              <th style="width: 12em">Ações</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-conciliacaoTransacao>
+            <tr [pSelectableRow]="conciliacaoTransacao">
+              <td>
+                {{conciliacaoTransacao?.trnData | date:'dd/MM/yyyy' }}
+              </td>
+              <td>
+                {{ conciliacaoTransacao?.trnHistorico }}
+              </td>
+              <td>
+                {{ conciliacaoTransacao?.trnDocumento }}
+              </td>
+              <td>
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo' + '_' + conciliacaoTransacao?.trnTipo?.toLowerCase()) }}
+              </td>
+              <td class="kb-field-money">
+                {{conciliacaoTransacao?.trnValor | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              </td>
+              <td>
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn' + '_' + conciliacaoTransacao?.situacaoConciliacaoTrn?.toLowerCase()) }}
+              </td>
+              <td style="text-align: center">
+                <i *ngIf="conciliacaoTransacao?.tituloConciliadoId" class="pi pi-info-circle" style="font-size: 2em"
+                  [pTooltip]=conciliacaoTransacao?.tituloConciliadoId></i>
+              </td>
+              <td>
+                {{ conciliacaoTransacao?.tituloConciliadoDesc }}
+              </td>
+              <td>
+                {{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
+              </td>
+              <td>
+                {{conciliacaoTransacaoConciliacaoTransacaoTitulosAutoCompleteFieldConverter(conciliacaoTransacao?.conciliacaoTransacaoTitulos)}}
+              </td>
+              <td style="text-align: center">
+                <i *ngIf="conciliacaoTransacao?.conciliadoMsg" class="pi pi-info-circle" style="font-size: 2em"
+                  [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
+              </td>
+              <td class="kb-actions">
+                <a pButton [routerLink]="['/conciliacaotransacao', conciliacaoTransacao.id]" icon="pi pi-pencil"
+                  pTooltip="Editar" tooltipPosition="top"></a>
+                <button (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"
+                  pTooltip="Excluir" tooltipPosition="top"></button>
+              </td>
+            </tr>
+          </ng-template>
+
+
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="12">
+                Nenhum registro encontrado.
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+      <!-- End GRID -->
+
+      <div class="ui-g-12 ui-md-2 ui-fluid">
+        <a routerLink="/conciliacaotransacao/novo" pButton label="Novo registro"></a>
+      </div>
+    </div>
+
+  </p-panel>
+
 </div>
+
+<p-dialog header="Lista de títulos" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [style]="{width: '800px'}">
+  <div class="ui-g ui-fluid" *ngIf="conciliacaoTransacao">
+    <p-table [style]="{width: '770px'}" [columns]="cols" [value]="titulosDialog"
+      selectionMode="single" [(selection)]="selectedConciliacaoTransacaoTitulo"
+      [scrollable]="true" [style]="{width:'800px'}">
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [ngStyle]="getColStyle(col)">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td *ngFor="let col of columns | slice:0:6">
+            {{rowData[col.field]}}
+          </td>
+          <td class="kb-actions">
+            <button (click)="deleteConciliacaoTransacaoTitulo(rowData)" pButton icon="pi pi-trash"
+              pTooltip="Excluir" tooltipPosition="top"></button>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="calcelarDialog()" label="Cancelar"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="confirmarDialog()" label="OK"></button>
+    </div>
+  </p-footer>
+</p-dialog>

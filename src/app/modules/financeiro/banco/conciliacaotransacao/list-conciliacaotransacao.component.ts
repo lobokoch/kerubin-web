@@ -18,8 +18,18 @@ import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-tran
 import { ConciliacaoTransacao } from './conciliacaotransacao.model';
 import { ConciliacaoTransacaoListFilter } from './conciliacaotransacao.model';
 import { SortField } from './conciliacaotransacao.model';
+import { ConciliacaoTransacaoTrnHistoricoAutoComplete } from './conciliacaotransacao.model';
+import { ConciliacaoTransacaoTrnDocumentoAutoComplete } from './conciliacaotransacao.model';
+
+import { TipoTransacao } from './../enums/cadastros-banco-enums.model';
+
+import { SituacaoConciliacaoTrn } from './../enums/cadastros-banco-enums.model';
 
 import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/conciliacaobancaria.model';
+
+
+import { ConciliacaoTransacaoTitulo } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
+import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 
 @Component({
   selector: 'app-list-conciliacaotransacao',
@@ -28,29 +38,152 @@ import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/concil
 })
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
-	
+
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
 	conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
-	
+
+
+	conciliacaoTransacaoTrnDataIsBetweenOptionsSelected: SelectItem = {label: 'Personalizado', value: '99'};
+
+	conciliacaoTransacaoTrnHistoricoAutoCompleteSuggestions: ConciliacaoTransacaoTrnHistoricoAutoComplete[];
+	conciliacaoTransacaoTrnDocumentoAutoCompleteSuggestions: ConciliacaoTransacaoTrnDocumentoAutoComplete[];
+	conciliacaoTransacaoTrnTipoOptions: TipoTransacao[];
+
+
+	conciliacaoTransacaoSituacaoConciliacaoTrnOptions: SituacaoConciliacaoTrn[];
+
+
+
 	dateFilterIntervalDropdownItems: SelectItem[];
-	
-	
-	
+
+
+
 	// Begin polling reference variables
 	private pollingRecarregarTransacoesRef: any;
-	// End polling reference variables
-	
+  // End polling reference variables
+
+  // Begin Dialog
+  private displayDialog = false;
+  private selectedConciliacaoTransacao = new ConciliacaoTransacao();
+  private conciliacaoTransacao = new ConciliacaoTransacao();
+  private cols: any[];
+  private selectedConciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo;
+  private titulosDialog: ConciliacaoTransacaoTitulo[];
+  // End Dialog
+
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
 	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
-	) { }
-	
+  ) { }
+
+  onRowSelect(event) {
+    this.selectedConciliacaoTransacao = event.data;
+    // this.conciliacaoTransacao = this.cloneConciliacaoTransacao(event.data);
+    const tituloConciliadoId = this.selectedConciliacaoTransacao.tituloConciliadoId;
+    if (tituloConciliadoId) {
+      const titulos = this.selectedConciliacaoTransacao.conciliacaoTransacaoTitulos;
+      this.titulosDialog = titulos.map(it => this.cloneConciliacaoTransacaoTitulo(it));
+      if (this.titulosDialog) {
+        this.selectedConciliacaoTransacaoTitulo = this.titulosDialog.find(it => it.tituloConciliadoId === tituloConciliadoId);
+      }
+    }
+
+    this.displayDialog = true;
+  }
+
+  confirmarDialog() {
+    if (this.selectedConciliacaoTransacaoTitulo) {
+      if (this.selectedConciliacaoTransacao) {
+        this.selectedConciliacaoTransacao.tituloConciliadoId = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoId;
+        this.selectedConciliacaoTransacao.tituloConciliadoDesc = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDesc;
+        this.selectedConciliacaoTransacao.dataConciliacao = this.selectedConciliacaoTransacaoTitulo.dataConciliacao;
+        this.selectedConciliacaoTransacao.situacaoConciliacaoTrn = this.selectedConciliacaoTransacaoTitulo.situacaoConciliacaoTrn;
+
+        this.selectedConciliacaoTransacao.conciliacaoTransacaoTitulos = this.titulosDialog;
+
+        this.displayDialog = false;
+        this.atualizarConciliacaoTransacao(this.selectedConciliacaoTransacao);
+      }
+    }
+  }
+
+  deleteConciliacaoTransacaoTitulo(conciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo) {
+    const titulos = this. titulosDialog;
+    if (titulos) {
+      const index = titulos.indexOf(conciliacaoTransacaoTitulo);
+      // this.selectedConciliacaoTransacao.conciliacaoTransacaoTitulos = titulos.filter((val, i) => i !== index);
+      this. titulosDialog.splice(index, 1);
+    }
+
+    // this.cars = this.cars.filter((val, i) => i != index);
+  }
+
+  atualizarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
+    console.log('conciliacaoTransacao atualziada:' + conciliacaoTransacao);
+  }
+
+  calcelarDialog() {
+    this.displayDialog = false;
+    this.selectedConciliacaoTransacao = null;
+    this.selectedConciliacaoTransacaoTitulo = null;
+  }
+
+  cloneConciliacaoTransacaoTitulo(source: ConciliacaoTransacaoTitulo): ConciliacaoTransacaoTitulo {
+    const target = new ConciliacaoTransacaoTitulo();
+    for (const prop in source) {
+      if (source.hasOwnProperty(prop)) {
+        target[prop] = source[prop];
+      }
+    }
+    return target;
+  }
+
+  cloneConciliacaoTransacao(source: ConciliacaoTransacao): ConciliacaoTransacao {
+    const target = new ConciliacaoTransacao();
+    for (const prop in source) {
+      if (source.hasOwnProperty(prop)) {
+        target[prop] = source[prop];
+      }
+    }
+    return target;
+  }
+
+  montarColunas() {
+    this.cols = [
+      // { field: 'id', header: 'id', width: '100px' },
+      { field: 'tituloConciliadoId', header: 'Id. título', width: '100px'},
+      { field: 'tituloConciliadoDesc', header: 'Desc. título', width: '300px' },
+      { field: 'tituloConciliadoDataVen', header: 'Vencimento', width: '100px' },
+      { field: 'tituloConciliadoDataPag', header: 'Pagamento', width: '100px' },
+      { field: 'dataConciliacao', header: 'Conciliação', width: '100px' },
+      { field: 'situacaoConciliacaoTrn', header: 'Situação', width: '350px' },
+      { field: 'actions', header: 'Ações', width: '100px' } // slice:0:6, pega da primeira posição, 6 elementos.
+  ];
+  }
+
+  getColStyle(col: any) {
+    return { 'width': col.width};
+  }
+
 	ngOnInit() {
+		this.conciliacaoTransacaoTrnDataIsBetweenOptionsOnClick(null);
+		this.initializeDateFilterIntervalDropdownItems();
+
+
+		this.initializeConciliacaoTransacaoTrnTipoOptions();
+
+
+		this.initializeConciliacaoTransacaoSituacaoConciliacaoTrnOptions();
+
+		this.conciliacaoTransacaoListFilter.conciliadoComErroIsNotNull = false;
+
+    this.montarColunas();
+
 	}
-	
+
 	conciliacaoTransacaoList(pageNumber = 0) {
 	    this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
 	    this.conciliacaoTransacaoService
@@ -58,16 +191,15 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    .then(result => {
 	      	this.conciliacaoTransacaoListItems = result.items;
 	      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
-	      
 	    });
-		
+
 	}
-	
-	
+
+
 	conciliacaoTransacaoFilterSearch() {
 	    this.conciliacaoTransacaoList(0);
 	}
-	
+
 	deleteConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -83,7 +215,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	conciliacaoTransacaoListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.sortField) {
 	      this.conciliacaoTransacaoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
@@ -93,9 +225,58 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoTransacaoList(pageNumber);
 	}
-	
-	
-	
+
+	conciliacaoTransacaoTrnHistoricoAutoComplete(event) {
+	    const query = event.query;
+	    this.conciliacaoTransacaoService.conciliacaoTransacaoTrnHistoricoAutoComplete(query)
+	    .then((result) => {
+	      this.conciliacaoTransacaoTrnHistoricoAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+
+	conciliacaoTransacaoTrnDocumentoAutoComplete(event) {
+	    const query = event.query;
+	    this.conciliacaoTransacaoService.conciliacaoTransacaoTrnDocumentoAutoComplete(query)
+	    .then((result) => {
+	      this.conciliacaoTransacaoTrnDocumentoAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+
+
+	private initializeConciliacaoTransacaoTrnTipoOptions() {
+	    this.conciliacaoTransacaoTrnTipoOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_credito'), value: 'CREDITO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_debito'), value: 'DEBITO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_outros'), value: 'OUTROS' }
+	    ];
+	}
+
+	private initializeConciliacaoTransacaoSituacaoConciliacaoTrnOptions() {
+	    this.conciliacaoTransacaoSituacaoConciliacaoTrnOptions = [
+	    	{ label: 'Selecione um item', value: null },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_nao_conciliado'), value: 'NAO_CONCILIADO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliar_contas_pagar'), value: 'CONCILIAR_CONTAS_PAGAR' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliado_contas_pagar'), value: 'CONCILIADO_CONTAS_PAGAR' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_contas_pagar_baixado_sem_conciliacao'), value: 'CONTAS_PAGAR_BAIXADO_SEM_CONCILIACAO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliar_contas_receber'), value: 'CONCILIAR_CONTAS_RECEBER' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliado_contas_receber'), value: 'CONCILIADO_CONTAS_RECEBER' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_contas_receber_baixado_sem_conciliacao'), value: 'CONTAS_RECEBER_BAIXADO_SEM_CONCILIACAO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliar_caixa'), value: 'CONCILIAR_CAIXA' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliado_caixa'), value: 'CONCILIADO_CAIXA' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_caixa_baixado_sem_conciliacao'), value: 'CAIXA_BAIXADO_SEM_CONCILIACAO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_erro'), value: 'ERRO' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_cancelado'), value: 'CANCELADO' }
+	    ];
+	}
+
+
 	conciliacaoTransacaoConciliacaoBancariaAutoCompleteFieldConverter(conciliacaoBancaria: ConciliacaoBancariaAutoComplete) {
 		if (conciliacaoBancaria) {
 			return (conciliacaoBancaria.bancoId || '<nulo>');
@@ -103,36 +284,155 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 			return null;
 		}
 	}
-	
-	
-	
-	
+
+	conciliacaoTransacaoConciliacaoTransacaoTitulosAutoCompleteFieldConverter(conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[]) {
+		if (conciliacaoTransacaoTitulos) {
+			return (conciliacaoTransacaoTitulos.length);
+		} else {
+			return 0;
+		}
+	}
+
+
+	private initializeDateFilterIntervalDropdownItems() {
+		this.dateFilterIntervalDropdownItems = [
+		    {label: 'Minha competência', value: '12'},
+		    {label: 'Hoje', value: '0'},
+		    {label: 'Amanhã', value: '1'},
+		    {label: 'Esta semana', value: '2'},
+		    {label: 'Semana que vem', value: '3'},
+		    {label: 'Este mês', value: '4'},
+		    {label: 'Mês que vem', value: '5'},
+		    {label: 'Este ano', value: '6'},
+		    {label: 'Ano que vem', value: '7'},
+		    {label: 'Ontem', value: '8'},
+		    {label: 'Semana passada', value: '9'},
+		    {label: 'Mês passado', value: '10'},
+		    {label: 'Ano passado', value: '11'},
+		    {label: 'Personalizado', value: '99'}
+		  ];
+	}
+
+
+	conciliacaoTransacaoTrnDataIsBetweenOptionsOnClick(dropdown: Dropdown) {
+		this.conciliacaoTransacaoListFilter.trnDataFrom = null;
+		this.conciliacaoTransacaoListFilter.trnDataTo = null;
+
+		let dateFrom = null;
+		let dateTo = null;
+
+		const valor = Number(this.conciliacaoTransacaoTrnDataIsBetweenOptionsSelected.value);
+		switch (valor) {
+			case 0: // Hoje
+				dateFrom = moment();
+				dateTo = moment();
+				break;
+				//
+			case 1: // Amanhã
+				dateFrom = moment().add(1, 'day');
+				dateTo = moment().add(1, 'day');
+				break;
+				//
+			case 2: // Esta semana
+				dateFrom = moment().startOf('week');
+				dateTo = moment().endOf('week');
+				break;
+				//
+			case 3: // Semana que vem
+				dateFrom = moment().add(1, 'week').startOf('week');
+				dateTo = moment().add(1, 'week').endOf('week');
+				break;
+				//
+			case 4: // Este mês
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month');
+				break;
+				//
+			case 5: // Mês que vem
+				dateFrom = moment().add(1, 'month').startOf('month');
+				dateTo = moment().add(1, 'month').endOf('month');
+				break;
+				//
+			case 6: // Este ano
+				dateFrom = moment().startOf('year');
+				dateTo = moment().endOf('year');
+				break;
+				//
+			case 7: // Ano que vem
+				dateFrom = moment().add(1, 'year').startOf('year');
+				dateTo = moment().add(1, 'year').endOf('year');
+				break;
+				// Passado
+			case 8: // Ontem
+				dateFrom = moment().add(-1, 'day');
+				dateTo = moment().add(-1, 'day');
+				break;
+				//
+			case 9: // Semana passada
+				dateFrom = moment().add(-1, 'week').startOf('week');
+				dateTo = moment().add(-1, 'week').endOf('week');
+				break;
+				//
+			case 10: // Mês passado
+				dateFrom = moment().add(-1, 'month').startOf('month');
+				dateTo = moment().add(-1, 'month').endOf('month');
+				break;
+				//
+			case 11: // Ano passado
+				dateFrom = moment().add(-1, 'year').startOf('year');
+				dateTo = moment().add(-1, 'year').endOf('year');
+				break;
+
+			case 12: // Minha competência
+				dateFrom = moment().startOf('month');
+				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
+				break;
+
+			default:
+				break;
+		} // switch
+
+		if (dateFrom != null) {
+		  this.conciliacaoTransacaoListFilter.trnDataFrom = dateFrom.toDate();
+		}
+
+		if (dateTo != null) {
+		  this.conciliacaoTransacaoListFilter.trnDataTo = dateTo.toDate();
+		}
+
+		if (dateFrom != null && dateTo != null) {
+		  // this.conciliacaoTransacaoList(0);
+		}
+	}
+
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.cadastrosBancoTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
-	
+
+
+
 	// Begin polling methods for: recarregarTransacoes
 	startPollingRecarregarTransacoes() {
 	  this.pollingRecarregarTransacoesRef = setInterval(() => {
 	    this.runPollingRecarregarTransacoes();
 	  }, 3000);
 	}
-	
+
 	stopPollingRecarregarTransacoes() {
 	  clearInterval(this.pollingRecarregarTransacoesRef);
 	}
-	
+
 	runPollingRecarregarTransacoes() {
-	  // You can replace this code for your code.
+	  // You can replace this code by your code.
+
 	  this.conciliacaoTransacaoFilterSearch();
 	}
 	// End polling methods for: recarregarTransacoes
-	
+
 }

@@ -17,9 +17,13 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { ConciliacaoTransacao } from './conciliacaotransacao.model';
 import { ConciliacaoTransacaoAutoComplete } from './conciliacaotransacao.model';
 import { ConciliacaoBancaria } from './../conciliacaobancaria/conciliacaobancaria.model';
+import { ConciliacaoTransacaoTitulo } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 import { ConciliacaoTransacaoListFilter } from './conciliacaotransacao.model';
+import { ConciliacaoTransacaoTrnHistoricoAutoComplete } from './conciliacaotransacao.model';
+import { ConciliacaoTransacaoTrnDocumentoAutoComplete } from './conciliacaotransacao.model';
 import { environment } from 'src/environments/environment';
 import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/conciliacaobancaria.model';
+import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 
 @Injectable()
 export class ConciliacaoTransacaoService {
@@ -101,6 +105,11 @@ export class ConciliacaoTransacaoService {
 		        conciliacaoTransacao.conciliacaoBancaria = new ConciliacaoBancaria();
 		      }
 		      	
+		      
+		      if (!conciliacaoTransacao.conciliacaoTransacaoTitulos) {
+		        conciliacaoTransacao.conciliacaoTransacaoTitulos = new ConciliacaoTransacaoTitulo();
+		      }
+		      	
 		});*/
 	}
 	
@@ -137,9 +146,55 @@ export class ConciliacaoTransacaoService {
 	
 	}
 	
+	
+	conciliacaoTransacaoTituloConciliacaoTransacaoTitulosAutoComplete(query: string): Promise<ConciliacaoTransacaoTituloAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<ConciliacaoTransacaoTituloAutoComplete[]>(`${this.url}/conciliacaoTransacaoTituloConciliacaoTransacaoTitulosAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ConciliacaoTransacaoTituloAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	// End relationships autoComplete
 	
 				
+	
+	conciliacaoTransacaoTrnHistoricoAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/conciliacaoTransacaoTrnHistoricoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ConciliacaoTransacaoTrnHistoricoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	conciliacaoTransacaoTrnDocumentoAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/conciliacaoTransacaoTrnDocumentoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ConciliacaoTransacaoTrnDocumentoAutoComplete[];
+	        return result;
+	      });
+	
+	}
 	
 	conciliacaoTransacaoList(conciliacaoTransacaoListFilter: ConciliacaoTransacaoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
@@ -176,10 +231,64 @@ export class ConciliacaoTransacaoService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// trnDataFrom
+		if (filter.trnDataFrom) {
+		const value = this.dateToStr(filter.trnDataFrom);
+			params = params.set('trnDataFrom', value);
+		}
+		
+		// trnDataTo
+		if (filter.trnDataTo) {
+		const value = this.dateToStr(filter.trnDataTo);
+			params = params.set('trnDataTo', value);
+		}
+		
+		// trnHistorico
+		if (filter.trnHistorico) {
+			const trnHistorico = filter.trnHistorico.map(item => item.trnHistorico).join(',');
+			params = params.set('trnHistorico', trnHistorico);
+		}
+		
+		// trnDocumento
+		if (filter.trnDocumento) {
+			const trnDocumento = filter.trnDocumento.map(item => item.trnDocumento).join(',');
+			params = params.set('trnDocumento', trnDocumento);
+		}
+		
+		// trnTipo
+		if (filter.trnTipo) {
+			const value = String(filter.trnTipo);
+			params = params.set('trnTipo', value);
+		}
+		
+		// trnValorFrom
+		if (filter.trnValorFrom) {
+		const value = filter.trnValorFrom.toString();
+			params = params.set('trnValorFrom', value);
+		}
+		
+		// trnValorTo
+		if (filter.trnValorTo) {
+		const value = filter.trnValorTo.toString();
+			params = params.set('trnValorTo', value);
+		}
+		
 		// conciliacaoBancariaId
 		if (filter.conciliacaoBancariaId) {
 			const value = filter.conciliacaoBancariaId;
 			params = params.set('conciliacaoBancariaId', value);
+		}
+		
+		// situacaoConciliacaoTrn
+		if (filter.situacaoConciliacaoTrn) {
+			const value = String(filter.situacaoConciliacaoTrn);
+			params = params.set('situacaoConciliacaoTrn', value);
+		}
+		
+		// conciliadoComErroIsNotNull
+		if (filter.conciliadoComErroIsNotNull) {
+			const value = filter.conciliadoComErroIsNotNull ? 'true' : 'false';
+			params = params.set('conciliadoComErroIsNotNull', value);
 		}
 	
 	    // Sort

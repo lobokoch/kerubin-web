@@ -9,6 +9,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 import { TipoTransacao } from './../enums/cadastros-banco-enums.model';
 import { ConciliacaoBancaria } from './../conciliacaobancaria/conciliacaobancaria.model';
 import { SituacaoConciliacaoTrn } from './../enums/cadastros-banco-enums.model';
+import { ConciliacaoTransacaoTitulo } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 
 export class SortField {
   field: string;
@@ -31,13 +32,38 @@ export class PaginationFilter {
   }
 }
 
+export class ConciliacaoTransacaoTrnHistoricoAutoComplete {
+	trnHistorico: string;
+}
+
+export class ConciliacaoTransacaoTrnDocumentoAutoComplete {
+	trnDocumento: string;
+}
+
 export class ConciliacaoTransacaoListFilter extends PaginationFilter {
-	
+
+	trnDataFrom: Date;
+	trnDataTo: Date;
+
+	trnHistorico: ConciliacaoTransacaoTrnHistoricoAutoComplete[];
+
+	trnDocumento: ConciliacaoTransacaoTrnDocumentoAutoComplete[];
+
+	trnTipo: TipoTransacao;
+
+	trnValorFrom: number;
+	trnValorTo: number;
+
 	conciliacaoBancariaId: string;
+
+	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
+
+	conciliadoComErroIsNotNull: boolean;
 }
 
 export class ConciliacaoTransacao {
 	id: string;
+	trnId: string;
 	trnData: Date;
 	trnHistorico: string;
 	trnDocumento: string;
@@ -48,13 +74,14 @@ export class ConciliacaoTransacao {
 	tituloConciliadoId: string;
 	tituloConciliadoDesc: string;
 	dataConciliacao: Date;
+	conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[];
 	conciliadoComErro: boolean = false;
 	conciliadoMsg: string;
 }
 
 export class ConciliacaoTransacaoAutoComplete {
 	id: string;
-	trnHistorico: string;
+	trnId: string;
 }
 
 export class ConciliacaoTransacaoSumFields {
