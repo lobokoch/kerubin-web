@@ -179,7 +179,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon
                   [field]="'conciliadoMsg'"></p-sortIcon>
               </th>
-              <th style="width: 12em">Ações</th>
+              <th style="width: 5em">Ações</th>
             </tr>
           </ng-template>
 
@@ -221,8 +221,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                   [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
               </td>
               <td class="kb-actions">
-                <a pButton [routerLink]="['/conciliacaotransacao', conciliacaoTransacao.id]" icon="pi pi-pencil"
-                  pTooltip="Editar" tooltipPosition="top"></a>
                 <button (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"
                   pTooltip="Excluir" tooltipPosition="top"></button>
               </td>
@@ -251,11 +249,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 </div>
 
-<p-dialog header="Lista de títulos" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
-  [style]="{width: '800px'}">
-  <div class="ui-g ui-fluid" *ngIf="conciliacaoTransacao">
-    <p-table [style]="{width: '770px'}" [columns]="cols" [value]="titulosDialog"
-      selectionMode="single" [(selection)]="selectedConciliacaoTransacaoTitulo"
+<p-dialog header="Lista de títulos candidatos para conciliação" [(visible)]="displayDialog" [responsive]="true"
+showEffect="fade" [modal]="true" [style]="{width: '800px'}">
+  <div class="ui-g ui-fluid">
+    <strong>NOTA: Apenas o item marcado será considerado.</strong>
+  </div>
+  <div class="ui-g ui-fluid">
+    <p-table [style]="{width: '770px'}" [columns]="cols" [value]="titulosDialog" dataKey="id"
+      [(selection)]="selectedConciliacaoTransacaoTitulo"
       [scrollable]="true" [style]="{width:'800px'}">
       <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
@@ -269,13 +270,36 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
-          <td *ngFor="let col of columns | slice:0:6">
+      <ng-template pTemplate="body" let-titulo let-columns="columns">
+        <tr [pSelectableRow]="titulo">
+          <!--<td *ngFor="let col of columns | slice:0:6">
             {{rowData[col.field]}}
+          </td-->
+          <td>
+              <p-tableRadioButton [value]="titulo"></p-tableRadioButton>
           </td>
+          <td style="text-align: center">
+            <i *ngIf="titulo?.tituloConciliadoId" class="pi pi-info-circle" style="font-size: 2em"
+              [pTooltip]=titulo?.tituloConciliadoId></i>
+          </td>
+          <td>
+            {{ titulo?.tituloConciliadoDesc }}
+          </td>
+          <td>
+            {{titulo?.tituloConciliadoDataVen | date:'dd/MM/yyyy' }}
+          </td>
+          <td>
+            {{titulo?.tituloConciliadoDataPag | date:'dd/MM/yyyy' }}
+          </td>
+          <td>
+            {{titulo?.dataConciliacao | date:'dd/MM/yyyy' }}
+          </td>
+          <td>
+            {{ getTranslation('cadastros.banco.conciliacaoTransacaoTitulo_situacaoConciliacaoTrn' + '_' + titulo?.situacaoConciliacaoTrn?.toLowerCase()) }}
+          </td>
+
           <td class="kb-actions">
-            <button (click)="deleteConciliacaoTransacaoTitulo(rowData)" pButton icon="pi pi-trash"
+            <button (click)="deleteConciliacaoTransacaoTitulo(titulo)" pButton icon="pi pi-trash"
               pTooltip="Excluir" tooltipPosition="top"></button>
           </td>
         </tr>

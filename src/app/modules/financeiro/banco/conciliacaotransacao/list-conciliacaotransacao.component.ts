@@ -66,7 +66,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   // Begin Dialog
   private displayDialog = false;
   private selectedConciliacaoTransacao = new ConciliacaoTransacao();
-  private conciliacaoTransacao = new ConciliacaoTransacao();
+  // private conciliacaoTransacao = new ConciliacaoTransacao();
   private cols: any[];
   private selectedConciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo;
   private titulosDialog: ConciliacaoTransacaoTitulo[];
@@ -91,23 +91,48 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       }
     }
 
+    // console.log('tituloConciliadoId:' + tituloConciliadoId);
+    // console.log('this.titulosDialog:' + this.titulosDialog);
+
     this.displayDialog = true;
   }
 
   confirmarDialog() {
-    if (this.selectedConciliacaoTransacaoTitulo) {
-      if (this.selectedConciliacaoTransacao) {
-        this.selectedConciliacaoTransacao.tituloConciliadoId = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoId;
-        this.selectedConciliacaoTransacao.tituloConciliadoDesc = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDesc;
-        this.selectedConciliacaoTransacao.dataConciliacao = this.selectedConciliacaoTransacaoTitulo.dataConciliacao;
-        this.selectedConciliacaoTransacao.situacaoConciliacaoTrn = this.selectedConciliacaoTransacaoTitulo.situacaoConciliacaoTrn;
+    if (this.selectedConciliacaoTransacaoTitulo && this.selectedConciliacaoTransacao) {
+      // Clone selected data
+      const conciliacaoTransacao = this.cloneConciliacaoTransacao(this.selectedConciliacaoTransacao);
 
-        this.selectedConciliacaoTransacao.conciliacaoTransacaoTitulos = this.titulosDialog;
+      // Update with data in the dialog
+      conciliacaoTransacao.tituloConciliadoId = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoId;
+      conciliacaoTransacao.tituloConciliadoDesc = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDesc;
+      conciliacaoTransacao.dataConciliacao = this.selectedConciliacaoTransacaoTitulo.dataConciliacao;
+      conciliacaoTransacao.situacaoConciliacaoTrn = this.selectedConciliacaoTransacaoTitulo.situacaoConciliacaoTrn;
 
-        this.displayDialog = false;
-        this.atualizarConciliacaoTransacao(this.selectedConciliacaoTransacao);
-      }
+      // Update the titulos list.
+      conciliacaoTransacao.conciliacaoTransacaoTitulos = this.titulosDialog;
+
+      // Save in the database
+      this.atualizarConciliacaoTransacao(conciliacaoTransacao);
+
+      this.displayDialog = false;
     }
+  }
+
+  atualizarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
+      this.conciliacaoTransacaoService.update(conciliacaoTransacao)
+      .then((responseConciliacaoTransacao) => {
+        const gridItems = [...this.conciliacaoTransacaoListItems];
+        const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
+        gridItems[index] = responseConciliacaoTransacao;
+
+        this.conciliacaoTransacaoListItems = gridItems;
+
+        // this.selectedConciliacaoTransacao = responseConciliacaoTransacao;
+        this.messageHandler.showSuccess('Registro alterado!');
+      })
+      .catch(error => {
+        this.messageHandler.showError(error);
+      });
   }
 
   deleteConciliacaoTransacaoTitulo(conciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo) {
@@ -115,20 +140,15 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
     if (titulos) {
       const index = titulos.indexOf(conciliacaoTransacaoTitulo);
       // this.selectedConciliacaoTransacao.conciliacaoTransacaoTitulos = titulos.filter((val, i) => i !== index);
-      this. titulosDialog.splice(index, 1);
+      this.titulosDialog.splice(index, 1);
     }
-
-    // this.cars = this.cars.filter((val, i) => i != index);
-  }
-
-  atualizarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
-    console.log('conciliacaoTransacao atualziada:' + conciliacaoTransacao);
   }
 
   calcelarDialog() {
     this.displayDialog = false;
     this.selectedConciliacaoTransacao = null;
     this.selectedConciliacaoTransacaoTitulo = null;
+    this.titulosDialog = null;
   }
 
   cloneConciliacaoTransacaoTitulo(source: ConciliacaoTransacaoTitulo): ConciliacaoTransacaoTitulo {
@@ -153,7 +173,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
   montarColunas() {
     this.cols = [
-      // { field: 'id', header: 'id', width: '100px' },
+      { field: 'radioSelected', header: '', width: '40px' },
       { field: 'tituloConciliadoId', header: 'Id. título', width: '100px'},
       { field: 'tituloConciliadoDesc', header: 'Desc. título', width: '300px' },
       { field: 'tituloConciliadoDataVen', header: 'Vencimento', width: '100px' },
