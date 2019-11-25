@@ -59,6 +59,7 @@ export class ConciliacaoTransacaoListFilter extends PaginationFilter {
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 
 	conciliadoComErroIsNotNull: boolean;
+	customParams = new Map<any, any>();
 }
 
 export class ConciliacaoTransacao {

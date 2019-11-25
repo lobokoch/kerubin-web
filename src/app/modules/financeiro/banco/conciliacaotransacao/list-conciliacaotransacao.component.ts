@@ -72,6 +72,10 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   private titulosDialog: ConciliacaoTransacaoTitulo[];
   // End Dialog
 
+  // Begin custom params
+  private conciliadoComMaisDeUmTitulo = false;
+  // End custom params
+
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
 	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
@@ -205,7 +209,13 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 	conciliacaoTransacaoList(pageNumber = 0) {
-	    this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
+      this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
+      if (!this.conciliadoComMaisDeUmTitulo) {
+        this.conciliadoComMaisDeUmTitulo = false;
+      }
+
+      this.conciliacaoTransacaoListFilter.customParams = this.conciliacaoTransacaoListFilter.customParams.set('conciliadoComMaisDeUmTitulo', this.conciliadoComMaisDeUmTitulo);
+
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {

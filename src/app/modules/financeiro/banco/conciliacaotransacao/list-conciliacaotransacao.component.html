@@ -101,7 +101,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 <input pInputText type="hidden" [(ngModel)]="conciliacaoTransacaoListFilter.conciliacaoBancariaId" />
               </div>
 
-              <div class="ui-g-12 ui-md-9 ui-fluid">
+              <div class="ui-g-12 ui-md-6 ui-fluid">
                 <label class="label-r">Situação</label>
                 <p-dropdown [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions"
                   placeholder="Selecione um item..."
@@ -112,6 +112,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               <div class="ui-g-12 ui-md-3 ui-fluid">
                 <label style="display: block" class="label-l label-r">Com erro</label>
                 <p-inputSwitch [(ngModel)]="conciliacaoTransacaoListFilter.conciliadoComErroIsNotNull"></p-inputSwitch>
+              </div>
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label style="display: block" class="label-l label-r">Com mais de um título</label>
+                <p-inputSwitch [(ngModel)]="conciliadoComMaisDeUmTitulo"></p-inputSwitch>
               </div>
 
 
