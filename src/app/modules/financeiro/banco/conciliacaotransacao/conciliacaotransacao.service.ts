@@ -242,67 +242,61 @@ export class ConciliacaoTransacaoService {
 		const value = this.dateToStr(filter.trnDataTo);
 			params = params.set('trnDataTo', value);
 		}
-
+		
 		// trnHistorico
 		if (filter.trnHistorico) {
 			const trnHistorico = filter.trnHistorico.map(item => item.trnHistorico).join(',');
 			params = params.set('trnHistorico', trnHistorico);
 		}
-
+		
 		// trnDocumento
 		if (filter.trnDocumento) {
 			const trnDocumento = filter.trnDocumento.map(item => item.trnDocumento).join(',');
 			params = params.set('trnDocumento', trnDocumento);
 		}
-
+		
 		// trnTipo
 		if (filter.trnTipo) {
 			const value = String(filter.trnTipo);
 			params = params.set('trnTipo', value);
 		}
-
+		
 		// trnValorFrom
 		if (filter.trnValorFrom) {
 		const value = filter.trnValorFrom.toString();
 			params = params.set('trnValorFrom', value);
 		}
-
+		
 		// trnValorTo
 		if (filter.trnValorTo) {
 		const value = filter.trnValorTo.toString();
 			params = params.set('trnValorTo', value);
 		}
-
+		
 		// conciliacaoBancariaId
 		if (filter.conciliacaoBancariaId) {
 			const value = filter.conciliacaoBancariaId;
 			params = params.set('conciliacaoBancariaId', value);
 		}
-
+		
 		// situacaoConciliacaoTrn
 		if (filter.situacaoConciliacaoTrn) {
 			const value = String(filter.situacaoConciliacaoTrn);
 			params = params.set('situacaoConciliacaoTrn', value);
 		}
-
+		
 		// conciliadoComErroIsNotNull
 		if (filter.conciliadoComErroIsNotNull) {
 			const value = filter.conciliadoComErroIsNotNull ? 'true' : 'false';
 			params = params.set('conciliadoComErroIsNotNull', value);
-    }
-
-		// conciliadoComMaisDeUmTitulo
+		}
+		
+		// customParams
 		if (filter.customParams && filter.customParams.size > 0) {
-      const customParams = filter.customParams;
-			const value = this.mapToJson(customParams);
-      console.log('customParams1:' + value);
-
-      // value = '[conciliadoComMaisDeUmTitulo=true]';
-      console.log('customParams2:' + value);
-
+			const value = this.mapToJson(filter.customParams);
 			params = params.set('customParams', value);
 		}
-
+	
 	    // Sort
 	    if (filter.sortField) {
 	      // search/nameStartsWith?name=K&sort=name,desc
@@ -310,11 +304,11 @@ export class ConciliacaoTransacaoService {
 	      const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
 	      params = params.set('sort', sortValue);
 	    }
-
+	
 	    return params;
-    }
-
-    mapToJson(someMap: Map<string, any>) {
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
       return JSON.stringify(this.mapToObj(someMap));
     }
 
@@ -325,15 +319,15 @@ export class ConciliacaoTransacaoService {
       });
       return obj;
     }
-
+	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');
 	}
-
+	
 	/*** TODO: avaliar se vai ser feito isso.
 	replicateConciliacaoTransacao(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
-
+	
 	    const payload = new ReplicateConciliacaoTransacaoPayload(id, quantity, groupId);
 	    return this.http.post(`${this.url}/replicateConciliacaoTransacao`, payload, { headers } )
 	    .toPromise()
@@ -341,10 +335,10 @@ export class ConciliacaoTransacaoService {
 	      return response === true;
 	    });
 	}
-
+		
 	getTotaisfilterConciliacaoTransacao(filter: ConciliacaoTransacaorListFilter): Promise<TotaisfilterConciliacaoTransacao> {
 	    const headers = this.getHeaders();
-
+	
 	    const params = this.mountAndGetSearchParams(filter);
 	    return this.http.get<TotaisfilterConciliacaoTransacao>(`${this.url}/getTotaisfilterConciliacaoTransacao`, { headers, params })
 	    .toPromise()

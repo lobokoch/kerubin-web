@@ -1,3 +1,4 @@
+import { CountConciliacaoTransacaoComMaisDeUmTituloDTO } from './conciliacaobancaria.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 26.0.4
 Code generated at time stamp: 2019-10-18T05:55:37.138
@@ -77,11 +78,21 @@ export class ConciliacaoBancariaService {
 	      this.adjustEntityDates([conciliacaoBancaria]);
 	      return conciliacaoBancaria;
 	    });
+  }
+
+	getCountConciliacaoTransacaoComMaisDeUmTitulo(id: string): Promise<number> {
+	    const headers = this.getHeaders();
+	    return this.http.get<CountConciliacaoTransacaoComMaisDeUmTituloDTO>(`${this.url}/countConciliacaoTransacaoComMaisDeUmTitulo/${id}`, { headers })
+	    .toPromise()
+	    .then(response => {
+	      const dto = response as CountConciliacaoTransacaoComMaisDeUmTituloDTO;
+	      return dto.count;
+	    });
 	}
-	
+
 	conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
 	    const headers = this.getHeaders();
-	
+
 	    return this.http.put(`${this.url}/conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria/${conciliacaoBancaria.id}`, conciliacaoBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -90,8 +101,8 @@ export class ConciliacaoBancariaService {
 	      return updated;
 	    });
 	}
-	
-	
+
+
 	private adjustEntityDates(entityList: ConciliacaoBancaria[]) {
 		entityList.forEach(conciliacaoBancaria => {
 		      if (conciliacaoBancaria.dataIni) {

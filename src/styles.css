@@ -78,7 +78,9 @@ input.ng-invalid.ng-dirty {
 }
 
 .read-only {
-  background-color: rgb(231, 231, 231) !important;
+  /*background-color: rgb(231, 231, 231) !important;*/
+  background-color: #ececec !important;
+  color: #9b9b9b !important;
 }
 
 a, button {
@@ -386,6 +388,25 @@ a, button {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
+.dropdown-readonly .ui-dropdown .ui-dropdown-label, .dropdown-readonly .ui-dropdown .ui-dropdown-trigger  {
+  background-color: #ececec !important;
+  color: #9b9b9b !important;
+}
+
+.autocomplete-readonly .ui-autocomplete  {
+  background-color: #ececec !important;
+  color: #9b9b9b !important;
+}
+
+.calendar-readonly .ui-calendar .ui-inputtext  {
+  background-color: #ececec !important;
+  color: #9b9b9b !important;
+}
+
+.input-readonly input {
+  background-color: #ececec !important;
+  color: #9b9b9b !important;
+}
 
 /* Begin Fluxo de caixa */
 .kb-fin-credito { /* #0F009E */

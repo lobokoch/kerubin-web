@@ -30,7 +30,7 @@ export class PaginationFilter {
 }
 
 export class ConciliacaoBancariaListFilter extends PaginationFilter {
-	
+
 }
 
 export class ConciliacaoBancaria {
@@ -49,4 +49,8 @@ export class ConciliacaoBancariaAutoComplete {
 }
 
 export class ConciliacaoBancariaSumFields {
+}
+
+export class CountConciliacaoTransacaoComMaisDeUmTituloDTO {
+  count: number;
 }

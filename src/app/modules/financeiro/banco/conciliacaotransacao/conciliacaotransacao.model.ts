@@ -41,24 +41,26 @@ export class ConciliacaoTransacaoTrnDocumentoAutoComplete {
 }
 
 export class ConciliacaoTransacaoListFilter extends PaginationFilter {
-
+	
 	trnDataFrom: Date;
 	trnDataTo: Date;
-
+	
 	trnHistorico: ConciliacaoTransacaoTrnHistoricoAutoComplete[];
-
+	
 	trnDocumento: ConciliacaoTransacaoTrnDocumentoAutoComplete[];
-
+	
 	trnTipo: TipoTransacao;
-
+	
 	trnValorFrom: number;
 	trnValorTo: number;
-
+	
 	conciliacaoBancariaId: string;
-
+	
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
-
+	
 	conciliadoComErroIsNotNull: boolean;
+	
+	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
 

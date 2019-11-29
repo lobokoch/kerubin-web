@@ -226,7 +226,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                   [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
               </td>
               <td class="kb-actions">
-                <button (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"
+                  <p-progressSpinner *ngIf="loadingSituacaoForPolling(conciliacaoTransacao)" [style]="{width: '20px', height: '20px'}" strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
+                <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"
                   pTooltip="Excluir" tooltipPosition="top"></button>
               </td>
             </tr>
@@ -256,8 +257,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 <p-dialog header="Lista de títulos candidatos para conciliação" [(visible)]="displayDialog" [responsive]="true"
 showEffect="fade" [modal]="true" [style]="{width: '800px'}">
-  <div class="ui-g ui-fluid">
-    <strong>NOTA: Apenas o item marcado será considerado.</strong>
+  <div class="ui-g ui-fluid" style="margin-bottom: 5px">
+    <strong>NOTA: Apenas o item marcado será considerado para conciliação. Você deve excluir os itens inválidos.</strong>
   </div>
   <div class="ui-g ui-fluid">
     <p-table [style]="{width: '770px'}" [columns]="cols" [value]="titulosDialog" dataKey="id"

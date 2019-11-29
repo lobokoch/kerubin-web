@@ -7,7 +7,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, SelectItem} from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
@@ -30,6 +30,7 @@ import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/concil
 
 import { ConciliacaoTransacaoTitulo } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
+// import { ConsoleReporter } from 'jasmine';
 
 @Component({
   selector: 'app-list-conciliacaotransacao',
@@ -60,7 +61,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
 
 	// Begin polling reference variables
-	private pollingRecarregarTransacoesRef: any;
+	private pollingRecarregarTransacoesRef: any = null;
   // End polling reference variables
 
   // Begin Dialog
@@ -75,6 +76,9 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   // Begin custom params
   private conciliadoComMaisDeUmTitulo = false;
   // End custom params
+
+  // Definição de um emissor de eventos.
+  @Output() transacaoAlterada = new EventEmitter();
 
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
@@ -125,14 +129,21 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   atualizarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
       this.conciliacaoTransacaoService.update(conciliacaoTransacao)
       .then((responseConciliacaoTransacao) => {
-        const gridItems = [...this.conciliacaoTransacaoListItems];
-        const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
-        gridItems[index] = responseConciliacaoTransacao;
+        try {
+          // Emite o evento
+          this.transacaoAlterada.emit(responseConciliacaoTransacao);
+        }
+        finally {
+          const gridItems = [...this.conciliacaoTransacaoListItems];
+          const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
+          gridItems[index] = responseConciliacaoTransacao;
 
-        this.conciliacaoTransacaoListItems = gridItems;
+          this.conciliacaoTransacaoListItems = gridItems;
 
-        // this.selectedConciliacaoTransacao = responseConciliacaoTransacao;
-        this.messageHandler.showSuccess('Registro alterado!');
+          // this.selectedConciliacaoTransacao = responseConciliacaoTransacao;
+          this.messageHandler.showSuccess('Registro alterado!');
+        }
+
       })
       .catch(error => {
         this.messageHandler.showError(error);
@@ -226,6 +237,12 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 
+	loadTransacoes(conciliacaoBancariaId: string) {
+    console.log('INICIO loadTransacoes');
+    this.conciliacaoTransacaoListFilter.conciliacaoBancariaId = conciliacaoBancariaId;
+    this.conciliacaoTransacaoFilterSearch();
+  }
+
 	conciliacaoTransacaoFilterSearch() {
 	    this.conciliacaoTransacaoList(0);
 	}
@@ -236,7 +253,9 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	      accept: () => {
 	        this.conciliacaoTransacaoService.delete(conciliacaoTransacao.id)
 	        .then(() => {
-	          this.messageHandler.showSuccess('Registro excluído!');
+            this.messageHandler.showSuccess('Registro excluído!');
+
+            this.transacaoAlterada.emit(conciliacaoTransacao);
 	          this.conciliacaoTransacaoList(0);
 	        })
 	        .catch((e) => {
@@ -286,7 +305,15 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_debito'), value: 'DEBITO' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_outros'), value: 'OUTROS' }
 	    ];
-	}
+  }
+
+  loadingSituacaoForPolling(conciliacaoTransacao: ConciliacaoTransacao): boolean {
+    const result = this.pollingRecarregarTransacoesRef &&
+      conciliacaoTransacao && conciliacaoTransacao.situacaoConciliacaoTrn &&
+      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'NAO_CONCILIADO';
+
+    return result;
+  }
 
 	private initializeConciliacaoTransacaoSituacaoConciliacaoTrnOptions() {
 	    this.conciliacaoTransacaoSituacaoConciliacaoTrnOptions = [
@@ -455,7 +482,8 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 	stopPollingRecarregarTransacoes() {
-	  clearInterval(this.pollingRecarregarTransacoesRef);
+    clearInterval(this.pollingRecarregarTransacoesRef);
+    this.pollingRecarregarTransacoesRef = null;
 	}
 
 	runPollingRecarregarTransacoes() {

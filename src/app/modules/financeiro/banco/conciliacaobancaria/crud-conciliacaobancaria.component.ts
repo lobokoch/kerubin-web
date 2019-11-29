@@ -43,8 +43,11 @@ export class ConciliacaoBancariaComponent implements OnInit {
   @ViewChild('conciliacaoTransacaoList') conciliacaoTransacaoList: ConciliacaoTransacaoListComponent;
 
 	// Begin polling reference variables
-	private pollingRecarregarConciliacaoRef: any;
-	// End polling reference variables
+	private pollingRecarregarConciliacaoRef: any = null;
+  // End polling reference variables
+
+  instrucoesHeader = '';
+  private countConciliacaoTransacaoComMaisDeUmTitulo = -1;
 
 	constructor(
 	    private conciliacaoBancariaService: ConciliacaoBancariaService,
@@ -53,6 +56,32 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	    private messageHandler: MessageHandlerService
 	) {
 		this.initializeConciliacaoBancariaSituacaoConciliacaoOptions();
+  }
+
+  onTransacaoAlterada(conciliacaoTransacao) {
+    this.getInstrucoesHeader();
+  }
+
+  getInstrucoesHeader() {
+
+    if (this.countConciliacaoTransacaoComMaisDeUmTitulo === 0) {
+      this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
+      return;
+    }
+
+    this.instrucoesHeader = 'Processando, aguarde...';
+    this.conciliacaoBancariaService.getCountConciliacaoTransacaoComMaisDeUmTitulo(this.conciliacaoId).then(count => {
+      this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
+      this.countConciliacaoTransacaoComMaisDeUmTitulo = count;
+      if (count > 0) {
+        this.instrucoesHeader = `Quase pronto, clique aqui para ver as instruções (${count} contas possuem mais de 1 título associado)`;
+      }
+    })
+    .catch(error => {
+      console.log('Erro em getInstrucoesHeader:' + error);
+      this.instrucoesHeader = 'Ops! Ocorreu um erro.';
+    });
+
   }
 
   get urlUploadArquivoConciliacao() {
@@ -76,7 +105,12 @@ export class ConciliacaoBancariaComponent implements OnInit {
     this.conciliacaoId = null;
     if (event && event.originalEvent && event.originalEvent.body && event.originalEvent.body.conciliacaoId) {
       this.conciliacaoId = event.originalEvent.body.conciliacaoId;
+
+      console.log('Vai chamar startPollingRecarregarConciliacao');
       this.startPollingRecarregarConciliacao();
+    } else {
+      console.log('NÃO Vai chamar startPollingRecarregarConciliacao');
+
     }
   }
 
@@ -145,8 +179,10 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   getConciliacaoBancariaByIdPolling(id: string) {
+    console.log('INICIO getConciliacaoBancariaByIdPolling - id:' + id);
     this.conciliacaoBancariaService.retrieve(id)
     .then((conciliacaoBancaria) => {
+      console.log('RECEBEU conciliacaoBancaria - id:' + conciliacaoBancaria);
       this.conciliacaoBancaria = conciliacaoBancaria;
       const situacao = this.conciliacaoBancaria.situacaoConciliacao;
       console.log('situacaoConciliacao:' + situacao);
@@ -164,7 +200,10 @@ export class ConciliacaoBancariaComponent implements OnInit {
       .then((conciliacaoBancaria) => {
         this.conciliacaoBancaria = conciliacaoBancaria;
         this.conciliacaoId = this.conciliacaoBancaria.id;
+
+        this.getInstrucoesHeader();
         this.loadConciliacaoTransacaoList();
+
         })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -187,9 +226,10 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_nao_conciliado'), value: 'NAO_CONCILIADO' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_analisando_transacoes'), value: 'ANALISANDO_TRANSACOES' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_transacoes_analisadas'), value: 'TRANSACOES_ANALISADAS' },
-	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_conciliado_transacoes'), value: 'CONCILIADO_TRANSACOES' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_conciliando_transacoes'), value: 'CONCILIANDO_TRANSACOES' },
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_conciliado'), value: 'CONCILIADO' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_conciliado_com_erro'), value: 'CONCILIADO_COM_ERRO' },
-	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_conciliado'), value: 'CONCILIADO' }
+	    	{ label: this.getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao_cancelado'), value: 'CANCELADO' }
 	    ];
 	}
 
@@ -202,15 +242,15 @@ export class ConciliacaoBancariaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
+
 	aplicarConciliacaoWhenCondition(): boolean {
 		return this.conciliacaoBancaria.id && (String(this.conciliacaoBancaria.situacaoConciliacao) === 'TRANSACOES_ANALISADAS');
 	}
-	  
+
 	aplicarConciliacao() {
 		this.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria();
 	}
-	
+
 	conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria() {
 	    this.conciliacaoBancariaService.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(this.conciliacaoBancaria)
 	    .then((conciliacaoBancaria) => {
@@ -223,22 +263,29 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
-	
-	
-	
-	
+
+	conciliacaoBancariaRuleDisableCUD() {
+		const expression = this.conciliacaoBancaria.id;
+		return expression;
+
+	}
+
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
   }
 
   loadConciliacaoTransacaoList() {
-    this.conciliacaoTransacaoList.conciliacaoTransacaoListFilter.conciliacaoBancariaId = this.conciliacaoId;
-    this.conciliacaoTransacaoList.conciliacaoTransacaoFilterSearch();
+    console.log('Vai chamar loadConciliacaoTransacaoList');
+    if (this.conciliacaoTransacaoList) {
+      this.conciliacaoTransacaoList.loadTransacoes(this.conciliacaoId);
+    } else {
+      console.log('conciliacaoTransacaoList está NULL');
+    }
   }
 
 	// Begin polling methods for: recarregarConciliacao
 	startPollingRecarregarConciliacao() {
+    console.log('INICIO startPollingRecarregarConciliacao');
     	this.loadConciliacaoTransacaoList();
     	this.conciliacaoTransacaoList.startPollingRecarregarTransacoes();
 
@@ -249,10 +296,13 @@ export class ConciliacaoBancariaComponent implements OnInit {
 
 	stopPollingRecarregarConciliacao() {
     this.conciliacaoTransacaoList.stopPollingRecarregarTransacoes();
-	  clearInterval(this.pollingRecarregarConciliacaoRef);
+    clearInterval(this.pollingRecarregarConciliacaoRef);
+    this.pollingRecarregarConciliacaoRef = null;
+    this.getInstrucoesHeader();
 	}
 
 	runPollingRecarregarConciliacao() {
+    console.log('Vai chamar runPollingRecarregarConciliacao');
 	  this.getConciliacaoBancariaByIdPolling(this.conciliacaoId);
 	}
 	// End polling methods for: recarregarConciliacao

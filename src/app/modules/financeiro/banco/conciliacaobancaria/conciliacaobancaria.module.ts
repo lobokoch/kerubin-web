@@ -29,6 +29,7 @@ import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
 import {FileUploadModule} from 'primeng/fileupload';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 
 // Kerubin - BEGIN
@@ -65,6 +66,7 @@ import { ConciliacaoTransacaoModule } from './../conciliacaotransacao/conciliaca
 	CurrencyMaskModule,
   CardModule,
   FileUploadModule,
+  ProgressBarModule,
 
     // Kerubin
     ConciliacaoBancariaRoutingModule

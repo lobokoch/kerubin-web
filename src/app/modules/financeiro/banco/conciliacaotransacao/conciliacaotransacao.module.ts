@@ -26,6 +26,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 // Kerubin - BEGIN
 import { CadastrosBancoTranslationService } from './../i18n/./../i18n/cadastros-banco-translation.service';
@@ -57,7 +58,8 @@ import { ConciliacaoTransacaoRoutingModule } from './conciliacaotransacao-routin
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
-	CardModule,
+  CardModule,
+  ProgressSpinnerModule,
 
     // Kerubin
     ConciliacaoTransacaoRoutingModule
