@@ -10,160 +10,189 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 <div class="container">
 
-  <div class="ui-g" *ngIf="!conciliacaoId">
-    <div class="ui-g-12 ui-fluid">
+	<div class="ui-g" *ngIf="!conciliacaoId">
+		<div class="ui-g-12 ui-fluid">
+			<h1>Conciliação bancária</h1>
+			<div style="font-size: large">1 - Clique em <strong>Escolher arquivo</strong> para escolher o arquivo <strong>.ofx</strong> para a conciliação bancária.</div>
+			<div style="font-size: small; margin-bottom: 10px; margin-left: 28px;">Este arquivo você baixa do seu internet banking.</div>
+			<div style="font-size: large; ; margin-bottom: 10px;">2 - Clique em <strong>Enviar arquivo</strong> para iniciar a conciliação bancária.</div>
 
-      <div style="font-size: large">Escolha um arquivo <strong>.ofx</strong> para iniciar a conciliação bancária.</div>
-      <div style="font-size: small; margin-bottom: 10px;">Este arquivo você baixa do seu internet banking.</div>
-      <p-fileUpload name="arquivoConciliacao" [url]="urlUploadArquivoConciliacao"
-      (onUpload)="onUploadCompleted($event)"
-      (onBeforeSend)="antesUploadAnexo($event)"
-      (onError)="onUploadError($event)"
-      accept=".ofx" multiple="multiple"
-        chooseLabel="Escolher arquivo" uploadLabel="Enviar arquivo" cancelLabel="Cancelar"
-        maxFileSize="1000000">
-        <ng-template pTemplate="content">
-          <ul *ngIf="arquivoConciliacao.length">
-            <li *ngFor="let file of arquivoConciliacao">{{file.name}} - {{file.size}} bytes</li>
-          </ul>
-        </ng-template>
-      </p-fileUpload>
-
-      <div class="ui-g-12 ui-md-2 ui-fluid">
-          <a routerLink="/conciliacaobancaria" pButton label="Voltar"></a>
-      </div>
-
-    </div>
-  </div>
-
-
-  <p-panel *ngIf="conciliacaoId">
-    <p-header>
-      <div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoBancaria') }}</div>
-    </p-header>
-
-
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
-  	<div class="ui-g">
-
-		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('cadastros.banco.conciliacaoBancaria_id') }}</label>
-			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.id" name="id">
-			</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-1">
-			<label for="bancoId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_bancoId') }}<span class="kb-label-required">*</span></label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly appFocus #bancoId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.bancoId" name="bancoId" required>
-			</div>
-
-			<div class="invalid-message" *ngIf="bancoId.invalid && bancoId.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-1">
-			<label for="agenciaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_agenciaId') }}<span class="kb-label-required">*</span></label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly #agenciaId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.agenciaId" name="agenciaId" required>
-			</div>
-
-			<div class="invalid-message" *ngIf="agenciaId.invalid && agenciaId.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="contaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_contaId') }}<span class="kb-label-required">*</span></label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly #contaId="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.contaId" name="contaId" required>
-			</div>
-
-			<div class="invalid-message" *ngIf="contaId.invalid && contaId.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="dataIni">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataIni') }}<span class="kb-label-required">*</span></label>
-			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataIni="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.dataIni" name="dataIni" required></p-calendar>
-			</div>
-
-			<div class="invalid-message" *ngIf="dataIni.invalid && dataIni.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="dataFim">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataFim') }}<span class="kb-label-required">*</span></label>
-			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataFim="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.dataFim" name="dataFim" required></p-calendar>
-			</div>
-
-			<div class="invalid-message" *ngIf="dataFim.invalid && dataFim.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="situacaoConciliacao">{{ getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao') }}<span class="kb-label-required">*</span></label>
-			<div class="dropdown-readonly">
-				<p-dropdown [readonly]="true" [options]="conciliacaoBancariaSituacaoConciliacaoOptions" placeholder="Selecione um item..." #situacaoConciliacao="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.situacaoConciliacao" name="situacaoConciliacao" required></p-dropdown>
-			</div>
-
-			<div class="invalid-message" *ngIf="situacaoConciliacao.invalid && situacaoConciliacao.dirty">Campo obrigatório.</div>
-		</div>
-
-		<div class="ui-g-12">
-			<div class="ui-g-12 ui-md-2 ui-fluid hidden">
-				<button [disabled]="conciliacaoBancariaRuleDisableCUD()" class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
-			</div>
-			<div class="ui-g-12 ui-md-2 ui-fluid hidden">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
-			</div>
-			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/conciliacaobancaria" pButton label="Pesquisar"></a>
-			</div>
-
-			<!-- Begin rule functions -->
-
+			<p-fileUpload name="arquivoConciliacao" [url]="urlUploadArquivoConciliacao"
+				(onUpload)="onUploadCompleted($event)" (onBeforeSend)="antesUploadAnexo($event)"
+				(onError)="onUploadError($event)" accept=".ofx" multiple="multiple" chooseLabel="Escolher arquivo"
+				uploadLabel="Enviar arquivo" cancelLabel="Cancelar" maxFileSize="1000000">
+				<ng-template pTemplate="content">
+					<ul *ngIf="arquivoConciliacao.length">
+						<li *ngFor="let file of arquivoConciliacao">{{file.name}} - {{file.size}} bytes</li>
+					</ul>
+				</ng-template>
+			</p-fileUpload>
 
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton [disabled]="!aplicarConciliacaoWhenCondition()" (click)="aplicarConciliacao()" type="button" pTooltip="Aplicar conciliação" tooltipPosition="top" icon="pi pi-play" label="Aplicar conciliação" class="ui-button-success"></button>
+				<a routerLink="/conciliacaobancaria" pButton label="Voltar"></a>
 			</div>
 
-
-			<!-- End rule functions -->
-        </div>
-
-
-      </div>
-    </form>
-      <div *ngIf="pollingRecarregarConciliacaoRef">
-        <div>Aguarde, estamos analisando suas contas a pagar, contas a receber e lançamentos no caixa...</div>
-        <p-progressBar  mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
-      </div>
-
-  </p-panel>
-
-  <div class="ui-g-12" style="width: 100%; padding: 0px !important; margin: 0px !important;" *ngIf="conciliacaoId && !pollingRecarregarConciliacaoRef">
-
-      <p-accordion class="ui-g-12">
-          <p-accordionTab [header]="instrucoesHeader">
-
-            <div class="ui-g">
-              <div class="ui-g-12">
-                  <ul>
-                      <li>As transações que não possuirem nenhum título associado (coluna <strong>Qtde. títulos = 0</strong>), serão lançadas no seu caixa.</li>
-                      <li>Nas transações que possuirem mais de um título associado, você deve deixar apenas o título que realmente corresponder a transação do lançamento bancário. Os demais títulos você deve remover da lista que aparece ao clicar sobre a linha da transação.</li>
-                      <li>Você pode filtras as transações com mais de um título associado, basta acessaar a seção <strong>Filtros</strong>, e marcar a opção <strong>Com mais de um título</strong> e clicar em <strong>Aplicar os filtros e pesquisar</strong>.</li>
-                      <li>Você pode excluir qualquer transação, ela apenas não será lançado em nenhum lugar.</li>
-                      <li>Quando estiver tudo pronto, clique em <strong>Aplicar conciliação</strong>.</li>
-                    </ul>
-              </div>
-            </div>
+		</div>
+	</div>
 
 
-          </p-accordionTab>
-        </p-accordion>
+	<p-panel *ngIf="conciliacaoId">
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoBancaria') }}</div>
+		</p-header>
 
-  </div>
+
+		<form #form1="ngForm" (ngSubmit)="save(form1.form)">
+			<div class="ui-g">
+
+				<div class="ui-g-12 ui-fluid hidden">
+					<label for="id"
+						class="hidden">{{ getTranslation('cadastros.banco.conciliacaoBancaria_id') }}</label>
+					<div class="input-readonly">
+						<input type="hidden" pInputText readonly #id="ngModel" ngModel
+							[(ngModel)]="conciliacaoBancaria.id" name="id">
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-1">
+					<label for="bancoId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_bancoId') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="input-readonly">
+						<input type="text" pInputText readonly appFocus #bancoId="ngModel" ngModel
+							[(ngModel)]="conciliacaoBancaria.bancoId" name="bancoId" required>
+					</div>
+
+					<div class="invalid-message" *ngIf="bancoId.invalid && bancoId.dirty">Campo obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-1">
+					<label for="agenciaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_agenciaId') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="input-readonly">
+						<input type="text" pInputText readonly #agenciaId="ngModel" ngModel
+							[(ngModel)]="conciliacaoBancaria.agenciaId" name="agenciaId" required>
+					</div>
+
+					<div class="invalid-message" *ngIf="agenciaId.invalid && agenciaId.dirty">Campo obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-2">
+					<label for="contaId">{{ getTranslation('cadastros.banco.conciliacaoBancaria_contaId') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="input-readonly">
+						<input type="text" pInputText readonly #contaId="ngModel" ngModel
+							[(ngModel)]="conciliacaoBancaria.contaId" name="contaId" required>
+					</div>
+
+					<div class="invalid-message" *ngIf="contaId.invalid && contaId.dirty">Campo obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-2">
+					<label for="dataIni">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataIni') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="calendar-readonly">
+						<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [disabledDays]="[0,1,2,3,4,5,6]"
+							[readonlyInput]="true" #dataIni="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.dataIni"
+							name="dataIni" required></p-calendar>
+					</div>
+
+					<div class="invalid-message" *ngIf="dataIni.invalid && dataIni.dirty">Campo obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-2">
+					<label for="dataFim">{{ getTranslation('cadastros.banco.conciliacaoBancaria_dataFim') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="calendar-readonly">
+						<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [disabledDays]="[0,1,2,3,4,5,6]"
+							[readonlyInput]="true" #dataFim="ngModel" ngModel [(ngModel)]="conciliacaoBancaria.dataFim"
+							name="dataFim" required></p-calendar>
+					</div>
+
+					<div class="invalid-message" *ngIf="dataFim.invalid && dataFim.dirty">Campo obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12 ui-fluid ui-md-4">
+					<label
+						for="situacaoConciliacao">{{ getTranslation('cadastros.banco.conciliacaoBancaria_situacaoConciliacao') }}<span
+							class="kb-label-required">*</span></label>
+					<div class="dropdown-readonly">
+						<p-dropdown [readonly]="true" [options]="conciliacaoBancariaSituacaoConciliacaoOptions"
+							placeholder="Selecione um item..." #situacaoConciliacao="ngModel" ngModel
+							[(ngModel)]="conciliacaoBancaria.situacaoConciliacao" name="situacaoConciliacao" required>
+						</p-dropdown>
+					</div>
+
+					<div class="invalid-message" *ngIf="situacaoConciliacao.invalid && situacaoConciliacao.dirty">Campo
+						obrigatório.</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-12 ui-md-2 ui-fluid hidden">
+						<button [disabled]="conciliacaoBancariaRuleDisableCUD()" class="botao-margem-direita" pButton
+							type="submit" label="Salvar"></button>
+					</div>
+					<div class="ui-g-12 ui-md-2 ui-fluid hidden">
+						<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+					</div>
+					<div class="ui-g-12 ui-md-2 ui-fluid">
+						<a routerLink="/conciliacaobancaria" pButton label="Pesquisar"></a>
+					</div>
+
+					<!-- Begin rule functions -->
+
+
+					<div class="ui-g-12 ui-md-2 ui-fluid">
+						<button pButton [disabled]="!aplicarConciliacaoWhenCondition()" (click)="aplicarConciliacao()"
+							type="button" pTooltip="Aplicar conciliação" tooltipPosition="top" icon="pi pi-play"
+							label="Aplicar conciliação" class="ui-button-success"></button>
+					</div>
+
+
+					<!-- End rule functions -->
+				</div>
+
+
+			</div>
+		</form>
+		<div *ngIf="pollingRecarregarConciliacaoRef">
+			<div style="font-weight: bold; margin-bottom: 5px;">Aguarde, estamos analisando suas contas a pagar, contas a receber e lançamentos no caixa...</div>
+			<p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+		</div>
+
+	</p-panel>
+
+	<div class="ui-g-12" style="width: 100%; padding: 0px !important; margin: 0px !important;"
+		*ngIf="conciliacaoId && !pollingRecarregarConciliacaoRef">
+
+		<p-accordion class="ui-g-12">
+			<p-accordionTab [header]="instrucoesHeader">
+
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<ul>
+							<li>As transações que não possuirem nenhum título (conta a pagar ou conta a receber) associado (coluna <strong>Qtde. títulos =
+									0</strong>), serão lançadas no seu caixa como um crédito ou debito conforme o tipo da transação.</li>
+							<li>Nas transações que possuirem mais de um título associado, você deve deixar apenas o
+								título que realmente corresponder a transação do lançamento bancário. Os demais títulos
+								você deve remover da lista que aparece ao clicar sobre a linha da transação.</li>
+							<li>Você pode filtrar as transações com mais de um título associado, basta acessar a seção
+								<strong>Filtros</strong>, e marcar a opção <strong>Com mais de um título</strong> e
+								clicar em <strong>Aplicar os filtros e pesquisar</strong>.</li>
+							<li>Você pode excluir qualquer transação, ela apenas não será lançado em nenhum lugar.</li>
+							<li>Quando estiver tudo pronto, clique em <strong>Aplicar conciliação</strong>.</li>
+						</ul>
+					</div>
+				</div>
+
+
+			</p-accordionTab>
+		</p-accordion>
+
+	</div>
 
 </div>
 
 <div [ngClass]="{'hidden': !conciliacaoId, 'ui-g-12': true}" class="ui-g-12">
-  <app-list-conciliacaotransacao #conciliacaoTransacaoList (transacaoAlterada)="onTransacaoAlterada($event)"></app-list-conciliacaotransacao>
+	<app-list-conciliacaotransacao #conciliacaoTransacaoList (transacaoAlterada)="onTransacaoAlterada($event)">
+	</app-list-conciliacaotransacao>
 </div>

@@ -1,4 +1,4 @@
-import { CountConciliacaoTransacaoComMaisDeUmTituloDTO } from './conciliacaobancaria.model';
+import { CountConciliacaoTransacaoComMaisDeUmTituloDTO, CountDTO } from './conciliacaobancaria.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 26.0.4
 Code generated at time stamp: 2019-10-18T05:55:37.138
@@ -86,6 +86,16 @@ export class ConciliacaoBancariaService {
 	    .toPromise()
 	    .then(response => {
 	      const dto = response as CountConciliacaoTransacaoComMaisDeUmTituloDTO;
+	      return dto.count;
+	    });
+  }
+
+	getCountConciliacaoTransacaoComTitulosRepetidos(id: string): Promise<number> {
+	    const headers = this.getHeaders();
+	    return this.http.get<CountDTO>(`${this.url}/countConciliacaoTransacaoComTitulosRepetidos/${id}`, { headers })
+	    .toPromise()
+	    .then(response => {
+	      const dto = response as CountDTO;
 	      return dto.count;
 	    });
 	}

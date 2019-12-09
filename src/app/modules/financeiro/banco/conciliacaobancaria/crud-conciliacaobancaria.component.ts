@@ -47,6 +47,8 @@ export class ConciliacaoBancariaComponent implements OnInit {
   // End polling reference variables
 
   instrucoesHeader = '';
+  instrucoesHeader1 = '';
+  instrucoesHeader2 = '';
   private countConciliacaoTransacaoComMaisDeUmTitulo = -1;
 
 	constructor(
@@ -64,6 +66,10 @@ export class ConciliacaoBancariaComponent implements OnInit {
 
   getInstrucoesHeader() {
 
+    this.instrucoesHeader = '';
+    this.instrucoesHeader1 = '';
+    this.instrucoesHeader2 = '';
+
     if (this.countConciliacaoTransacaoComMaisDeUmTitulo === 0) {
       this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
       return;
@@ -74,8 +80,17 @@ export class ConciliacaoBancariaComponent implements OnInit {
       this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
       this.countConciliacaoTransacaoComMaisDeUmTitulo = count;
       if (count > 0) {
-        this.instrucoesHeader = `Quase pronto, clique aqui para ver as instruções (${count} contas possuem mais de 1 título associado)`;
+        this.instrucoesHeader1 = ` (transações com mais de 1 título associado: ${count})`;
+        this.instrucoesHeader = 'Quase pronto, clique aqui para ver as instruções' + this.instrucoesHeader1 + this.instrucoesHeader2;
       }
+    })
+    .then(() => {
+      this.conciliacaoBancariaService.getCountConciliacaoTransacaoComTitulosRepetidos(this.conciliacaoId).then(count => {
+        if (count > 0) {
+          this.instrucoesHeader2 = ` (Títulos associados a mais de 1 transação: ${count})`;
+          this.instrucoesHeader = 'Quase pronto, clique aqui para ver as instruções' + this.instrucoesHeader1 + this.instrucoesHeader2;
+        }
+      });
     })
     .catch(error => {
       console.log('Erro em getInstrucoesHeader:' + error);

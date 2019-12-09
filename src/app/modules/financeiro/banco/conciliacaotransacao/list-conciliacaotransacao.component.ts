@@ -42,6 +42,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
+	conciliacaoTransacaoListTotalPages = 0;
 	conciliacaoTransacaoListFilter = new ConciliacaoTransacaoListFilter();
 
 
@@ -75,6 +76,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
   // Begin custom params
   private conciliadoComMaisDeUmTitulo = false;
+  private conciliacaoTransacaoComMesmoTitulo = false;
   // End custom params
 
   // Definição de um emissor de eventos.
@@ -140,8 +142,11 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
           this.conciliacaoTransacaoListItems = gridItems;
 
-          // this.selectedConciliacaoTransacao = responseConciliacaoTransacao;
+          // É legal, mas deixar o item, ajuda a tomar decisões para os itens da mesma conta não analisados ainda.
+          // this.conciliacaoTransacaoFilterSearch();
+
           this.messageHandler.showSuccess('Registro alterado!');
+
         }
 
       })
@@ -225,20 +230,28 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
         this.conciliadoComMaisDeUmTitulo = false;
       }
 
-      this.conciliacaoTransacaoListFilter.customParams = this.conciliacaoTransacaoListFilter.customParams.set('conciliadoComMaisDeUmTitulo', this.conciliadoComMaisDeUmTitulo);
+      if (!this.conciliacaoTransacaoComMesmoTitulo) {
+        this.conciliacaoTransacaoComMesmoTitulo = false;
+      }
+
+      this.conciliacaoTransacaoListFilter.customParams = this.conciliacaoTransacaoListFilter
+        .customParams.set('conciliadoComMaisDeUmTitulo', this.conciliadoComMaisDeUmTitulo);
+
+      this.conciliacaoTransacaoListFilter.customParams = this.conciliacaoTransacaoListFilter
+        .customParams.set('conciliacaoTransacaoComMesmoTitulo', this.conciliacaoTransacaoComMesmoTitulo);
 
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {
 	      	this.conciliacaoTransacaoListItems = result.items;
 	      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
+	      	this.conciliacaoTransacaoListTotalPages = result.totalPages;
 	    });
 
 	}
 
 
 	loadTransacoes(conciliacaoBancariaId: string) {
-    console.log('INICIO loadTransacoes');
     this.conciliacaoTransacaoListFilter.conciliacaoBancariaId = conciliacaoBancariaId;
     this.conciliacaoTransacaoFilterSearch();
   }

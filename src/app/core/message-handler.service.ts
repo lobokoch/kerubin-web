@@ -70,7 +70,7 @@ export class MessageHandlerService {
     	message = 'Usuário inexistente ou senha inválida.';
     }
 
-    this.messageService.add({severity: 'error', summary: 'Erro', detail: message});
+    this.messageService.add({severity: 'error', summary: 'Erro', detail: message, life: 10000});
     console.log('Ocorreu um erro:' + errorResponse);
   }
 

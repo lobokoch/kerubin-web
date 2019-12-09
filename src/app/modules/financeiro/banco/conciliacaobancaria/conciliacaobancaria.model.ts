@@ -54,3 +54,7 @@ export class ConciliacaoBancariaSumFields {
 export class CountConciliacaoTransacaoComMaisDeUmTituloDTO {
   count: number;
 }
+
+export class CountDTO {
+  count: number;
+}

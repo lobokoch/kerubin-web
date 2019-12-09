@@ -101,7 +101,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 <input pInputText type="hidden" [(ngModel)]="conciliacaoTransacaoListFilter.conciliacaoBancariaId" />
               </div>
 
-              <div class="ui-g-12 ui-md-6 ui-fluid">
+              <div class="ui-g-12 ui-md-4 ui-fluid">
                 <label class="label-r">Situação</label>
                 <p-dropdown [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions"
                   placeholder="Selecione um item..."
@@ -109,7 +109,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               </div>
 
 
-              <div class="ui-g-12 ui-md-3 ui-fluid">
+              <div class="ui-g-12 ui-md-2 ui-fluid">
                 <label style="display: block" class="label-l label-r">Com erro</label>
                 <p-inputSwitch [(ngModel)]="conciliacaoTransacaoListFilter.conciliadoComErroIsNotNull"></p-inputSwitch>
               </div>
@@ -117,6 +117,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               <div class="ui-g-12 ui-md-3 ui-fluid">
                 <label style="display: block" class="label-l label-r">Com mais de um título</label>
                 <p-inputSwitch [(ngModel)]="conciliadoComMaisDeUmTitulo"></p-inputSwitch>
+              </div>
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label style="display: block" class="label-l label-r">Com mesmo título</label>
+                <p-inputSwitch [(ngModel)]="conciliacaoTransacaoComMesmoTitulo"></p-inputSwitch>
               </div>
 
 
@@ -240,6 +245,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 Nenhum registro encontrado.
               </td>
             </tr>
+          </ng-template>
+
+          <ng-template pTemplate="summary">
+            Registros encontrados: {{conciliacaoTransacaoListTotalElements}}, total de páginas: {{conciliacaoTransacaoListTotalPages}}, registros por página: {{conciliacaoTransacaoListFilter.pageSize}}.
           </ng-template>
 
         </p-table>
