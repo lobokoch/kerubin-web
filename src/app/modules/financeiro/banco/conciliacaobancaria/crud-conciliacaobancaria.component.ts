@@ -21,12 +21,14 @@ import * as moment from 'moment';
 import { SituacaoConciliacao } from './../enums/cadastros-banco-enums.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
+const instrucoes_header = 'Tudo pronto para aplicar a conciliação, clique aqui caso precise de mais instruções.';
 
 @Component({
   selector: 'app-crud-conciliacaobancaria',
   templateUrl: './crud-conciliacaobancaria.component.html',
   styleUrls: ['./crud-conciliacaobancaria.component.css']
 })
+
 
 export class ConciliacaoBancariaComponent implements OnInit {
 
@@ -45,6 +47,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	// Begin polling reference variables
 	private pollingRecarregarConciliacaoRef: any = null;
   // End polling reference variables
+
 
   instrucoesHeader = '';
   instrucoesHeader1 = '';
@@ -71,13 +74,13 @@ export class ConciliacaoBancariaComponent implements OnInit {
     this.instrucoesHeader2 = '';
 
     if (this.countConciliacaoTransacaoComMaisDeUmTitulo === 0) {
-      this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
+      this.instrucoesHeader = instrucoes_header;
       return;
     }
 
     this.instrucoesHeader = 'Processando, aguarde...';
     this.conciliacaoBancariaService.getCountConciliacaoTransacaoComMaisDeUmTitulo(this.conciliacaoId).then(count => {
-      this.instrucoesHeader = 'Tudo pronto, clique aqui para ver as instruções';
+      this.instrucoesHeader = instrucoes_header;
       this.countConciliacaoTransacaoComMaisDeUmTitulo = count;
       if (count > 0) {
         this.instrucoesHeader1 = ` (transações com mais de 1 título associado: ${count})`;
