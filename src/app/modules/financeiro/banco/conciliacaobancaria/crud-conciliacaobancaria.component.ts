@@ -107,7 +107,6 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   antesUploadAnexo(event) {
-    console.log('antesUploadAnexo:' + event);
     event.xhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }
 
@@ -117,18 +116,12 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   onUploadCompleted(event) {
-    console.log(event.originalEvent.body);
-    console.log(event.originalEvent.body.conciliacaoId);
 
     this.conciliacaoId = null;
     if (event && event.originalEvent && event.originalEvent.body && event.originalEvent.body.conciliacaoId) {
       this.conciliacaoId = event.originalEvent.body.conciliacaoId;
 
-      console.log('Vai chamar startPollingRecarregarConciliacao');
       this.startPollingRecarregarConciliacao();
-    } else {
-      console.log('NÃO Vai chamar startPollingRecarregarConciliacao');
-
     }
   }
 
@@ -197,19 +190,22 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   getConciliacaoBancariaByIdPolling(id: string) {
-    console.log('INICIO getConciliacaoBancariaByIdPolling - id:' + id);
     this.conciliacaoBancariaService.retrieve(id)
     .then((conciliacaoBancaria) => {
       console.log('RECEBEU conciliacaoBancaria - id:' + conciliacaoBancaria);
       this.conciliacaoBancaria = conciliacaoBancaria;
       const situacao = this.conciliacaoBancaria.situacaoConciliacao;
       console.log('situacaoConciliacao:' + situacao);
-      if ('TRANSACOES_ANALISADAS' === String(situacao)) {
+      const sit = String(situacao);
+      const stopPolling = ('TRANSACOES_ANALISADAS' === sit || 'CONCILIADO' === sit || 'CONCILIADO_COM_ERRO' === sit || 'CANCELADO' === sit);
+      if (stopPolling) {
         this.stopPollingRecarregarConciliacao();
       }
     })
     .catch(error => {
       console.log('Erro obtendo conciliacaobancária via pooling: ' + error);
+      console.log('Vai para o polling.');
+      this.stopPollingRecarregarConciliacao();
     });
 }
 
@@ -263,7 +259,15 @@ export class ConciliacaoBancariaComponent implements OnInit {
 
 	aplicarConciliacaoWhenCondition(): boolean {
 		return this.conciliacaoBancaria.id && (String(this.conciliacaoBancaria.situacaoConciliacao) === 'TRANSACOES_ANALISADAS');
-	}
+  }
+
+  showInstrucoesHeader(): boolean {
+    return this.conciliacaoId && !this.pollingRecarregarConciliacaoRef &&
+    (String(this.conciliacaoBancaria.situacaoConciliacao) !== 'CONCILIADO') &&
+    (String(this.conciliacaoBancaria.situacaoConciliacao) !== 'CONCILIADO_COM_ERRO') &&
+    (String(this.conciliacaoBancaria.situacaoConciliacao) !== 'CANCELADO');
+  }
+
 
 	aplicarConciliacao() {
 		this.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria();
@@ -273,7 +277,9 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	    this.conciliacaoBancariaService.conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(this.conciliacaoBancaria)
 	    .then((conciliacaoBancaria) => {
 	      if (conciliacaoBancaria) { // Can be null
-	      	this.conciliacaoBancaria = conciliacaoBancaria;
+          this.conciliacaoBancaria = conciliacaoBancaria;
+          // Starta o polling de monitormento.
+          this.startPollingRecarregarConciliacao();
 	      }
 	      this.messageHandler.showSuccess('Operação executada com sucesso.');
 	    })
@@ -293,17 +299,13 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
   loadConciliacaoTransacaoList() {
-    console.log('Vai chamar loadConciliacaoTransacaoList');
     if (this.conciliacaoTransacaoList) {
       this.conciliacaoTransacaoList.loadTransacoes(this.conciliacaoId);
-    } else {
-      console.log('conciliacaoTransacaoList está NULL');
     }
   }
 
 	// Begin polling methods for: recarregarConciliacao
 	startPollingRecarregarConciliacao() {
-    console.log('INICIO startPollingRecarregarConciliacao');
     	this.loadConciliacaoTransacaoList();
     	this.conciliacaoTransacaoList.startPollingRecarregarTransacoes();
 
@@ -320,7 +322,6 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	}
 
 	runPollingRecarregarConciliacao() {
-    console.log('Vai chamar runPollingRecarregarConciliacao');
 	  this.getConciliacaoBancariaByIdPolling(this.conciliacaoId);
 	}
 	// End polling methods for: recarregarConciliacao

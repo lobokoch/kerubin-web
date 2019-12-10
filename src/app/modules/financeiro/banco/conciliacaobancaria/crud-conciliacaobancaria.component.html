@@ -162,7 +162,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	</p-panel>
 
 	<div class="ui-g-12" style="width: 100%; padding: 0px !important; margin: 0px !important;"
-		*ngIf="conciliacaoId && !pollingRecarregarConciliacaoRef">
+		*ngIf="showInstrucoesHeader()">
 
 		<p-accordion class="ui-g-12">
 			<p-accordionTab [header]="instrucoesHeader">

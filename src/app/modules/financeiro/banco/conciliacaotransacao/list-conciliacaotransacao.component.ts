@@ -323,7 +323,11 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   loadingSituacaoForPolling(conciliacaoTransacao: ConciliacaoTransacao): boolean {
     const result = this.pollingRecarregarTransacoesRef &&
       conciliacaoTransacao && conciliacaoTransacao.situacaoConciliacaoTrn &&
-      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'NAO_CONCILIADO';
+      (String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'NAO_CONCILIADO' ||
+      // Aplicando conciliação
+      (String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CONTAS_PAGAR' ||
+      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CONTAS_RECEBER' ||
+      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CAIXA'));
 
     return result;
   }
