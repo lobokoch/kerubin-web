@@ -87,13 +87,14 @@ export class DashboardContaPagarComponent implements OnInit {
 
     this.currentMonthName = result[month];
     let nextMonth = month + 1;
-    if (nextMonth > 12) {
-      nextMonth = 1;
+    if (nextMonth >= 12) { // vai até 0-11
+      nextMonth = 0; // Janeiro do próximo ano
     }
     this.nextMonthName = result[nextMonth];
+
     let previousMonth = month - 1;
-    if (previousMonth < 1) {
-      previousMonth = 1;
+    if (previousMonth < 0) {
+      previousMonth = 11; // Dezembro do ano passado
     }
     this.previusMonthName = result[previousMonth];
     result[month] = '(ATUAL) ' + result[month];

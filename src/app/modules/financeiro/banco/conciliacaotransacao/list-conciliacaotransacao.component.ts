@@ -89,8 +89,18 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    private messageHandler: MessageHandlerService
   ) { }
 
-  onRowSelect(event) {
-    this.selectedConciliacaoTransacao = event.data;
+  onEditTransactionCellComplete(event) {
+    const conciliacaoTransacao = event.data as ConciliacaoTransacao;
+    if (conciliacaoTransacao) {
+      this.selectedConciliacaoTransacao = conciliacaoTransacao; // É o item selecionado na grid.
+      this.atualizarConciliacaoTransacao(conciliacaoTransacao);
+    }
+  }
+
+  // onRowSelect(event) {
+  onRowSelect(conciliacaoTransacao: ConciliacaoTransacao) {
+    // this.selectedConciliacaoTransacao = event.data;
+    this.selectedConciliacaoTransacao = conciliacaoTransacao;
     // this.conciliacaoTransacao = this.cloneConciliacaoTransacao(event.data);
     const tituloConciliadoId = this.selectedConciliacaoTransacao.tituloConciliadoId;
     if (tituloConciliadoId) {
@@ -100,9 +110,6 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
         this.selectedConciliacaoTransacaoTitulo = this.titulosDialog.find(it => it.tituloConciliadoId === tituloConciliadoId);
       }
     }
-
-    // console.log('tituloConciliadoId:' + tituloConciliadoId);
-    // console.log('this.titulosDialog:' + this.titulosDialog);
 
     this.displayDialog = true;
   }
@@ -138,6 +145,10 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
         finally {
           const gridItems = [...this.conciliacaoTransacaoListItems];
           const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
+          if (index === -1) {
+            this.messageHandler.showError('O item foi alterado, porém não foi encontrado na lista.');
+            return;
+          }
           gridItems[index] = responseConciliacaoTransacao;
 
           this.conciliacaoTransacaoListItems = gridItems;
@@ -145,7 +156,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
           // É legal, mas deixar o item, ajuda a tomar decisões para os itens da mesma conta não analisados ainda.
           // this.conciliacaoTransacaoFilterSearch();
 
-          this.messageHandler.showSuccess('Registro alterado!');
+          this.messageHandler.showSuccess('Registro alterado com sucesso!');
 
         }
 
@@ -508,6 +519,20 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
 	  this.conciliacaoTransacaoFilterSearch();
 	}
-	// End polling methods for: recarregarTransacoes
+  // End polling methods for: recarregarTransacoes
+
+  calculateTransacaoRowStyle(conciliacaoTransacao: ConciliacaoTransacao) {
+    const mustSyle = conciliacaoTransacao && (conciliacaoTransacao.conciliadoMsg ||
+      conciliacaoTransacao.conciliacaoTransacaoTitulos && conciliacaoTransacao.conciliacaoTransacaoTitulos.length > 1);
+    if (mustSyle) {
+      const style = {
+        color: 'red'
+      };
+
+      return style;
+    }
+
+    return null;
+  }
 
 }

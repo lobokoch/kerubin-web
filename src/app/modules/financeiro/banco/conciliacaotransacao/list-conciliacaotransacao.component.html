@@ -140,7 +140,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
       <!-- Begin GRID -->
       <div class="ui-g-12" name="data-grid">
-        <p-table selectionMode="single" [loading]="loading" (onRowSelect)="onRowSelect($event)" [responsive]="true"
+        <p-table selectionMode="single" [loading]="loading" [responsive]="true" (onEditComplete)="onEditTransactionCellComplete($event)"
           [customSort]="true" [paginator]="true" [resizableColumns]="true" [value]="conciliacaoTransacaoListItems"
           [rows]="conciliacaoTransacaoListFilter.pageSize" [totalRecords]="conciliacaoTransacaoListTotalElements"
           [lazy]="true" (onLazyLoad)="conciliacaoTransacaoListOnLazyLoad($event)">
@@ -189,12 +189,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon
                   [field]="'conciliadoMsg'"></p-sortIcon>
               </th>
-              <th style="width: 5em">Ações</th>
+              <th style="width: 7em">Ações</th>
             </tr>
           </ng-template>
 
           <ng-template pTemplate="body" let-conciliacaoTransacao>
-            <tr [pSelectableRow]="conciliacaoTransacao">
+            <tr [ngStyle]="calculateTransacaoRowStyle(conciliacaoTransacao)" [pSelectableRow]="conciliacaoTransacao">
               <td>
                 {{conciliacaoTransacao?.trnData | date:'dd/MM/yyyy' }}
               </td>
@@ -217,9 +217,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 <i *ngIf="conciliacaoTransacao?.tituloConciliadoId" class="pi pi-info-circle" style="font-size: 2em"
                   [pTooltip]=conciliacaoTransacao?.tituloConciliadoId></i>
               </td>
-              <td>
-                {{ conciliacaoTransacao?.tituloConciliadoDesc }}
-              </td>
+              <td [pEditableColumn]="conciliacaoTransacao" pEditableColumnField="'tituloConciliadoDesc'">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="conciliacaoTransacao.tituloConciliadoDesc">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ conciliacaoTransacao?.tituloConciliadoDesc }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
               <td>
                 {{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
               </td>
@@ -231,9 +238,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                   [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
               </td>
               <td class="kb-actions">
-                  <p-progressSpinner *ngIf="loadingSituacaoForPolling(conciliacaoTransacao)" [style]="{width: '20px', height: '20px'}" strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
-                <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="deleteConciliacaoTransacao(conciliacaoTransacao)" pButton icon="pi pi-trash"
-                  pTooltip="Excluir" tooltipPosition="top"></button>
+                <p-progressSpinner *ngIf="loadingSituacaoForPolling(conciliacaoTransacao)" [style]="{width: '20px', height: '20px'}" strokeWidth="4" animationDuration=".5s"></p-progressSpinner>
+
+                <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="onRowSelect(conciliacaoTransacao)"
+                pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
+
+                <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="deleteConciliacaoTransacao(conciliacaoTransacao)"
+                pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+
               </td>
             </tr>
           </ng-template>
