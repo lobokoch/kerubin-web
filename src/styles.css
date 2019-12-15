@@ -195,7 +195,8 @@ a, button {
 @media (min-width: 1200px) {
   .container {
     margin: 0 auto;
-    width: 1170px;
+    /*width: 1170px;*/
+    width: 100% !important;
   }
 }
 

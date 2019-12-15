@@ -1,3 +1,4 @@
+import { PlanoContaAutoComplete } from './conciliacaotransacao.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 27.0.12
 Code generated at time stamp: 2019-11-03T20:17:31.336
@@ -40,6 +41,12 @@ import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransaca
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
 
+  // Begin planoContasDialog
+  displayDialogPlanoContas = false;
+  planoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
+  // Begin planoContasDialog
+
+
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
 	conciliacaoTransacaoListTotalPages = 0;
@@ -68,6 +75,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   // Begin Dialog
   private displayDialog = false;
   private selectedConciliacaoTransacao = new ConciliacaoTransacao();
+  private conciliacaoTransacaoPlanoContas = new ConciliacaoTransacao();
   // private conciliacaoTransacao = new ConciliacaoTransacao();
   private cols: any[];
   private selectedConciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo;
@@ -90,7 +98,11 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   ) { }
 
   onEditTransactionCellComplete(event) {
+    if (event.field === '\'planoContas\'') {
+      return;
+    }
     const conciliacaoTransacao = event.data as ConciliacaoTransacao;
+
     if (conciliacaoTransacao) {
       this.selectedConciliacaoTransacao = conciliacaoTransacao; // É o item selecionado na grid.
       this.atualizarConciliacaoTransacao(conciliacaoTransacao);
@@ -101,6 +113,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   onRowSelect(conciliacaoTransacao: ConciliacaoTransacao) {
     // this.selectedConciliacaoTransacao = event.data;
     this.selectedConciliacaoTransacao = conciliacaoTransacao;
+    this.conciliacaoTransacaoPlanoContas = this.cloneConciliacaoTransacao(conciliacaoTransacao);
     // this.conciliacaoTransacao = this.cloneConciliacaoTransacao(event.data);
     const tituloConciliadoId = this.selectedConciliacaoTransacao.tituloConciliadoId;
     if (tituloConciliadoId) {
@@ -144,7 +157,9 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
         }
         finally {
           const gridItems = [...this.conciliacaoTransacaoListItems];
-          const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
+          const index = this.findItemIndexNaGrid(responseConciliacaoTransacao);
+          // const index = this.findItemIndexNaGrid(this.selectedConciliacaoTransacao);
+          // const index = this.conciliacaoTransacaoListItems.indexOf(this.selectedConciliacaoTransacao);
           if (index === -1) {
             this.messageHandler.showError('O item foi alterado, porém não foi encontrado na lista.');
             return;
@@ -209,6 +224,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       { field: 'tituloConciliadoDesc', header: 'Desc. título', width: '300px' },
       { field: 'tituloConciliadoDataVen', header: 'Vencimento', width: '100px' },
       { field: 'tituloConciliadoDataPag', header: 'Pagamento', width: '100px' },
+      { field: 'tituloPlanoContas', header: 'Plano contas', width: '350px' },
       { field: 'dataConciliacao', header: 'Conciliação', width: '100px' },
       { field: 'situacaoConciliacaoTrn', header: 'Situação', width: '350px' },
       { field: 'actions', header: 'Ações', width: '100px' } // slice:0:6, pega da primeira posição, 6 elementos.
@@ -534,5 +550,114 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
     return null;
   }
+
+  // Begin displayDialogPlanoContas
+
+
+  onCellEditPlanoContas(conciliacaoTransacao: ConciliacaoTransacao) {
+
+    this.selectedConciliacaoTransacao = conciliacaoTransacao;
+    this.conciliacaoTransacaoPlanoContas = this.cloneConciliacaoTransacao(conciliacaoTransacao);
+
+    this.displayDialogPlanoContas = true;
+
+  }
+
+  confirmarDialogPlanoContas() {
+
+    this.selectedConciliacaoTransacao = this.conciliacaoTransacaoPlanoContas;
+    this.atualizarConciliacaoTransacao(this.conciliacaoTransacaoPlanoContas);
+
+    /*const gridItems = [...this.conciliacaoTransacaoListItems];
+    const index = this.findItemIndexNaGrid(this.selectedConciliacaoTransacao);
+    if (index === -1) {
+      this.messageHandler.showError('O item foi alterado, porém não foi encontrado na lista.');
+      return;
+    }
+    gridItems[index] = this.conciliacaoTransacaoPlanoContas;
+
+    this.conciliacaoTransacaoListItems = gridItems;*/
+
+
+    this.displayDialogPlanoContas = false;
+  }
+
+  findItemIndexNaGrid(conciliacaoTransacaoToFind: ConciliacaoTransacao) {
+    const id = conciliacaoTransacaoToFind.id;
+    for (let i = 0; i < this.conciliacaoTransacaoListItems.length; i++) {
+      const it = this.conciliacaoTransacaoListItems[i];
+      if (it.id === id) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  calcelarDialogPlanoContas() {
+
+    this.selectedConciliacaoTransacao = null;
+    this.conciliacaoTransacaoPlanoContas = new ConciliacaoTransacao();
+
+    this.displayDialogPlanoContas = false;
+  }
+
+  planoContasAutoComplete(event) {
+		const conciliacaoTransacao = (JSON.parse(JSON.stringify(this.selectedConciliacaoTransacao)));
+		if (String(conciliacaoTransacao.tituloPlanoContas === '')) {
+			conciliacaoTransacao.tituloPlanoContas = null;
+		}
+	    const query = event.query;
+	    this.conciliacaoTransacaoService
+	      .planoContaPlanoContasAutoComplete(query, conciliacaoTransacao)
+	      .then((result) => {
+	        this.planoContasAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
+	      })
+	      .catch(error => {
+	        this.messageHandler.showError(error);
+	      });
+	}
+
+  planoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
+    let text = '';
+    if (planoContas) {
+      /*if (planoContas.codigo) {
+          if (text !== '') {
+            text += ' - ';
+          }
+          text += planoContas.codigo;
+      }*/
+
+      if (planoContas.descricao) {
+          if (text !== '') {
+            text += ' - ';
+          }
+          text += planoContas.descricao;
+      }
+
+    }
+
+    if (text === '') {
+      text = null;
+    }
+    return text;
+  }
+
+  planoContasAutoCompleteClear(event) {
+    // The autoComplete value has been reseted
+    if (this.selectedConciliacaoTransacao) {
+      this.selectedConciliacaoTransacao.tituloPlanoContas = null;
+    }
+	}
+
+	planoContasAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if ( this.selectedConciliacaoTransacao && String(this.selectedConciliacaoTransacao.tituloPlanoContas) === '') {
+			this.selectedConciliacaoTransacao.tituloPlanoContas = null;
+		}
+	}
+
+  // End displayDialogPlanoContas
 
 }

@@ -31,7 +31,7 @@ export class PaginationFilter {
 }
 
 export class ConciliacaoTransacaoTituloListFilter extends PaginationFilter {
-	
+
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 }
 
@@ -41,7 +41,8 @@ export class ConciliacaoTransacaoTitulo {
 	tituloConciliadoId: string;
 	tituloConciliadoDesc: string;
 	tituloConciliadoDataVen: Date;
-	tituloConciliadoDataPag: Date;
+  tituloConciliadoDataPag: Date;
+  // tituloPlanoContas: string = 'Teste 123';
 	dataConciliacao: Date;
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 }

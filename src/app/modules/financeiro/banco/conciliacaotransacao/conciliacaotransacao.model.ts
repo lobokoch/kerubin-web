@@ -41,27 +41,39 @@ export class ConciliacaoTransacaoTrnDocumentoAutoComplete {
 }
 
 export class ConciliacaoTransacaoListFilter extends PaginationFilter {
-	
+
 	trnDataFrom: Date;
 	trnDataTo: Date;
-	
+
 	trnHistorico: ConciliacaoTransacaoTrnHistoricoAutoComplete[];
-	
+
 	trnDocumento: ConciliacaoTransacaoTrnDocumentoAutoComplete[];
-	
+
 	trnTipo: TipoTransacao;
-	
+
 	trnValorFrom: number;
 	trnValorTo: number;
-	
+
 	conciliacaoBancariaId: string;
-	
+
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
-	
+
 	conciliadoComErroIsNotNull: boolean;
-	
+
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
+}
+
+export class PlanoContaAutoComplete {
+	id: string;
+	codigo: string;
+	descricao: string;
+}
+
+export class PlanoContaDTO {
+	id: string;
+	codigo: string;
+	descricao: string;
 }
 
 export class ConciliacaoTransacao {
@@ -75,7 +87,8 @@ export class ConciliacaoTransacao {
 	conciliacaoBancaria: ConciliacaoBancaria;
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 	tituloConciliadoId: string;
-	tituloConciliadoDesc: string;
+  tituloConciliadoDesc: string;
+  tituloPlanoContas: PlanoContaAutoComplete;
 	dataConciliacao: Date;
 	conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[];
 	conciliadoComErro: boolean = false;

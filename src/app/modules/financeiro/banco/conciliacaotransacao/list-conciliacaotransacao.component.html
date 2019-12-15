@@ -154,11 +154,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnHistorico_grid') }}<p-sortIcon
                   [field]="'trnHistorico'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'trnDocumento'">
+              <th style="width: 7em" [pSortableColumn]="'trnDocumento'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento_grid') }}<p-sortIcon
                   [field]="'trnDocumento'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'trnTipo'">
+              <th style="width: 6em" [pSortableColumn]="'trnTipo'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_grid') }}<p-sortIcon
                   [field]="'trnTipo'"></p-sortIcon>
               </th>
@@ -166,11 +166,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnValor_grid') }}<p-sortIcon
                   [field]="'trnValor'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'situacaoConciliacaoTrn'">
-                {{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_grid') }}<p-sortIcon
+              <th style="width: 8em" [pSortableColumn]="'situacaoConciliacaoTrn'">
+                Situação<p-sortIcon
                   [field]="'situacaoConciliacaoTrn'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'tituloConciliadoId'">
+              <th style="width: 5em" [pSortableColumn]="'tituloConciliadoId'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoId_grid') }}<p-sortIcon
                   [field]="'tituloConciliadoId'"></p-sortIcon>
               </th>
@@ -178,14 +178,18 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc_grid') }}<p-sortIcon
                   [field]="'tituloConciliadoDesc'"></p-sortIcon>
               </th>
+              <th style="width: 5em" [pSortableColumn]="'conciliacaoTransacaoTitulos'">Qtde. títulos<p-sortIcon
+                [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
+              </th>
+              <th style="width: 8em" [pSortableColumn]="'planoConta'">Plano contas<p-sortIcon
+                [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
+              </th>
               <th style="width: 7em" [pSortableColumn]="'dataConciliacao'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_dataConciliacao_grid') }}<p-sortIcon
                   [field]="'dataConciliacao'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'conciliacaoTransacaoTitulos'">Qtde. títulos<p-sortIcon
-                  [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
-              </th>
-              <th [pSortableColumn]="'conciliadoMsg'">
+
+              <th style="width: 6.5em" [pSortableColumn]="'conciliadoMsg'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon
                   [field]="'conciliadoMsg'"></p-sortIcon>
               </th>
@@ -226,13 +230,29 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                       {{ conciliacaoTransacao?.tituloConciliadoDesc }}
                     </ng-template>
                 </p-cellEditor>
-            </td>
-              <td>
-                {{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
               </td>
               <td>
                 {{conciliacaoTransacaoConciliacaoTransacaoTitulosAutoCompleteFieldConverter(conciliacaoTransacao?.conciliacaoTransacaoTitulos)}}
               </td>
+              <td style="text-align: center" [pEditableColumn]="conciliacaoTransacao" pEditableColumnField="'planoContas'">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+
+                      <button (click)="onCellEditPlanoContas(conciliacaoTransacao)"
+                      pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
+
+
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      <i *ngIf="conciliacaoTransacao?.tituloPlanoContas" class="pi pi-info-circle" style="font-size: 2em"
+                        [pTooltip]=planoContasAutoCompleteFieldConverter(conciliacaoTransacao?.tituloPlanoContas)></i>
+                    </ng-template>
+                </p-cellEditor>
+              </td>
+              <td>
+                {{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
+              </td>
+
               <td style="text-align: center">
                 <i *ngIf="conciliacaoTransacao?.conciliadoMsg" class="pi pi-info-circle" style="font-size: 2em"
                   [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
@@ -267,9 +287,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       </div>
       <!-- End GRID -->
 
-      <div class="ui-g-12 ui-md-2 ui-fluid">
+      <!--div class="ui-g-12 ui-md-2 ui-fluid">
         <a routerLink="/conciliacaotransacao/novo" pButton label="Novo registro"></a>
-      </div>
+      </div-->
     </div>
 
   </p-panel>
@@ -319,6 +339,9 @@ showEffect="fade" [modal]="true" [style]="{width: '800px'}">
             {{titulo?.tituloConciliadoDataPag | date:'dd/MM/yyyy' }}
           </td>
           <td>
+            {{ titulo?.tituloPlanoContas }}
+          </td>
+          <td>
             {{titulo?.dataConciliacao | date:'dd/MM/yyyy' }}
           </td>
           <td>
@@ -338,6 +361,32 @@ showEffect="fade" [modal]="true" [style]="{width: '800px'}">
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
       <button type="button" pButton icon="fa fa-close" (click)="calcelarDialog()" label="Cancelar"></button>
       <button type="button" pButton icon="fa fa-check" (click)="confirmarDialog()" label="OK"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Plano de contas" [(visible)]="displayDialogPlanoContas" [responsive]="true"
+showEffect="fade" [modal]="true" [style]="{width: '600px'}" [contentStyle]="{'overflow':'visible'}">
+
+  <div class="ui-g ui-fluid">
+			<p-autoComplete
+        p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+        [suggestions]="planoContasAutoCompleteSuggestions"
+        (completeMethod)="planoContasAutoComplete($event)"
+        (onClear)="planoContasAutoCompleteClear($event)"
+        (onBlur)="planoContasAutoCompleteOnBlur($event)"
+        [field]="planoContasAutoCompleteFieldConverter"
+        #planoContas="ngModel" ngModel [(ngModel)]="conciliacaoTransacaoPlanoContas.tituloPlanoContas" name="tituloPlanoContas">
+          <ng-template let-planoContas pTemplate="item">
+            <div class="ui-helper-clearfix">{{ planoContasAutoCompleteFieldConverter(planoContas) }}</div>
+          </ng-template>
+			</p-autoComplete>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="calcelarDialogPlanoContas()" label="Cancelar"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="confirmarDialogPlanoContas()" label="OK"></button>
     </div>
   </p-footer>
 </p-dialog>

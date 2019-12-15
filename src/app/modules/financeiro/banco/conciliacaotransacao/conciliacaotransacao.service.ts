@@ -1,3 +1,4 @@
+import { PlanoContaAutoComplete } from './conciliacaotransacao.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 27.0.10
 Code generated at time stamp: 2019-11-03T07:57:18.876
@@ -30,7 +31,22 @@ export class ConciliacaoTransacaoService {
 
 	url = environment.apiUrl + '/cadastros/banco/entities/conciliacaoTransacao';
 
-	constructor(private http: HttpClientWithToken) { }
+  constructor(private http: HttpClientWithToken) { }
+
+  planoContaPlanoContasAutoComplete(query: string, conciliacaoTransacao: ConciliacaoTransacao): Promise<PlanoContaAutoComplete[]> {
+    const headers = this.getHeaders();
+
+    let params = new HttpParams();
+    params = params.set('query', query);
+
+    return this.http.post<PlanoContaAutoComplete[]>(`${this.url}/planoContaTituloPlanoContasAutoComplete`, conciliacaoTransacao, { headers, params })
+      .toPromise()
+      .then(response => {
+        const result = response as PlanoContaAutoComplete[];
+        return result;
+      });
+
+}
 
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -38,7 +54,9 @@ export class ConciliacaoTransacaoService {
 
 	    headers.append('Content-Type', 'application/json');
 	    return headers;
-	}
+  }
+
+
 
 	create(conciliacaoTransacao: ConciliacaoTransacao): Promise<ConciliacaoTransacao> {
 		const headers = this.getHeaders();
@@ -82,8 +100,7 @@ export class ConciliacaoTransacaoService {
 	      this.adjustEntityDates([conciliacaoTransacao]);
 	      return conciliacaoTransacao;
 	    });
-	}
-
+  }
 
 	private adjustEntityDates(entityList: ConciliacaoTransacao[]) {
 		entityList.forEach(conciliacaoTransacao => {
