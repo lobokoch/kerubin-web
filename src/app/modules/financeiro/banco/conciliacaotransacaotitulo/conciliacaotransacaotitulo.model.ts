@@ -35,6 +35,12 @@ export class ConciliacaoTransacaoTituloListFilter extends PaginationFilter {
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 }
 
+export class PlanoContaTituloAutoComplete {
+	id: string;
+	codigo: string;
+	descricao: string;
+}
+
 export class ConciliacaoTransacaoTitulo {
 	id: string;
 	conciliacaoTransacao: ConciliacaoTransacao;
@@ -42,6 +48,8 @@ export class ConciliacaoTransacaoTitulo {
 	tituloConciliadoDesc: string;
 	tituloConciliadoDataVen: Date;
   tituloConciliadoDataPag: Date;
+  tituloConciliadoValor: number;
+  tituloPlanoContas: PlanoContaTituloAutoComplete;
   // tituloPlanoContas: string = 'Teste 123';
 	dataConciliacao: Date;
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;

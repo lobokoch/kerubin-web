@@ -158,9 +158,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento_grid') }}<p-sortIcon
                   [field]="'trnDocumento'"></p-sortIcon>
               </th>
-              <th style="width: 6em" [pSortableColumn]="'trnTipo'">
-                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo_grid') }}<p-sortIcon
-                  [field]="'trnTipo'"></p-sortIcon>
+              <th style="width: 4em" [pSortableColumn]="'trnTipo'">
+                C./D.
+                <p-sortIcon [field]="'trnTipo'"></p-sortIcon>
               </th>
               <th style="width: 8em" [pSortableColumn]="'trnValor'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnValor_grid') }}<p-sortIcon
@@ -174,14 +174,26 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoId_grid') }}<p-sortIcon
                   [field]="'tituloConciliadoId'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'tituloConciliadoDesc'">
+              <th style="width: 10em" [pSortableColumn]="'tituloConciliadoDesc'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc_grid') }}<p-sortIcon
                   [field]="'tituloConciliadoDesc'"></p-sortIcon>
               </th>
-              <th style="width: 5em" [pSortableColumn]="'conciliacaoTransacaoTitulos'">Qtde. títulos<p-sortIcon
+              <th style="width: 8em" [pSortableColumn]="'tituloConciliadoValor'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoValor_grid') }}
+                <p-sortIcon [field]="'tituloConciliadoValor'"></p-sortIcon>
+              </th>
+              <th style="width: 4em" [pSortableColumn]="'conciliacaoTransacaoTitulos'">Qtde. tít.<p-sortIcon
                 [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
               </th>
-              <th style="width: 8em" [pSortableColumn]="'planoConta'">Plano contas<p-sortIcon
+              <th style="width: 7em" [pSortableColumn]="'tituloConciliadoDataVen'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDataVen_grid') }}
+                <p-sortIcon [field]="'tituloConciliadoDataVen'"></p-sortIcon>
+              </th>
+              <th style="width: 7em" [pSortableColumn]="'tituloConciliadoDataPag'">
+                {{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDataPag_grid') }}
+                <p-sortIcon [field]="'tituloConciliadoDataPag'"></p-sortIcon>
+              </th>
+              <th style="width: 5em" [pSortableColumn]="'planoConta'">Plano contas<p-sortIcon
                 [field]="'conciliacaoTransacaoTitulos'"></p-sortIcon>
               </th>
               <th style="width: 7em" [pSortableColumn]="'dataConciliacao'">
@@ -208,8 +220,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               <td>
                 {{ conciliacaoTransacao?.trnDocumento }}
               </td>
-              <td>
-                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo' + '_' + conciliacaoTransacao?.trnTipo?.toLowerCase()) }}
+              <td style="text-align: center">
+                <i [class]="getTipoTransacaoIconClass(conciliacaoTransacao)" style="font-size: 2em"
+                  [pTooltip]="getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo' + '_' + conciliacaoTransacao?.trnTipo?.toLowerCase())">
+                </i>
               </td>
               <td class="kb-field-money">
                 {{conciliacaoTransacao?.trnValor | currency:'BRL':'symbol':'1.2-2':'pt' }}
@@ -221,6 +235,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 <i *ngIf="conciliacaoTransacao?.tituloConciliadoId" class="pi pi-info-circle" style="font-size: 2em"
                   [pTooltip]=conciliacaoTransacao?.tituloConciliadoId></i>
               </td>
+
               <td [pEditableColumn]="conciliacaoTransacao" pEditableColumnField="'tituloConciliadoDesc'">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
@@ -231,8 +246,17 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                     </ng-template>
                 </p-cellEditor>
               </td>
-              <td>
+              <td class="kb-field-money">
+                {{conciliacaoTransacao?.tituloConciliadoValor | currency:'BRL':'symbol':'1.2-2':'pt' }}
+              </td>
+              <td style="text-align: right">
                 {{conciliacaoTransacaoConciliacaoTransacaoTitulosAutoCompleteFieldConverter(conciliacaoTransacao?.conciliacaoTransacaoTitulos)}}
+              </td>
+              <td style="text-align: center">
+                {{conciliacaoTransacao?.tituloConciliadoDataVen | date:'dd/MM/yyyy' }}
+              </td>
+              <td style="text-align: center">
+                {{conciliacaoTransacao?.tituloConciliadoDataPag | date:'dd/MM/yyyy' }}
               </td>
               <td style="text-align: center" [pEditableColumn]="conciliacaoTransacao" pEditableColumnField="'planoContas'">
                 <p-cellEditor>
@@ -333,13 +357,16 @@ showEffect="fade" [modal]="true" [style]="{width: '800px'}">
             {{ titulo?.tituloConciliadoDesc }}
           </td>
           <td>
+            {{titulo?.tituloConciliadoValor | currency:'BRL':'symbol':'1.2-2':'pt' }}
+          </td>
+          <td>
             {{titulo?.tituloConciliadoDataVen | date:'dd/MM/yyyy' }}
           </td>
           <td>
             {{titulo?.tituloConciliadoDataPag | date:'dd/MM/yyyy' }}
           </td>
           <td>
-            {{ titulo?.tituloPlanoContas }}
+            {{ planoContasAutoCompleteFieldConverter(titulo?.tituloPlanoContas) }}
           </td>
           <td>
             {{titulo?.dataConciliacao | date:'dd/MM/yyyy' }}

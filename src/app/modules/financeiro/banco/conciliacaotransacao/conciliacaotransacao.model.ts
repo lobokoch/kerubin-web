@@ -87,8 +87,11 @@ export class ConciliacaoTransacao {
 	conciliacaoBancaria: ConciliacaoBancaria;
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 	tituloConciliadoId: string;
-  tituloConciliadoDesc: string;
-  tituloPlanoContas: PlanoContaAutoComplete;
+	tituloConciliadoDesc: string;
+	tituloConciliadoValor: number;
+	tituloConciliadoDataVen: Date;
+	tituloConciliadoDataPag: Date;
+	tituloPlanoContas: PlanoContaAutoComplete;
 	dataConciliacao: Date;
 	conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[];
 	conciliadoComErro: boolean = false;

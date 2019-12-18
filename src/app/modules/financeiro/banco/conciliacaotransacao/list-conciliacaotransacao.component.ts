@@ -220,8 +220,9 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   montarColunas() {
     this.cols = [
       { field: 'radioSelected', header: '', width: '40px' },
-      { field: 'tituloConciliadoId', header: 'Id. título', width: '100px'},
-      { field: 'tituloConciliadoDesc', header: 'Desc. título', width: '300px' },
+      { field: 'tituloConciliadoId', header: 'Id', width: '100px'},
+      { field: 'tituloConciliadoDesc', header: 'Descrição', width: '300px' },
+      { field: 'tituloConciliadoValor', header: 'Valor', width: '100px' },
       { field: 'tituloConciliadoDataVen', header: 'Vencimento', width: '100px' },
       { field: 'tituloConciliadoDataPag', header: 'Pagamento', width: '100px' },
       { field: 'tituloPlanoContas', header: 'Plano contas', width: '350px' },
@@ -616,7 +617,21 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	      .catch(error => {
 	        this.messageHandler.showError(error);
 	      });
-	}
+  }
+
+  getTipoTransacaoIconClass(conciliacaoTransacao: ConciliacaoTransacao) {
+    if (!conciliacaoTransacao || !conciliacaoTransacao.trnTipo) {
+      return null;
+    }
+
+    if ( String(conciliacaoTransacao.trnTipo) === 'CREDITO' ) {
+      return 'pi pi-plus-circle';
+    } else {
+      return 'pi pi-minus-circle';
+
+    }
+
+  }
 
   planoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
     let text = '';
