@@ -150,12 +150,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnData_grid') }}<p-sortIcon
                   [field]="'trnData'"></p-sortIcon>
               </th>
-              <th [pSortableColumn]="'trnHistorico'">
+              <th style="width: 7em" [pSortableColumn]="'trnHistorico'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnHistorico_grid') }}<p-sortIcon
                   [field]="'trnHistorico'"></p-sortIcon>
               </th>
-              <th style="width: 7em" [pSortableColumn]="'trnDocumento'">
-                {{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento_grid') }}<p-sortIcon
+              <th style="width: 4em" [pSortableColumn]="'trnDocumento'">
+                Doc.<p-sortIcon
                   [field]="'trnDocumento'"></p-sortIcon>
               </th>
               <th style="width: 4em" [pSortableColumn]="'trnTipo'">
@@ -217,8 +217,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               <td>
                 {{ conciliacaoTransacao?.trnHistorico }}
               </td>
-              <td>
-                {{ conciliacaoTransacao?.trnDocumento }}
+              <td style="text-align: center">
+                <i *ngIf="conciliacaoTransacao?.trnDocumento" class="pi pi-info-circle" style="font-size: 2em"
+                  [pTooltip]="conciliacaoTransacao?.trnDocumento">
+                </i>
               </td>
               <td style="text-align: center">
                 <i [class]="getTipoTransacaoIconClass(conciliacaoTransacao)" style="font-size: 2em"
@@ -393,8 +395,10 @@ showEffect="fade" [modal]="true" [style]="{width: '800px'}">
 </p-dialog>
 
 
-<p-dialog header="Plano de contas" [(visible)]="displayDialogPlanoContas" [responsive]="true"
-showEffect="fade" [modal]="true" [style]="{width: '600px'}" [contentStyle]="{'overflow':'visible'}">
+<p-dialog header="Plano de contas" [(visible)]="displayDialogPlanoContas" [responsive]="true" [focusOnShow]="false"
+showEffect="fade" [modal]="true" [style]="{width: '600px'}" [contentStyle]="{'overflow':'visible'}"
+(onShow)= "onPlanoContasAutoCompleteAfterShow($event)"
+>
 
   <div class="ui-g ui-fluid">
 			<p-autoComplete
@@ -404,9 +408,9 @@ showEffect="fade" [modal]="true" [style]="{width: '600px'}" [contentStyle]="{'ov
         (onClear)="planoContasAutoCompleteClear($event)"
         (onBlur)="planoContasAutoCompleteOnBlur($event)"
         [field]="planoContasAutoCompleteFieldConverter"
-        #planoContas="ngModel" ngModel [(ngModel)]="conciliacaoTransacaoPlanoContas.tituloPlanoContas" name="tituloPlanoContas">
-          <ng-template let-planoContas pTemplate="item">
-            <div class="ui-helper-clearfix">{{ planoContasAutoCompleteFieldConverter(planoContas) }}</div>
+        #planoContasAutoCompleteEl [(ngModel)]="conciliacaoTransacaoPlanoContas.tituloPlanoContas" name="tituloPlanoContas">
+          <ng-template let-planoContasAutoCompleteEl pTemplate="item">
+            <div class="ui-helper-clearfix">{{ planoContasAutoCompleteFieldConverter(planoContasAutoCompleteEl) }}</div>
           </ng-template>
 			</p-autoComplete>
   </div>

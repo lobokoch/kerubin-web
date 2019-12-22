@@ -8,7 +8,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, SelectItem} from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
@@ -31,6 +31,7 @@ import { ConciliacaoBancariaAutoComplete } from './../conciliacaobancaria/concil
 
 import { ConciliacaoTransacaoTitulo } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
 import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransacaotitulo/conciliacaotransacaotitulo.model';
+import { AutoComplete } from 'primeng/autocomplete';
 // import { ConsoleReporter } from 'jasmine';
 
 @Component({
@@ -89,6 +90,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
   // Definição de um emissor de eventos.
   @Output() transacaoAlterada = new EventEmitter();
+  @ViewChild('planoContasAutoCompleteEl') planoContasAutoCompleteElement: AutoComplete;
 
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
@@ -562,6 +564,8 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
     this.displayDialogPlanoContas = true;
 
+    // this.onPlanoContasAutoCompleteAfterShow();
+
   }
 
   confirmarDialogPlanoContas() {
@@ -671,7 +675,14 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 		if ( this.selectedConciliacaoTransacao && String(this.selectedConciliacaoTransacao.tituloPlanoContas) === '') {
 			this.selectedConciliacaoTransacao.tituloPlanoContas = null;
 		}
-	}
+  }
+
+  onPlanoContasAutoCompleteAfterShow(event) {
+    // this.planoContasAutoCompleteElement.domHandler.findSingle(this.planoContasAutoCompleteElement.el.nativeElement, 'input').focus();
+    console.log('onPlanoContasAutoCompleteAfterShow');
+    this.planoContasAutoCompleteElement.focusInput();
+  }
+
 
   // End displayDialogPlanoContas
 

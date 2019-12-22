@@ -73,11 +73,6 @@ export class ConciliacaoBancariaComponent implements OnInit {
     this.instrucoesHeader1 = '';
     this.instrucoesHeader2 = '';
 
-    if (this.countConciliacaoTransacaoComMaisDeUmTitulo === 0) {
-      this.instrucoesHeader = instrucoes_header;
-      return;
-    }
-
     this.instrucoesHeader = 'Processando, aguarde...';
     this.conciliacaoBancariaService.getCountConciliacaoTransacaoComMaisDeUmTitulo(this.conciliacaoId).then(count => {
       this.instrucoesHeader = instrucoes_header;
@@ -126,6 +121,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
   }
 
 	ngOnInit() {
+    this.countConciliacaoTransacaoComMaisDeUmTitulo = -1;
 		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
 	    const id = this.route.snapshot.params['id'];
