@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.879
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.255
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -32,6 +32,9 @@ export class PaginationFilter {
 
 export class PlanoContaListFilter extends PaginationFilter {
 	
+	
+	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
+	customParams = new Map<any, any>();
 }
 
 export class PlanoConta {

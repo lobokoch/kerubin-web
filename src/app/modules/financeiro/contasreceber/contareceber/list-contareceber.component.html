@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.657
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.565
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -35,7 +35,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						</div>
 						
 						
-						<div class="ui-g-12">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 						
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label style="display: block">Intervalo de tempo</label>
@@ -62,7 +62,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						
 						
 						
-						<div class="ui-g-12">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 						
 						    <div class="ui-g-12 ui-md-3 ui-fluid">
 						      	<label class="label-r">Contas com valores de</label>
@@ -81,24 +81,42 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-4 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Forma de pagamento</label>
 							<p-dropdown [options]="contaReceberFormaPagamentoOptions" placeholder="Selecione um item..."
 							[(ngModel)]="contaReceberListFilter.formaPagamento"></p-dropdown>
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-2 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label style="display: block" class="label-l label-r">Pagas</label>
 							<p-inputSwitch [(ngModel)]="contaReceberListFilter.dataPagamentoIsNotNull"></p-inputSwitch>
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-2 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label style="display: block" class="label-l label-r">Em aberto</label>
 							<p-inputSwitch [(ngModel)]="contaReceberListFilter.dataPagamentoIsNull"></p-inputSwitch>
 						</div>
 						
+						
+						
+						<div class="ui-g-12 ui-md-6 ui-fluid">
+							<label style="display: block" class="label-l label-r">Baixa via conc. banc.</label>
+							<p-inputSwitch [(ngModel)]="contaReceberListFilter.idConcBancariaIsNotNull"></p-inputSwitch>
+						</div>
+						
+						
+						
+						<div class="ui-g-12 ui-md-6 ui-fluid">
+							<label class="label-r">Histórico da conciliação bancária</label>
+							<p-autoComplete name="contaReceberHistConcBancariaAutoComplete" 
+							placeholder="Digite para pesquisar..." [dropdown]="true" 
+							[(ngModel)]="contaReceberListFilter.histConcBancaria" [multiple]="true"
+							[suggestions]="contaReceberHistConcBancariaAutoCompleteSuggestions"
+							(completeMethod)="contaReceberHistConcBancariaAutoComplete($event)"
+							field="histConcBancaria"></p-autoComplete>
+						</div>
 						
 						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Agrupador:</label>

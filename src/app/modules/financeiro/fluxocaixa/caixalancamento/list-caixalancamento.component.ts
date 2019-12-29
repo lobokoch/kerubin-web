@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.879
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.255
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { CaixaLancamento } from './caixalancamento.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { SortField } from './caixalancamento.model';
 import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
+import { CaixaLancamentoHistConcBancariaAutoComplete } from './caixalancamento.model';
 
 import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 
@@ -40,7 +41,7 @@ import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
 
 @Component({
-  selector: 'app-list-caixalancamento.component',
+  selector: 'app-list-caixalancamento',
   templateUrl: './list-caixalancamento.component.html',
   styleUrls: ['./list-caixalancamento.component.css']
 })
@@ -62,6 +63,10 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
 	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
+	
+	
+	
+	caixaLancamentoHistConcBancariaAutoCompleteSuggestions: CaixaLancamentoHistConcBancariaAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
@@ -86,6 +91,10 @@ export class CaixaLancamentoListComponent implements OnInit {
 		
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
 		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
+		
+		this.caixaLancamentoListFilter.idConcBancariaIsNotNull = false;
+		
+		
 	}
 	
 	caixaLancamentoList(pageNumber = 0) {
@@ -152,6 +161,17 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    });
 	}
 	
+	caixaLancamentoHistConcBancariaAutoComplete(event) {
+	    const query = event.query;
+	    this.caixaLancamentoService.caixaLancamentoHistConcBancariaAutoComplete(query)
+	    .then((result) => {
+	      this.caixaLancamentoHistConcBancariaAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
 	
 	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
 	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
@@ -186,7 +206,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario: CaixaDiarioAutoComplete) {
 		if (caixaDiario) {
-			return (caixaDiario.caixa.nome || '<nulo>') + ' - ' + (moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m') || '<nulo>');
+			return (caixaDiario.caixa.nome || '<nulo>') + ' - ' + (caixaDiario.caixaDiarioSituacao || '<nulo>') + ' - ' + (moment(caixaDiario.dataHoraAbertura).format('DD/MM/YYYY H:m') || '<nulo>');
 		} else {
 			return null;
 		}
@@ -210,7 +230,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return (planoContas.descricao || '<nulo>');
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -244,7 +264,6 @@ export class CaixaLancamentoListComponent implements OnInit {
 		    {label: 'Mês que vem', value: '5'},
 		    {label: 'Este ano', value: '6'},
 		    {label: 'Ano que vem', value: '7'},
-		    // Passado
 		    {label: 'Ontem', value: '8'},
 		    {label: 'Semana passada', value: '9'},
 		    {label: 'Mês passado', value: '10'},

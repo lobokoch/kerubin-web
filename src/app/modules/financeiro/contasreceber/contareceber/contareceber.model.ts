@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -37,6 +37,10 @@ export class ContaReceberDescricaoAutoComplete {
 	descricao: string;
 }
 
+export class ContaReceberHistConcBancariaAutoComplete {
+	histConcBancaria: string;
+}
+
 export class ContaReceberAgrupadorAutoComplete {
 	agrupador: string;
 }
@@ -56,7 +60,14 @@ export class ContaReceberListFilter extends PaginationFilter {
 	dataPagamentoIsNotNull: boolean;
 	dataPagamentoIsNull: boolean;
 	
+	idConcBancariaIsNotNull: boolean;
+	
+	histConcBancaria: ContaReceberHistConcBancariaAutoComplete[];
+	
 	agrupador: ContaReceberAgrupadorAutoComplete[];
+	
+	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
+	customParams = new Map<any, any>();
 }
 
 export class ContaReceber {
@@ -77,6 +88,9 @@ export class ContaReceber {
 	valorPago: number;
 	cliente: Cliente;
 	numDocumento: string;
+	idConcBancaria: string;
+	histConcBancaria: string;
+	numDocConcBancaria: string;
 	observacoes: string;
 	agrupador: string;
 }

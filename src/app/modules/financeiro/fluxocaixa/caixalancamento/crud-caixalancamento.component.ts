@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.879
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.255
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -50,7 +50,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-caixalancamento.component',
+  selector: 'app-crud-caixalancamento',
   templateUrl: './crud-caixalancamento.component.html',
   styleUrls: ['./crud-caixalancamento.component.css']
 })
@@ -244,6 +244,13 @@ export class CaixaLancamentoComponent implements OnInit {
 			    text += caixaDiario.caixa.nome; 
 			}
 			
+			if (caixaDiario.caixaDiarioSituacao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += caixaDiario.caixaDiarioSituacao; 
+			}
+			
 			if (caixaDiario.dataHoraAbertura) {
 			    if (text !== '') {
 			      text += ' - ';
@@ -394,6 +401,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		let text = '';
 		if (planoContas) {
+			if (planoContas.codigo) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContas.codigo; 
+			}
+			
 			if (planoContas.descricao) {
 			    if (text !== '') {
 			      text += ' - ';
@@ -564,6 +578,33 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	ruleOutrosDescricaoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.formaPagamento) === 'CONTA_BANCARIA') || (String(this.caixaLancamento.formaPagamento) === 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleIdConcBancariaAppyStyleClass() {
+		const expression = (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length == 0);
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleNumDocConcBancariaAppyStyleClass() {
+		const expression = (!this.caixaLancamento.numDocConcBancaria || this.caixaLancamento.numDocConcBancaria.trim().length == 0);
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleHistConcBancariaAppyStyleClass() {
+		const expression = (!this.caixaLancamento.numDocConcBancaria || this.caixaLancamento.numDocConcBancaria.trim().length == 0);
 		if (expression) {
 			return 'hidden';
 		} else {

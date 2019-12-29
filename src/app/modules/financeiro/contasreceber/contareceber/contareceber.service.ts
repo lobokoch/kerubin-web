@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,6 +22,7 @@ import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
 import { Cliente } from './../cliente/cliente.model';
 import { ContaReceberListFilter } from './contareceber.model';
 import { ContaReceberDescricaoAutoComplete } from './contareceber.model';
+import { ContaReceberHistConcBancariaAutoComplete } from './contareceber.model';
 import { ContaReceberAgrupadorAutoComplete } from './contareceber.model';
 import { ContaReceberSumFields } from './contareceber.model';
 import { environment } from 'src/environments/environment';
@@ -260,6 +261,21 @@ export class ContaReceberService {
 	
 	}
 	
+	contaReceberHistConcBancariaAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/contaReceberHistConcBancariaAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ContaReceberHistConcBancariaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	contaReceberAgrupadorAutoComplete(query: string): Promise<any> {
 	    const headers = this.getHeaders();
 	
@@ -370,10 +386,28 @@ export class ContaReceberService {
 			params = params.set('dataPagamentoIsNull', value);
 		}
 		
+		// idConcBancariaIsNotNull
+		if (filter.idConcBancariaIsNotNull) {
+			const value = filter.idConcBancariaIsNotNull ? 'true' : 'false';
+			params = params.set('idConcBancariaIsNotNull', value);
+		}
+		
+		// histConcBancaria
+		if (filter.histConcBancaria) {
+			const histConcBancaria = filter.histConcBancaria.map(item => item.histConcBancaria).join(',');
+			params = params.set('histConcBancaria', histConcBancaria);
+		}
+		
 		// agrupador
 		if (filter.agrupador) {
 			const agrupador = filter.agrupador.map(item => item.agrupador).join(',');
 			params = params.set('agrupador', agrupador);
+		}
+		
+		// customParams
+		if (filter.customParams && filter.customParams.size > 0) {
+			const value = this.mapToJson(filter.customParams);
+			params = params.set('customParams', value);
 		}
 	
 	    // Sort
@@ -385,7 +419,19 @@ export class ContaReceberService {
 	    }
 	
 	    return params;
-	  }
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
+      return JSON.stringify(this.mapToObj(someMap));
+    }
+
+    mapToObj(someMap: Map<string, any>) {
+      const obj = Object.create(null);
+      someMap.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
 	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');

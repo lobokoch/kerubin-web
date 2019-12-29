@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.657
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.565
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,7 +20,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_receber.contaReceber_id') }}</label>
-			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="contaReceber.id" name="id" readonly class="read-only">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="contaReceber.id" name="id">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -30,7 +32,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberPlanoContasAutoComplete($event)"
 			 (onClear)="contaReceberPlanoContasAutoCompleteClear($event)"
-			 (blur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
+			 (onBlur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaReceberPlanoContasAutoCompleteFieldConverter"
 			 #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
@@ -72,7 +74,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberContaBancariaAutoComplete($event)"
 			 (onClear)="contaReceberContaBancariaAutoCompleteClear($event)"
-			 (blur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
+			 (onBlur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaReceberContaBancariaAutoCompleteFieldConverter"
 			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
@@ -88,7 +90,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberCartaoCreditoAutoComplete($event)"
 			 (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)"
-			 (blur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
+			 (onBlur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter"
 			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
@@ -146,7 +148,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 [suggestions]="contaReceberClienteAutoCompleteSuggestions"
 			 (completeMethod)="contaReceberClienteAutoComplete($event)"
 			 (onClear)="contaReceberClienteAutoCompleteClear($event)"
-			 (blur)="contaReceberClienteAutoCompleteOnBlur($event)"
+			 (onBlur)="contaReceberClienteAutoCompleteOnBlur($event)"
 			 [field]="contaReceberClienteAutoCompleteFieldConverter"
 			 #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">
@@ -158,6 +160,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="numDocumento">{{ getTranslation('financeiro.contas_receber.contaReceber_numDocumento') }}</label>
 			<input type="text" pInputText #numDocumento="ngModel" ngModel [(ngModel)]="contaReceber.numDocumento" name="numDocumento">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleIdConcBancariaAppyStyleClass()">
+			<label for="idConcBancaria">{{ getTranslation('financeiro.contas_receber.contaReceber_idConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #idConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.idConcBancaria" name="idConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-5" [ngClass]="ruleHistConcBancariaAppyStyleClass()">
+			<label for="histConcBancaria">{{ getTranslation('financeiro.contas_receber.contaReceber_histConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #histConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.histConcBancaria" name="histConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3" [ngClass]="ruleNumDocConcBancariaAppyStyleClass()">
+			<label for="numDocConcBancaria">{{ getTranslation('financeiro.contas_receber.contaReceber_numDocConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.numDocConcBancaria" name="numDocConcBancaria">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

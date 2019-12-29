@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.921
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.277
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,7 +20,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_id') }}</label>
-			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="caixaDiario.id" name="id" readonly class="read-only">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="caixaDiario.id" name="id">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
@@ -42,28 +44,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="caixaDiarioSituacao">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [disabled]="true" [options]="caixaDiarioCaixaDiarioSituacaoOptions" placeholder="Selecione um item..." #caixaDiarioSituacao="ngModel" ngModel [(ngModel)]="caixaDiario.caixaDiarioSituacao" name="caixaDiarioSituacao" required></p-dropdown>
+			<div class="dropdown-readonly">
+				<p-dropdown [readonly]="true" [options]="caixaDiarioCaixaDiarioSituacaoOptions" placeholder="Selecione um item..." #caixaDiarioSituacao="ngModel" ngModel [(ngModel)]="caixaDiario.caixaDiarioSituacao" name="caixaDiarioSituacao" required></p-dropdown>
+			</div>
+			
 			<div class="invalid-message" *ngIf="caixaDiarioSituacao.invalid && caixaDiarioSituacao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraAbertura">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraAbertura') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
+			<div class="calendar-readonly">
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataHoraAbertura="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="saldoInicial">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_saldoInicial') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" [disabled]="true" #saldoInicial="ngModel" ngModel [(ngModel)]="caixaDiario.saldoInicial" name="saldoInicial">
+			<div class="input-readonly">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldoInicial="ngModel" ngModel [(ngModel)]="caixaDiario.saldoInicial" name="saldoInicial">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="dataHoraFechamento">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraFechamento') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+			<div class="calendar-readonly">
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataHoraFechamento="ngModel" ngModel [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="saldoFinal">{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_saldoFinal') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" [disabled]="true" #saldoFinal="ngModel" ngModel [(ngModel)]="caixaDiario.saldoFinal" name="saldoFinal">
+			<div class="input-readonly">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldoFinal="ngModel" ngModel [(ngModel)]="caixaDiario.saldoFinal" name="saldoFinal">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

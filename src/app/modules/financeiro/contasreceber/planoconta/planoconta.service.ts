@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -212,6 +212,12 @@ export class PlanoContaService {
 			const value = filter.ativoIsNull ? 'true' : 'false';
 			params = params.set('ativoIsNull', value);
 		}
+		
+		// customParams
+		if (filter.customParams && filter.customParams.size > 0) {
+			const value = this.mapToJson(filter.customParams);
+			params = params.set('customParams', value);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -222,7 +228,19 @@ export class PlanoContaService {
 	    }
 	
 	    return params;
-	  }
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
+      return JSON.stringify(this.mapToObj(someMap));
+    }
+
+    mapToObj(someMap: Map<string, any>) {
+      const obj = Object.create(null);
+      someMap.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
 	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');

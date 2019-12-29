@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { ContaReceber } from './contareceber.model';
 import { ContaReceberListFilter } from './contareceber.model';
 import { SortField } from './contareceber.model';
 import { ContaReceberDescricaoAutoComplete } from './contareceber.model';
+import { ContaReceberHistConcBancariaAutoComplete } from './contareceber.model';
 import { ContaReceberAgrupadorAutoComplete } from './contareceber.model';
 
 import { FormaPagamento } from './../enums/financeiro-contasreceber-enums.model';
@@ -33,7 +34,7 @@ import { ClienteAutoComplete } from './../cliente/cliente.model';
 import { ContaReceberSumFields } from './contareceber.model';
 
 @Component({
-  selector: 'app-list-contareceber.component',
+  selector: 'app-list-contareceber',
   templateUrl: './list-contareceber.component.html',
   styleUrls: ['./list-contareceber.component.css']
 })
@@ -54,6 +55,10 @@ export class ContaReceberListComponent implements OnInit {
 	
 	
 	
+	
+	
+	
+	contaReceberHistConcBancariaAutoCompleteSuggestions: ContaReceberHistConcBancariaAutoComplete[];
 	contaReceberAgrupadorAutoCompleteSuggestions: ContaReceberAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
@@ -79,6 +84,10 @@ export class ContaReceberListComponent implements OnInit {
 		this.contaReceberListFilter.dataPagamentoIsNotNull = false;
 		
 		this.contaReceberListFilter.dataPagamentoIsNull = true;
+		
+		
+		this.contaReceberListFilter.idConcBancariaIsNotNull = false;
+		
 		
 	}
 	
@@ -146,6 +155,17 @@ export class ContaReceberListComponent implements OnInit {
 	    });
 	}
 	
+	contaReceberHistConcBancariaAutoComplete(event) {
+	    const query = event.query;
+	    this.contaReceberService.contaReceberHistConcBancariaAutoComplete(query)
+	    .then((result) => {
+	      this.contaReceberHistConcBancariaAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
 	contaReceberAgrupadorAutoComplete(event) {
 	    const query = event.query;
 	    this.contaReceberService.contaReceberAgrupadorAutoComplete(query)
@@ -174,7 +194,7 @@ export class ContaReceberListComponent implements OnInit {
 	
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
-			return (planoContas.descricao || '<nulo>');
+			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
 		} else {
 			return null;
 		}
@@ -216,7 +236,6 @@ export class ContaReceberListComponent implements OnInit {
 		    {label: 'Mês que vem', value: '5'},
 		    {label: 'Este ano', value: '6'},
 		    {label: 'Ano que vem', value: '7'},
-		    // Passado
 		    {label: 'Ontem', value: '8'},
 		    {label: 'Semana passada', value: '9'},
 		    {label: 'Mês passado', value: '10'},
@@ -363,7 +382,7 @@ export class ContaReceberListComponent implements OnInit {
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaReceber: ContaReceber) {
-		return !contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment(), 'day');
+		return !contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVenciento(contaReceber: ContaReceber) {

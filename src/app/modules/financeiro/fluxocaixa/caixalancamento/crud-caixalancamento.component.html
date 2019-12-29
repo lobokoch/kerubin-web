@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.921
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.277
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,7 +20,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_id') }}</label>
-			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="caixaLancamento.id" name="id" readonly class="read-only">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="caixaLancamento.id" name="id">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
@@ -130,7 +132,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
 			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [disabled]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
+			<div class="dropdown-readonly">
+				<p-dropdown [readonly]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
+			</div>
+			
 			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -169,6 +174,34 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="documento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_documento') }}</label>
 			<input type="text" pInputText #documento="ngModel" ngModel [(ngModel)]="caixaLancamento.documento" name="documento">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-6 hidden">
+			<label for="idFonteMovimento" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idFonteMovimento') }}</label>
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #idFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.idFonteMovimento" name="idFonteMovimento">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleIdConcBancariaAppyStyleClass()">
+			<label for="idConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #idConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.idConcBancaria" name="idConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-5" [ngClass]="ruleHistConcBancariaAppyStyleClass()">
+			<label for="histConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_histConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #histConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.histConcBancaria" name="histConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3" [ngClass]="ruleNumDocConcBancariaAppyStyleClass()">
+			<label for="numDocConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_numDocConcBancaria') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.numDocConcBancaria" name="numDocConcBancaria">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

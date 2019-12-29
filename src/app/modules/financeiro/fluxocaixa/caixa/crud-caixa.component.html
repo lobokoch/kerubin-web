@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.921
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.277
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,7 +20,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixa_id') }}</label>
-			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="caixa.id" name="id" readonly class="read-only">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="caixa.id" name="id">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
@@ -37,7 +39,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="saldo">{{ getTranslation('financeiro.fluxo_caixa.caixa_saldo') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" [disabled]="true" #saldo="ngModel" ngModel [(ngModel)]="caixa.saldo" name="saldo">
+			<div class="input-readonly">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldo="ngModel" ngModel [(ngModel)]="caixa.saldo" name="saldo">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,7 +24,7 @@ import { PlanoContaDescricaoAutoComplete } from './planoconta.model';
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 
 @Component({
-  selector: 'app-list-planoconta.component',
+  selector: 'app-list-planoconta',
   templateUrl: './list-planoconta.component.html',
   styleUrls: ['./list-planoconta.component.css']
 })
@@ -128,7 +128,7 @@ export class PlanoContaListComponent implements OnInit {
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
 		if (planoContaPai) {
-			return (planoContaPai.descricao || '<nulo>');
+			return (planoContaPai.codigo || '<nulo>') + ' - ' + (planoContaPai.descricao || '<nulo>');
 		} else {
 			return null;
 		}

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,7 +25,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-planoconta.component',
+  selector: 'app-crud-planoconta',
   templateUrl: './crud-planoconta.component.html',
   styleUrls: ['./crud-planoconta.component.css']
 })
@@ -157,6 +157,13 @@ export class PlanoContaComponent implements OnInit {
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
 		let text = '';
 		if (planoContaPai) {
+			if (planoContaPai.codigo) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContaPai.codigo; 
+			}
+			
 			if (planoContaPai.descricao) {
 			    if (text !== '') {
 			      text += ' - ';

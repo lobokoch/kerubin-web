@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -34,12 +34,12 @@ import { Cliente } from './../cliente/cliente.model';
 import { ClienteAutoComplete } from './../cliente/cliente.model';
 
 import { FormaPagamento } from './../enums/financeiro-contasreceber-enums.model';
-import {SelectItem} from 'primeng/api';
+import {SelectItem, ConfirmationService} from 'primeng/api';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-contareceber.component',
+  selector: 'app-crud-contareceber',
   templateUrl: './crud-contareceber.component.html',
   styleUrls: ['./crud-contareceber.component.css']
 })
@@ -83,6 +83,7 @@ export class ContaReceberComponent implements OnInit {
 	    
 	    private clienteService: ClienteService,
 	    private route: ActivatedRoute,
+	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeContaReceberFormaPagamentoOptions();
@@ -199,6 +200,13 @@ export class ContaReceberComponent implements OnInit {
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		let text = '';
 		if (planoContas) {
+			if (planoContas.codigo) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContas.codigo; 
+			}
+			
 			if (planoContas.descricao) {
 			    if (text !== '') {
 			      text += ' - ';
@@ -386,24 +394,54 @@ export class ContaReceberComponent implements OnInit {
 	
 	actionFazerCopiasContaReceber(form: FormControl) {
 	      if (!this.contaReceber.agrupador) {
-	        // this.copiesMustHaveGroup = true;
 	        this.messageHandler.showError('Campo \'Agrupador\' deve ser informado para gerar cópias.');
 	        return;
 	      }
-	      // this.copiesMustHaveGroup = false;
+	      
+	      if (!this.contaReceber.dataVencimento) {
+	        this.messageHandler.showError('Campo \'DataVencimento\' deve ser informado para gerar cópias.');
+	        return;
+	      }
+	      
+	      // Begin validation for past dates
+	      const dataVencimentoFirstCopy = moment(this.contaReceber.dataVencimento).add(1, 'month');
+	      const today = moment();
+	      if (dataVencimentoFirstCopy.isBefore(today)) {
+			const dataVencimentoFirstCopyStr = dataVencimentoFirstCopy.format('DD/MM/YYYY');
+			const dataVencimentoStr = moment(this.contaReceber.dataVencimento).format('DD/MM/YYYY');
+			this.confirmation.confirm({
+			  message: `Baseado na data de vencimento da conta atual (<strong>${dataVencimentoStr}</strong>),
+			  a primeira cópia da conta terá data de vencimento no passado (<strong>${dataVencimentoFirstCopyStr}</strong>).
+			  <br>Deseja continuar mesmo assim?`,
+			  accept: () => {
+			    ///
+			    this.contaReceberService.actionFazerCopiasContaReceber(this.contaReceber.id, this.numberOfCopies,
+					this.copiesReferenceFieldInterval, this.contaReceber.agrupador)
+			    .then(() => {
+			    this.messageHandler.showSuccess('Operação realizada com sucesso!');
+			    }).
+			    catch(error => {
+			    const message =  JSON.parse(error._body).message || 'Não foi possível realizar a operação';
+			    console.log(error);
+			      this.messageHandler.showError(message);
+			  	});
+			  }
+			});
+	      
+	      	return;
+	      }
+	      // End validation
 	
 	      this.contaReceberService.actionFazerCopiasContaReceber(this.contaReceber.id, this.numberOfCopies,
 	        this.copiesReferenceFieldInterval, this.contaReceber.agrupador)
 		    .then(() => {
-	        // this.copiesMustHaveGroup = false;
 	        this.messageHandler.showSuccess('Operação realizada com sucesso!');
 		    }).
 		    catch(error => {
-	        // this.copiesMustHaveGroup = false;
 	        const message =  JSON.parse(error._body).message || 'Não foi possível realizar a operação';
 	        console.log(error);
 		      this.messageHandler.showError(message);
-		    });
+		  });
 	}
 	 
 	initializeCopiesReferenceFieldOptions() {
@@ -439,6 +477,33 @@ export class ContaReceberComponent implements OnInit {
 	}
 	ruleOutrosDescricaoAppyStyleClass() {
 		const expression = (String(this.contaReceber.formaPagamento) === 'CONTA_BANCARIA') || (String(this.contaReceber.formaPagamento) === 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleIdConcBancariaAppyStyleClass() {
+		const expression = (!this.contaReceber.idConcBancaria || this.contaReceber.idConcBancaria.trim().length == 0);
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleNumDocConcBancariaAppyStyleClass() {
+		const expression = (!this.contaReceber.numDocConcBancaria || this.contaReceber.numDocConcBancaria.trim().length == 0);
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleHistConcBancariaAppyStyleClass() {
+		const expression = (!this.contaReceber.numDocConcBancaria || this.contaReceber.numDocConcBancaria.trim().length == 0);
 		if (expression) {
 			return 'hidden';
 		} else {

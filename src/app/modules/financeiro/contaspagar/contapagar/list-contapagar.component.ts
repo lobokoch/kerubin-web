@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 27.0.12
-Code generated at time stamp: 2019-11-06T06:15:02.141
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:42:11.470
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,6 +19,7 @@ import { ContaPagar } from './contapagar.model';
 import { ContaPagarListFilter } from './contapagar.model';
 import { SortField } from './contapagar.model';
 import { ContaPagarDescricaoAutoComplete } from './contapagar.model';
+import { ContaPagarHistConcBancariaAutoComplete } from './contapagar.model';
 import { ContaPagarAgrupadorAutoComplete } from './contapagar.model';
 
 import { FormaPagamento } from './../enums/financeiro-contaspagar-enums.model';
@@ -57,6 +58,7 @@ export class ContaPagarListComponent implements OnInit {
 	
 	
 	
+	contaPagarHistConcBancariaAutoCompleteSuggestions: ContaPagarHistConcBancariaAutoComplete[];
 	contaPagarAgrupadorAutoCompleteSuggestions: ContaPagarAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
@@ -84,7 +86,7 @@ export class ContaPagarListComponent implements OnInit {
 		this.contaPagarListFilter.dataPagamentoIsNull = true;
 		
 		
-		this.contaPagarListFilter.numDocConcBancariaIsNotNull = false;
+		this.contaPagarListFilter.idConcBancariaIsNotNull = false;
 		
 		
 	}
@@ -147,6 +149,17 @@ export class ContaPagarListComponent implements OnInit {
 	    this.contaPagarService.contaPagarDescricaoAutoComplete(query)
 	    .then((result) => {
 	      this.contaPagarDescricaoAutoCompleteSuggestions = result;
+	    })
+	    .catch(erro => {
+	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
+	    });
+	}
+	
+	contaPagarHistConcBancariaAutoComplete(event) {
+	    const query = event.query;
+	    this.contaPagarService.contaPagarHistConcBancariaAutoComplete(query)
+	    .then((result) => {
+	      this.contaPagarHistConcBancariaAutoCompleteSuggestions = result;
 	    })
 	    .catch(erro => {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
@@ -223,7 +236,6 @@ export class ContaPagarListComponent implements OnInit {
 		    {label: 'Mês que vem', value: '5'},
 		    {label: 'Este ano', value: '6'},
 		    {label: 'Ano que vem', value: '7'},
-		    // Passado
 		    {label: 'Ontem', value: '8'},
 		    {label: 'Semana passada', value: '9'},
 		    {label: 'Mês passado', value: '10'},

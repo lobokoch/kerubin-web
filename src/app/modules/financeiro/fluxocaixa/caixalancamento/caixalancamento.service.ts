@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.879
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.255
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,6 +24,7 @@ import { Cliente } from './../cliente/cliente.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
+import { CaixaLancamentoHistConcBancariaAutoComplete } from './caixalancamento.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
 import { environment } from 'src/environments/environment';
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
@@ -268,6 +269,21 @@ export class CaixaLancamentoService {
 	
 	}
 	
+	caixaLancamentoHistConcBancariaAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+	
+	    return this.http.get<any>(`${this.url}/caixaLancamentoHistConcBancariaAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CaixaLancamentoHistConcBancariaAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	caixaLancamentoList(caixaLancamentoListFilter: CaixaLancamentoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
@@ -374,6 +390,24 @@ export class CaixaLancamentoService {
 			const value = String(filter.tipoFonteMovimento);
 			params = params.set('tipoFonteMovimento', value);
 		}
+		
+		// idConcBancariaIsNotNull
+		if (filter.idConcBancariaIsNotNull) {
+			const value = filter.idConcBancariaIsNotNull ? 'true' : 'false';
+			params = params.set('idConcBancariaIsNotNull', value);
+		}
+		
+		// histConcBancaria
+		if (filter.histConcBancaria) {
+			const histConcBancaria = filter.histConcBancaria.map(item => item.histConcBancaria).join(',');
+			params = params.set('histConcBancaria', histConcBancaria);
+		}
+		
+		// customParams
+		if (filter.customParams && filter.customParams.size > 0) {
+			const value = this.mapToJson(filter.customParams);
+			params = params.set('customParams', value);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -384,7 +418,19 @@ export class CaixaLancamentoService {
 	    }
 	
 	    return params;
-	  }
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
+      return JSON.stringify(this.mapToObj(someMap));
+    }
+
+    mapToObj(someMap: Map<string, any>) {
+      const obj = Object.create(null);
+      someMap.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
 	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');

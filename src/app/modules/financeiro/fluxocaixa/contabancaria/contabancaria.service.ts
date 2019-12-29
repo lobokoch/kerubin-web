@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.2.3
-Code generated at time stamp: 2019-09-11T06:23:59.879
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:40:12.255
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -171,6 +171,12 @@ export class ContaBancariaService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		
+		// customParams
+		if (filter.customParams && filter.customParams.size > 0) {
+			const value = this.mapToJson(filter.customParams);
+			params = params.set('customParams', value);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -181,7 +187,19 @@ export class ContaBancariaService {
 	    }
 	
 	    return params;
-	  }
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
+      return JSON.stringify(this.mapToObj(someMap));
+    }
+
+    mapToObj(someMap: Map<string, any>) {
+      const obj = Object.create(null);
+      someMap.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
 	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');

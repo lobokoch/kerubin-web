@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 22.1.1
-Code generated at time stamp: 2019-09-10T21:40:39.525
+Code generated with MKL Plug-in version: 40.2.1
+Code generated at time stamp: 2019-12-29T08:41:54.544
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,7 +24,7 @@ import { BancoAutoComplete } from './../banco/banco.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
 
 @Component({
-  selector: 'app-list-cartaocredito.component',
+  selector: 'app-list-cartaocredito',
   templateUrl: './list-cartaocredito.component.html',
   styleUrls: ['./list-cartaocredito.component.css']
 })
