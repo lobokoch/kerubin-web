@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-10T07:19:17.244
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.838
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,7 +19,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
+			<p-accordionTab header="Filtros">
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
@@ -36,7 +36,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="sysUserFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="sysUserFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -47,7 +47,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="sysUserListItems"
 			    [rows]="sysUserListFilter.pageSize" 
 			    [totalRecords]="sysUserListTotalElements"
@@ -58,6 +59,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'email'">{{ getTranslation('security.authorization.sysUser_email_grid') }}<p-sortIcon [field]="'email'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'active'">{{ getTranslation('security.authorization.sysUser_active_grid') }}<p-sortIcon [field]="'active'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'administrator'">{{ getTranslation('security.authorization.sysUser_administrator_grid') }}<p-sortIcon [field]="'administrator'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'superAdministrator'">{{ getTranslation('security.authorization.sysUser_superAdministrator_grid') }}<p-sortIcon [field]="'superAdministrator'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'accountType'">{{ getTranslation('security.authorization.sysUser_accountType_grid') }}<p-sortIcon [field]="'accountType'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'tenant'">{{ getTranslation('security.authorization.sysUser_tenant_grid') }}<p-sortIcon [field]="'tenant'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -65,16 +69,25 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-sysUser>
 		            <tr [pSelectableRow]="sysUser">
 		            	<td>
-		            		{{sysUser?.name}}
+		            		{{ sysUser?.name }}
 		            	</td>
 		            	<td>
-		            		{{sysUser?.email}}
+		            		{{ sysUser?.email }}
 		            	</td>
 		            	<td>
 		            		{{sysUser?.active? 'Sim': 'Não' }}
 		            	</td>
 		            	<td>
 		            		{{sysUser?.administrator? 'Sim': 'Não' }}
+		            	</td>
+		            	<td>
+		            		{{sysUser?.superAdministrator? 'Sim': 'Não' }}
+		            	</td>
+		            	<td>
+		            		{{ getTranslation('security.authorization.sysUser_accountType' + '_' + sysUser?.accountType?.toLowerCase()) }}
+		            	</td>
+		            	<td>
+		            		{{sysUserTenantAutoCompleteFieldConverter(sysUser?.tenant)}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/sysuser', sysUser.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -86,7 +99,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="5">
+				        <td [attr.colspan]="8">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

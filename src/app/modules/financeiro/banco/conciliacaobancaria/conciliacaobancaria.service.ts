@@ -8,7 +8,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 
-import { Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import * as moment from 'moment';

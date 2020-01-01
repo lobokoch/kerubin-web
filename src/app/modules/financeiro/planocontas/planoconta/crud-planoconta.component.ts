@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:44.076
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:28:20.588
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,10 +22,11 @@ import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { TipoPlanoContaFinanceiro } from './../enums/financeiro-planocontas-enums.model';
 
 import { TipoReceitaDespesa } from './../enums/financeiro-planocontas-enums.model';
+import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-planoconta.component',
+  selector: 'app-crud-planoconta',
   templateUrl: './crud-planoconta.component.html',
   styleUrls: ['./crud-planoconta.component.css']
 })
@@ -45,7 +46,7 @@ export class PlanoContaComponent implements OnInit {
 	    private planoContaService: PlanoContaService,
 	    private financeiroPlanoContasTranslationService: FinanceiroPlanoContasTranslationService,
 	    private route: ActivatedRoute,
-	    private messageService: MessageService
+	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializePlanoContaTipoFinanceiroOptions();
 		
@@ -84,7 +85,6 @@ export class PlanoContaComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -97,10 +97,10 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
-	      this.showSuccess('Registro criado com sucesso!');
+	      this.messageHandler.showSuccess('Registro criado com sucesso!');
 	    }).
 	    catch(error => {
-	      this.showError('Erro ao criar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -108,10 +108,10 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.update(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
-	      this.showSuccess('Registro alterado!');
+	      this.messageHandler.showSuccess('Registro alterado!');
 	    })
 	    .catch(error => {
-	      this.showError('Erro ao atualizar registro: ' + error);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -119,7 +119,7 @@ export class PlanoContaComponent implements OnInit {
 	    this.planoContaService.retrieve(id)
 	    .then((planoConta) => this.planoConta = planoConta)
 	    .catch(error => {
-	      this.showError('Erro ao buscar registro: ' + id);
+	      this.messageHandler.showError(error);
 	    });
 	}
 	
@@ -134,6 +134,14 @@ export class PlanoContaComponent implements OnInit {
 		this.planoConta.planoContaPai = null;
 	}
 	
+	planoContaPlanoContaPaiAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.planoConta.planoContaPai) === '') {
+			this.planoConta.planoContaPai = null;
+		}
+	}
+	
 	planoContaPlanoContaPaiAutoComplete(event) {
 	    const query = event.query;
 	    this.planoContaService
@@ -142,20 +150,38 @@ export class PlanoContaComponent implements OnInit {
 	        this.planoContaPlanoContaPaiAutoCompleteSuggestions = result as PlanoContaAutoComplete[];
 	      })
 	      .catch(error => {
-	        this.showError('Erro ao buscar registros com o termo: ' + query);
+	        this.messageHandler.showError(error);
 	      });
 	}
 	
 	planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai: PlanoContaAutoComplete) {
+		let text = '';
 		if (planoContaPai) {
-			return (planoContaPai.codigo || '<nulo>') + ' - ' + (planoContaPai.descricao || '<nulo>');
-		} else {
-			return null;
+			if (planoContaPai.codigo) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContaPai.codigo; 
+			}
+			
+			if (planoContaPai.descricao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += planoContaPai.descricao; 
+			}
+			
 		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
 	}
 	
 	private initializePlanoContaTipoFinanceiroOptions() {
 	    this.planoContaTipoFinanceiroOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_receita'), value: 'RECEITA' }, 
 	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro_despesa'), value: 'DESPESA' }
 	    ];
@@ -163,19 +189,12 @@ export class PlanoContaComponent implements OnInit {
 	  
 	private initializePlanoContaTipoReceitaDespesaOptions() {
 	    this.planoContaTipoReceitaDespesaOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_fixo'), value: 'FIXO' }, 
 	    	{ label: this.getTranslation('financeiro.plano_contas.planoConta_tipoReceitaDespesa_variavel'), value: 'VARIAVEL' }
 	    ];
 	}
 	  
-	
-	public showSuccess(msg: string) {
-	    this.messageService.add({severity: 'success', summary: 'Successo', detail: msg});
-	}
-	
-	public showError(msg: string) {
-	    this.messageService.add({severity: 'error', summary: 'Erro', detail: msg});
-	}
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
@@ -189,8 +208,10 @@ export class PlanoContaComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroPlanoContasTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

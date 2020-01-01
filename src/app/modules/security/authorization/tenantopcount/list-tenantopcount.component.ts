@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.873
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -22,7 +22,7 @@ import { SortField } from './tenantopcount.model';
 import { TenantAutoComplete } from './../tenant/tenant.model';
 
 @Component({
-  selector: 'app-list-tenantopcount.component',
+  selector: 'app-list-tenantopcount',
   templateUrl: './list-tenantopcount.component.html',
   styleUrls: ['./list-tenantopcount.component.css']
 })
@@ -32,6 +32,7 @@ export class TenantOpCountListComponent implements OnInit {
 	tenantOpCountListItems: TenantOpCount[];
 	tenantOpCountListTotalElements = 0;
 	tenantOpCountListFilter = new TenantOpCountListFilter();
+	
 	
 	
 	
@@ -87,6 +88,7 @@ export class TenantOpCountListComponent implements OnInit {
 	    const pageNumber = event.first / event.rows;
 	    this.tenantOpCountList(pageNumber);
 	}
+	
 	
 	
 	tenantOpCountTenantAutoCompleteFieldConverter(tenant: TenantAutoComplete) {

@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-15T06:20:44.470
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.838
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,7 +24,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<div class="ui-g">
 					<div class="ui-g-12">
 						
-						<div class="ui-g-12 ui-md-12 ui-fluid">
+						<div class="ui-g-12 ui-md-12 hidden ui-fluid">
 							<label class="label-r">Protocolo de identificação</label>
 							<input pInputText type="text"
 							[(ngModel)]="creditOrderAdminListFilter.id"/>
@@ -51,7 +51,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						</div>
 						
 						
-						<div class="ui-g-12">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 						
 						    <div class="ui-g-12 ui-md-2 ui-fluid">
 						        <label style="display: block">Data dos pedidos</label>
@@ -78,7 +78,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						
 						
 						
-						<div class="ui-g-12">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 						
 						    <div class="ui-g-12 ui-md-3 ui-fluid">
 						      	<label class="label-r">Pedidos com valores de</label>
@@ -97,7 +97,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-4 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Situação do pedido</label>
 							<p-dropdown [options]="creditOrderAdminOrderStatusOptions" placeholder="Selecione um item..."
 							[(ngModel)]="creditOrderAdminListFilter.orderStatus"></p-dropdown>
@@ -134,7 +134,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th style="width: 90px" [pSortableColumn]="'id'">{{ getTranslation('security.authorization.creditOrderAdmin_id_grid') }}<p-sortIcon [field]="'id'"></p-sortIcon></th>
 		            	<th style="width: 150px" [pSortableColumn]="'orderUserName'">{{ getTranslation('security.authorization.creditOrderAdmin_orderUserName_grid') }}<p-sortIcon [field]="'orderUserName'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'orderTenantName'">{{ getTranslation('security.authorization.creditOrderAdmin_orderTenantName_grid') }}<p-sortIcon [field]="'orderTenantName'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'orderUser'">{{ getTranslation('security.authorization.creditOrderAdmin_orderUser_grid') }}<p-sortIcon [field]="'orderUser'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'orderDate'">{{ getTranslation('security.authorization.creditOrderAdmin_orderDate_grid') }}<p-sortIcon [field]="'orderDate'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'orderValue'">{{ getTranslation('security.authorization.creditOrderAdmin_orderValue_grid') }}<p-sortIcon [field]="'orderValue'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'orderBonusValue'">{{ getTranslation('security.authorization.creditOrderAdmin_orderBonusValue_grid') }}<p-sortIcon [field]="'orderBonusValue'"></p-sortIcon></th>
@@ -159,9 +158,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
 		            		{{ creditOrderAdmin?.orderTenantName }}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
-		            		{{creditOrderAdminOrderUserAutoCompleteFieldConverter(creditOrderAdmin?.orderUser)}}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(creditOrderAdmin)">
 		            		{{creditOrderAdmin?.orderDate | date:'dd/MM/yyyy' }}
@@ -203,7 +199,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="15">
+				        <td [attr.colspan]="14">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
@@ -212,7 +208,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<ng-template pTemplate="footer">
 					<tr>
 						<td class="kb-sum-footer">Totais</td>
-						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>

@@ -1,0 +1,165 @@
+<!--
+**********************************************************************************************
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:34.662
+Copyright: Kerubin - logokoch@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************
+-->
+
+<div class="container">
+	<p-panel>
+		<p-header>
+			<div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoTransacao') }}</div>
+		</p-header>
+	
+
+  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  	<div class="ui-g">
+  	
+		<div class="ui-g-12 ui-fluid hidden">
+			<label for="id" class="hidden">{{ getTranslation('cadastros.banco.conciliacaoTransacao_id') }}</label>
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.id" name="id">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="trnId">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnId') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText appFocus #trnId="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnId" name="trnId" required>
+			<div class="invalid-message" *ngIf="trnId.invalid && trnId.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="trnData">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnData') }}<span class="kb-label-required">*</span></label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #trnData="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnData" name="trnData" required></p-calendar>
+			<div class="invalid-message" *ngIf="trnData.invalid && trnData.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="trnHistorico">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnHistorico') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #trnHistorico="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnHistorico" name="trnHistorico" required>
+			<div class="invalid-message" *ngIf="trnHistorico.invalid && trnHistorico.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="trnDocumento">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnDocumento') }}<span class="kb-label-required">*</span></label>
+			<input type="text" pInputText #trnDocumento="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnDocumento" name="trnDocumento" required>
+			<div class="invalid-message" *ngIf="trnDocumento.invalid && trnDocumento.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3">
+			<label for="trnTipo">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnTipo') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="conciliacaoTransacaoTrnTipoOptions" placeholder="Selecione um item..." #trnTipo="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnTipo" name="trnTipo" required></p-dropdown>
+			<div class="invalid-message" *ngIf="trnTipo.invalid && trnTipo.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-9">
+			<label for="trnValor">{{ getTranslation('cadastros.banco.conciliacaoTransacao_trnValor') }}<span class="kb-label-required">*</span></label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #trnValor="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.trnValor" name="trnValor" required>
+			<div class="invalid-message" *ngIf="trnValor.invalid && trnValor.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="conciliacaoBancaria">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliacaoBancaria') }}<span class="kb-label-required">*</span></label>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="conciliacaoTransacaoConciliacaoBancariaAutoCompleteSuggestions"
+			 (completeMethod)="conciliacaoTransacaoConciliacaoBancariaAutoComplete($event)"
+			 (onClear)="conciliacaoTransacaoConciliacaoBancariaAutoCompleteClear($event)"
+			 (onBlur)="conciliacaoTransacaoConciliacaoBancariaAutoCompleteOnBlur($event)"
+			 [field]="conciliacaoTransacaoConciliacaoBancariaAutoCompleteFieldConverter"
+			 #conciliacaoBancaria="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.conciliacaoBancaria" name="conciliacaoBancaria" required>
+				<ng-template let-conciliacaoBancaria pTemplate="item">
+					<div class="ui-helper-clearfix">{{ conciliacaoTransacaoConciliacaoBancariaAutoCompleteFieldConverter(conciliacaoBancaria) }}</div>
+				</ng-template>
+			</p-autoComplete>
+			<div class="invalid-message" *ngIf="conciliacaoBancaria.invalid && conciliacaoBancaria.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="situacaoConciliacaoTrn">{{ getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn') }}<span class="kb-label-required">*</span></label>
+			<p-dropdown [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions" placeholder="Selecione um item..." #situacaoConciliacaoTrn="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.situacaoConciliacaoTrn" name="situacaoConciliacaoTrn" required></p-dropdown>
+			<div class="invalid-message" *ngIf="situacaoConciliacaoTrn.invalid && situacaoConciliacaoTrn.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloConciliadoId">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoId') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #tituloConciliadoId="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoId" name="tituloConciliadoId">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloConciliadoDesc">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDesc') }}</label>
+			<input type="text" pInputText #tituloConciliadoDesc="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoDesc" name="tituloConciliadoDesc">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloConciliadoValor">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoValor') }}</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #tituloConciliadoValor="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoValor" name="tituloConciliadoValor">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloConciliadoDataVen">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDataVen') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #tituloConciliadoDataVen="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoDataVen" name="tituloConciliadoDataVen"></p-calendar>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloConciliadoDataPag">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoDataPag') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #tituloConciliadoDataPag="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloConciliadoDataPag" name="tituloConciliadoDataPag"></p-calendar>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="tituloPlanoContas">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloPlanoContas') }}</label>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="conciliacaoTransacaoTituloPlanoContasAutoCompleteSuggestions"
+			 (completeMethod)="conciliacaoTransacaoTituloPlanoContasAutoComplete($event)"
+			 (onClear)="conciliacaoTransacaoTituloPlanoContasAutoCompleteClear($event)"
+			 (onBlur)="conciliacaoTransacaoTituloPlanoContasAutoCompleteOnBlur($event)"
+			 [field]="conciliacaoTransacaoTituloPlanoContasAutoCompleteFieldConverter"
+			 #tituloPlanoContas="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.tituloPlanoContas" name="tituloPlanoContas">
+				<ng-template let-tituloPlanoContas pTemplate="item">
+					<div class="ui-helper-clearfix">{{ conciliacaoTransacaoTituloPlanoContasAutoCompleteFieldConverter(tituloPlanoContas) }}</div>
+				</ng-template>
+			</p-autoComplete>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="dataConciliacao">{{ getTranslation('cadastros.banco.conciliacaoTransacao_dataConciliacao') }}</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataConciliacao="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.dataConciliacao" name="dataConciliacao"></p-calendar>
+		</div>
+		
+		slot.isToMany
+		
+		<div class="ui-g-12 ui-fluid">
+			<label style="display: block" for="conciliadoComErro">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoComErro') }}</label>
+			<p-inputSwitch #conciliadoComErro="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.conciliadoComErro" name="conciliadoComErro"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label for="conciliadoMsg">{{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg') }}</label>
+			<input type="text" pInputText #conciliadoMsg="ngModel" ngModel [(ngModel)]="conciliacaoTransacao.conciliadoMsg" name="conciliadoMsg">
+		</div>
+		
+		<div class="ui-g-12">
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<a routerLink="/conciliacaotransacao" pButton label="Pesquisar"></a>
+			</div>
+		</div>
+		
+	
+	</div>
+  </form>
+  
+  </p-panel>
+  
+</div>

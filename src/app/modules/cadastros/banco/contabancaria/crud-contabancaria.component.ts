@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:10:50.897
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:34.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,7 +30,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-contabancaria.component',
+  selector: 'app-crud-contabancaria',
   templateUrl: './crud-contabancaria.component.html',
   styleUrls: ['./crud-contabancaria.component.css']
 })
@@ -93,7 +93,6 @@ export class ContaBancariaComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -265,8 +264,10 @@ export class ContaBancariaComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

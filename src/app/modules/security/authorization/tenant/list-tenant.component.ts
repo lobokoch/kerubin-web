@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.873
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -21,7 +21,7 @@ import { SortField } from './tenant.model';
 import { TenantNameAutoComplete } from './tenant.model';
 
 @Component({
-  selector: 'app-list-tenant.component',
+  selector: 'app-list-tenant',
   templateUrl: './list-tenant.component.html',
   styleUrls: ['./list-tenant.component.css']
 })
@@ -34,6 +34,7 @@ export class TenantListComponent implements OnInit {
 	
 	tenantNameAutoCompleteSuggestions: TenantNameAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
+	
 	
 	
 	constructor(
@@ -99,6 +100,7 @@ export class TenantListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
+	
 	
 	
 	

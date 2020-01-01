@@ -170,10 +170,11 @@ export class KerubinMenuComponent implements OnInit {
       	items: [
 
       		{
-      			label: 'Autorização',
+      			label: 'Administração',
       			icon: 'pi pi-fw ',
       			items: [
-      				{ label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/creditorderadmin' }
+      				{ label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/creditorderadmin' },
+      				{ label: 'Notificações', icon: 'pi pi-fw', routerLink: '/notificacoesadmin' }
       			]
       		}
 

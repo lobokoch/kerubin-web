@@ -7,15 +7,14 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************
 -->
-
 <app-navbar *ngIf="canShowMenu()"></app-navbar>
-<div class="ui-g" style="padding-left: 0px !important;">
-  <div class="ui-g-12 ui-fluid" style="padding-left: 0px !important;">
-    <div class="ui-g-12 ui-fluid ui-md-2" style="padding-left: 0px !important;">
+<div class="ui-g" style="margin: 0px !important; padding: 0px !important;">
+  <div class="ui-g-12 ui-fluid" style="margin: 0px !important; padding: 0px !important;">
+    <div class="ui-g-12 ui-fluid ui-md-2" style="margin: 0px !important; padding: 0px !important;">
       <app-kerubin-menu *ngIf="canShowMenu()"></app-kerubin-menu>
     </div>
 
-    <div [ngClass]="getRouterOutletCssClass()" style="margin: 0px !important; padding-top: 0px !important; ">
+    <div [ngClass]="getRouterOutletCssClass()" style="margin: 0px !important; padding: 0px !important; ">
       <router-outlet></router-outlet>
     </div>
 

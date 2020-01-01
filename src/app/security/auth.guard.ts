@@ -32,7 +32,7 @@ constructor(
       return this.auth.refreshAccessToken()
       .then(() => {
         if (this.auth.isAccessTokenInvalid()) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/home']);
           return false;
         } // if
 

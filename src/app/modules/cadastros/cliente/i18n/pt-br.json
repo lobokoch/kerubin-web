@@ -1,7 +1,7 @@
 {
 	"cadastros.cliente.cliente": "Cliente",
-	"cadastros.cliente.cliente_id": "#id",
-	"cadastros.cliente.cliente_id_grid": "#id",
+	"cadastros.cliente.cliente_id": "Identificador único",
+	"cadastros.cliente.cliente_id_grid": "Identificador único",
 	"cadastros.cliente.cliente_tipoPessoa": "Tipo do cliente",
 	"cadastros.cliente.cliente_tipoPessoa_grid": "Tipo do cliente",
 	"cadastros.cliente.cliente_tipoPessoa_pessoa_juridica": "Pessoa jurídica",

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-10T07:19:17.233
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -37,6 +37,9 @@ export class SysUserNameAutoComplete {
 export class SysUserListFilter extends PaginationFilter {
 	
 	name: SysUserNameAutoComplete[];
+	
+	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
+	customParams = new Map<any, any>();
 }
 
 export class SysUser {
@@ -48,6 +51,7 @@ export class SysUser {
 	confirmPassword: string;
 	active: boolean = false;
 	administrator: boolean = false;
+	superAdministrator: boolean = false;
 	accountType: AccountType;
 	tenant: Tenant;
 	activationDate: Date;

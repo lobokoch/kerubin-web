@@ -1,13 +1,12 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:10:50.897
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:34.608
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
 
-import { Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import * as moment from 'moment';
@@ -194,6 +193,12 @@ export class CartaoCreditoService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		
+		// customParams
+		if (filter.customParams && filter.customParams.size > 0) {
+			const value = this.mapToJson(filter.customParams);
+			params = params.set('customParams', value);
+		}
 	
 	    // Sort
 	    if (filter.sortField) {
@@ -204,7 +209,19 @@ export class CartaoCreditoService {
 	    }
 	
 	    return params;
-	  }
+	}
+	
+ 	mapToJson(someMap: Map<string, any>) {
+      return JSON.stringify(this.mapToObj(someMap));
+    }
+
+    mapToObj(someMap: Map<string, any>) {
+      const obj = Object.create(null);
+      someMap.forEach((value, key) => {
+        obj[key] = value;
+      });
+      return obj;
+    }
 	
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');

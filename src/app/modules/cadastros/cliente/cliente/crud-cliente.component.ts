@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 20.1.1
-Code generated at time stamp: 2019-08-25T08:11:43.968
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:49.211
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,7 +24,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-cliente.component',
+  selector: 'app-crud-cliente',
   templateUrl: './crud-cliente.component.html',
   styleUrls: ['./crud-cliente.component.css']
 })
@@ -84,7 +84,6 @@ export class ClienteComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -188,8 +187,10 @@ export class ClienteComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.cadastrosClienteTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -26,7 +26,7 @@ import { SysUserAutoComplete } from './../sysuser/sysuser.model';
 import { CreditOrderSumFields } from './creditorder.model';
 
 @Component({
-  selector: 'app-list-creditorder.component',
+  selector: 'app-list-creditorder',
   templateUrl: './list-creditorder.component.html',
   styleUrls: ['./list-creditorder.component.css']
 })
@@ -161,7 +161,6 @@ export class CreditOrderListComponent implements OnInit {
 		    {label: 'Mês que vem', value: '5'},
 		    {label: 'Este ano', value: '6'},
 		    {label: 'Ano que vem', value: '7'},
-		    // Passado
 		    {label: 'Ontem', value: '8'},
 		    {label: 'Semana passada', value: '9'},
 		    {label: 'Mês passado', value: '10'},

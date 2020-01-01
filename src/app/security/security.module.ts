@@ -1,4 +1,3 @@
-import { RouterModule } from '@angular/router';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -8,6 +7,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 // Angular
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';

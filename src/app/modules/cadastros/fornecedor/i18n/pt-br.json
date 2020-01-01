@@ -1,7 +1,7 @@
 {
 	"cadastros.fornecedor.fornecedor": "Fornecedor",
-	"cadastros.fornecedor.fornecedor_id": "#id",
-	"cadastros.fornecedor.fornecedor_id_grid": "#id",
+	"cadastros.fornecedor.fornecedor_id": "Identificador único",
+	"cadastros.fornecedor.fornecedor_id_grid": "Identificador único",
 	"cadastros.fornecedor.fornecedor_tipoPessoa": "Tipo do fornecedor",
 	"cadastros.fornecedor.fornecedor_tipoPessoa_grid": "Tipo do fornecedor",
 	"cadastros.fornecedor.fornecedor_tipoPessoa_pessoa_juridica": "Pessoa jurídica",

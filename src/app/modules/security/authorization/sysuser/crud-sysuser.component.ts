@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-10T07:19:17.233
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -26,7 +26,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-sysuser.component',
+  selector: 'app-crud-sysuser',
   templateUrl: './crud-sysuser.component.html',
   styleUrls: ['./crud-sysuser.component.css']
 })
@@ -83,7 +83,6 @@ export class SysUserComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -127,7 +126,7 @@ export class SysUserComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.sysUser.accountType = this.sysUserAccountTypeOptions[0].value;
+		this.sysUser.accountType = this.sysUserAccountTypeOptions[1].value;
 	}
 	
 	
@@ -176,6 +175,7 @@ export class SysUserComponent implements OnInit {
 	
 	private initializeSysUserAccountTypeOptions() {
 	    this.sysUserAccountTypeOptions = [
+	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('security.authorization.sysUser_accountType_personal'), value: 'PERSONAL' }, 
 	    	{ label: this.getTranslation('security.authorization.sysUser_accountType_corporate'), value: 'CORPORATE' }
 	    ];
@@ -194,8 +194,10 @@ export class SysUserComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.securityAuthorizationTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

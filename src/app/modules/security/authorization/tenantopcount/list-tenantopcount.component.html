@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.0.4
-Code generated at time stamp: 2019-08-06T07:20:02.884
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.838
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,14 +19,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
+			<p-accordionTab header="Filtros">
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="tenantOpCountFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="tenantOpCountFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -37,7 +37,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="tenantOpCountListItems"
 			    [rows]="tenantOpCountListFilter.pageSize" 
 			    [totalRecords]="tenantOpCountListTotalElements"
@@ -64,47 +65,46 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-tenantOpCount>
 		            <tr [pSelectableRow]="tenantOpCount">
 		            	<td>
-		            		{{tenantOpCount?.description}}
+		            		{{ tenantOpCount?.description }}
 		            	</td>
 		            	<td>
 		            		{{tenantOpCountTenantAutoCompleteFieldConverter(tenantOpCount?.tenant)}}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.yearOp}}
+		            		{{ tenantOpCount?.yearOp }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.monthOp}}
+		            		{{ tenantOpCount?.monthOp }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.dayOp}}
+		            		{{ tenantOpCount?.dayOp }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.hourOp}}
+		            		{{ tenantOpCount?.hourOp }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countGet}}
+		            		{{ tenantOpCount?.countGet }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countPost}}
+		            		{{ tenantOpCount?.countPost }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countPut}}
+		            		{{ tenantOpCount?.countPut }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countDelete}}
+		            		{{ tenantOpCount?.countDelete }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countList}}
+		            		{{ tenantOpCount?.countList }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countAutoComplete}}
+		            		{{ tenantOpCount?.countAutoComplete }}
 		            	</td>
 		            	<td>
-		            		{{tenantOpCount?.countOp}}
+		            		{{ tenantOpCount?.countOp }}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/tenantopcount', tenantOpCount.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(tenantOpCount)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deleteTenantOpCount(tenantOpCount)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              	</td>
 		            </tr>
@@ -126,32 +126,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/tenantopcount/novo" pButton label="Novo registro"></a>
 		</div>
-		
-		<!-- Begin Extras
-		
-		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
-		        [maximizable]="false" [baseZIndex]="10000">
-		      <div>
-		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
-		          <div>
-		              <label style="display: block">Valor pago</label>
-		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
-		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
-		          </div>
-		          <div>
-		              <label style="display: block">Data pagamento</label>
-		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
-		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
-		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
-		          </div>
-		      </div>
-		        <p-footer>
-		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
-		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
-		        </p-footer>
-		</p-dialog>
-		
-		End Extras -->
 	</div>
 	
 	</p-panel>

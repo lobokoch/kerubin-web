@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 7.18.7
-Code generated at time stamp: 2019-08-14T08:12:54.134
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.825
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -28,7 +28,7 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
 @Component({
-  selector: 'app-crud-creditorder.component',
+  selector: 'app-crud-creditorder',
   templateUrl: './crud-creditorder.component.html',
   styleUrls: ['./crud-creditorder.component.css']
 })
@@ -90,7 +90,6 @@ export class CreditOrderComponent implements OnInit {
 	      this.validateAllFormFields(form);
 	      return;
 	    }
-		    
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -134,8 +133,8 @@ export class CreditOrderComponent implements OnInit {
 	}
 	
 	initializeEnumFieldsWithDefault() {
-		this.creditOrder.paymentMethod = this.creditOrderPaymentMethodOptions[0].value;
-		this.creditOrder.orderStatus = this.creditOrderOrderStatusOptions[0].value;
+		this.creditOrder.paymentMethod = this.creditOrderPaymentMethodOptions[1].value;
+		this.creditOrder.orderStatus = this.creditOrderOrderStatusOptions[1].value;
 	}
 	
 	
@@ -228,8 +227,10 @@ export class CreditOrderComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.securityAuthorizationTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 }

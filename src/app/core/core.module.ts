@@ -1,10 +1,11 @@
+import { HomeComponent } from './../home/home.component';
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.2
-Code generated at time stamp: 2019-06-05T06:41:33.812
-Copyright: Kerubin - logokoch@gmail.com
+ Code generated with MKL Plug-in version: 3.6.2
+ Code generated at time stamp: 2019-06-05T06:41:33.812
+ Copyright: Kerubin - logokoch@gmail.com
 
-WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
-***********************************************************************************************/
+ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+ ***********************************************************************************************/
 
 // Angular
 import { HttpClientModule } from '@angular/common/http';
@@ -26,6 +27,7 @@ import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 // Kerubin - BEGIN
+import { HomeModule } from './../home/home.module';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { KerubinMenuModule } from './../menu/kerubin-menu.module';
 import { FocusDirective } from './../directive/focus.directive';
@@ -63,7 +65,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     KerubinAccountModule,
     SecurityModule,
     PaymentModule,
-    CreditBalanceModule
+    CreditBalanceModule,
+    HomeModule
   ],
 
   declarations: [
@@ -75,7 +78,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     NavbarComponent,
     ToastModule,
     KerubinMenuModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    HomeComponent
   ],
 
   providers: [

@@ -24,7 +24,7 @@ import { PlanoContaService } from '../planoconta/planoconta.service';
 
 export class PlanoContaTreeComponent implements OnInit {
 
-  @ViewChild('descricao', { read: ElementRef }) descricaoField: ElementRef;
+  @ViewChild('descricao', {static: false}) descricaoField: ElementRef;
 
   loadingTree = false;
   planoContasTree: TreeNode[];

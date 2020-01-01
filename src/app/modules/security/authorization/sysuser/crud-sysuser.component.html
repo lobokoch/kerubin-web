@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 7.13.0
-Code generated at time stamp: 2019-08-10T07:19:17.244
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:27:32.838
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,7 +20,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">{{ getTranslation('security.authorization.sysUser_id') }}</label>
-			<input type="hidden" pInputText #id="ngModel" ngModel [(ngModel)]="sysUser.id" name="id" readonly class="read-only">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="sysUser.id" name="id">
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
@@ -63,14 +65,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
+			<label style="display: block" for="superAdministrator" class="hidden">{{ getTranslation('security.authorization.sysUser_superAdministrator') }}</label>
+			<p-inputSwitch #superAdministrator="ngModel" ngModel [(ngModel)]="sysUser.superAdministrator" name="superAdministrator"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
 			<label for="accountType" class="hidden">{{ getTranslation('security.authorization.sysUser_accountType') }}</label>
-			<p-dropdown [disabled]="true" [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #accountType="ngModel" ngModel [(ngModel)]="sysUser.accountType" name="accountType" required></p-dropdown>
+			<div class="dropdown-readonly">
+				<p-dropdown [readonly]="true" [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #accountType="ngModel" ngModel [(ngModel)]="sysUser.accountType" name="accountType" required></p-dropdown>
+			</div>
+			
 			<div class="invalid-message" *ngIf="accountType.invalid && accountType.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-10 hidden">
 			<label for="tenant" class="hidden">{{ getTranslation('security.authorization.sysUser_tenant') }}</label>
-			<p-autoComplete [disabled]="true"
+			<div class="autocomplete-readonly">
+				<p-autoComplete [readonly]="true"
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="sysUserTenantAutoCompleteSuggestions"
 			 (completeMethod)="sysUserTenantAutoComplete($event)"
@@ -82,26 +93,35 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 					<div class="ui-helper-clearfix">{{ sysUserTenantAutoCompleteFieldConverter(tenant) }}</div>
 				</ng-template>
 			</p-autoComplete>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
 			<label for="activationDate" class="hidden">{{ getTranslation('security.authorization.sysUser_activationDate') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #activationDate="ngModel" ngModel [(ngModel)]="sysUser.activationDate" name="activationDate"></p-calendar>
+			<div class="calendar-readonly">
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #activationDate="ngModel" ngModel [(ngModel)]="sysUser.activationDate" name="activationDate"></p-calendar>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
 			<label style="display: block" for="confirmed" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmed') }}</label>
-			<p-inputSwitch [disabled]="true" #confirmed="ngModel" ngModel [(ngModel)]="sysUser.confirmed" name="confirmed"></p-inputSwitch>
+			<div class="inputswitch-readonly">
+				<p-inputSwitch #confirmed="ngModel" ngModel [(ngModel)]="sysUser.confirmed" name="confirmed"></p-inputSwitch>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
 			<label for="confirmationDate" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmationDate') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabled]="true" #confirmationDate="ngModel" ngModel [(ngModel)]="sysUser.confirmationDate" name="confirmationDate"></p-calendar>
+			<div class="calendar-readonly">
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #confirmationDate="ngModel" ngModel [(ngModel)]="sysUser.confirmationDate" name="confirmationDate"></p-calendar>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
 			<label for="confirmationId" class="hidden">{{ getTranslation('security.authorization.sysUser_confirmationId') }}</label>
-			<input type="hidden" pInputText [disabled]="true" #confirmationId="ngModel" ngModel [(ngModel)]="sysUser.confirmationId" name="confirmationId">
+			<div class="input-readonly">
+				<input type="hidden" pInputText readonly #confirmationId="ngModel" ngModel [(ngModel)]="sysUser.confirmationId" name="confirmationId">
+			</div>
 		</div>
 		
 		<div class="ui-g-12">

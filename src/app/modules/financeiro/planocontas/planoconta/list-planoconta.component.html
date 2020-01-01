@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 6.0.4
-Code generated at time stamp: 2019-06-30T08:21:44.078
+Code generated with MKL Plug-in version: 40.2.5
+Code generated at time stamp: 2019-12-31T10:28:20.590
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -19,7 +19,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
-			<p-accordionTab header="Filtro">
+			<p-accordionTab header="Filtros">
 			
 				<div class="ui-g">
 					<div class="ui-g-12">
@@ -45,13 +45,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-2 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label style="display: block" class="label-l label-r">Ativo</label>
 							<p-inputSwitch [(ngModel)]="planoContaListFilter.ativoIsNotNull"></p-inputSwitch>
 						</div>
 						
 						
-						<div class="ui-g-12 ui-md-2 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label style="display: block" class="label-l label-r">Inativo</label>
 							<p-inputSwitch [(ngModel)]="planoContaListFilter.ativoIsNull"></p-inputSwitch>
 						</div>
@@ -59,7 +59,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 					</div>
 					
 					<div>
-						<p-button label="Pesquisar" (click)="planoContaFilterSearch()"></p-button>
+						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="planoContaFilterSearch()"></p-button>
 					</div>
 				</div>
 				
@@ -70,7 +70,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" [responsive]="true" [customSort]="true" [paginator]="true" 
+			<p-table selectionMode="single" [loading]="loading" 
+				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
 				[value]="planoContaListItems"
 			    [rows]="planoContaListFilter.pageSize" 
 			    [totalRecords]="planoContaListTotalElements"
@@ -90,10 +91,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-planoConta>
 		            <tr [pSelectableRow]="planoConta">
 		            	<td>
-		            		{{planoConta?.codigo}}
+		            		{{ planoConta?.codigo }}
 		            	</td>
 		            	<td>
-		            		{{planoConta?.descricao}}
+		            		{{ planoConta?.descricao }}
 		            	</td>
 		            	<td>
 		            		{{ getTranslation('financeiro.plano_contas.planoConta_tipoFinanceiro' + '_' + planoConta?.tipoFinanceiro?.toLowerCase()) }}
@@ -109,7 +110,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/planoconta', planoConta.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-		              		<!-- <button (click)="mostrarPagarConta(planoConta)" pButton icon="pi pi-money"  pTooltip="Pagar esta conta" tooltipPosition="top"></button> -->
 		              		<button (click)="deletePlanoConta(planoConta)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
 		              	</td>
 		            </tr>
@@ -131,32 +131,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-md-2 ui-fluid">
 			<a routerLink="/planoconta/novo" pButton label="Novo registro"></a>
 		</div>
-		
-		<!-- Begin Extras
-		
-		<p-dialog header="Pagar conta" [(visible)]="mostrarDialogPagarConta" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200" [minY]="70"
-		        [maximizable]="false" [baseZIndex]="10000">
-		      <div>
-		          <div>Conta: <strong>{{ contaPagar.descricao }}</strong></div>
-		          <div>
-		              <label style="display: block">Valor pago</label>
-		              <input currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
-		              [(ngModel)]="contaPagar.valorPago" pInputText type="text" name="contaPagarValorPago" ngModel placeholder="0,00">
-		          </div>
-		          <div>
-		              <label style="display: block">Data pagamento</label>
-		              <p-calendar name="contaPagarDataPagamento" dateFormat="dd/mm/yy"
-		              [inline]="false" [readonlyInput]="false" [showIcon]="false"
-		               [(ngModel)]="contaPagar.dataPagamento" ngModel></p-calendar>
-		          </div>
-		      </div>
-		        <p-footer>
-		            <button type="button" pButton icon="pi pi-check" (click)="executarPagarConta()" label="Pagar"></button>
-		            <button type="button" pButton icon="pi pi-close" (click)="cancelarPagarConta()" label="Cancelar" class="ui-button-secondary"></button>
-		        </p-footer>
-		</p-dialog>
-		
-		End Extras -->
 	</div>
 	
 	</p-panel>
