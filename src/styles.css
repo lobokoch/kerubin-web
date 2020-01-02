@@ -484,7 +484,9 @@ a, button {
 
 .home-text-main {
   font-size: 3.5rem;
-  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 110%;
   color: #1e94d2 !important;
   margin: 0 auto !important;
   width: 50% !important;
