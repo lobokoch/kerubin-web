@@ -223,6 +223,9 @@ export class DashboardFluxoCaixaComponent implements OnInit {
   getDespesasMensaisPorPlanoContasTitle(monthIndex: number): string {
     const months = this.getMonthNames();
     monthIndex = moment().month() - monthIndex;
+    if (monthIndex < 0) {
+      monthIndex = 11; // Dezembro.
+    }
     const monthName = months[monthIndex];
     return `Débitos do mês ${monthName.toUpperCase()} por plano de contas`;
   }
@@ -230,6 +233,9 @@ export class DashboardFluxoCaixaComponent implements OnInit {
   getReceitasMensaisPorPlanoContasTitle(monthIndex: number): string {
     const months = this.getMonthNames();
     monthIndex = moment().month() - monthIndex;
+    if (monthIndex < 0) {
+      monthIndex = 11; // Dezembro.
+    }
     const monthName = months[monthIndex];
     return `Créditos do mês ${monthName.toUpperCase()} por plano de contas`;
   }

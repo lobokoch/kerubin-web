@@ -1,8 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*html {
+  height: 100%;
+}*/
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #404c51;
-  margin: 0;
+
+  margin: 0 auto;
+  padding: 0;
+  width: 100% !important;
+  min-height: 100vh !important;
 }
 
 .acord {
@@ -355,6 +364,14 @@ a, button {
   background-color: rgba(255, 128, 0, 0.5);
   border: 1px solid rgba(255, 165, 0, 1);
   min-width: 170px;
+  /*margin-left: 20px;*/
+}
+
+@media screen and (max-width: 550px) {
+  .div-card-saldo-atual .ui-card {
+    margin-left: 20px;
+  }
+
 }
 /* End Fluxo de Caixa */
 
@@ -443,15 +460,30 @@ a, button {
 	display: none;
 }
 
-.home-btn-entrar .ui-button {
-  border: 1px solid silver;
-  height: 40px !important;
 
-  width: 130px !important;
-  margin-right: 40px !important;
+
+@media (min-width: 1200px) {
+  .container {
+    margin: 0 auto;
+    /*width: 1170px;*/
+    width: 100% !important;
+  }
+}
+
+/* Begin HOME*/
+.home-logo {
+  text-align: center;
+}
+
+.home-text-main {
+  font-size: 1.8rem;
   font-weight: bold;
-  border-radius: 3px;
-  font-size: large;
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 110%;
+  color: #1e94d2 !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  text-align: center;
 }
 
 .home-btn-abrir-conta {
@@ -461,7 +493,7 @@ a, button {
 .home-btn-abrir-conta .ui-button {
   text-align: center;
   height: 100px !important;
-  width: 400px !important;
+  width: 90% !important;
   font-weight: bold;
   border-radius: 3px;
   font-size: x-large;
@@ -469,28 +501,64 @@ a, button {
   margin-bottom: 20px !important;
 }
 
+.home-btn-entrar {
+  text-align: center !important;
+}
+
+.home-faq-header {
+  text-align: center;
+  margin-top: 0px !important;
+}
+
+@media screen and (min-width: 401px) { /* > que 400*/
+  .home-logo {
+    text-align: left;
+  }
+
+  .home-text-main {
+    font-size: 3rem;
+    width: 50% !important;
+  }
+
+  .home-btn-abrir-conta .ui-button {
+    width: 470px !important;
+  }
+
+  .home-faq-header {
+    text-align: left;
+  }
+
+}
+
+.home-btn-entrar .ui-button {
+  border: 1px solid silver;
+  height: 40px !important;
+
+ width: 120px !important;
+  /*margin-right: 40px !important;*/
+  font-weight: bold;
+  border-radius: 3px;
+  font-size: large;
+}
+
+
+
 .home-container {
   background-color: #fff;
   margin: 0 auto;
   padding: 0;
   width: 100% !important;
-  height: 100vh !important;
+  /*height: 100vh !important;*/
+  height: 100% !important;
+
+  clear: both;
+  overflow: auto;
+  float: left;
 }
 
 .home-blocks {
   margin-top: 20px;
   margin-bottom: 20px;
-}
-
-.home-text-main {
-  font-size: 3.5rem;
-  font-weight: bold;
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
-  line-height: 110%;
-  color: #1e94d2 !important;
-  margin: 0 auto !important;
-  width: 50% !important;
-  text-align: center;
 }
 
 .home-text-blocks {
@@ -524,5 +592,9 @@ a, button {
   background-color: #1e94d2 !important;
   color: #fff;
   height: 100px;
-  border-top: 1px solid #000;
+  margin-top: 5px;
+  border-top: 1px solid #2d487c;
+
+  float: left;
 }
+/* End HOME*/
