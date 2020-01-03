@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.070
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T07:15:22.295
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -80,10 +80,14 @@ export class CaixaDiarioListComponent implements OnInit {
 	}
 	
 	caixaDiarioListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.caixaDiarioListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.caixaDiarioListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.caixaDiarioListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.caixaDiarioListFilter.sortField = new SortField('id', 1); // asc
+	    	this.caixaDiarioListFilter.sortFields = new Array(1);
+	    	this.caixaDiarioListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.caixaDiarioList(pageNumber);

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.070
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T12:27:29.069
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -384,12 +384,6 @@ export class CaixaLancamentoService {
 			params = params.set('formaPagamento', value);
 		}
 		
-		// tipoFonteMovimento
-		if (filter.tipoFonteMovimento) {
-			const value = String(filter.tipoFonteMovimento);
-			params = params.set('tipoFonteMovimento', value);
-		}
-		
 		// idConcBancariaIsNotNull
 		if (filter.idConcBancariaIsNotNull) {
 			const value = filter.idConcBancariaIsNotNull ? 'true' : 'false';
@@ -409,11 +403,13 @@ export class CaixaLancamentoService {
 		}
 	
 	    // Sort
-	    if (filter.sortField) {
-	      // search/nameStartsWith?name=K&sort=name,desc
-	      const sortField = filter.sortField;
-	      const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
-	      params = params.set('sort', sortValue);
+	    if (filter.sortFields) {
+	      // search/nameStartsWith?name=K&sort=name,asc&sort=value,desc
+	      
+			filter.sortFields.forEach(sortField => {
+				const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
+				params = params.append('sort', sortValue);
+			});
 	    }
 	
 	    return params;

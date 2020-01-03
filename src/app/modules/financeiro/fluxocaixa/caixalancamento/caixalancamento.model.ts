@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.070
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T12:27:29.069
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -12,9 +12,9 @@ import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
 import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
 import { PlanoConta } from './../planoconta/planoconta.model';
-import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 import { Cliente } from './../cliente/cliente.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
+import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 
 export class SortField {
   field: string;
@@ -29,7 +29,7 @@ export class SortField {
 export class PaginationFilter {
   pageNumber: number;
   pageSize: number;
-  sortField: SortField;
+  sortFields: SortField[];
 
   constructor() {
     this.pageNumber = 0;
@@ -62,8 +62,6 @@ export class CaixaLancamentoListFilter extends PaginationFilter {
 	
 	formaPagamento: FormaPagamento;
 	
-	tipoFonteMovimento: TipoFonteMovimento;
-	
 	idConcBancariaIsNotNull: boolean;
 	
 	histConcBancaria: CaixaLancamentoHistConcBancariaAutoComplete[];
@@ -85,11 +83,11 @@ export class CaixaLancamento {
 	cartaoCredito: CartaoCredito;
 	outrosDescricao: string;
 	planoContas: PlanoConta;
-	tipoFonteMovimento: TipoFonteMovimento;
 	cliente: Cliente;
 	fornecedor: Fornecedor;
-	documento: string;
+	tipoFonteMovimento: TipoFonteMovimento;
 	idFonteMovimento: string;
+	documento: string;
 	idConcBancaria: string;
 	histConcBancaria: string;
 	numDocConcBancaria: string;

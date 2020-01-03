@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.091
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T12:27:29.086
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -113,7 +113,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="caixaLancamento.outrosDescricao" name="outrosDescricao">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-8">
+		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="planoContas">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_planoContas') }}<span class="kb-label-required">*</span></label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -128,15 +128,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 			<div class="invalid-message" *ngIf="planoContas.invalid && planoContas.dirty">Campo obrigatório.</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
-			<div class="dropdown-readonly">
-				<p-dropdown [readonly]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
-			</div>
-			
-			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleClienteAppyStyleClass()">
@@ -171,16 +162,25 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-autoComplete>
 		</div>
 		
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
+			<div class="dropdown-readonly">
+				<p-dropdown [readonly]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
+			</div>
+			
+			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleIdFonteMovimentoAppyStyleClass()">
+			<label for="idFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idFonteMovimento') }}</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #idFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.idFonteMovimento" name="idFonteMovimento">
+			</div>
+		</div>
+		
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="documento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_documento') }}</label>
 			<input type="text" pInputText #documento="ngModel" ngModel [(ngModel)]="caixaLancamento.documento" name="documento">
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-6 hidden">
-			<label for="idFonteMovimento" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idFonteMovimento') }}</label>
-			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #idFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.idFonteMovimento" name="idFonteMovimento">
-			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleIdConcBancariaAppyStyleClass()">

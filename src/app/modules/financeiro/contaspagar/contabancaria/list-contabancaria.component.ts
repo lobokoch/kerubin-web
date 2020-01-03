@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:49.879
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T07:14:12.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -83,10 +83,14 @@ export class ContaBancariaListComponent implements OnInit {
 	}
 	
 	contaBancariaListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.contaBancariaListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.contaBancariaListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.contaBancariaListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.contaBancariaListFilter.sortField = new SortField('id', 1); // asc
+	    	this.contaBancariaListFilter.sortFields = new Array(1);
+	    	this.contaBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.contaBancariaList(pageNumber);

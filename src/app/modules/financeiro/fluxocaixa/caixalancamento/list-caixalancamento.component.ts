@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.070
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T12:27:29.069
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -24,8 +24,6 @@ import { CaixaLancamentoHistConcBancariaAutoComplete } from './caixalancamento.m
 import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
-
-import { TipoFonteMovimento } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 
@@ -62,7 +60,6 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	
 	caixaLancamentoFormaPagamentoOptions: FormaPagamento[];
-	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
 	
 	
 	
@@ -90,7 +87,6 @@ export class CaixaLancamentoListComponent implements OnInit {
 		
 		
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
-		this.initializeCaixaLancamentoTipoFonteMovimentoOptions();
 		
 		this.caixaLancamentoListFilter.idConcBancariaIsNotNull = false;
 		
@@ -141,10 +137,14 @@ export class CaixaLancamentoListComponent implements OnInit {
 	}
 	
 	caixaLancamentoListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.caixaLancamentoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.caixaLancamentoListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.caixaLancamentoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.caixaLancamentoListFilter.sortField = new SortField('dataLancamento', 0); // asc
+	    	this.caixaLancamentoListFilter.sortFields = new Array(1);
+	    	this.caixaLancamentoListFilter.sortFields.push(new SortField('dataLancamento', 0));
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.caixaLancamentoList(pageNumber);
@@ -191,15 +191,6 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_cheque'), value: 'CHEQUE' }, 
 	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_outros'), value: 'OUTROS' }
-	    ];
-	}
-	  
-	private initializeCaixaLancamentoTipoFonteMovimentoOptions() {
-	    this.caixaLancamentoTipoFonteMovimentoOptions = [
-	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_lancemento_caixa'), value: 'LANCEMENTO_CAIXA' }, 
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_pagar'), value: 'CONTAS_PAGAR' }, 
-	    	{ label: this.getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento_contas_receber'), value: 'CONTAS_RECEBER' }
 	    ];
 	}
 	  

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:51.742
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T07:14:21.364
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -80,10 +80,14 @@ export class AgenciaBancariaListComponent implements OnInit {
 	}
 	
 	agenciaBancariaListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.agenciaBancariaListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.agenciaBancariaListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.agenciaBancariaListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.agenciaBancariaListFilter.sortField = new SortField('id', 1); // asc
+	    	this.agenciaBancariaListFilter.sortFields = new Array(1);
+	    	this.agenciaBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.agenciaBancariaList(pageNumber);

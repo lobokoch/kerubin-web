@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:19.070
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T12:27:29.069
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -578,6 +578,15 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	ruleOutrosDescricaoAppyStyleClass() {
 		const expression = (String(this.caixaLancamento.formaPagamento) === 'CONTA_BANCARIA') || (String(this.caixaLancamento.formaPagamento) === 'CARTAO_CREDITO');
+		if (expression) {
+			return 'hidden';
+		} else {
+			return '';
+		}
+		
+	}
+	ruleIdFonteMovimentoAppyStyleClass() {
+		const expression = !this.caixaLancamento.idFonteMovimento;
 		if (expression) {
 			return 'hidden';
 		} else {

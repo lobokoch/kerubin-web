@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:49.879
+Code generated with MKL Plug-in version: 40.3.1
+Code generated at time stamp: 2020-01-03T07:14:12.723
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -135,10 +135,15 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	contaPagarListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.contaPagarListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.contaPagarListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.contaPagarListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.contaPagarListFilter.sortField = new SortField('dataVencimento', 1); // asc
+	    	this.contaPagarListFilter.sortFields = new Array(2);
+	    	this.contaPagarListFilter.sortFields.push(new SortField('dataVencimento', 1));
+	    	this.contaPagarListFilter.sortFields.push(new SortField('valor', 0));
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.contaPagarList(pageNumber);
