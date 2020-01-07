@@ -12,7 +12,7 @@
         <div class="ui-g-12 ui-md-4 ui-g-nopad">
           <div class="ui-g-12 ui-g-nopad" style="padding-right: 10px !important">
 
-            <p-button style="margin-bottom: 5px;" (onClick)="reloadTree($event)" label="Recarregar" icon="pi pi-replay" iconPos="right"></p-button>
+            <p-button [style]="{'margin-bottom': '5px'}" (onClick)="reloadTree($event)" label="Recarregar" icon="pi pi-replay" iconPos="right"></p-button>
 
             <p-tree [style]="{'width': '100%', 'max-height':'600px', 'overflow':'auto'}"
               [value]="planoContasTree"
