@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T12:27:29.069
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:49.329
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -45,6 +45,7 @@ import { CaixaLancamentoSumFields } from './caixalancamento.model';
 })
 
 export class CaixaLancamentoListComponent implements OnInit {
+	tableLoading = false;
 	
 	caixaLancamentoListItems: CaixaLancamento[];
 	caixaLancamentoListTotalElements = 0;
@@ -94,25 +95,39 @@ export class CaixaLancamentoListComponent implements OnInit {
 	}
 	
 	caixaLancamentoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.caixaLancamentoListFilter.pageNumber = pageNumber;
 	    this.caixaLancamentoService
 	    .caixaLancamentoList(this.caixaLancamentoListFilter)
 	    .then(result => {
-	      	this.caixaLancamentoListItems = result.items;
-	      	this.caixaLancamentoListTotalElements = result.totalElements;
-	      
-			this.getCaixaLancamentoSumFields();
+	    	try {
+		      	this.caixaLancamentoListItems = result.items;
+		      	this.caixaLancamentoListTotalElements = result.totalElements;
+		      
+				this.getCaixaLancamentoSumFields();
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
 	
 	getCaixaLancamentoSumFields() {
+		this.tableLoading = true;
 	    this.caixaLancamentoService.getCaixaLancamentoSumFields(this.caixaLancamentoListFilter)
 		.then(response => {
-		  this.caixaLancamentoSumFields = response;
+			try {
+				this.caixaLancamentoSumFields = response;
+			} finally {
+				this.tableLoading = false;
+			}
 		})
 		.catch(e => {
-		  this.messageHandler.showError(e);
+			this.tableLoading = false;
+			this.messageHandler.showError(e);
 		});
 	}
 	

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:32.825
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T20:34:08.364
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -28,6 +28,7 @@ import { TenantAutoComplete } from './../tenant/tenant.model';
 })
 
 export class TenantOpCountListComponent implements OnInit {
+	tableLoading = false;
 	
 	tenantOpCountListItems: TenantOpCount[];
 	tenantOpCountListTotalElements = 0;
@@ -47,13 +48,21 @@ export class TenantOpCountListComponent implements OnInit {
 	}
 	
 	tenantOpCountList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.tenantOpCountListFilter.pageNumber = pageNumber;
 	    this.tenantOpCountService
 	    .tenantOpCountList(this.tenantOpCountListFilter)
 	    .then(result => {
-	      	this.tenantOpCountListItems = result.items;
-	      	this.tenantOpCountListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.tenantOpCountListItems = result.items;
+		      	this.tenantOpCountListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -80,10 +89,14 @@ export class TenantOpCountListComponent implements OnInit {
 	}
 	
 	tenantOpCountListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.tenantOpCountListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.tenantOpCountListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.tenantOpCountListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.tenantOpCountListFilter.sortField = new SortField('id', 1); // asc
+	    	this.tenantOpCountListFilter.sortFields = new Array(1);
+	    	this.tenantOpCountListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.tenantOpCountList(pageNumber);

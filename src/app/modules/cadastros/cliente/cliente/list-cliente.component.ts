@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:49.211
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:15.908
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -27,6 +27,7 @@ import { ClienteNomeAutoComplete } from './cliente.model';
 })
 
 export class ClienteListComponent implements OnInit {
+	tableLoading = false;
 	
 	clienteListItems: Cliente[];
 	clienteListTotalElements = 0;
@@ -48,13 +49,21 @@ export class ClienteListComponent implements OnInit {
 	}
 	
 	clienteList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.clienteListFilter.pageNumber = pageNumber;
 	    this.clienteService
 	    .clienteList(this.clienteListFilter)
 	    .then(result => {
-	      	this.clienteListItems = result.items;
-	      	this.clienteListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.clienteListItems = result.items;
+		      	this.clienteListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -81,10 +90,14 @@ export class ClienteListComponent implements OnInit {
 	}
 	
 	clienteListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.clienteListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.clienteListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.clienteListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.clienteListFilter.sortField = new SortField('id', 1); // asc
+	    	this.clienteListFilter.sortFields = new Array(1);
+	    	this.clienteListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.clienteList(pageNumber);

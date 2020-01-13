@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:32.825
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T20:34:08.364
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -33,6 +33,7 @@ import { CreditOrderAdminSumFields } from './creditorderadmin.model';
 })
 
 export class CreditOrderAdminListComponent implements OnInit {
+	tableLoading = false;
 	
 	creditOrderAdminListItems: CreditOrderAdmin[];
 	creditOrderAdminListTotalElements = 0;
@@ -69,25 +70,39 @@ export class CreditOrderAdminListComponent implements OnInit {
 	}
 	
 	creditOrderAdminList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.creditOrderAdminListFilter.pageNumber = pageNumber;
 	    this.creditOrderAdminService
 	    .creditOrderAdminList(this.creditOrderAdminListFilter)
 	    .then(result => {
-	      	this.creditOrderAdminListItems = result.items;
-	      	this.creditOrderAdminListTotalElements = result.totalElements;
-	      
-			this.getCreditOrderAdminSumFields();
+	    	try {
+		      	this.creditOrderAdminListItems = result.items;
+		      	this.creditOrderAdminListTotalElements = result.totalElements;
+		      
+				this.getCreditOrderAdminSumFields();
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
 	
 	getCreditOrderAdminSumFields() {
+		this.tableLoading = true;
 	    this.creditOrderAdminService.getCreditOrderAdminSumFields(this.creditOrderAdminListFilter)
 		.then(response => {
-		  this.creditOrderAdminSumFields = response;
+			try {
+				this.creditOrderAdminSumFields = response;
+			} finally {
+				this.tableLoading = false;
+			}
 		})
 		.catch(e => {
-		  this.messageHandler.showError(e);
+			this.tableLoading = false;
+			this.messageHandler.showError(e);
 		});
 	}
 	
@@ -112,10 +127,14 @@ export class CreditOrderAdminListComponent implements OnInit {
 	}
 	
 	creditOrderAdminListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.creditOrderAdminListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.creditOrderAdminListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.creditOrderAdminListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.creditOrderAdminListFilter.sortField = new SortField('id', 1); // asc
+	    	this.creditOrderAdminListFilter.sortFields = new Array(1);
+	    	this.creditOrderAdminListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.creditOrderAdminList(pageNumber);

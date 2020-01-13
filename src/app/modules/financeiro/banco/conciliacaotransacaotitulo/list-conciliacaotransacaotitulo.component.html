@@ -43,8 +43,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="loading" 
-				[responsive]="true" [customSort]="true" [paginator]="true" [resizableColumns]="true"
+			<p-table selectionMode="single" [loading]="tableLoading"
+				[responsive]="true" sortMode="multiple" [paginator]="true" [resizableColumns]="true"
 				[value]="conciliacaoTransacaoTituloListItems"
 			    [rows]="conciliacaoTransacaoTituloListFilter.pageSize" 
 			    [totalRecords]="conciliacaoTransacaoTituloListTotalElements"

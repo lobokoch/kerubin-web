@@ -24,7 +24,7 @@ export class SortField {
 export class PaginationFilter {
   pageNumber: number;
   pageSize: number;
-  sortField: SortField;
+  sortFields: SortField[];
 
   constructor() {
     this.pageNumber = 0;

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:14:12.723
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:17.325
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -40,6 +40,7 @@ import { ContaPagarSumFields } from './contapagar.model';
 })
 
 export class ContaPagarListComponent implements OnInit {
+	tableLoading = false;
 	
 	contaPagarListItems: ContaPagar[];
 	contaPagarListTotalElements = 0;
@@ -92,25 +93,39 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	contaPagarList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.contaPagarListFilter.pageNumber = pageNumber;
 	    this.contaPagarService
 	    .contaPagarList(this.contaPagarListFilter)
 	    .then(result => {
-	      	this.contaPagarListItems = result.items;
-	      	this.contaPagarListTotalElements = result.totalElements;
-	      
-			this.getContaPagarSumFields();
+	    	try {
+		      	this.contaPagarListItems = result.items;
+		      	this.contaPagarListTotalElements = result.totalElements;
+		      
+				this.getContaPagarSumFields();
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
 	
 	getContaPagarSumFields() {
+		this.tableLoading = true;
 	    this.contaPagarService.getContaPagarSumFields(this.contaPagarListFilter)
 		.then(response => {
-		  this.contaPagarSumFields = response;
+			try {
+				this.contaPagarSumFields = response;
+			} finally {
+				this.tableLoading = false;
+			}
 		})
 		.catch(e => {
-		  this.messageHandler.showError(e);
+			this.tableLoading = false;
+			this.messageHandler.showError(e);
 		});
 	}
 	

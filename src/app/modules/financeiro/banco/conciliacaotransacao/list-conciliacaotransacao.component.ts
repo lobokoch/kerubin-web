@@ -41,7 +41,7 @@ import { AutoComplete } from 'primeng/autocomplete';
 })
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
-
+	tableLoading = false;
   // Begin planoContasDialog
   displayDialogPlanoContas = false;
   planoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
@@ -70,22 +70,22 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
 
 	// Begin polling reference variables
-	private pollingRecarregarTransacoesRef: any = null;
+	pollingRecarregarTransacoesRef: any = null;
   // End polling reference variables
 
   // Begin Dialog
-  private displayDialog = false;
-  private selectedConciliacaoTransacao = new ConciliacaoTransacao();
-  private conciliacaoTransacaoPlanoContas = new ConciliacaoTransacao();
+  displayDialog = false;
+  selectedConciliacaoTransacao = new ConciliacaoTransacao();
+  conciliacaoTransacaoPlanoContas = new ConciliacaoTransacao();
   // private conciliacaoTransacao = new ConciliacaoTransacao();
-  private cols: any[];
-  private selectedConciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo;
-  private titulosDialog: ConciliacaoTransacaoTitulo[];
+  cols: any[];
+  selectedConciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo;
+  titulosDialog: ConciliacaoTransacaoTitulo[];
   // End Dialog
 
   // Begin custom params
-  private conciliadoComMaisDeUmTitulo = false;
-  private conciliacaoTransacaoComMesmoTitulo = false;
+  conciliadoComMaisDeUmTitulo = false;
+  conciliacaoTransacaoComMesmoTitulo = false;
   // End custom params
 
   // Definição de um emissor de eventos.
@@ -270,13 +270,21 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       this.conciliacaoTransacaoListFilter.customParams = this.conciliacaoTransacaoListFilter
         .customParams.set('conciliacaoTransacaoComMesmoTitulo', this.conciliacaoTransacaoComMesmoTitulo);
 
+      this.tableLoading = true;
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {
-	      	this.conciliacaoTransacaoListItems = result.items;
-	      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
-	      	this.conciliacaoTransacaoListTotalPages = result.totalPages;
-	    });
+          try {
+            this.conciliacaoTransacaoListItems = result.items;
+            this.conciliacaoTransacaoListTotalElements = result.totalElements;
+            this.conciliacaoTransacaoListTotalPages = result.totalPages;
+          } finally {
+            this.tableLoading = false;
+          }
+        })
+        .catch(e => {
+          this.tableLoading = false;
+      });
 
 	}
 
@@ -309,10 +317,14 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 	conciliacaoTransacaoListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.conciliacaoTransacaoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.conciliacaoTransacaoListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.conciliacaoTransacaoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.conciliacaoTransacaoListFilter.sortField = new SortField('id', 1); // asc
+	    	this.conciliacaoTransacaoListFilter.sortFields = new Array(1);
+	    	this.conciliacaoTransacaoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoTransacaoList(pageNumber);

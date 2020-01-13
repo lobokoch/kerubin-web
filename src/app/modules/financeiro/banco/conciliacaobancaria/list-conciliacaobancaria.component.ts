@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 26.0.4
-Code generated at time stamp: 2019-10-18T05:55:37.138
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -26,6 +26,7 @@ import { SortField } from './conciliacaobancaria.model';
 })
 
 export class ConciliacaoBancariaListComponent implements OnInit {
+	tableLoading = false;
 	
 	conciliacaoBancariaListItems: ConciliacaoBancaria[];
 	conciliacaoBancariaListTotalElements = 0;
@@ -45,13 +46,21 @@ export class ConciliacaoBancariaListComponent implements OnInit {
 	}
 	
 	conciliacaoBancariaList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.conciliacaoBancariaListFilter.pageNumber = pageNumber;
 	    this.conciliacaoBancariaService
 	    .conciliacaoBancariaList(this.conciliacaoBancariaListFilter)
 	    .then(result => {
-	      	this.conciliacaoBancariaListItems = result.items;
-	      	this.conciliacaoBancariaListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.conciliacaoBancariaListItems = result.items;
+		      	this.conciliacaoBancariaListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -78,10 +87,14 @@ export class ConciliacaoBancariaListComponent implements OnInit {
 	}
 	
 	conciliacaoBancariaListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.conciliacaoBancariaListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.conciliacaoBancariaListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.conciliacaoBancariaListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.conciliacaoBancariaListFilter.sortField = new SortField('id', 1); // asc
+	    	this.conciliacaoBancariaListFilter.sortFields = new Array(1);
+	    	this.conciliacaoBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoBancariaList(pageNumber);

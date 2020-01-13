@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:14:21.364
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:18.257
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,6 +30,7 @@ import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.m
 })
 
 export class CartaoCreditoListComponent implements OnInit {
+	tableLoading = false;
 	
 	cartaoCreditoListItems: CartaoCredito[];
 	cartaoCreditoListTotalElements = 0;
@@ -49,13 +50,21 @@ export class CartaoCreditoListComponent implements OnInit {
 	}
 	
 	cartaoCreditoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.cartaoCreditoListFilter.pageNumber = pageNumber;
 	    this.cartaoCreditoService
 	    .cartaoCreditoList(this.cartaoCreditoListFilter)
 	    .then(result => {
-	      	this.cartaoCreditoListItems = result.items;
-	      	this.cartaoCreditoListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.cartaoCreditoListItems = result.items;
+		      	this.cartaoCreditoListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}

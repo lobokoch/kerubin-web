@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:34.608
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -25,7 +25,7 @@ export class SortField {
 export class PaginationFilter {
   pageNumber: number;
   pageSize: number;
-  sortField: SortField;
+  sortFields: SortField[];
 
   constructor() {
     this.pageNumber = 0;

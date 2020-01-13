@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:28:20.281
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:50.602
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -27,6 +27,7 @@ import { FornecedorNomeAutoComplete } from './fornecedor.model';
 })
 
 export class FornecedorListComponent implements OnInit {
+	tableLoading = false;
 	
 	fornecedorListItems: Fornecedor[];
 	fornecedorListTotalElements = 0;
@@ -48,13 +49,21 @@ export class FornecedorListComponent implements OnInit {
 	}
 	
 	fornecedorList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.fornecedorListFilter.pageNumber = pageNumber;
 	    this.fornecedorService
 	    .fornecedorList(this.fornecedorListFilter)
 	    .then(result => {
-	      	this.fornecedorListItems = result.items;
-	      	this.fornecedorListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.fornecedorListItems = result.items;
+		      	this.fornecedorListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -81,10 +90,14 @@ export class FornecedorListComponent implements OnInit {
 	}
 	
 	fornecedorListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.fornecedorListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.fornecedorListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.fornecedorListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.fornecedorListFilter.sortField = new SortField('id', 1); // asc
+	    	this.fornecedorListFilter.sortFields = new Array(1);
+	    	this.fornecedorListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.fornecedorList(pageNumber);

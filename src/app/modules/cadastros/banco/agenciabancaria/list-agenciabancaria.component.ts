@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:34.608
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -28,6 +28,7 @@ import { BancoAutoComplete } from './../banco/banco.model';
 })
 
 export class AgenciaBancariaListComponent implements OnInit {
+	tableLoading = false;
 	
 	agenciaBancariaListItems: AgenciaBancaria[];
 	agenciaBancariaListTotalElements = 0;
@@ -47,13 +48,21 @@ export class AgenciaBancariaListComponent implements OnInit {
 	}
 	
 	agenciaBancariaList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.agenciaBancariaListFilter.pageNumber = pageNumber;
 	    this.agenciaBancariaService
 	    .agenciaBancariaList(this.agenciaBancariaListFilter)
 	    .then(result => {
-	      	this.agenciaBancariaListItems = result.items;
-	      	this.agenciaBancariaListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.agenciaBancariaListItems = result.items;
+		      	this.agenciaBancariaListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -80,10 +89,14 @@ export class AgenciaBancariaListComponent implements OnInit {
 	}
 	
 	agenciaBancariaListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.agenciaBancariaListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.agenciaBancariaListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.agenciaBancariaListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.agenciaBancariaListFilter.sortField = new SortField('id', 1); // asc
+	    	this.agenciaBancariaListFilter.sortFields = new Array(1);
+	    	this.agenciaBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.agenciaBancariaList(pageNumber);

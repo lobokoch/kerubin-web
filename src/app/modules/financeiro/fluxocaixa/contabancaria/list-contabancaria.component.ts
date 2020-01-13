@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:15:22.295
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:49.329
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -28,6 +28,7 @@ import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancari
 })
 
 export class ContaBancariaListComponent implements OnInit {
+	tableLoading = false;
 	
 	contaBancariaListItems: ContaBancaria[];
 	contaBancariaListTotalElements = 0;
@@ -47,13 +48,21 @@ export class ContaBancariaListComponent implements OnInit {
 	}
 	
 	contaBancariaList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.contaBancariaListFilter.pageNumber = pageNumber;
 	    this.contaBancariaService
 	    .contaBancariaList(this.contaBancariaListFilter)
 	    .then(result => {
-	      	this.contaBancariaListItems = result.items;
-	      	this.contaBancariaListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.contaBancariaListItems = result.items;
+		      	this.contaBancariaListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}

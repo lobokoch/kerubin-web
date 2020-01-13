@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:15:22.295
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:49.329
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -28,6 +28,7 @@ import { CaixaAutoComplete } from './../caixa/caixa.model';
 })
 
 export class CaixaDiarioListComponent implements OnInit {
+	tableLoading = false;
 	
 	caixaDiarioListItems: CaixaDiario[];
 	caixaDiarioListTotalElements = 0;
@@ -47,13 +48,21 @@ export class CaixaDiarioListComponent implements OnInit {
 	}
 	
 	caixaDiarioList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.caixaDiarioListFilter.pageNumber = pageNumber;
 	    this.caixaDiarioService
 	    .caixaDiarioList(this.caixaDiarioListFilter)
 	    .then(result => {
-	      	this.caixaDiarioListItems = result.items;
-	      	this.caixaDiarioListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.caixaDiarioListItems = result.items;
+		      	this.caixaDiarioListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}

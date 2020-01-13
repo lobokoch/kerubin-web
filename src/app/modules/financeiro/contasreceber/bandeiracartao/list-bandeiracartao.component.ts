@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:14:21.364
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:18.257
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -27,6 +27,7 @@ import { BandeiraCartaoNomeBandeiraAutoComplete } from './bandeiracartao.model';
 })
 
 export class BandeiraCartaoListComponent implements OnInit {
+	tableLoading = false;
 	
 	bandeiraCartaoListItems: BandeiraCartao[];
 	bandeiraCartaoListTotalElements = 0;
@@ -48,13 +49,21 @@ export class BandeiraCartaoListComponent implements OnInit {
 	}
 	
 	bandeiraCartaoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.bandeiraCartaoListFilter.pageNumber = pageNumber;
 	    this.bandeiraCartaoService
 	    .bandeiraCartaoList(this.bandeiraCartaoListFilter)
 	    .then(result => {
-	      	this.bandeiraCartaoListItems = result.items;
-	      	this.bandeiraCartaoListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.bandeiraCartaoListItems = result.items;
+		      	this.bandeiraCartaoListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}

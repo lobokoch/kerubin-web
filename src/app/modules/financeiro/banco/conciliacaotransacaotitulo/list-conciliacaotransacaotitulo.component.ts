@@ -30,6 +30,7 @@ import { ConciliacaoTransacaoAutoComplete } from './../conciliacaotransacao/conc
 })
 
 export class ConciliacaoTransacaoTituloListComponent implements OnInit {
+	tableLoading = false;
 	
 	conciliacaoTransacaoTituloListItems: ConciliacaoTransacaoTitulo[];
 	conciliacaoTransacaoTituloListTotalElements = 0;
@@ -52,13 +53,21 @@ export class ConciliacaoTransacaoTituloListComponent implements OnInit {
 	}
 	
 	conciliacaoTransacaoTituloList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.conciliacaoTransacaoTituloListFilter.pageNumber = pageNumber;
 	    this.conciliacaoTransacaoTituloService
 	    .conciliacaoTransacaoTituloList(this.conciliacaoTransacaoTituloListFilter)
 	    .then(result => {
-	      	this.conciliacaoTransacaoTituloListItems = result.items;
-	      	this.conciliacaoTransacaoTituloListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.conciliacaoTransacaoTituloListItems = result.items;
+		      	this.conciliacaoTransacaoTituloListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -85,10 +94,14 @@ export class ConciliacaoTransacaoTituloListComponent implements OnInit {
 	}
 	
 	conciliacaoTransacaoTituloListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.conciliacaoTransacaoTituloListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.conciliacaoTransacaoTituloListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.conciliacaoTransacaoTituloListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.conciliacaoTransacaoTituloListFilter.sortField = new SortField('id', 1); // asc
+	    	this.conciliacaoTransacaoTituloListFilter.sortFields = new Array(1);
+	    	this.conciliacaoTransacaoTituloListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoTransacaoTituloList(pageNumber);

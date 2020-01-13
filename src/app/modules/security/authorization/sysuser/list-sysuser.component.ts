@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:32.825
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T20:34:08.364
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -29,6 +29,7 @@ import { TenantAutoComplete } from './../tenant/tenant.model';
 })
 
 export class SysUserListComponent implements OnInit {
+	tableLoading = false;
 	
 	sysUserListItems: SysUser[];
 	sysUserListTotalElements = 0;
@@ -50,13 +51,21 @@ export class SysUserListComponent implements OnInit {
 	}
 	
 	sysUserList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.sysUserListFilter.pageNumber = pageNumber;
 	    this.sysUserService
 	    .sysUserList(this.sysUserListFilter)
 	    .then(result => {
-	      	this.sysUserListItems = result.items;
-	      	this.sysUserListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.sysUserListItems = result.items;
+		      	this.sysUserListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -83,10 +92,14 @@ export class SysUserListComponent implements OnInit {
 	}
 	
 	sysUserListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.sysUserListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.sysUserListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.sysUserListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.sysUserListFilter.sortField = new SortField('id', 1); // asc
+	    	this.sysUserListFilter.sortFields = new Array(1);
+	    	this.sysUserListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.sysUserList(pageNumber);

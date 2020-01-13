@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:34.608
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -38,6 +38,7 @@ import { ConciliacaoTransacaoTituloAutoComplete } from './../conciliacaotransaca
 })
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
+	tableLoading = false;
 	
 	conciliacaoTransacaoListItems: ConciliacaoTransacao[];
 	conciliacaoTransacaoListTotalElements = 0;
@@ -86,13 +87,21 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 	
 	conciliacaoTransacaoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
 	    this.conciliacaoTransacaoService
 	    .conciliacaoTransacaoList(this.conciliacaoTransacaoListFilter)
 	    .then(result => {
-	      	this.conciliacaoTransacaoListItems = result.items;
-	      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.conciliacaoTransacaoListItems = result.items;
+		      	this.conciliacaoTransacaoListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -119,10 +128,14 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 	
 	conciliacaoTransacaoListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.conciliacaoTransacaoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.conciliacaoTransacaoListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.conciliacaoTransacaoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.conciliacaoTransacaoListFilter.sortField = new SortField('id', 1); // asc
+	    	this.conciliacaoTransacaoListFilter.sortFields = new Array(1);
+	    	this.conciliacaoTransacaoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.conciliacaoTransacaoList(pageNumber);

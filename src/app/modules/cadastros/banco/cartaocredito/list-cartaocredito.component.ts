@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:34.608
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -30,6 +30,7 @@ import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.m
 })
 
 export class CartaoCreditoListComponent implements OnInit {
+	tableLoading = false;
 	
 	cartaoCreditoListItems: CartaoCredito[];
 	cartaoCreditoListTotalElements = 0;
@@ -49,13 +50,21 @@ export class CartaoCreditoListComponent implements OnInit {
 	}
 	
 	cartaoCreditoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.cartaoCreditoListFilter.pageNumber = pageNumber;
 	    this.cartaoCreditoService
 	    .cartaoCreditoList(this.cartaoCreditoListFilter)
 	    .then(result => {
-	      	this.cartaoCreditoListItems = result.items;
-	      	this.cartaoCreditoListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.cartaoCreditoListItems = result.items;
+		      	this.cartaoCreditoListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -82,10 +91,14 @@ export class CartaoCreditoListComponent implements OnInit {
 	}
 	
 	cartaoCreditoListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.cartaoCreditoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.cartaoCreditoListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.cartaoCreditoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.cartaoCreditoListFilter.sortField = new SortField('id', 1); // asc
+	    	this.cartaoCreditoListFilter.sortFields = new Array(1);
+	    	this.cartaoCreditoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.cartaoCreditoList(pageNumber);

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:32.825
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T20:34:08.364
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -27,6 +27,7 @@ import { TenantNameAutoComplete } from './tenant.model';
 })
 
 export class TenantListComponent implements OnInit {
+	tableLoading = false;
 	
 	tenantListItems: Tenant[];
 	tenantListTotalElements = 0;
@@ -48,13 +49,21 @@ export class TenantListComponent implements OnInit {
 	}
 	
 	tenantList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.tenantListFilter.pageNumber = pageNumber;
 	    this.tenantService
 	    .tenantList(this.tenantListFilter)
 	    .then(result => {
-	      	this.tenantListItems = result.items;
-	      	this.tenantListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.tenantListItems = result.items;
+		      	this.tenantListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -81,10 +90,14 @@ export class TenantListComponent implements OnInit {
 	}
 	
 	tenantListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.tenantListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.tenantListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.tenantListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.tenantListFilter.sortField = new SortField('id', 1); // asc
+	    	this.tenantListFilter.sortFields = new Array(1);
+	    	this.tenantListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.tenantList(pageNumber);

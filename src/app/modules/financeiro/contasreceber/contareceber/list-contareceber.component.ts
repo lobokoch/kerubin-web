@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.3.1
-Code generated at time stamp: 2020-01-03T07:14:21.364
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:01:18.257
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -40,6 +40,7 @@ import { ContaReceberSumFields } from './contareceber.model';
 })
 
 export class ContaReceberListComponent implements OnInit {
+	tableLoading = false;
 	
 	contaReceberListItems: ContaReceber[];
 	contaReceberListTotalElements = 0;
@@ -92,25 +93,39 @@ export class ContaReceberListComponent implements OnInit {
 	}
 	
 	contaReceberList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.contaReceberListFilter.pageNumber = pageNumber;
 	    this.contaReceberService
 	    .contaReceberList(this.contaReceberListFilter)
 	    .then(result => {
-	      	this.contaReceberListItems = result.items;
-	      	this.contaReceberListTotalElements = result.totalElements;
-	      
-			this.getContaReceberSumFields();
+	    	try {
+		      	this.contaReceberListItems = result.items;
+		      	this.contaReceberListTotalElements = result.totalElements;
+		      
+				this.getContaReceberSumFields();
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
 	
 	getContaReceberSumFields() {
+		this.tableLoading = true;
 	    this.contaReceberService.getContaReceberSumFields(this.contaReceberListFilter)
 		.then(response => {
-		  this.contaReceberSumFields = response;
+			try {
+				this.contaReceberSumFields = response;
+			} finally {
+				this.tableLoading = false;
+			}
 		})
 		.catch(e => {
-		  this.messageHandler.showError(e);
+			this.tableLoading = false;
+			this.messageHandler.showError(e);
 		});
 	}
 	

@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 40.2.5
-Code generated at time stamp: 2019-12-31T10:27:34.608
+Code generated with MKL Plug-in version: 47.7.13
+Code generated at time stamp: 2020-01-07T19:00:51.829
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -27,6 +27,7 @@ import { BandeiraCartaoNomeBandeiraAutoComplete } from './bandeiracartao.model';
 })
 
 export class BandeiraCartaoListComponent implements OnInit {
+	tableLoading = false;
 	
 	bandeiraCartaoListItems: BandeiraCartao[];
 	bandeiraCartaoListTotalElements = 0;
@@ -48,13 +49,21 @@ export class BandeiraCartaoListComponent implements OnInit {
 	}
 	
 	bandeiraCartaoList(pageNumber = 0) {
+		this.tableLoading = true;
 	    this.bandeiraCartaoListFilter.pageNumber = pageNumber;
 	    this.bandeiraCartaoService
 	    .bandeiraCartaoList(this.bandeiraCartaoListFilter)
 	    .then(result => {
-	      	this.bandeiraCartaoListItems = result.items;
-	      	this.bandeiraCartaoListTotalElements = result.totalElements;
-	      
+	    	try {
+		      	this.bandeiraCartaoListItems = result.items;
+		      	this.bandeiraCartaoListTotalElements = result.totalElements;
+		      
+			} finally {
+				this.tableLoading = false;
+			}
+	    })
+	    .catch(e => {
+	    	this.tableLoading = false;
 	    });
 		
 	}
@@ -81,10 +90,14 @@ export class BandeiraCartaoListComponent implements OnInit {
 	}
 	
 	bandeiraCartaoListOnLazyLoad(event: LazyLoadEvent) {
-	    if (event.sortField) {
-	      this.bandeiraCartaoListFilter.sortField = new SortField(event.sortField, event.sortOrder);
+	    if (event.multiSortMeta) {
+	      this.bandeiraCartaoListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      event.multiSortMeta.forEach(sortField => {
+	      	this.bandeiraCartaoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      });
 	    } else {
-	      this.bandeiraCartaoListFilter.sortField = new SortField('id', 1); // asc
+	    	this.bandeiraCartaoListFilter.sortFields = new Array(1);
+	    	this.bandeiraCartaoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.bandeiraCartaoList(pageNumber);

@@ -316,11 +316,13 @@ export class ConciliacaoTransacaoService {
 		}
 
 	    // Sort
-	    if (filter.sortField) {
-	      // search/nameStartsWith?name=K&sort=name,desc
-	      const sortField = filter.sortField;
-	      const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
-	      params = params.set('sort', sortValue);
+	    if (filter.sortFields) {
+	      // search/nameStartsWith?name=K&sort=name,asc&sort=value,desc
+	      
+			filter.sortFields.forEach(sortField => {
+				const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
+				params = params.append('sort', sortValue);
+			});
 	    }
 
 	    return params;
