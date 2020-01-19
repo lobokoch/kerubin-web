@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class UserAccountService {
 
   url = environment.apiUrl + '/account';
+  // TODO: ver isso melhor url = environment.apiUrl + '/security/authorization/account';
 
   constructor(
     private http: HttpClientWithToken

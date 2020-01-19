@@ -7,13 +7,13 @@ export const environment = {
   apiUrl: 'http://localhost:9090/api',
   authApiUrl: 'http://localhost:9090/api',
 
-  tokenWhitelistedDomains: [
+  /*tokenWhitelistedDomains: [
     new RegExp('localhost:9090')
-  ],
+  ],*/
 
-  tokenBlacklistedRoutes: [
-    new RegExp('\/oauth\/token')
-  ]
+  tokenWhitelistedDomains: ['localhost:9090'],
+
+  tokenBlacklistedRoutes: [ new RegExp('\/api\/oauth\/token') ]
 };
 
 /*

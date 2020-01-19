@@ -64,19 +64,21 @@ export class HttpClientWithToken extends HttpClient {
       console.log('Requisição HTTP com access token inválido. Obtendo novo token...');
 
       const newAccessToken = this.auth.refreshAccessToken()
-        .then(() => {
-          if (this.auth.isAccessTokenInvalid()) {
-            this.messageHandler.showError('Sua sessão expirou, refaça login!');
-            this.router.navigate(['/login']);
-            throw new UserNotAuthenticatedError();
-          }
+      .then(() => {
+        if (this.auth.isAccessTokenInvalid()) {
+          this.messageHandler.showError('Sua sessão expirou, refaça login!');
+          this.router.navigate(['/login']);
+          throw new UserNotAuthenticatedError();
+        }
 
-          return fn().toPromise();
+        return fn().toPromise();
 
-        });
+      });
 
-       return observableFromPromise(newAccessToken);
+      return observableFromPromise(newAccessToken);
     } else {
+      const token = localStorage.getItem('token');
+      console.log('Requisição HTTP com access token OK, token:' + token);
       return fn();
     }
   }
