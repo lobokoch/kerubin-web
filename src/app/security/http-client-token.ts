@@ -77,8 +77,8 @@ export class HttpClientWithToken extends HttpClient {
 
       return observableFromPromise(newAccessToken);
     } else {
-      const token = localStorage.getItem('token');
-      console.log('Requisição HTTP com access token OK, token:' + token);
+      // const token = localStorage.getItem('token');
+      // console.log('Requisição HTTP com access token OK, token:' + token);
       return fn();
     }
   }

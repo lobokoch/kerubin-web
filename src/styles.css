@@ -597,4 +597,17 @@ a, button {
 
   float: left;
 }
+
 /* End HOME*/
+
+/* Begin botões com link*/
+a .ui-button-text {
+  color: #fff !important;
+}
+
+a.ui-button:hover {
+  background-color: #116fbf !important;
+  color: #fff !important;
+}
+/* End botões com link*/
+

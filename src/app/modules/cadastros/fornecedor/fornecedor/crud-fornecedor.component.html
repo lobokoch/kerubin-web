@@ -1,7 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:50.604
+Code generated with MKL Plug-in version: 55.0.2
+Code generated at time stamp: 2020-01-24T01:33:07.200
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -79,7 +79,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="cep">{{ getTranslation('cadastros.fornecedor.fornecedor_cep') }}</label>
-			<input type="text" pInputText #cep="ngModel" ngModel [(ngModel)]="fornecedor.cep" name="cep">
+			<div class="ui-inputgroup">
+				<input type="text" pInputText #cep="ngModel" ngModel [(ngModel)]="fornecedor.cep" name="cep">
+				<button pButton type="button" label="Buscar" (click)="searchCEP()"></button>
+			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">

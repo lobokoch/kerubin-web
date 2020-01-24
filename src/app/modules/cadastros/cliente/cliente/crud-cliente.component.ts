@@ -1,6 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:15.908
+Code generated with MKL Plug-in version: 55.0.2
+Code generated at time stamp: 2020-01-24T01:33:36.326
 Copyright: Kerubin - logokoch@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { TipoPessoa } from './../enums/cadastros-cliente-enums.model';
 
 import { UF } from './../enums/cadastros-cliente-enums.model';
+import { SearchCEPService } from './../../../../searchcep/searchcep.service';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
@@ -43,6 +44,7 @@ export class ClienteComponent implements OnInit {
 	    private clienteService: ClienteService,
 	    private cadastrosClienteTranslationService: CadastrosClienteTranslationService,
 	    private route: ActivatedRoute,
+	    private searchCEPService: SearchCEPService,
 	    private messageHandler: MessageHandlerService
 	) { 
 		this.initializeClienteTipoPessoaOptions();
@@ -193,4 +195,45 @@ export class ClienteComponent implements OnInit {
 	}
 	
 	
+	searchCEP() {
+	    let cep = this.cliente.cep;
+	    if (cep) {
+	      cep = cep.trim().replace('-', '');
+	    }
+	
+	    if (!cep || cep.length !== 8) {
+	      this.messageHandler.showError(`CEP '${this.cliente.cep}' inválido para busca.`);
+	      return;
+	    }
+	
+	    this.searchCEPService.searchCEP(cep)
+	    .then(result => {
+	      this.clearSearchCEPData();
+	      if (result.erro) {
+	        this.messageHandler.showError(`CEP '${this.cliente.cep}' não encontrado.`);
+	        return;
+	      }
+	      this.cliente.cep = result.cep;
+	      const uf = this.clienteUfOptions.find(it => it.value === result.uf);
+	
+	      this.cliente.uf = uf ? uf.value : null;
+	      this.cliente.cidade = result.localidade;
+	      this.cliente.bairro = result.bairro;
+	      this.cliente.endereco = result.logradouro;
+	      this.cliente.complemento = result.complemento;
+	    })
+	    .catch(e => {
+	      this.clearSearchCEPData();
+	      this.messageHandler.showError('Erro ao buscar CEP. Verifique se você informou um CEP válido.');
+	    });
+	
+	  }
+	
+	  clearSearchCEPData() {
+	    this.cliente.uf = null;
+	    this.cliente.cidade = null;
+	    this.cliente.bairro = null;
+	    this.cliente.endereco = null;
+	    this.cliente.complemento = null;
+	  }
 }
