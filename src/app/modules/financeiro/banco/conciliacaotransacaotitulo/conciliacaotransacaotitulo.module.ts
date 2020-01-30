@@ -33,7 +33,7 @@ import { ConciliacaoTransacaoTituloService } from './conciliacaotransacaotitulo.
 import { ConciliacaoTransacaoTituloListComponent } from './list-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloComponent } from './crud-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloRoutingModule } from './conciliacaotransacaotitulo-routing.module';
-import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
+// import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
 // Kerubin - END
 
 @NgModule({
@@ -62,7 +62,7 @@ import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaot
 
     // Kerubin
     ConciliacaoTransacaoTituloRoutingModule,
-	ConciliacaoTransacaoModule
+	// ConciliacaoTransacaoModule
 
   ],
 
