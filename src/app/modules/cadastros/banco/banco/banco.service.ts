@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { Banco } from './banco.model';
 import { BancoAutoComplete } from './banco.model';
 import { BancoListFilter } from './banco.model';
 import { BancoNomeAutoComplete } from './banco.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -24,7 +24,11 @@ export class BancoService {
 	
 	url = environment.apiUrl + '/cadastros/banco/entities/banco';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -36,7 +40,7 @@ export class BancoService {
 	
 	create(banco: Banco): Promise<Banco> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'create', 'create Banco');
 	    return this.http.post(this.url, banco, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -48,7 +52,7 @@ export class BancoService {
 	
 	update(banco: Banco): Promise<Banco> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'update', 'update Banco');
 	    return this.http.put(`${this.url}/${banco.id}`, banco, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -59,12 +63,14 @@ export class BancoService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'delete', 'delete Banco');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<Banco> {
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'retrieve', 'retrieve Banco');
 	    const headers = this.getHeaders();
 	    return this.http.get<Banco>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -87,7 +93,7 @@ export class BancoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<BancoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -104,7 +110,7 @@ export class BancoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'bancoNomeAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/bancoNomeAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -118,7 +124,7 @@ export class BancoService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(bancoListFilter);
-	
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'bancoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -203,8 +209,9 @@ export class BancoService {
 		
 	getTotaisfilterBanco(filter: BancorListFilter): Promise<TotaisfilterBanco> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'getTotaisfilterBanco', JSON.stringify(params));
 	    return this.http.get<TotaisfilterBanco>(`${this.url}/getTotaisfilterBanco`, { headers, params })
 	    .toPromise()
 	    .then(response => {

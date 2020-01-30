@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -16,6 +15,7 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { ConciliacaoBancaria } from './conciliacaobancaria.model';
 import { ConciliacaoBancariaAutoComplete } from './conciliacaobancaria.model';
 import { ConciliacaoBancariaListFilter } from './conciliacaobancaria.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -23,7 +23,11 @@ export class ConciliacaoBancariaService {
 	
 	url = environment.apiUrl + '/cadastros/banco/entities/conciliacaoBancaria';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -35,7 +39,7 @@ export class ConciliacaoBancariaService {
 	
 	create(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'create', 'create ConciliacaoBancaria');
 	    return this.http.post(this.url, conciliacaoBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -47,7 +51,7 @@ export class ConciliacaoBancariaService {
 	
 	update(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'update', 'update ConciliacaoBancaria');
 	    return this.http.put(`${this.url}/${conciliacaoBancaria.id}`, conciliacaoBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -58,12 +62,14 @@ export class ConciliacaoBancariaService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'delete', 'delete ConciliacaoBancaria');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<ConciliacaoBancaria> {
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'retrieve', 'retrieve ConciliacaoBancaria');
 	    const headers = this.getHeaders();
 	    return this.http.get<ConciliacaoBancaria>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -76,7 +82,7 @@ export class ConciliacaoBancariaService {
 	
 	conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria', 'conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria ConciliacaoBancaria');
 	    return this.http.put(`${this.url}/conciliacaoBancariaRuleFunctionAplicarConciliacaoBancaria/${conciliacaoBancaria.id}`, conciliacaoBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -107,7 +113,7 @@ export class ConciliacaoBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ConciliacaoBancariaAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -123,7 +129,7 @@ export class ConciliacaoBancariaService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(conciliacaoBancariaListFilter);
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'conciliacaoBancariaList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -203,8 +209,9 @@ export class ConciliacaoBancariaService {
 		
 	getTotaisfilterConciliacaoBancaria(filter: ConciliacaoBancariarListFilter): Promise<TotaisfilterConciliacaoBancaria> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoBancaria', 'getTotaisfilterConciliacaoBancaria', JSON.stringify(params));
 	    return this.http.get<TotaisfilterConciliacaoBancaria>(`${this.url}/getTotaisfilterConciliacaoBancaria`, { headers, params })
 	    .toPromise()
 	    .then(response => {

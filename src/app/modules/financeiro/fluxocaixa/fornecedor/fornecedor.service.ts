@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.329
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { Fornecedor } from './fornecedor.model';
 import { FornecedorAutoComplete } from './fornecedor.model';
 import { FornecedorListFilter } from './fornecedor.model';
 import { FornecedorNomeAutoComplete } from './fornecedor.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -24,7 +24,11 @@ export class FornecedorService {
 	
 	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/fornecedor';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -36,7 +40,7 @@ export class FornecedorService {
 	
 	create(fornecedor: Fornecedor): Promise<Fornecedor> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'create', 'create Fornecedor');
 	    return this.http.post(this.url, fornecedor, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -47,7 +51,7 @@ export class FornecedorService {
 	
 	update(fornecedor: Fornecedor): Promise<Fornecedor> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'update', 'update Fornecedor');
 	    return this.http.put(`${this.url}/${fornecedor.id}`, fornecedor, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -57,12 +61,14 @@ export class FornecedorService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'delete', 'delete Fornecedor');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<Fornecedor> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'retrieve', 'retrieve Fornecedor');
 	    const headers = this.getHeaders();
 	    return this.http.get<Fornecedor>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -80,7 +86,7 @@ export class FornecedorService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<FornecedorAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -97,7 +103,7 @@ export class FornecedorService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'fornecedorNomeAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/fornecedorNomeAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -111,7 +117,7 @@ export class FornecedorService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(fornecedorListFilter);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'fornecedorList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -195,8 +201,9 @@ export class FornecedorService {
 		
 	getTotaisfilterFornecedor(filter: FornecedorrListFilter): Promise<TotaisfilterFornecedor> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'getTotaisfilterFornecedor', JSON.stringify(params));
 	    return this.http.get<TotaisfilterFornecedor>(`${this.url}/getTotaisfilterFornecedor`, { headers, params })
 	    .toPromise()
 	    .then(response => {

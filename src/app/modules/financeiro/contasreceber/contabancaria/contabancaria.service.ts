@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:18.257
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -18,6 +17,7 @@ import { ContaBancariaAutoComplete } from './contabancaria.model';
 import { AgenciaBancaria } from './../agenciabancaria/agenciabancaria.model';
 import { ContaBancariaListFilter } from './contabancaria.model';
 import { ContaBancariaNumeroContaAutoComplete } from './contabancaria.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { AgenciaBancariaAutoComplete } from './../agenciabancaria/agenciabancaria.model';
 
@@ -26,7 +26,11 @@ export class ContaBancariaService {
 	
 	url = environment.apiUrl + '/financeiro/contas_receber/entities/contaBancaria';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -38,7 +42,7 @@ export class ContaBancariaService {
 	
 	create(contaBancaria: ContaBancaria): Promise<ContaBancaria> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'create', 'create ContaBancaria');
 	    return this.http.post(this.url, contaBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -51,7 +55,7 @@ export class ContaBancariaService {
 	
 	update(contaBancaria: ContaBancaria): Promise<ContaBancaria> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'update', 'update ContaBancaria');
 	    return this.http.put(`${this.url}/${contaBancaria.id}`, contaBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -63,12 +67,14 @@ export class ContaBancariaService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'delete', 'delete ContaBancaria');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<ContaBancaria> {
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'retrieve', 'retrieve ContaBancaria');
 	    const headers = this.getHeaders();
 	    return this.http.get<ContaBancaria>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -104,7 +110,7 @@ export class ContaBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ContaBancariaAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -122,7 +128,7 @@ export class ContaBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'agenciaBancariaAgenciaAutoComplete', JSON.stringify(params));
 	    return this.http.get<AgenciaBancariaAutoComplete[]>(`${this.url}/agenciaBancariaAgenciaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -141,7 +147,7 @@ export class ContaBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'contaBancariaNumeroContaAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaBancariaNumeroContaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -155,7 +161,7 @@ export class ContaBancariaService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(contaBancariaListFilter);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'contaBancariaList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -241,8 +247,9 @@ export class ContaBancariaService {
 		
 	getTotaisfilterContaBancaria(filter: ContaBancariarListFilter): Promise<TotaisfilterContaBancaria> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'getTotaisfilterContaBancaria', JSON.stringify(params));
 	    return this.http.get<TotaisfilterContaBancaria>(`${this.url}/getTotaisfilterContaBancaria`, { headers, params })
 	    .toPromise()
 	    .then(response => {

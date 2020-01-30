@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:18.257
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { AgenciaBancaria } from './agenciabancaria.model';
 import { AgenciaBancariaAutoComplete } from './agenciabancaria.model';
 import { Banco } from './../banco/banco.model';
 import { AgenciaBancariaListFilter } from './agenciabancaria.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { BancoAutoComplete } from './../banco/banco.model';
 
@@ -25,7 +25,11 @@ export class AgenciaBancariaService {
 	
 	url = environment.apiUrl + '/financeiro/contas_receber/entities/agenciaBancaria';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -37,7 +41,7 @@ export class AgenciaBancariaService {
 	
 	create(agenciaBancaria: AgenciaBancaria): Promise<AgenciaBancaria> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'create', 'create AgenciaBancaria');
 	    return this.http.post(this.url, agenciaBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -49,7 +53,7 @@ export class AgenciaBancariaService {
 	
 	update(agenciaBancaria: AgenciaBancaria): Promise<AgenciaBancaria> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'update', 'update AgenciaBancaria');
 	    return this.http.put(`${this.url}/${agenciaBancaria.id}`, agenciaBancaria, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -60,12 +64,14 @@ export class AgenciaBancariaService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'delete', 'delete AgenciaBancaria');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<AgenciaBancaria> {
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'retrieve', 'retrieve AgenciaBancaria');
 	    const headers = this.getHeaders();
 	    return this.http.get<AgenciaBancaria>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -92,7 +98,7 @@ export class AgenciaBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<AgenciaBancariaAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -110,7 +116,7 @@ export class AgenciaBancariaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Banco', 'bancoBancoAutoComplete', JSON.stringify(params));
 	    return this.http.get<BancoAutoComplete[]>(`${this.url}/bancoBancoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -128,7 +134,7 @@ export class AgenciaBancariaService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(agenciaBancariaListFilter);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'agenciaBancariaList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -208,8 +214,9 @@ export class AgenciaBancariaService {
 		
 	getTotaisfilterAgenciaBancaria(filter: AgenciaBancariarListFilter): Promise<TotaisfilterAgenciaBancaria> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.contas_receber.AgenciaBancaria', 'getTotaisfilterAgenciaBancaria', JSON.stringify(params));
 	    return this.http.get<TotaisfilterAgenciaBancaria>(`${this.url}/getTotaisfilterAgenciaBancaria`, { headers, params })
 	    .toPromise()
 	    .then(response => {

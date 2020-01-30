@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.8.0
-Code generated at time stamp: 2020-01-23T06:46:25.086
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -24,6 +23,7 @@ import { ContaReceberDescricaoAutoComplete } from './contareceber.model';
 import { ContaReceberHistConcBancariaAutoComplete } from './contareceber.model';
 import { ContaReceberAgrupadorAutoComplete } from './contareceber.model';
 import { ContaReceberSumFields } from './contareceber.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
@@ -35,7 +35,11 @@ export class ContaReceberService {
 	
 	url = environment.apiUrl + '/financeiro/contas_receber/entities/contaReceber';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -47,7 +51,7 @@ export class ContaReceberService {
 	
 	create(contaReceber: ContaReceber): Promise<ContaReceber> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'create', 'create ContaReceber');
 	    return this.http.post(this.url, contaReceber, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -60,7 +64,7 @@ export class ContaReceberService {
 	
 	update(contaReceber: ContaReceber): Promise<ContaReceber> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'update', 'update ContaReceber');
 	    return this.http.put(`${this.url}/${contaReceber.id}`, contaReceber, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -72,12 +76,14 @@ export class ContaReceberService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'delete', 'delete ContaReceber');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<ContaReceber> {
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'retrieve', 'retrieve ContaReceber');
 	    const headers = this.getHeaders();
 	    return this.http.get<ContaReceber>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -92,7 +98,7 @@ export class ContaReceberService {
 	 
 	actionBaixarContaComDataPagamentoHoje(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'actionBaixarContaComDataPagamentoHoje', 'actionBaixarContaComDataPagamentoHoje ContaReceber');
 		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoHoje/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -100,7 +106,7 @@ export class ContaReceberService {
 	 
 	actionBaixarContaComDataPagamentoIgualDataVenciento(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'actionBaixarContaComDataPagamentoIgualDataVenciento', 'actionBaixarContaComDataPagamentoIgualDataVenciento ContaReceber');
 		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoIgualDataVenciento/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -108,7 +114,7 @@ export class ContaReceberService {
 	 
 	actionEstornarRecebimentoContaComUmClique(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'actionEstornarRecebimentoContaComUmClique', 'actionEstornarRecebimentoContaComUmClique ContaReceber');
 		return this.http.put(`${this.url}/actionEstornarRecebimentoContaComUmClique/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -117,6 +123,7 @@ export class ContaReceberService {
 	actionFazerCopiasContaReceber(id: string, numberOfCopies: Number, referenceFieldInterval: Number, agrupador: String): Promise<void> {
 	    const headers = this.getHeaders();
 	      const entityCopy = { id, numberOfCopies, referenceFieldInterval, agrupador };
+	      this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'actionFazerCopiasContaReceber', JSON.stringify(entityCopy));
 		    return this.http.post(`${this.url}/actionFazerCopiasContaReceber`, entityCopy, { headers })
 		    .toPromise()
 		    .then( () => null);
@@ -165,7 +172,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ContaReceberAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -183,7 +190,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.PlanoConta', 'planoContaPlanoContasAutoComplete', JSON.stringify(params));
 	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -199,7 +206,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaBancaria', 'contaBancariaContaBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<ContaBancariaAutoComplete[]>(`${this.url}/contaBancariaContaBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -215,7 +222,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.CartaoCredito', 'cartaoCreditoCartaoCreditoAutoComplete', JSON.stringify(params));
 	    return this.http.get<CartaoCreditoAutoComplete[]>(`${this.url}/cartaoCreditoCartaoCreditoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -231,7 +238,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'clienteClienteAutoComplete', JSON.stringify(params));
 	    return this.http.get<ClienteAutoComplete[]>(`${this.url}/clienteClienteAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -250,7 +257,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'contaReceberDescricaoAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaReceberDescricaoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -265,7 +272,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'contaReceberHistConcBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaReceberHistConcBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -280,7 +287,7 @@ export class ContaReceberService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'contaReceberAgrupadorAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaReceberAgrupadorAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -294,7 +301,7 @@ export class ContaReceberService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(contaReceberListFilter);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'contaReceberList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -317,8 +324,8 @@ export class ContaReceberService {
 	
 	getContaReceberSumFields(contaReceberListFilter: ContaReceberListFilter): Promise<ContaReceberSumFields> {
 	    const headers = this.getHeaders();
-	    
 		const params = this.mountAndGetSearchParams(contaReceberListFilter);
+	    this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'getContaReceberSumFields', JSON.stringify(params));
 		return this.http.get<any>(`${this.url}/contaReceberSumFields`, { headers, params })
 		  .toPromise()
 		  .then(response => {
@@ -452,8 +459,9 @@ export class ContaReceberService {
 		
 	getTotaisfilterContaReceber(filter: ContaReceberrListFilter): Promise<TotaisfilterContaReceber> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.contas_receber.ContaReceber', 'getTotaisfilterContaReceber', JSON.stringify(params));
 	    return this.http.get<TotaisfilterContaReceber>(`${this.url}/getTotaisfilterContaReceber`, { headers, params })
 	    .toPromise()
 	    .then(response => {

@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -16,6 +15,7 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { PlanoConta } from './planoconta.model';
 import { PlanoContaAutoComplete } from './planoconta.model';
 import { PlanoContaListFilter } from './planoconta.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -23,7 +23,11 @@ export class PlanoContaService {
 	
 	url = environment.apiUrl + '/cadastros/banco/entities/planoConta';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -35,7 +39,7 @@ export class PlanoContaService {
 	
 	create(planoConta: PlanoConta): Promise<PlanoConta> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'create', 'create PlanoConta');
 	    return this.http.post(this.url, planoConta, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -47,7 +51,7 @@ export class PlanoContaService {
 	
 	update(planoConta: PlanoConta): Promise<PlanoConta> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'update', 'update PlanoConta');
 	    return this.http.put(`${this.url}/${planoConta.id}`, planoConta, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -58,12 +62,14 @@ export class PlanoContaService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'delete', 'delete PlanoConta');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<PlanoConta> {
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'retrieve', 'retrieve PlanoConta');
 	    const headers = this.getHeaders();
 	    return this.http.get<PlanoConta>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -90,7 +96,7 @@ export class PlanoContaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -108,7 +114,7 @@ export class PlanoContaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'planoContaPlanoContaPaiAutoComplete', JSON.stringify(params));
 	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContaPaiAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -126,7 +132,7 @@ export class PlanoContaService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(planoContaListFilter);
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'planoContaList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -206,8 +212,9 @@ export class PlanoContaService {
 		
 	getTotaisfilterPlanoConta(filter: PlanoContarListFilter): Promise<TotaisfilterPlanoConta> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'getTotaisfilterPlanoConta', JSON.stringify(params));
 	    return this.http.get<TotaisfilterPlanoConta>(`${this.url}/getTotaisfilterPlanoConta`, { headers, params })
 	    .toPromise()
 	    .then(response => {

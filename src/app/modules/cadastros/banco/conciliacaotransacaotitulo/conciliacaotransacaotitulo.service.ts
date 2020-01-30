@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -18,6 +17,7 @@ import { ConciliacaoTransacaoTituloAutoComplete } from './conciliacaotransacaoti
 import { ConciliacaoTransacao } from './../conciliacaotransacao/conciliacaotransacao.model';
 import { PlanoConta } from './../planoconta/planoconta.model';
 import { ConciliacaoTransacaoTituloListFilter } from './conciliacaotransacaotitulo.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { ConciliacaoTransacaoAutoComplete } from './../conciliacaotransacao/conciliacaotransacao.model';
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
@@ -27,7 +27,11 @@ export class ConciliacaoTransacaoTituloService {
 	
 	url = environment.apiUrl + '/cadastros/banco/entities/conciliacaoTransacaoTitulo';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -39,7 +43,7 @@ export class ConciliacaoTransacaoTituloService {
 	
 	create(conciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo): Promise<ConciliacaoTransacaoTitulo> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'create', 'create ConciliacaoTransacaoTitulo');
 	    return this.http.post(this.url, conciliacaoTransacaoTitulo, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -52,7 +56,7 @@ export class ConciliacaoTransacaoTituloService {
 	
 	update(conciliacaoTransacaoTitulo: ConciliacaoTransacaoTitulo): Promise<ConciliacaoTransacaoTitulo> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'update', 'update ConciliacaoTransacaoTitulo');
 	    return this.http.put(`${this.url}/${conciliacaoTransacaoTitulo.id}`, conciliacaoTransacaoTitulo, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -64,12 +68,14 @@ export class ConciliacaoTransacaoTituloService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'delete', 'delete ConciliacaoTransacaoTitulo');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<ConciliacaoTransacaoTitulo> {
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'retrieve', 'retrieve ConciliacaoTransacaoTitulo');
 	    const headers = this.getHeaders();
 	    return this.http.get<ConciliacaoTransacaoTitulo>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -120,7 +126,7 @@ export class ConciliacaoTransacaoTituloService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ConciliacaoTransacaoTituloAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -138,7 +144,7 @@ export class ConciliacaoTransacaoTituloService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacao', 'conciliacaoTransacaoConciliacaoTransacaoAutoComplete', JSON.stringify(params));
 	    return this.http.get<ConciliacaoTransacaoAutoComplete[]>(`${this.url}/conciliacaoTransacaoConciliacaoTransacaoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -154,7 +160,7 @@ export class ConciliacaoTransacaoTituloService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.PlanoConta', 'planoContaTituloPlanoContasAutoComplete', JSON.stringify(params));
 	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaTituloPlanoContasAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -172,7 +178,7 @@ export class ConciliacaoTransacaoTituloService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(conciliacaoTransacaoTituloListFilter);
-	
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'conciliacaoTransacaoTituloList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -258,8 +264,9 @@ export class ConciliacaoTransacaoTituloService {
 		
 	getTotaisfilterConciliacaoTransacaoTitulo(filter: ConciliacaoTransacaoTitulorListFilter): Promise<TotaisfilterConciliacaoTransacaoTitulo> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('cadastros.banco.ConciliacaoTransacaoTitulo', 'getTotaisfilterConciliacaoTransacaoTitulo', JSON.stringify(params));
 	    return this.http.get<TotaisfilterConciliacaoTransacaoTitulo>(`${this.url}/getTotaisfilterConciliacaoTransacaoTitulo`, { headers, params })
 	    .toPromise()
 	    .then(response => {

@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.329
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { CaixaDiario } from './caixadiario.model';
 import { CaixaDiarioAutoComplete } from './caixadiario.model';
 import { Caixa } from './../caixa/caixa.model';
 import { CaixaDiarioListFilter } from './caixadiario.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { CaixaAutoComplete } from './../caixa/caixa.model';
 
@@ -25,7 +25,11 @@ export class CaixaDiarioService {
 	
 	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/caixaDiario';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -37,7 +41,7 @@ export class CaixaDiarioService {
 	
 	create(caixaDiario: CaixaDiario): Promise<CaixaDiario> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'create', 'create CaixaDiario');
 	    return this.http.post(this.url, caixaDiario, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -50,7 +54,7 @@ export class CaixaDiarioService {
 	
 	update(caixaDiario: CaixaDiario): Promise<CaixaDiario> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'update', 'update CaixaDiario');
 	    return this.http.put(`${this.url}/${caixaDiario.id}`, caixaDiario, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -62,12 +66,14 @@ export class CaixaDiarioService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'delete', 'delete CaixaDiario');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<CaixaDiario> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'retrieve', 'retrieve CaixaDiario');
 	    const headers = this.getHeaders();
 	    return this.http.get<CaixaDiario>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -81,7 +87,7 @@ export class CaixaDiarioService {
 	
 	caixaDiarioRuleFunctionAbrirCaixa(caixaDiario: CaixaDiario): Promise<CaixaDiario> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'caixaDiarioRuleFunctionAbrirCaixa', 'caixaDiarioRuleFunctionAbrirCaixa CaixaDiario');
 	    return this.http.put(`${this.url}/caixaDiarioRuleFunctionAbrirCaixa/${caixaDiario.id}`, caixaDiario, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -94,7 +100,7 @@ export class CaixaDiarioService {
 	
 	caixaDiarioRuleFunctionFecharCaixa(caixaDiario: CaixaDiario): Promise<CaixaDiario> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'caixaDiarioRuleFunctionFecharCaixa', 'caixaDiarioRuleFunctionFecharCaixa CaixaDiario');
 	    return this.http.put(`${this.url}/caixaDiarioRuleFunctionFecharCaixa/${caixaDiario.id}`, caixaDiario, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -134,7 +140,7 @@ export class CaixaDiarioService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<CaixaDiarioAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -152,7 +158,7 @@ export class CaixaDiarioService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'caixaCaixaAutoComplete', JSON.stringify(params));
 	    return this.http.get<CaixaAutoComplete[]>(`${this.url}/caixaCaixaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -170,7 +176,7 @@ export class CaixaDiarioService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(caixaDiarioListFilter);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'caixaDiarioList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -251,8 +257,9 @@ export class CaixaDiarioService {
 		
 	getTotaisfilterCaixaDiario(filter: CaixaDiariorListFilter): Promise<TotaisfilterCaixaDiario> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'getTotaisfilterCaixaDiario', JSON.stringify(params));
 	    return this.http.get<TotaisfilterCaixaDiario>(`${this.url}/getTotaisfilterCaixaDiario`, { headers, params })
 	    .toPromise()
 	    .then(response => {

@@ -62,6 +62,8 @@
 	"financeiro.contas_receber.cliente_nome_grid": "Nome",
 	"financeiro.contas_receber.cliente_cnpjCPF": "Documento (CNPJ/CPF)",
 	"financeiro.contas_receber.cliente_cnpjCPF_grid": "Documento (CNPJ/CPF)",
+	"financeiro.contas_receber.cliente_ativo": "Ativo",
+	"financeiro.contas_receber.cliente_ativo_grid": "Ativo",
 	"financeiro.contas_receber.cliente_deleted": "inativo",
 	"financeiro.contas_receber.cliente_deleted_grid": "inativo",
 	"financeiro.contas_receber.banco": "Banco",

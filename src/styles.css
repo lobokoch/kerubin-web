@@ -1,3 +1,10 @@
+/**********************************************************************************************
+Code generated with MKL Plug-in version: 60.0.1
+Copyright: Kerubin - kerubin.platform@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************/
+
 /* You can add global styles to this file, and also import other style files */
 
 /*html {
@@ -246,9 +253,17 @@ a, button {
 }
 
 #newaccount-dropdown .ui-dropdown {
-  width: 350px !important;
+  width: 335px !important;
   height: 39px !important;
   left: -2px !important;
+}
+
+@media screen and (max-width: 399px) { /* < que 400*/
+  #newaccount-dropdown .ui-dropdown {
+    width: 285px !important;
+   /* height: 39px !important;
+    left: -2px !important;*/
+  }
 }
 
 .sumField {
@@ -492,7 +507,7 @@ a, button {
 
 .home-btn-abrir-conta .ui-button {
   text-align: center;
-  height: 100px !important;
+  height: 150px !important;
   width: 90% !important;
   font-weight: bold;
   border-radius: 3px;
@@ -510,7 +525,7 @@ a, button {
   margin-top: 0px !important;
 }
 
-@media screen and (min-width: 401px) { /* > que 400*/
+@media screen and (min-width: 420px) { /* > que 420*/
   .home-logo {
     text-align: left;
   }
@@ -520,12 +535,13 @@ a, button {
     width: 50% !important;
   }
 
-  .home-btn-abrir-conta .ui-button {
-    width: 470px !important;
-  }
-
   .home-faq-header {
     text-align: left;
+  }
+
+  .home-btn-abrir-conta .ui-button {
+    height: 100px !important;
+    width: 400px !important;
   }
 
 }
@@ -600,14 +616,24 @@ a, button {
 
 /* End HOME*/
 
-/* Begin botões com link*/
-a .ui-button-text {
-  color: #fff !important;
-}
+/* CUIDADO: Begin botões com link */
 
-a.ui-button:hover {
+a.ui-button:hover  {
   background-color: #116fbf !important;
   color: #fff !important;
 }
+
+a.ui-button-secondary:hover  {
+  background-color: #c8c8c8 !important;
+  color: #000 !important;
+}
+
+a.ui-button-success:hover {
+  background-color: #1c7e19 !important;
+}
 /* End botões com link*/
 
+/* Tooltip flickering https://github.com/primefaces/primeng/issues/8335 */
+.ui-tooltip {
+  pointer-events: none;
+}

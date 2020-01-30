@@ -1,8 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.344
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************
@@ -58,6 +57,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            	<th [pSortableColumn]="'tipoPessoa'">{{ getTranslation('financeiro.fluxo_caixa.fornecedor_tipoPessoa_grid') }}<p-sortIcon [field]="'tipoPessoa'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'nome'">{{ getTranslation('financeiro.fluxo_caixa.fornecedor_nome_grid') }}<p-sortIcon [field]="'nome'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'cnpjCPF'">{{ getTranslation('financeiro.fluxo_caixa.fornecedor_cnpjCPF_grid') }}<p-sortIcon [field]="'cnpjCPF'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'ativo'">{{ getTranslation('financeiro.fluxo_caixa.fornecedor_ativo_grid') }}<p-sortIcon [field]="'ativo'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'deleted'">{{ getTranslation('financeiro.fluxo_caixa.fornecedor_deleted_grid') }}<p-sortIcon [field]="'deleted'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
@@ -75,6 +75,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ fornecedor?.cnpjCPF }}
 		            	</td>
 		            	<td>
+		            		{{fornecedor?.ativo? 'Sim': 'Não' }}
+		            	</td>
+		            	<td>
 		            		{{fornecedor?.deleted? 'Sim': 'Não' }}
 		            	</td>
 		              	<td class="kb-actions">
@@ -87,7 +90,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="5">
+				        <td [attr.colspan]="6">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>

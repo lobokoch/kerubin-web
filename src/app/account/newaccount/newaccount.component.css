@@ -6,4 +6,24 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-/* CSS heare */ 
+/* CSS heare */
+
+.kb-container-newaccount {
+  margin: 0px;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  width: 400px;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 399px) { /* < que 400*/
+  .kb-container-newaccount {
+    width: 350px;
+  }
+
+
+}

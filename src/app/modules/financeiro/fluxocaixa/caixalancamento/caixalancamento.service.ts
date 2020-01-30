@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.329
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -25,6 +24,7 @@ import { CaixaLancamentoListFilter } from './caixalancamento.model';
 import { CaixaLancamentoDescricaoAutoComplete } from './caixalancamento.model';
 import { CaixaLancamentoHistConcBancariaAutoComplete } from './caixalancamento.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { CaixaDiarioAutoComplete } from './../caixadiario/caixadiario.model';
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
@@ -38,7 +38,11 @@ export class CaixaLancamentoService {
 	
 	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/caixaLancamento';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -50,7 +54,7 @@ export class CaixaLancamentoService {
 	
 	create(caixaLancamento: CaixaLancamento): Promise<CaixaLancamento> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'create', 'create CaixaLancamento');
 	    return this.http.post(this.url, caixaLancamento, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -63,7 +67,7 @@ export class CaixaLancamentoService {
 	
 	update(caixaLancamento: CaixaLancamento): Promise<CaixaLancamento> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'update', 'update CaixaLancamento');
 	    return this.http.put(`${this.url}/${caixaLancamento.id}`, caixaLancamento, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -75,12 +79,14 @@ export class CaixaLancamentoService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'delete', 'delete CaixaLancamento');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<CaixaLancamento> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'retrieve', 'retrieve CaixaLancamento');
 	    const headers = this.getHeaders();
 	    return this.http.get<CaixaLancamento>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -141,7 +147,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<CaixaLancamentoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -159,7 +165,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaDiario', 'caixaDiarioCaixaDiarioAutoComplete', JSON.stringify(params));
 	    return this.http.get<CaixaDiarioAutoComplete[]>(`${this.url}/caixaDiarioCaixaDiarioAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -175,7 +181,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.ContaBancaria', 'contaBancariaContaBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<ContaBancariaAutoComplete[]>(`${this.url}/contaBancariaContaBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -191,7 +197,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'cartaoCreditoCartaoCreditoAutoComplete', JSON.stringify(params));
 	    return this.http.get<CartaoCreditoAutoComplete[]>(`${this.url}/cartaoCreditoCartaoCreditoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -207,7 +213,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.PlanoConta', 'planoContaPlanoContasAutoComplete', JSON.stringify(params));
 	    return this.http.post<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, caixaLancamento, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -223,7 +229,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Cliente', 'clienteClienteAutoComplete', JSON.stringify(params));
 	    return this.http.get<ClienteAutoComplete[]>(`${this.url}/clienteClienteAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -239,7 +245,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Fornecedor', 'fornecedorFornecedorAutoComplete', JSON.stringify(params));
 	    return this.http.get<FornecedorAutoComplete[]>(`${this.url}/fornecedorFornecedorAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -258,7 +264,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'caixaLancamentoDescricaoAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/caixaLancamentoDescricaoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -273,7 +279,7 @@ export class CaixaLancamentoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'caixaLancamentoHistConcBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/caixaLancamentoHistConcBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -287,7 +293,7 @@ export class CaixaLancamentoService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(caixaLancamentoListFilter);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'caixaLancamentoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -310,8 +316,8 @@ export class CaixaLancamentoService {
 	
 	getCaixaLancamentoSumFields(caixaLancamentoListFilter: CaixaLancamentoListFilter): Promise<CaixaLancamentoSumFields> {
 	    const headers = this.getHeaders();
-	    
 		const params = this.mountAndGetSearchParams(caixaLancamentoListFilter);
+	    this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'getCaixaLancamentoSumFields', JSON.stringify(params));
 		return this.http.get<any>(`${this.url}/caixaLancamentoSumFields`, { headers, params })
 		  .toPromise()
 		  .then(response => {
@@ -445,8 +451,9 @@ export class CaixaLancamentoService {
 		
 	getTotaisfilterCaixaLancamento(filter: CaixaLancamentorListFilter): Promise<TotaisfilterCaixaLancamento> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'getTotaisfilterCaixaLancamento', JSON.stringify(params));
 	    return this.http.get<TotaisfilterCaixaLancamento>(`${this.url}/getTotaisfilterCaixaLancamento`, { headers, params })
 	    .toPromise()
 	    .then(response => {

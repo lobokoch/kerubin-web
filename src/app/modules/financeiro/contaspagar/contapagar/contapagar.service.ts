@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.8.0
-Code generated at time stamp: 2020-01-23T06:35:58.002
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -24,6 +23,7 @@ import { ContaPagarDescricaoAutoComplete } from './contapagar.model';
 import { ContaPagarHistConcBancariaAutoComplete } from './contapagar.model';
 import { ContaPagarAgrupadorAutoComplete } from './contapagar.model';
 import { ContaPagarSumFields } from './contapagar.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { ContaBancariaAutoComplete } from './../contabancaria/contabancaria.model';
@@ -35,7 +35,11 @@ export class ContaPagarService {
 	
 	url = environment.apiUrl + '/financeiro/contas_pagar/entities/contaPagar';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -47,7 +51,7 @@ export class ContaPagarService {
 	
 	create(contaPagar: ContaPagar): Promise<ContaPagar> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'create', 'create ContaPagar');
 	    return this.http.post(this.url, contaPagar, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -60,7 +64,7 @@ export class ContaPagarService {
 	
 	update(contaPagar: ContaPagar): Promise<ContaPagar> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'update', 'update ContaPagar');
 	    return this.http.put(`${this.url}/${contaPagar.id}`, contaPagar, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -72,12 +76,14 @@ export class ContaPagarService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'delete', 'delete ContaPagar');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<ContaPagar> {
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'retrieve', 'retrieve ContaPagar');
 	    const headers = this.getHeaders();
 	    return this.http.get<ContaPagar>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -92,7 +98,7 @@ export class ContaPagarService {
 	 
 	actionBaixarContaComDataPagamentoHoje(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'actionBaixarContaComDataPagamentoHoje', 'actionBaixarContaComDataPagamentoHoje ContaPagar');
 		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoHoje/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -100,7 +106,7 @@ export class ContaPagarService {
 	 
 	actionBaixarContaComDataPagamentoIgualDataVenciento(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'actionBaixarContaComDataPagamentoIgualDataVenciento', 'actionBaixarContaComDataPagamentoIgualDataVenciento ContaPagar');
 		return this.http.put(`${this.url}/actionBaixarContaComDataPagamentoIgualDataVenciento/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -108,7 +114,7 @@ export class ContaPagarService {
 	 
 	actionEstornarPagamentoContaComUmClique(id: string): Promise<void> {
 		const headers = this.getHeaders();
-		
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'actionEstornarPagamentoContaComUmClique', 'actionEstornarPagamentoContaComUmClique ContaPagar');
 		return this.http.put(`${this.url}/actionEstornarPagamentoContaComUmClique/${id}`, { headers })
 		.toPromise()
 		.then(() => null);
@@ -117,6 +123,7 @@ export class ContaPagarService {
 	actionFazerCopiasContaPagar(id: string, numberOfCopies: Number, referenceFieldInterval: Number, agrupador: String): Promise<void> {
 	    const headers = this.getHeaders();
 	      const entityCopy = { id, numberOfCopies, referenceFieldInterval, agrupador };
+	      this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'actionFazerCopiasContaPagar', JSON.stringify(entityCopy));
 		    return this.http.post(`${this.url}/actionFazerCopiasContaPagar`, entityCopy, { headers })
 		    .toPromise()
 		    .then( () => null);
@@ -165,7 +172,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ContaPagarAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -183,7 +190,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.PlanoConta', 'planoContaPlanoContasAutoComplete', JSON.stringify(params));
 	    return this.http.get<PlanoContaAutoComplete[]>(`${this.url}/planoContaPlanoContasAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -199,7 +206,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaBancaria', 'contaBancariaContaBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<ContaBancariaAutoComplete[]>(`${this.url}/contaBancariaContaBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -215,7 +222,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.CartaoCredito', 'cartaoCreditoCartaoCreditoAutoComplete', JSON.stringify(params));
 	    return this.http.get<CartaoCreditoAutoComplete[]>(`${this.url}/cartaoCreditoCartaoCreditoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -231,7 +238,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.Fornecedor', 'fornecedorFornecedorAutoComplete', JSON.stringify(params));
 	    return this.http.get<FornecedorAutoComplete[]>(`${this.url}/fornecedorFornecedorAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -250,7 +257,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'contaPagarDescricaoAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaPagarDescricaoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -265,7 +272,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'contaPagarHistConcBancariaAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaPagarHistConcBancariaAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -280,7 +287,7 @@ export class ContaPagarService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'contaPagarAgrupadorAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/contaPagarAgrupadorAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -294,7 +301,7 @@ export class ContaPagarService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(contaPagarListFilter);
-	
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'contaPagarList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -317,8 +324,8 @@ export class ContaPagarService {
 	
 	getContaPagarSumFields(contaPagarListFilter: ContaPagarListFilter): Promise<ContaPagarSumFields> {
 	    const headers = this.getHeaders();
-	    
 		const params = this.mountAndGetSearchParams(contaPagarListFilter);
+	    this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'getContaPagarSumFields', JSON.stringify(params));
 		return this.http.get<any>(`${this.url}/contaPagarSumFields`, { headers, params })
 		  .toPromise()
 		  .then(response => {
@@ -452,8 +459,9 @@ export class ContaPagarService {
 		
 	getTotaisfilterContaPagar(filter: ContaPagarrListFilter): Promise<TotaisfilterContaPagar> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'getTotaisfilterContaPagar', JSON.stringify(params));
 	    return this.http.get<TotaisfilterContaPagar>(`${this.url}/getTotaisfilterContaPagar`, { headers, params })
 	    .toPromise()
 	    .then(response => {

@@ -1,8 +1,7 @@
 <!--
 **********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:17.344
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************
@@ -40,6 +39,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="cnpjCPF">{{ getTranslation('financeiro.contas_pagar.fornecedor_cnpjCPF') }}</label>
 			<input type="text" pInputText #cnpjCPF="ngModel" ngModel [(ngModel)]="fornecedor.cnpjCPF" name="cnpjCPF">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid">
+			<label style="display: block" for="ativo">{{ getTranslation('financeiro.contas_pagar.fornecedor_ativo') }}</label>
+			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="fornecedor.ativo" name="ativo"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">

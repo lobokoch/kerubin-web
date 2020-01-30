@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:18.257
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { Cliente } from './cliente.model';
 import { ClienteAutoComplete } from './cliente.model';
 import { ClienteListFilter } from './cliente.model';
 import { ClienteNomeAutoComplete } from './cliente.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -24,7 +24,11 @@ export class ClienteService {
 	
 	url = environment.apiUrl + '/financeiro/contas_receber/entities/cliente';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -36,7 +40,7 @@ export class ClienteService {
 	
 	create(cliente: Cliente): Promise<Cliente> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'create', 'create Cliente');
 	    return this.http.post(this.url, cliente, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -47,7 +51,7 @@ export class ClienteService {
 	
 	update(cliente: Cliente): Promise<Cliente> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'update', 'update Cliente');
 	    return this.http.put(`${this.url}/${cliente.id}`, cliente, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -57,12 +61,14 @@ export class ClienteService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'delete', 'delete Cliente');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<Cliente> {
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'retrieve', 'retrieve Cliente');
 	    const headers = this.getHeaders();
 	    return this.http.get<Cliente>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -80,7 +86,7 @@ export class ClienteService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<ClienteAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -97,7 +103,7 @@ export class ClienteService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'clienteNomeAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/clienteNomeAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -111,7 +117,7 @@ export class ClienteService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(clienteListFilter);
-	
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'clienteList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -195,8 +201,9 @@ export class ClienteService {
 		
 	getTotaisfilterCliente(filter: ClienterListFilter): Promise<TotaisfilterCliente> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.contas_receber.Cliente', 'getTotaisfilterCliente', JSON.stringify(params));
 	    return this.http.get<TotaisfilterCliente>(`${this.url}/getTotaisfilterCliente`, { headers, params })
 	    .toPromise()
 	    .then(response => {

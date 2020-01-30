@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -33,7 +32,7 @@ import { ConciliacaoTransacaoTituloService } from './conciliacaotransacaotitulo.
 import { ConciliacaoTransacaoTituloListComponent } from './list-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloComponent } from './crud-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloRoutingModule } from './conciliacaotransacaotitulo-routing.module';
-// import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
+import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
 import { PlanoContaModule } from '../planoconta/planoconta.module';
 // Kerubin - END
 
@@ -63,7 +62,7 @@ import { PlanoContaModule } from '../planoconta/planoconta.module';
 
     // Kerubin
     ConciliacaoTransacaoTituloRoutingModule,
-	// ConciliacaoTransacaoModule,
+	ConciliacaoTransacaoModule,
 	PlanoContaModule
 
   ],

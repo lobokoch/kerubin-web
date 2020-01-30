@@ -8,10 +8,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************
 -->
 
-<div class="container" style="max-width: 400px; margin: auto">
+<!--div class="container" style="max-width: 400px; margin: auto"-->
+<div class="kb-container-newaccount">
 
-  <form *ngIf="!accountCreated" #form1="ngForm" (ngSubmit)="createAccount(form1.form)">
-    <div class="ui-g ui-fluid">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+      <form *ngIf="!accountCreated" #form1="ngForm" (ngSubmit)="createAccount(form1.form)">
+      <div class="ui-g ui-fluid">
 
       <div class="ui-g-12">
         <div class="primeiro-mes-gratis">Você ganha <strong>R$ 10,00</strong> em créditos para começar.</div>
@@ -79,5 +82,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     <a (click)="goBack()" *ngIf="!disabled" pButton style="border: 1px solid silver" class="ui-button-secondary" label="Voltar"></a>
   </div-->
 
+</div>
+</div>
 </div>
 

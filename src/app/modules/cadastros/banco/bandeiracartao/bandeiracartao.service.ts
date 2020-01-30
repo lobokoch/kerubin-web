@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:00:51.829
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -17,6 +16,7 @@ import { BandeiraCartao } from './bandeiracartao.model';
 import { BandeiraCartaoAutoComplete } from './bandeiracartao.model';
 import { BandeiraCartaoListFilter } from './bandeiracartao.model';
 import { BandeiraCartaoNomeBandeiraAutoComplete } from './bandeiracartao.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -24,7 +24,11 @@ export class BandeiraCartaoService {
 	
 	url = environment.apiUrl + '/cadastros/banco/entities/bandeiraCartao';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -36,7 +40,7 @@ export class BandeiraCartaoService {
 	
 	create(bandeiraCartao: BandeiraCartao): Promise<BandeiraCartao> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'create', 'create BandeiraCartao');
 	    return this.http.post(this.url, bandeiraCartao, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -48,7 +52,7 @@ export class BandeiraCartaoService {
 	
 	update(bandeiraCartao: BandeiraCartao): Promise<BandeiraCartao> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'update', 'update BandeiraCartao');
 	    return this.http.put(`${this.url}/${bandeiraCartao.id}`, bandeiraCartao, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -59,12 +63,14 @@ export class BandeiraCartaoService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'delete', 'delete BandeiraCartao');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<BandeiraCartao> {
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'retrieve', 'retrieve BandeiraCartao');
 	    const headers = this.getHeaders();
 	    return this.http.get<BandeiraCartao>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -87,7 +93,7 @@ export class BandeiraCartaoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<BandeiraCartaoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -104,7 +110,7 @@ export class BandeiraCartaoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'bandeiraCartaoNomeBandeiraAutoComplete', JSON.stringify(params));
 	    return this.http.get<any>(`${this.url}/bandeiraCartaoNomeBandeiraAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -118,7 +124,7 @@ export class BandeiraCartaoService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(bandeiraCartaoListFilter);
-	
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'bandeiraCartaoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -203,8 +209,9 @@ export class BandeiraCartaoService {
 		
 	getTotaisfilterBandeiraCartao(filter: BandeiraCartaorListFilter): Promise<TotaisfilterBandeiraCartao> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('cadastros.banco.BandeiraCartao', 'getTotaisfilterBandeiraCartao', JSON.stringify(params));
 	    return this.http.get<TotaisfilterBandeiraCartao>(`${this.url}/getTotaisfilterBandeiraCartao`, { headers, params })
 	    .toPromise()
 	    .then(response => {

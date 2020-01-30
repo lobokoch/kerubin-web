@@ -1,14 +1,14 @@
-import { AuthService } from './security/auth.service';
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.2
-Code generated at time stamp: 2019-06-05T06:41:33.812
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.1
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Component } from '@angular/core';
+import { AnalyticsService } from './analitycs/analytics.service';
+import { AuthService } from './security/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +21,15 @@ export class AppComponent {
   urls = ['/home', '/login', '/newaccount', '/confirmaccount', '/forgotpassword', '/changepasswordforgotten'];
   constructor(
     private router: Router,
+    private analitycs: AnalyticsService,
     private auth: AuthService
     ) {
-    //
+		// For Google Analitycs
+		this.router.events.subscribe(event => {
+			if (event instanceof NavigationEnd) {
+				analitycs.sendGTag(event.urlAfterRedirects);
+			}
+		});
   }
 
   canShowMenu() {
@@ -38,9 +44,8 @@ export class AppComponent {
       result = 'ui-g-12 ui-fluid ui-md-12';
     }
 
-    // console.log('getRouterOutletCssClass:' + result);
-
     return result;
   }
 
 }
+

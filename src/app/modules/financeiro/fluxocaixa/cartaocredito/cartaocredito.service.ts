@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.329
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -18,6 +17,7 @@ import { CartaoCreditoAutoComplete } from './cartaocredito.model';
 import { Banco } from './../banco/banco.model';
 import { BandeiraCartao } from './../bandeiracartao/bandeiracartao.model';
 import { CartaoCreditoListFilter } from './cartaocredito.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 import { BancoAutoComplete } from './../banco/banco.model';
 import { BandeiraCartaoAutoComplete } from './../bandeiracartao/bandeiracartao.model';
@@ -27,7 +27,11 @@ export class CartaoCreditoService {
 	
 	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/cartaoCredito';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -39,7 +43,7 @@ export class CartaoCreditoService {
 	
 	create(cartaoCredito: CartaoCredito): Promise<CartaoCredito> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'create', 'create CartaoCredito');
 	    return this.http.post(this.url, cartaoCredito, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -52,7 +56,7 @@ export class CartaoCreditoService {
 	
 	update(cartaoCredito: CartaoCredito): Promise<CartaoCredito> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'update', 'update CartaoCredito');
 	    return this.http.put(`${this.url}/${cartaoCredito.id}`, cartaoCredito, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -64,12 +68,14 @@ export class CartaoCreditoService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'delete', 'delete CartaoCredito');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<CartaoCredito> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'retrieve', 'retrieve CartaoCredito');
 	    const headers = this.getHeaders();
 	    return this.http.get<CartaoCredito>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -110,7 +116,7 @@ export class CartaoCreditoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<CartaoCreditoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -128,7 +134,7 @@ export class CartaoCreditoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'bancoBancoAutoComplete', JSON.stringify(params));
 	    return this.http.get<BancoAutoComplete[]>(`${this.url}/bancoBancoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -144,7 +150,7 @@ export class CartaoCreditoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.BandeiraCartao', 'bandeiraCartaoBandeiraCartaoAutoComplete', JSON.stringify(params));
 	    return this.http.get<BandeiraCartaoAutoComplete[]>(`${this.url}/bandeiraCartaoBandeiraCartaoAutoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -162,7 +168,7 @@ export class CartaoCreditoService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(cartaoCreditoListFilter);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'cartaoCreditoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -243,8 +249,9 @@ export class CartaoCreditoService {
 		
 	getTotaisfilterCartaoCredito(filter: CartaoCreditorListFilter): Promise<TotaisfilterCartaoCredito> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CartaoCredito', 'getTotaisfilterCartaoCredito', JSON.stringify(params));
 	    return this.http.get<TotaisfilterCartaoCredito>(`${this.url}/getTotaisfilterCartaoCredito`, { headers, params })
 	    .toPromise()
 	    .then(response => {

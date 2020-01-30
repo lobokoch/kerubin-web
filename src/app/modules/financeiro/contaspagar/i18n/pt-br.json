@@ -62,6 +62,8 @@
 	"financeiro.contas_pagar.fornecedor_nome_grid": "Nome",
 	"financeiro.contas_pagar.fornecedor_cnpjCPF": "Documento (CNPJ/CPF)",
 	"financeiro.contas_pagar.fornecedor_cnpjCPF_grid": "Documento (CNPJ/CPF)",
+	"financeiro.contas_pagar.fornecedor_ativo": "Ativo",
+	"financeiro.contas_pagar.fornecedor_ativo_grid": "Ativo",
 	"financeiro.contas_pagar.fornecedor_deleted": "inativo",
 	"financeiro.contas_pagar.fornecedor_deleted_grid": "inativo",
 	"financeiro.contas_pagar.banco": "Banco",

@@ -1,3 +1,10 @@
+/**********************************************************************************************
+Code generated with MKL Plug-in version: 60.0.1
+Copyright: Kerubin - kerubin.platform@gmail.com
+
+WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+***********************************************************************************************/
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.

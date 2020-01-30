@@ -1,7 +1,6 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 47.7.13
-Code generated at time stamp: 2020-01-07T19:01:49.329
-Copyright: Kerubin - logokoch@gmail.com
+Code generated with MKL Plug-in version: 60.0.6
+Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
@@ -16,6 +15,7 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { Caixa } from './caixa.model';
 import { CaixaAutoComplete } from './caixa.model';
 import { CaixaListFilter } from './caixa.model';
+import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -23,7 +23,11 @@ export class CaixaService {
 	
 	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/caixa';
 	
-	constructor(private http: HttpClientWithToken) { }
+	constructor(
+		private analitycs: AnalyticsService,
+		private http: HttpClientWithToken) { 
+		// Generated code.
+	}
 	
 	// TODO: Provisório
 	private getHeaders(): Headers {
@@ -35,7 +39,7 @@ export class CaixaService {
 	
 	create(caixa: Caixa): Promise<Caixa> {
 		const headers = this.getHeaders();    
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'create', 'create Caixa');
 	    return this.http.post(this.url, caixa, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -47,7 +51,7 @@ export class CaixaService {
 	
 	update(caixa: Caixa): Promise<Caixa> {
 	    const headers = this.getHeaders();
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'update', 'update Caixa');
 	    return this.http.put(`${this.url}/${caixa.id}`, caixa, { headers })
 	    .toPromise()
 	    .then(response => {
@@ -58,12 +62,14 @@ export class CaixaService {
 	}
 	
 	delete(id: string): Promise<void> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'delete', 'delete Caixa');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<Caixa> {
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'retrieve', 'retrieve Caixa');
 	    const headers = this.getHeaders();
 	    return this.http.get<Caixa>(`${this.url}/${id}`, { headers })
 	    .toPromise()
@@ -86,7 +92,7 @@ export class CaixaService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<CaixaAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -102,7 +108,7 @@ export class CaixaService {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(caixaListFilter);
-	
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'caixaList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -182,8 +188,9 @@ export class CaixaService {
 		
 	getTotaisfilterCaixa(filter: CaixarListFilter): Promise<TotaisfilterCaixa> {
 	    const headers = this.getHeaders();
-	
+		
 	    const params = this.mountAndGetSearchParams(filter);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.Caixa', 'getTotaisfilterCaixa', JSON.stringify(params));
 	    return this.http.get<TotaisfilterCaixa>(`${this.url}/getTotaisfilterCaixa`, { headers, params })
 	    .toPromise()
 	    .then(response => {
