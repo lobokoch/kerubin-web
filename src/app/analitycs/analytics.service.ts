@@ -8,7 +8,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 
-const ID = 'UA-157001792-1';
+const TAG_ID = 'UA-157001792-1';
 
 declare let gtag: Function;
 
@@ -20,9 +20,23 @@ export class AnalyticsService {
   constructor() { }
 
   sendGTag(url: string) {
-  	if (CAN_EXECUTE) {
-  	  gtag('config', ID, {'page_path': url});
-  	}
+  	if (CAN_EXECUTE && url) {
+      // Replaces the real uuid with a token "uuid"
+      // from: https://www.kerubin.com.br/contapagar/ba73db96-8766-4ab1-819c-28859f89add4
+      // to:   https://www.kerubin.com.br/contapagar/uuid
+      const index = url.lastIndexOf('/');
+      let pagePath = url;
+      if (index > -1) {
+        const id = url.substring(index + 1);
+        if (id && id.length > 32) { // length of ba73db96-8766-4ab1-819c-28859f89add4
+          const parts = id.split('-');
+          if (parts && parts.length === 5) {
+            pagePath = url.substring(0, index) + '/uuid';
+          }
+        }
+      }
+  	  gtag('config', TAG_ID, {'page_path': pagePath});
+    }
   }
 
   sendEvent(category: string, action: string, label: string, value: number = 0) {
@@ -31,9 +45,9 @@ export class AnalyticsService {
   	    'event_category': category,
   	    'event_label': label,
   	    'value': value
-  	  });
+      });
   	}
-    
+
   }
 }
 
