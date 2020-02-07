@@ -637,3 +637,24 @@ a.ui-button-success:hover {
 .ui-tooltip {
   pointer-events: none;
 }
+
+/* Begin Mobile */
+  .kb-mobile-block {
+    display: block !important;
+  }
+
+  .kb-mobile-inline {
+      display: inline !important;
+  }
+
+/* Hide after width: 640px */
+@media screen and (min-width: 640px) {
+  div.kb-mobile-block,
+  div.kb-mobile-inline {
+    display: none !important;
+  }
+}
+
+
+
+/* End Mobile*/

@@ -174,27 +174,35 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template  pTemplate="body" let-contaPagar>
 		            <tr [pSelectableRow]="contaPagar">
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagarPlanoContasAutoCompleteFieldConverter(contaPagar?.planoContas)}}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{ contaPagar?.descricao }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagar?.dataVencimento | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagar?.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento' + '_' + contaPagar?.formaPagamento?.toLowerCase()) }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagar?.dataPagamento | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagar?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}</span>
 		            		{{contaPagarFornecedorAutoCompleteFieldConverter(contaPagar?.fornecedor)}}
 		            	</td>
 		              	<td class="kb-actions">
@@ -241,9 +249,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer sumField kb-conta-valor-pago">B: {{ contaPagarSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer">(<span class="kb-conta-valor-apagar">A</span>-<span class="kb-conta-valor-pago">B</span>): {{ (contaPagarSumFields.sumValor - contaPagarSumFields.sumValorPago) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
 					</tr>
-				</ng-template>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+          <div class="kb-mobile-block"><span class="kb-sum-footer sumField kb-conta-valor-apagar">Total Valor da conta (A): {{ contaPagarSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
+          <div class="kb-mobile-block"><span class="kb-sum-footer sumField kb-conta-valor-pago">Total Valor pago (B): {{ contaPagarSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
+          <div>Sumarização: (<span class="kb-conta-valor-apagar">A</span>-<span class="kb-conta-valor-pago">B</span>): {{ (contaPagarSumFields.sumValor - contaPagarSumFields.sumValorPago) | currency:'BRL':'symbol':'1.2-2':'pt' }}</div>
+        </ng-template>
+
 			</p-table>
 		</div>
 		<!-- End GRID -->
