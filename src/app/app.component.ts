@@ -35,7 +35,8 @@ export class AppComponent {
   canShowMenu() {
     const url = this.router.url.toLowerCase();
     const exists = this.urls.some(it => url.includes(it));
-    return !exists && this.auth.isLoginValid();
+    // return !exists && this.auth.isLoginValid();
+    return !exists && this.auth.isLoggedIn();
   }
 
   getRouterOutletCssClass(): string {

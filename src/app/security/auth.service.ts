@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+const ANONYMOUS_USERNAME = 'anonymous@kerubin.com.br';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +83,8 @@ export class AuthService {
   cleanAccessToken() {
     localStorage.removeItem('token');
     this.jwtPayload = null;
-    // console.log('cleanAccessToken');
+    this.tenant = null;
+    console.log('cleanAccessToken');
   }
 
   private storeToken(token: string) {
@@ -103,7 +105,7 @@ export class AuthService {
   }
 
   public doLoginAnonymous(): Promise<boolean> {
-    const username = 'anonymous@kerubin.com.br';
+    const username = ANONYMOUS_USERNAME;
     const password = 'Kerubin_Anonymous@!1';
     return this.login(username, password)
       .then(() => {
@@ -116,7 +118,13 @@ export class AuthService {
       });
   }
 
-  getCurrentUserName() {
+  public isLoggedIn(): boolean {
+    const curUser = this.getCurrentUser();
+    const result = curUser !== null && curUser !== ANONYMOUS_USERNAME && this.getCurrentUserTenant !== null;
+    return result;
+  }
+
+  getCurrentUserName(): string {
     if (this.jwtPayload && this.jwtPayload.name) {
       return this.jwtPayload.name;
     } else {
@@ -124,7 +132,7 @@ export class AuthService {
     }
   }
 
-  getCurrentUser() {
+  getCurrentUser(): string {
     if (this.jwtPayload && this.jwtPayload.user_name) {
       return this.jwtPayload.user_name;
     } else {
@@ -150,5 +158,15 @@ export class AuthService {
 
     return null;
   }
+
+  getCurrentUserTenant(): string {
+    if (this.jwtPayload && this.jwtPayload.tenant) {
+      return this.jwtPayload.tenant;
+    }
+
+    return null;
+  }
+
+
 
 }
