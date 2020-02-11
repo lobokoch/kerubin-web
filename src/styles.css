@@ -658,3 +658,23 @@ a.ui-button-success:hover {
 
 
 /* End Mobile*/
+
+.picpay-logo {
+  background-color: #48c971;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #000;
+  padding: 3px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.picpay-kerubin {
+  background-color: #48c971;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #000;
+  padding: 3px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}

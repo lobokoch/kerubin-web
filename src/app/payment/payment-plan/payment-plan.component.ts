@@ -21,7 +21,8 @@ export class PaymentPlanComponent implements OnInit {
 
   banks: any[];
   bankBradesco = {name: 'Bradesco', bank: 'bradesco.png'};
-  selectedBank: any = this.bankBradesco;
+  picPay = {name: 'PicPay', bank: 'picpay.png'};
+  selectedBank: any = this.picPay;
 
   finalizing = false;
   finishedOrderSuccess = false;
@@ -45,6 +46,7 @@ export class PaymentPlanComponent implements OnInit {
     ];
 
     this.banks = [
+      this.picPay,
       this.bankBradesco,
       {name: 'Caixa Econômica Federal', bank: 'cef.png'}
     ];

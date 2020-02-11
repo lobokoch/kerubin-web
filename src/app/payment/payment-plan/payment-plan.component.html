@@ -29,7 +29,7 @@
 
           <!-- Begin forma de pagamento -->
           <div *ngIf="activeIndex == 1" class="ui-g-12 ui-md-12 ui-fluid" style="min-height: 313px;">
-              <p-panel header="Selecione o banco para você efetuar depósito ou transferência bancária" [toggleable]="false">
+              <p-panel header="Selecione abaixo a forma de pagamento desejada:" [toggleable]="false">
                   <p-selectButton [options]="banks" [(ngModel)]="selectedBank" optionLabel="name">
                       <ng-template let-item>
                           <div style="padding: .5em 1em">
@@ -38,9 +38,12 @@
                           </div>
                       </ng-template>
                   </p-selectButton>
-                  <p>Banco selecionado: <span style="font-weight: bold">{{selectedBank?.name}}</span></p>
+                  <p>Forma de pagamento selecionada: <span style="font-weight: bold">{{selectedBank?.name}}</span></p>
                   <br><br>
-                  <p><strong>Nota:</strong> Em breve teremos mais opções de pagamento, como <strong>cartão de crédito</strong> e <strong>boleto bancário</strong>.</p>
+                  <p><strong>Nota:</strong><span class="picpay-logo">PicPay</span> é a forma mais rápida e prática para pagar, você faz tudo pelo celular.
+                    O PicPay do Kerubin é <span class="picpay-kerubin">@kerubin.com.br</span>.</p>
+                    <p>Caso você selecione um banco, deverá fazer uma transferência ou depósito bancário.
+                    Instruções com mais detalhes serão enviadas a você por e-mail.</p>
               </p-panel>
           </div>
           <!-- End forma de pagamento -->
@@ -51,8 +54,7 @@
 
                 <div *ngIf="!finishedOrderSuccess">
                   <p><span style="font-weight: bold">Ao clicar em "Finalizar",
-                    enviaremos um e-mail para você com o valor e os dados bancários do banco selecionado
-                    para poder efetuar o depótiso ou transferência bancária e renovar seus créditos.</span></p>
+                    enviaremos a você um e-mail com o valor dos créditos a repor e mais informações de como proceder, conforme a forma de pagamento selecionada.</span></p>
                   <br><br>
                   <p><span style="font-weight: bold">Resumo:</span></p>
                   <hr>
@@ -62,7 +64,7 @@
 
                   <!--<p>Valor selecionado: <span style="font-weight: bold">{{ calculateValue() }} (você pagará {{ calculateValue() }} e recebrá {{ calculateTotalValue() }} em créditos devido ao bônus de 10%.)</span></p>-->
                   <br>
-                  <p><span class="resumo-valor-left">Banco selecionado:</span> <span style="text-align: left" class="resumo-valor-right">{{selectedBank?.name}}</span></p>
+                  <p><span class="resumo-valor-left">Forma de pagamento:</span> <span style="text-align: left" class="resumo-valor-right">{{selectedBank?.name}}</span></p>
               </div>
 
               <div *ngIf="finishedOrderSuccess">
