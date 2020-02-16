@@ -186,10 +186,12 @@ a, button {
 
 .kb-conta-vence-proximos-3-dias {
   background-color: rgb(254, 253, 194) !important;
+  color: #000 !important;
 }
 
 .kb-conta-vence-esta-semana {
   background-color: rgb(224, 252, 160) !important;
+  color: #000 !important;
 }
 
 .kb-conta-legenda {
