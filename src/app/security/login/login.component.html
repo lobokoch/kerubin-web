@@ -53,6 +53,10 @@
         </div>
       </div>
 
+      <div *ngIf="autenticando" class="ui-g-12">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+      </div>
+
     </div>
   </form>
 </p-card>

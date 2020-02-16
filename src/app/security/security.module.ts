@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 // Kerubin - BEGIN
 import { LoginComponent } from './login/login.component';
@@ -44,7 +45,8 @@ export function tokenGetter() {
     InputTextModule,
     ButtonModule,
     CardModule,
-    RouterModule
+    RouterModule,
+    ProgressBarModule
 
   ],
 
