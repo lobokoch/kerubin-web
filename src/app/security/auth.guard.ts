@@ -32,7 +32,8 @@ constructor(
       return this.auth.refreshAccessToken()
       .then(() => {
         if (this.auth.isAccessTokenInvalid()) {
-          this.router.navigate(['/home']);
+          console.log('AuthGuard:' + 'AcessToken inválido, redirecionando para login');
+          this.router.navigate(['/login']);
           return false;
         } // if
 

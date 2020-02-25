@@ -5,8 +5,8 @@ Copyright: Kerubin - kerubin.platform@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { Router, NavigationEnd } from '@angular/router';
-import { Component } from '@angular/core';
+import { Router, NavigationEnd, NavigationStart, NavigationCancel } from '@angular/router';
+import { Component, AfterViewInit } from '@angular/core';
 import { AnalyticsService } from './analitycs/analytics.service';
 import { AuthService } from './security/auth.service';
 
@@ -16,7 +16,8 @@ import { AuthService } from './security/auth.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  loading = true;
   title = 'Kerubin';
   urls = ['/home', '/login', '/newaccount', '/confirmaccount', '/forgotpassword', '/changepasswordforgotten'];
   constructor(
@@ -24,6 +25,7 @@ export class AppComponent {
     private analitycs: AnalyticsService,
     private auth: AuthService
     ) {
+      this.loading = true;
 		// For Google Analitycs
 		this.router.events.subscribe(event => {
 			if (event instanceof NavigationEnd) {
@@ -33,6 +35,7 @@ export class AppComponent {
   }
 
   canShowMenu() {
+    console.log('AppComponent -> canShowMenu, url:' + this.router.url);
     const url = this.router.url.toLowerCase();
     const exists = this.urls.some(it => url.includes(it));
     // return !exists && this.auth.isLoginValid();
@@ -47,6 +50,20 @@ export class AppComponent {
 
     return result;
   }
+
+  ngAfterViewInit() {
+    this.router.events
+        .subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                this.loading = true;
+            } else if (
+                event instanceof NavigationEnd ||
+                event instanceof NavigationCancel
+                ) {
+                this.loading = false;
+            }
+        });
+}
 
 }
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../security/auth.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -11,13 +12,16 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {
 
   }
 
   ngOnInit() {
-
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   goToLogin() {

@@ -7,6 +7,7 @@ import {AccordionModule} from 'primeng/accordion';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PanelModule} from 'primeng/panel';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {PanelModule} from 'primeng/panel';
     BrowserModule,
     BrowserAnimationsModule,
     AccordionModule,
-    PanelModule
+    PanelModule,
+    HomeRoutingModule
   ],
   exports: [
     HomeComponent

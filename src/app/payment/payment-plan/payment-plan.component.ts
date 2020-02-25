@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-plan',
@@ -35,10 +36,12 @@ export class PaymentPlanComponent implements OnInit {
     private decimalPipe: DecimalPipe,
     private paymentService: PaymentService,
     private messageHandler: MessageHandlerService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
     ) { }
 
   ngOnInit() {
+    console.log('PaymentPlanComponent:' + this.router.url);
     this.items = [
       { label: 'Valor do crédito' },
       { label: 'Forma de pagamento' },

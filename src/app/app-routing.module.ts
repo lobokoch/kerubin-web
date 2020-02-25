@@ -64,13 +64,6 @@ const routes: Routes = [
   // *****
   { path: 'mainmenu', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-  // BEGIN payment
-  { path: 'paymentplan', loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule) },
-  { path: 'paymentCreditOrder', loadChildren: () => import('./modules/security/authorization/creditorder/creditorder.module').then(m => m.CreditOrderModule) },
-  { path: 'creditBalance', loadChildren: () => import('./modules/custom/creditbalance/creditbalance.module').then(m => m.CreditBalanceModule) },
-  // END payment
 
   // BEGIN Kerubin Admin
   { path: 'creditorderadmin', loadChildren: () => import('./modules/security/authorization/creditorderadmin/creditorderadmin.module').then(m => m.CreditOrderAdminModule) },
@@ -84,14 +77,23 @@ const routes: Routes = [
   { path: 'confirmaccount', component: ConfirmAccountComponent },
   { path: 'forgotpassword', component: ForgotPasswordComponent },
   { path: 'changepasswordforgotten', component: ChangePasswordForgottenComponent },
-  { path: 'changepassword', component: ChangePasswordComponent }
+  { path: 'changepassword', component: ChangePasswordComponent },
+  // BEGIN payment
+  { path: 'paymentplan', loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule) },
+  { path: 'paymentCreditOrder', loadChildren: () => import('./modules/security/authorization/creditorder/creditorder.module').then(m => m.CreditOrderModule) },
+  { path: 'creditBalance', loadChildren: () => import('./modules/custom/creditbalance/creditbalance.module').then(m => m.CreditBalanceModule) },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' },
+   // END payment
 ];
 
 
 @NgModule({
 
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes
+      // , { enableTracing: true } // <-- debugging purposes only
+      )
   ],
 
   exports: [

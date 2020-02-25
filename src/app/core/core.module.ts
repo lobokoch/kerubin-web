@@ -65,10 +65,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     KerubinMenuModule,
     KerubinAccountModule,
     SecurityModule,
+    HomeModule,
     PaymentModule,
     CreditBalanceModule,
-    AnalyticsModule,
-    HomeModule
+    AnalyticsModule
   ],
 
   declarations: [
@@ -77,11 +77,11 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   ],
 
   exports: [
+    HomeComponent,
     NavbarComponent,
     ToastModule,
     KerubinMenuModule,
-    ConfirmDialogModule,
-    HomeComponent
+    ConfirmDialogModule
   ],
 
   providers: [

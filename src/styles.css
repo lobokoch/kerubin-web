@@ -497,7 +497,8 @@ a, button {
   font-weight: bold;
   font-family: "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 110%;
-  color: #1e94d2 !important;
+  /*color: #1e94d2 !important;*/
+  color: #fff !important;
   margin: 0 auto !important;
   width: 100% !important;
   text-align: center;
@@ -534,7 +535,7 @@ a, button {
 
   .home-text-main {
     font-size: 3rem;
-    width: 50% !important;
+    width: 55% !important;
   }
 
   .home-faq-header {
@@ -544,6 +545,15 @@ a, button {
   .home-btn-abrir-conta .ui-button {
     height: 100px !important;
     width: 400px !important;
+  }
+
+  .home-blocks-transparent {
+    margin-left: 20% !important;
+    margin-right: 20% !important;
+  }
+
+  .home-footer {
+    height: 100px !important;
   }
 
 }
@@ -562,7 +572,7 @@ a, button {
 
 
 .home-container {
-  background-color: #fff;
+  /*background-color: #fff;*/
   margin: 0 auto;
   padding: 0;
   width: 100% !important;
@@ -572,17 +582,78 @@ a, button {
   clear: both;
   overflow: auto;
   float: left;
+  z-index: 1;
+  position: relative;
 }
+
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  z-index: -1;
+  background: url(assets/images/bg1.jpg) 72% 50% no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+@media screen and (min-width: 420px) { /* > que 420*/
+  .home-container::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: -1;
+    background: url(assets/images/bg1.jpg) center center no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+  }
+}
+
+
 
 .home-blocks {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+.home-blocks-transparent {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
+
+  border: 1px solid gray;
+  border-radius: 25px !important;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.home-text-blocks-trans {
+  font-size: 1.5rem;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /*color: #1e94d2 !important;*/
+  color: #000 !important;
+  margin: 0 auto !important;
+  width: 85% !important;
+}
+
 .home-text-blocks {
   font-size: 1.5rem;
   font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #1e94d2 !important;
+  /*color: #1e94d2 !important;*/
+  color: #fff !important;
   margin: 0 auto !important;
   width: 85% !important;
 }
@@ -590,26 +661,24 @@ a, button {
 .home-separator {
   margin: 20px !important;
   padding: 0px !important;
-  height: 5px !important;
-  /*border-top: 1px solid #1e94d2;
-  border-bottom: 1px solid #1e94d2;*/
+  height: 0px !important;
   background-color: #1e94d2;
 }
 
 .home-faq {
   font-size: larger;
+  background: rgba(255, 255, 255, 0.3) !important;
 }
 
 .home-faq p {
   margin-bottom: 20px !important;
-  color: #1e94d2 !important;
 }
 
 .home-footer {
   text-align: center !important;
   background-color: #1e94d2 !important;
   color: #fff;
-  height: 100px;
+  height: 120px;
   margin-top: 5px;
   border-top: 1px solid #2d487c;
 
@@ -680,3 +749,36 @@ a.ui-button-success:hover {
   margin-left: 5px;
   margin-bottom: 5px;
 }
+
+/* Begin loading animation */
+.spinner-animation {
+  width: 100px;
+  height: 100px;
+  margin: 100px auto;
+  background-color: #116fbf;
+  background: url(assets/images/logo_circular.png) center center no-repeat;
+
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+/* End loading animation */

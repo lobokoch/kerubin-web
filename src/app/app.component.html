@@ -14,7 +14,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       <app-kerubin-menu *ngIf="canShowMenu()"></app-kerubin-menu>
     </div>
 
-    <div [ngClass]="getRouterOutletCssClass()" style="margin: 0px !important; padding: 0px !important; ">
+    <div class="spinner-animation" [hidden]="!loading">
+    </div>
+    <div [ngClass]="getRouterOutletCssClass()" [hidden]="loading"
+    style="margin: 0px !important; padding: 0px !important; ">
       <router-outlet></router-outlet>
     </div>
 
