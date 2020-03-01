@@ -123,7 +123,7 @@ export class KerubinMenuComponent implements OnInit {
             label: 'Banco',
             icon: 'pi pi-fw ',
             items: [
-              { label: 'Conciliação bancária', icon: 'pi pi-fw', routerLink: '/conciliacaobancaria' }
+              { label: 'Importar extrato', icon: 'pi pi-fw', routerLink: '/conciliacaobancaria' }
             ]
           }
 

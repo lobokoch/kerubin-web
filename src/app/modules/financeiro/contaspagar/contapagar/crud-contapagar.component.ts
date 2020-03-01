@@ -44,51 +44,53 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ContaPagarComponent implements OnInit {
-	
+
+  contaPaga = false;
+
 	calendarLocale: any;
-	
-	 
+
+
 	numberOfCopies = 1;
 	copiesReferenceFieldInterval = 30;
-	
+
 	copiesReferenceFieldOptions: SelectItem[];
 	copiesReferenceField: SelectItem = { label: 'Vencimento', value: 'dataVencimento' };
 	copiesReferenceFieldSelected: SelectItem;
-	 
+
 	contaPagar = new ContaPagar();
 	contaPagarPlanoContasAutoCompleteSuggestions: PlanoContaAutoComplete[];
-	
-	
+
+
 	contaPagarContaBancariaAutoCompleteSuggestions: ContaBancariaAutoComplete[];
-	
-	
+
+
 	contaPagarCartaoCreditoAutoCompleteSuggestions: CartaoCreditoAutoComplete[];
-	
-	
+
+
 	contaPagarFornecedorAutoCompleteSuggestions: FornecedorAutoComplete[];
 	contaPagarFormaPagamentoOptions: FormaPagamento[];
-	
+
 	constructor(
 	    private contaPagarService: ContaPagarService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
 	    private planoContaService: PlanoContaService,
-	    
-	    
+
+
 	    private contaBancariaService: ContaBancariaService,
-	    
-	    
+
+
 	    private cartaoCreditoService: CartaoCreditoService,
-	    
-	    
+
+
 	    private fornecedorService: FornecedorService,
 	    private route: ActivatedRoute,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
-	) { 
+	) {
 		this.initializeContaPagarFormaPagamentoOptions();
 		this.initializeCopiesReferenceFieldOptions();
 	}
-	
+
 	ngOnInit() {
 		this.initLocaleSettings();
 		this.initializeEnumFieldsWithDefault();
@@ -97,7 +99,7 @@ export class ContaPagarComponent implements OnInit {
 	      this.getContaPagarById(id);
 	    }
 	}
-	
+
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
@@ -105,11 +107,11 @@ export class ContaPagarComponent implements OnInit {
 	      this.initializeEnumFieldsWithDefault();
 	    }.bind(this), 1);
 	}
-	
+
 	validateAllFormFields(form: FormGroup) {
 	    Object.keys(form.controls).forEach(field => {
 	      const control = form.get(field);
-	
+
 	      if (control instanceof FormControl) {
 	        control.markAsDirty({ onlySelf: true });
 	      } else if (control instanceof FormGroup) {
@@ -117,12 +119,29 @@ export class ContaPagarComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	save(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
-	    }
+      }
+
+      let dataPagamento = null;
+      if (this.contaPagar && this.contaPagar.dataPagamento) {
+        dataPagamento = this.contaPagar.dataPagamento;
+      }
+
+      if (this.contaPaga && (!dataPagamento || !this.contaPagar || !this.contaPagar.valorPago)) {
+        this.messageHandler.showError('Para que a conta seja paga é necessário informar a data de pagamento e o valor pago pela conta.');
+        return;
+      }
+
+      const today = moment();
+	    if (this.contaPaga && dataPagamento && moment(dataPagamento).isAfter(today)) {
+        this.messageHandler.showError(`A data de pagamento da conta deve ser menor ou igual a data de hoje (${today.format('DD/MM/YYYY')}).`);
+        return;
+      }
+
 	    if (this.isEditing) {
 	      this.update();
 	    } else {
@@ -130,9 +149,9 @@ export class ContaPagarComponent implements OnInit {
 	    }
 		this.initializeCopiesReferenceFieldOptions();
 	}
-	
+
 	create() {
-		
+
 	    this.contaPagarService.create(this.contaPagar)
 	    .then((contaPagar) => {
 	      this.contaPagar = contaPagar;
@@ -142,7 +161,7 @@ export class ContaPagarComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	update() {
 	    this.contaPagarService.update(this.contaPagar)
 	    .then((contaPagar) => {
@@ -153,29 +172,32 @@ export class ContaPagarComponent implements OnInit {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	getContaPagarById(id: string) {
 	    this.contaPagarService.retrieve(id)
-	    .then((contaPagar) => this.contaPagar = contaPagar)
+	    .then((contaPagar) => {
+        this.contaPaga = contaPagar && contaPagar.dataPagamento !== null;
+        this.contaPagar = contaPagar;
+      })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
 	}
-	
+
 	get isEditing() {
 	    return Boolean(this.contaPagar.id);
 	}
-	
+
 	initializeEnumFieldsWithDefault() {
 		this.contaPagar.formaPagamento = this.contaPagarFormaPagamentoOptions[1].value;
 	}
-	
-	
+
+
 	contaPagarPlanoContasAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaPagar.planoContas = null;
 	}
-	
+
 	contaPagarPlanoContasAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
@@ -183,7 +205,7 @@ export class ContaPagarComponent implements OnInit {
 			this.contaPagar.planoContas = null;
 		}
 	}
-	
+
 	contaPagarPlanoContasAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService
@@ -195,7 +217,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.messageHandler.showError(error);
 	      });
 	}
-	
+
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		let text = '';
 		if (planoContas) {
@@ -203,30 +225,30 @@ export class ContaPagarComponent implements OnInit {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += planoContas.codigo; 
+			    text += planoContas.codigo;
 			}
-			
+
 			if (planoContas.descricao) {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += planoContas.descricao; 
+			    text += planoContas.descricao;
 			}
-			
+
 		}
-		
+
 		if (text === '') {
 			text = null;
 		}
 		return text;
 	}
-	
-	
+
+
 	contaPagarContaBancariaAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaPagar.contaBancaria = null;
 	}
-	
+
 	contaPagarContaBancariaAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
@@ -234,7 +256,7 @@ export class ContaPagarComponent implements OnInit {
 			this.contaPagar.contaBancaria = null;
 		}
 	}
-	
+
 	contaPagarContaBancariaAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService
@@ -246,7 +268,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.messageHandler.showError(error);
 	      });
 	}
-	
+
 	contaPagarContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		let text = '';
 		if (contaBancaria) {
@@ -254,30 +276,30 @@ export class ContaPagarComponent implements OnInit {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += contaBancaria.nomeTitular; 
+			    text += contaBancaria.nomeTitular;
 			}
-			
+
 			if (contaBancaria.numeroConta) {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += contaBancaria.numeroConta; 
+			    text += contaBancaria.numeroConta;
 			}
-			
+
 		}
-		
+
 		if (text === '') {
 			text = null;
 		}
 		return text;
 	}
-	
-	
+
+
 	contaPagarCartaoCreditoAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaPagar.cartaoCredito = null;
 	}
-	
+
 	contaPagarCartaoCreditoAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
@@ -285,7 +307,7 @@ export class ContaPagarComponent implements OnInit {
 			this.contaPagar.cartaoCredito = null;
 		}
 	}
-	
+
 	contaPagarCartaoCreditoAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService
@@ -297,7 +319,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.messageHandler.showError(error);
 	      });
 	}
-	
+
 	contaPagarCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		let text = '';
 		if (cartaoCredito) {
@@ -305,30 +327,30 @@ export class ContaPagarComponent implements OnInit {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += cartaoCredito.nomeTitular; 
+			    text += cartaoCredito.nomeTitular;
 			}
-			
+
 			if (cartaoCredito.numeroCartao) {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += cartaoCredito.numeroCartao; 
+			    text += cartaoCredito.numeroCartao;
 			}
-			
+
 		}
-		
+
 		if (text === '') {
 			text = null;
 		}
 		return text;
 	}
-	
-	
+
+
 	contaPagarFornecedorAutoCompleteClear(event) {
 		// The autoComplete value has been reseted
 		this.contaPagar.fornecedor = null;
 	}
-	
+
 	contaPagarFornecedorAutoCompleteOnBlur(event) {
 		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
 		// Until PrimeNG version: 7.1.3.
@@ -336,7 +358,7 @@ export class ContaPagarComponent implements OnInit {
 			this.contaPagar.fornecedor = null;
 		}
 	}
-	
+
 	contaPagarFornecedorAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService
@@ -348,7 +370,7 @@ export class ContaPagarComponent implements OnInit {
 	        this.messageHandler.showError(error);
 	      });
 	}
-	
+
 	contaPagarFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		let text = '';
 		if (fornecedor) {
@@ -356,52 +378,52 @@ export class ContaPagarComponent implements OnInit {
 			    if (text !== '') {
 			      text += ' - ';
 			    }
-			    text += fornecedor.nome; 
+			    text += fornecedor.nome;
 			}
-			
+
 		}
-		
+
 		if (text === '') {
 			text = null;
 		}
 		return text;
 	}
-	
+
 	private initializeContaPagarFormaPagamentoOptions() {
 	    this.contaPagarFormaPagamentoOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_dinheiro'), value: 'DINHEIRO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cheque'), value: 'CHEQUE' },
 	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
 	}
-	  
-	
+
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroContasPagarTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
+
+
 	actionFazerCopiasContaPagar(form: FormControl) {
 	      if (!this.contaPagar.agrupador) {
 	        this.messageHandler.showError('Campo \'Agrupador\' deve ser informado para gerar cópias.');
 	        return;
 	      }
-	      
+
 	      if (!this.contaPagar.dataVencimento) {
 	        this.messageHandler.showError('Campo \'DataVencimento\' deve ser informado para gerar cópias.');
 	        return;
 	      }
-	      
+
 	      // Begin validation for past dates
 	      const dataVencimentoFirstCopy = moment(this.contaPagar.dataVencimento).add(1, 'month');
 	      const today = moment();
@@ -426,11 +448,11 @@ export class ContaPagarComponent implements OnInit {
 			  	});
 			  }
 			});
-	      
+
 	      	return;
 	      }
 	      // End validation
-	
+
 	      this.contaPagarService.actionFazerCopiasContaPagar(this.contaPagar.id, this.numberOfCopies,
 	        this.copiesReferenceFieldInterval, this.contaPagar.agrupador)
 		    .then(() => {
@@ -442,20 +464,20 @@ export class ContaPagarComponent implements OnInit {
 		      this.messageHandler.showError(message);
 		  });
 	}
-	 
+
 	initializeCopiesReferenceFieldOptions() {
 	    this.copiesReferenceFieldOptions = [
 	      this.copiesReferenceField
 	    ];
-	
+
 	    this.copiesReferenceFieldSelected = this.copiesReferenceField;
-	    
+
 	    this.numberOfCopies = 1;
 	    this.copiesReferenceFieldInterval = 30;
 	}
-	
-										
-	// Begin RuleWithSlotAppyStyleClass 
+
+
+	// Begin RuleWithSlotAppyStyleClass
 	ruleContaBancariaAppyStyleClass() {
 		const expression = (String(this.contaPagar.formaPagamento) !== 'CONTA_BANCARIA');
 		if (expression) {
@@ -463,7 +485,7 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	ruleCartaoCreditoAppyStyleClass() {
 		const expression = (String(this.contaPagar.formaPagamento) !== 'CARTAO_CREDITO');
@@ -472,7 +494,7 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	ruleOutrosDescricaoAppyStyleClass() {
 		const expression = (String(this.contaPagar.formaPagamento) === 'CONTA_BANCARIA') || (String(this.contaPagar.formaPagamento) === 'CARTAO_CREDITO');
@@ -481,7 +503,7 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	ruleIdConcBancariaAppyStyleClass() {
 		const expression = (!this.contaPagar.idConcBancaria || this.contaPagar.idConcBancaria.trim().length == 0);
@@ -490,7 +512,7 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	ruleNumDocConcBancariaAppyStyleClass() {
 		const expression = (!this.contaPagar.numDocConcBancaria || this.contaPagar.numDocConcBancaria.trim().length == 0);
@@ -499,7 +521,7 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	ruleHistConcBancariaAppyStyleClass() {
 		const expression = (!this.contaPagar.numDocConcBancaria || this.contaPagar.numDocConcBancaria.trim().length == 0);
@@ -508,12 +530,12 @@ export class ContaPagarComponent implements OnInit {
 		} else {
 			return '';
 		}
-		
+
 	}
 	// End Begin RuleWithSlotAppyStyleClass
-	
-										
-	// Begin RulesWithSlotAppyMathExpression 
+
+
+	// Begin RulesWithSlotAppyMathExpression
 	ruleContaPagarValorPagoOnAppyMathExpression(event) {
 		if (this.contaPagar) {
 			const whenExpression = this.contaPagar.dataPagamento;
@@ -525,14 +547,36 @@ export class ContaPagarComponent implements OnInit {
 				(this.contaPagar.valorAcrescimos || 0));
 			}
 		}
-		
+
 	}
 	// End Begin RulesWithSlotAppyMathExpression
-	
-	
+
+
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroContasPagarTranslationService.getCalendarLocaleSettings();
-	}
-	
-	
+  }
+
+  contaPagaChange(e) {
+    const querEstornar = !e.checked && this.contaPagar && this.contaPagar.dataPagamento;
+    if (querEstornar) {
+      this.confirmation.confirm({
+        message: 'Os dados de pagamento desta conta (data de pagamento, valor pago, etc) serão apagados.' +
+          ' Caso a conta já tenha sido paga e você clique em "Salvar", o pagamento da conta será estornado do caixa.' +
+          ' Você deseja realmente cancelar o pagamento desta conta?',
+			  accept: () => {
+			    this.contaPagar.dataPagamento = null;
+			    this.contaPagar.valorDesconto = null;
+			    this.contaPagar.valorMulta = null;
+			    this.contaPagar.valorJuros = null;
+			    this.contaPagar.valorAcrescimos = null;
+			    this.contaPagar.valorPago = null;
+        },
+        reject: () => {
+          this.contaPaga = true;
+        }
+			});
+    }
+  }
+
+
 }

@@ -35,10 +35,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   canShowMenu() {
-    console.log('AppComponent -> canShowMenu, url:' + this.router.url);
     const url = this.router.url.toLowerCase();
     const exists = this.urls.some(it => url.includes(it));
-    // return !exists && this.auth.isLoginValid();
     return !exists && this.auth.isLoggedIn();
   }
 

@@ -750,6 +750,12 @@ a.ui-button-success:hover {
   margin-bottom: 5px;
 }
 
+hr {
+  border: 2px solid #c8c8c8;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 /* Begin loading animation */
 .spinner-animation {
   width: 100px;
