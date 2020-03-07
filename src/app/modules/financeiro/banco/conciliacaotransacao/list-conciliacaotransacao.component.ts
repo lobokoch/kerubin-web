@@ -255,6 +255,11 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	}
 
 	conciliacaoTransacaoList(pageNumber = 0) {
+      if (!this.conciliacaoTransacaoListFilter.conciliacaoBancariaId) {
+        console.log('Cancelando list devido a this.conciliacaoTransacaoListFilter.conciliacaoBancariaId == null.');
+        return;
+      }
+
       this.conciliacaoTransacaoListFilter.pageNumber = pageNumber;
       if (!this.conciliadoComMaisDeUmTitulo) {
         this.conciliadoComMaisDeUmTitulo = false;

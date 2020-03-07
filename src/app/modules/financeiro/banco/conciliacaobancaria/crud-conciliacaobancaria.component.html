@@ -12,9 +12,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 	<div class="ui-g" *ngIf="!conciliacaoId">
 		<div class="ui-g-12 ui-fluid">
-			<h1>Conciliação bancária</h1>
+			<h2 style="margin-top: 0px;">Conciliação bancária</h2>
 			<div style="font-size: large">1 - Clique em <strong>Escolher arquivo</strong> para escolher o arquivo <strong>.ofx</strong> para a conciliação bancária.</div>
-			<div style="font-size: small; margin-bottom: 10px; margin-left: 28px;">Este arquivo você baixa do seu internet banking.</div>
+      <div style="font-size: small; margin-bottom: 10px; margin-left: 28px;">
+        Este arquivo contém os movimentos do seu extrato bancário, você baixa ele do seu internet banking para algum local do seu computador.
+      </div>
 			<div style="font-size: large; ; margin-bottom: 10px;">2 - Clique em <strong>Enviar arquivo</strong> para iniciar a conciliação bancária.</div>
 
 			<p-fileUpload name="arquivoConciliacao" [url]="urlUploadArquivoConciliacao"
