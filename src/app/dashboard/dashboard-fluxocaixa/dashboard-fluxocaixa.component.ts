@@ -308,7 +308,8 @@ export class DashboardFluxoCaixaComponent implements OnInit {
   }
 
   fillChartData(itemsFluxo: FluxoCaixaMonthItem[]) {
-    const monthNames = this.getMonthNames();
+    // const monthNames = this.getMonthNames();
+    const monthNames = itemsFluxo.map(it => it.monthName);
     const creditos = itemsFluxo.map(it => it.creditValue);
     const debitos = itemsFluxo.map(it => it.debitValue);
     const saldo = itemsFluxo.map(it => it.balanceValue);
