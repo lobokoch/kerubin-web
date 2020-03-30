@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { CaixaLancamento } from './caixalancamento.model';
 import { CaixaLancamentoService } from './caixalancamento.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -40,6 +41,8 @@ import { FornecedorService } from './../fornecedor/fornecedor.service';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
 import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
 
+import { CaixaLancamentoAutoComplete } from './../caixalancamento/caixalancamento.model';
+
 import { TipoLancamentoFinanceiro } from './../enums/financeiro-fluxocaixa-enums.model';
 
 import { FormaPagamento } from './../enums/financeiro-fluxocaixa-enums.model';
@@ -55,6 +58,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class CaixaLancamentoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
@@ -79,6 +84,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	
 	caixaLancamentoFornecedorAutoCompleteSuggestions: FornecedorAutoComplete[];
+	
+	
+	caixaLancamentoEstornoLancamentoAutoCompleteSuggestions: CaixaLancamentoAutoComplete[];
 	caixaLancamentoTipoLancamentoFinanceiroOptions: TipoLancamentoFinanceiro[];
 	
 	
@@ -86,6 +94,8 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	
 	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
+	
+	@ViewChild('descricaoElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private caixaLancamentoService: CaixaLancamentoService,
@@ -125,6 +135,11 @@ export class CaixaLancamentoComponent implements OnInit {
 	    if (id) {
 	      this.getCaixaLancamentoById(id);
 	    }
+	    this.defaultElementSetFocus();
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -136,6 +151,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		  
 		  this.caixaLancamentoApplyRememberValues();
 		  
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -165,13 +181,13 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.caixaLancamentoService.create(this.caixaLancamento)
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -183,6 +199,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -191,7 +208,9 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	getCaixaLancamentoById(id: string) {
 	    this.caixaLancamentoService.retrieve(id)
-	    .then((caixaLancamento) => this.caixaLancamento = caixaLancamento)
+	    .then((caixaLancamento) => { 
+	    	this.caixaLancamento = caixaLancamento;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -510,6 +529,50 @@ export class CaixaLancamentoComponent implements OnInit {
 		return text;
 	}
 	
+	
+	caixaLancamentoEstornoLancamentoAutoCompleteClear(event) {
+		// The autoComplete value has been reseted
+		this.caixaLancamento.estornoLancamento = null;
+	}
+	
+	caixaLancamentoEstornoLancamentoAutoCompleteOnBlur(event) {
+		// Seems a PrimeNG bug, if clear an autocomplete field, on onBlur event, the null value is empty string.
+		// Until PrimeNG version: 7.1.3.
+		if (String(this.caixaLancamento.estornoLancamento) === '') {
+			this.caixaLancamento.estornoLancamento = null;
+		}
+	}
+	
+	caixaLancamentoEstornoLancamentoAutoComplete(event) {
+	    const query = event.query;
+	    this.caixaLancamentoService
+	      .caixaLancamentoEstornoLancamentoAutoComplete(query)
+	      .then((result) => {
+	        this.caixaLancamentoEstornoLancamentoAutoCompleteSuggestions = result as CaixaLancamentoAutoComplete[];
+	      })
+	      .catch(error => {
+	        this.messageHandler.showError(error);
+	      });
+	}
+	
+	caixaLancamentoEstornoLancamentoAutoCompleteFieldConverter(estornoLancamento: CaixaLancamentoAutoComplete) {
+		let text = '';
+		if (estornoLancamento) {
+			if (estornoLancamento.descricao) {
+			    if (text !== '') {
+			      text += ' - ';
+			    }
+			    text += estornoLancamento.descricao; 
+			}
+			
+		}
+		
+		if (text === '') {
+			text = null;
+		}
+		return text;
+	}
+	
 	private initializeCaixaLancamentoTipoLancamentoFinanceiroOptions() {
 	    this.caixaLancamentoTipoLancamentoFinanceiroOptions = [
 	    	{ label: 'Selecione um item', value: null },
@@ -555,114 +618,170 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 	
+	
 										
-	// Begin RuleWithSlotAppyStyleClass 
-	ruleContaBancariaAppyStyleClass() {
+	// Begin RuleWithSlotAppyHiddeComponent 
+	
+	ruleDocumentoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleObservacoesAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleIdConcBancariaAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleHistConcBancariaAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleNumDocConcBancariaAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleEstornoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleEstornoLancamentoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleEstornoHistoricoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleTipoFonteMovimentoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (String(this.caixaLancamento.tipoFonteMovimento) === 'LANCEMENTO_CAIXA');
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleIdFonteMovimentoAppyHiddeComponent() {
+		const expression = (!this.caixaLancamento.maisOpcoes) || (String(this.caixaLancamento.tipoFonteMovimento) === 'LANCEMENTO_CAIXA');
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	
+	ruleContaBancariaAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CONTA_BANCARIA');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleCartaoCreditoAppyStyleClass() {
+	
+	ruleCartaoCreditoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CARTAO_CREDITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleOutrosDescricaoAppyStyleClass() {
+	
+	ruleOutrosDescricaoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) === 'CONTA_BANCARIA') || (String(this.caixaLancamento.formaPagamento) === 'CARTAO_CREDITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleIdFonteMovimentoAppyStyleClass() {
-		const expression = !this.caixaLancamento.idFonteMovimento;
-		if (expression) {
-			return 'hidden';
-		} else {
-			return '';
-		}
-		
-	}
-	ruleIdConcBancariaAppyStyleClass() {
-		const expression = (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length == 0);
-		if (expression) {
-			return 'hidden';
-		} else {
-			return '';
-		}
-		
-	}
-	ruleNumDocConcBancariaAppyStyleClass() {
-		const expression = (!this.caixaLancamento.numDocConcBancaria || this.caixaLancamento.numDocConcBancaria.trim().length == 0);
-		if (expression) {
-			return 'hidden';
-		} else {
-			return '';
-		}
-		
-	}
-	ruleHistConcBancariaAppyStyleClass() {
-		const expression = (!this.caixaLancamento.numDocConcBancaria || this.caixaLancamento.numDocConcBancaria.trim().length == 0);
-		if (expression) {
-			return 'hidden';
-		} else {
-			return '';
-		}
-		
-	}
-	ruleClienteAppyStyleClass() {
+	
+	ruleClienteAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleFornecedorAppyStyleClass() {
+	
+	ruleFornecedorAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleValorCreditoAppyStyleClass() {
+	
+	ruleValorCreditoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	ruleValorDebitoAppyStyleClass() {
+	
+	ruleValorDebitoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
 		if (expression) {
-			return 'hidden';
+			return 'none'; // Will hidde de component.
 		} else {
-			return '';
+			return 'inline'; // Default css show element value.
 		}
-		
 	}
-	// End Begin RuleWithSlotAppyStyleClass
+	// End Begin RuleWithSlotAppyHiddeComponent
+	
+	
 	
 	
 	caixaLancamentoRuleDisableCUD() {
 		const expression = this.caixaLancamento.id && (String(this.caixaLancamento.caixaDiario.caixaDiarioSituacao) !== 'ABERTO');
 		return expression;
-		
 	}
 	
 	initLocaleSettings() {
@@ -694,5 +813,14 @@ export class CaixaLancamentoComponent implements OnInit {
 			this.caixaLancamentoRememberValue.cliente = this.caixaLancamento.cliente;
 			this.caixaLancamentoRememberValue.fornecedor = this.caixaLancamento.fornecedor;
 		}
+	}
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
 	}
 }

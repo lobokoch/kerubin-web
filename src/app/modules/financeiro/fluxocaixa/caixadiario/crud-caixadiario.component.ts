@@ -11,6 +11,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { AutoComplete } from 'primeng/autocomplete';
+import { ViewChild } from '@angular/core';
 import { CaixaDiario } from './caixadiario.model';
 import { CaixaDiarioService } from './caixadiario.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -31,12 +33,16 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class CaixaDiarioComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
 	caixaDiario = new CaixaDiario();
 	caixaDiarioCaixaAutoCompleteSuggestions: CaixaAutoComplete[];
 	caixaDiarioCaixaDiarioSituacaoOptions: CaixaDiarioSituacao[];
+	
+	@ViewChild('caixaElementRef', {static: true}) defaultElementRef: AutoComplete;
 	
 	constructor(
 	    private caixaDiarioService: CaixaDiarioService,
@@ -55,6 +61,13 @@ export class CaixaDiarioComponent implements OnInit {
 	    if (id) {
 	      this.getCaixaDiarioById(id);
 	    }
+	    setTimeout(function() {
+	    	this.defaultElementSetFocus();
+	    }.bind(this), 1);
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -62,6 +75,7 @@ export class CaixaDiarioComponent implements OnInit {
 	    setTimeout(function() {
 	      this.caixaDiario = new CaixaDiario();
 	      this.initializeEnumFieldsWithDefault();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -88,13 +102,13 @@ export class CaixaDiarioComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.caixaDiarioService.create(this.caixaDiario)
 	    .then((caixaDiario) => {
 	      this.caixaDiario = caixaDiario;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -106,6 +120,7 @@ export class CaixaDiarioComponent implements OnInit {
 	    .then((caixaDiario) => {
 	      this.caixaDiario = caixaDiario;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -114,7 +129,9 @@ export class CaixaDiarioComponent implements OnInit {
 	
 	getCaixaDiarioById(id: string) {
 	    this.caixaDiarioService.retrieve(id)
-	    .then((caixaDiario) => this.caixaDiario = caixaDiario)
+	    .then((caixaDiario) => { 
+	    	this.caixaDiario = caixaDiario;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -191,6 +208,7 @@ export class CaixaDiarioComponent implements OnInit {
 		// return result;
 	}
 	
+	
 	abrirCaixaWhenCondition(): boolean {
 		return this.caixaDiario.id && (String(this.caixaDiario.caixaDiarioSituacao) === 'NAO_INICIADO');
 	}
@@ -237,9 +255,19 @@ export class CaixaDiarioComponent implements OnInit {
 	
 	
 	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
 	}
 	
 	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.focusInput();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

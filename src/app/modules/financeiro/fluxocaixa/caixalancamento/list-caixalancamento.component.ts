@@ -35,6 +35,8 @@ import { PlanoContaAutoComplete } from './../planoconta/planoconta.model';
 import { ClienteAutoComplete } from './../cliente/cliente.model';
 
 import { FornecedorAutoComplete } from './../fornecedor/fornecedor.model';
+
+import { CaixaLancamentoAutoComplete } from './../caixalancamento/caixalancamento.model';
 import { CaixaLancamentoSumFields } from './caixalancamento.model';
 
 @Component({
@@ -64,6 +66,9 @@ export class CaixaLancamentoListComponent implements OnInit {
 	
 	
 	caixaLancamentoHistConcBancariaAutoCompleteSuggestions: CaixaLancamentoHistConcBancariaAutoComplete[];
+	
+	
+	
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
@@ -89,6 +94,10 @@ export class CaixaLancamentoListComponent implements OnInit {
 		this.initializeCaixaLancamentoFormaPagamentoOptions();
 		
 		this.caixaLancamentoListFilter.idConcBancariaIsNotNull = false;
+		
+		
+		
+		this.caixaLancamentoListFilter.estornoIsNotNull = false;
 		
 		
 	}
@@ -252,6 +261,14 @@ export class CaixaLancamentoListComponent implements OnInit {
 	caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
 			return (fornecedor.nome || '<nulo>');
+		} else {
+			return null;
+		}
+	}
+	
+	caixaLancamentoEstornoLancamentoAutoCompleteFieldConverter(estornoLancamento: CaixaLancamentoAutoComplete) {
+		if (estornoLancamento) {
+			return (estornoLancamento.descricao || '<nulo>');
 		} else {
 			return null;
 		}

@@ -1,3 +1,4 @@
+import { CustomServicesModule } from './modules/custom/services/custom-services.module';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -23,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     BrowserAnimationsModule,
 
+    CustomServicesModule,
     CoreModule,
     AppRoutingModule
   ],

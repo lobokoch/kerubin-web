@@ -31,6 +31,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ContaBancariaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
@@ -55,6 +57,10 @@ export class ContaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getContaBancariaById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -88,7 +94,6 @@ export class ContaBancariaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.contaBancariaService.create(this.contaBancaria)
@@ -114,7 +119,9 @@ export class ContaBancariaComponent implements OnInit {
 	
 	getContaBancariaById(id: string) {
 	    this.contaBancariaService.retrieve(id)
-	    .then((contaBancaria) => this.contaBancaria = contaBancaria)
+	    .then((contaBancaria) => { 
+	    	this.contaBancaria = contaBancaria;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -210,9 +217,12 @@ export class ContaBancariaComponent implements OnInit {
 	
 	
 	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroContasReceberTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 	
 }

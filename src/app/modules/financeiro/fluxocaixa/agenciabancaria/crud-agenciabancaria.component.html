@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de agência bancária."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,14 +41,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_id') }}
+			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="agenciaBancaria.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="agenciaBancaria.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="banco">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_banco') }}<span class="kb-label-required">*</span></label>
+			<label for="banco">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_banco') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="agenciaBancariaBancoAutoCompleteSuggestions"
@@ -33,7 +61,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="agenciaBancariaBancoAutoCompleteClear($event)"
 			 (onBlur)="agenciaBancariaBancoAutoCompleteOnBlur($event)"
 			 [field]="agenciaBancariaBancoAutoCompleteFieldConverter"
-			 #banco="ngModel" ngModel [(ngModel)]="agenciaBancaria.banco" name="banco" required>
+			 #bancoElementRef #banco="ngModel" [(ngModel)]="agenciaBancaria.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
 					<div class="ui-helper-clearfix">{{ agenciaBancariaBancoAutoCompleteFieldConverter(banco) }}</div>
 				</ng-template>
@@ -42,36 +70,46 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="numeroAgencia">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #numeroAgencia="ngModel" ngModel [(ngModel)]="agenciaBancaria.numeroAgencia" name="numeroAgencia" required>
+			<label for="numeroAgencia">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #numeroAgencia="ngModel" [(ngModel)]="agenciaBancaria.numeroAgencia" name="numeroAgencia" required>
 			<div class="invalid-message" *ngIf="numeroAgencia.invalid && numeroAgencia.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="digitoAgencia">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #digitoAgencia="ngModel" ngModel [(ngModel)]="agenciaBancaria.digitoAgencia" name="digitoAgencia" required>
+			<label for="digitoAgencia">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #digitoAgencia="ngModel" [(ngModel)]="agenciaBancaria.digitoAgencia" name="digitoAgencia" required>
 			<div class="invalid-message" *ngIf="digitoAgencia.invalid && digitoAgencia.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="endereco">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco') }}</label>
-			<input type="text" pInputText #endereco="ngModel" ngModel [(ngModel)]="agenciaBancaria.endereco" name="endereco">
+			<label for="endereco">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco') }}
+			</label>
+			<input type="text" pInputText #endereco="ngModel" [(ngModel)]="agenciaBancaria.endereco" name="endereco">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted') }}</label>
-			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="agenciaBancaria.deleted" name="deleted"></p-inputSwitch>
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted') }}
+			</label>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="agenciaBancaria.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/agenciabancaria" pButton label="Pesquisar"></a>
+				<a routerLink="/agenciabancaria" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de agência bancária."></a>
 			</div>
 		</div>
 		

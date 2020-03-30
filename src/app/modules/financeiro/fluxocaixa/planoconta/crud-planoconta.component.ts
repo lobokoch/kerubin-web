@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { PlanoConta } from './planoconta.model';
 import { PlanoContaService } from './planoconta.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -30,12 +31,16 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class PlanoContaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	planoConta = new PlanoConta();
 	planoContaPlanoContaPaiAutoCompleteSuggestions: PlanoContaAutoComplete[];
 	planoContaTipoFinanceiroOptions: TipoPlanoContaFinanceiro[];
 	
 	
 	planoContaTipoReceitaDespesaOptions: TipoReceitaDespesa[];
+	
+	@ViewChild('codigoElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private planoContaService: PlanoContaService,
@@ -54,6 +59,11 @@ export class PlanoContaComponent implements OnInit {
 	    if (id) {
 	      this.getPlanoContaById(id);
 	    }
+	    this.defaultElementSetFocus();
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -61,6 +71,7 @@ export class PlanoContaComponent implements OnInit {
 	    setTimeout(function() {
 	      this.planoConta = new PlanoConta();
 	      this.initializeEnumFieldsWithDefault();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -87,13 +98,13 @@ export class PlanoContaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -105,6 +116,7 @@ export class PlanoContaComponent implements OnInit {
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -113,7 +125,9 @@ export class PlanoContaComponent implements OnInit {
 	
 	getPlanoContaById(id: string) {
 	    this.planoContaService.retrieve(id)
-	    .then((planoConta) => this.planoConta = planoConta)
+	    .then((planoConta) => { 
+	    	this.planoConta = planoConta;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -208,4 +222,15 @@ export class PlanoContaComponent implements OnInit {
 	
 	
 	
+	
+	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

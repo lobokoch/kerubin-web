@@ -24,6 +24,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class BancoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	banco = new Banco();
 	
 	constructor(
@@ -39,6 +41,10 @@ export class BancoComponent implements OnInit {
 	    if (id) {
 	      this.getBancoById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -71,7 +77,6 @@ export class BancoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.bancoService.create(this.banco)
@@ -97,7 +102,9 @@ export class BancoComponent implements OnInit {
 	
 	getBancoById(id: string) {
 	    this.bancoService.retrieve(id)
-	    .then((banco) => this.banco = banco)
+	    .then((banco) => { 
+	    	this.banco = banco;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -119,6 +126,9 @@ export class BancoComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	

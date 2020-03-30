@@ -28,6 +28,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class AgenciaBancariaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	agenciaBancaria = new AgenciaBancaria();
 	agenciaBancariaBancoAutoCompleteSuggestions: BancoAutoComplete[];
 	
@@ -45,6 +47,10 @@ export class AgenciaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getAgenciaBancariaById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -77,7 +83,6 @@ export class AgenciaBancariaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.agenciaBancariaService.create(this.agenciaBancaria)
@@ -103,7 +108,9 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	getAgenciaBancariaById(id: string) {
 	    this.agenciaBancariaService.retrieve(id)
-	    .then((agenciaBancaria) => this.agenciaBancaria = agenciaBancaria)
+	    .then((agenciaBancaria) => { 
+	    	this.agenciaBancaria = agenciaBancaria;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -174,6 +181,9 @@ export class AgenciaBancariaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	

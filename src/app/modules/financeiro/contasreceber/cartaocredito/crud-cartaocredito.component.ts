@@ -33,6 +33,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class CartaoCreditoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
@@ -60,6 +62,10 @@ export class CartaoCreditoComponent implements OnInit {
 	    if (id) {
 	      this.getCartaoCreditoById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -92,7 +98,6 @@ export class CartaoCreditoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.cartaoCreditoService.create(this.cartaoCredito)
@@ -118,7 +123,9 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	getCartaoCreditoById(id: string) {
 	    this.cartaoCreditoService.retrieve(id)
-	    .then((cartaoCredito) => this.cartaoCredito = cartaoCredito)
+	    .then((cartaoCredito) => { 
+	    	this.cartaoCredito = cartaoCredito;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -238,9 +245,12 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroContasReceberTranslationService.getCalendarLocaleSettings();
 	}
+	
 	
 	
 }

@@ -65,14 +65,16 @@ export class CaixaLancamentoListFilter extends PaginationFilter {
 	
 	histConcBancaria: CaixaLancamentoHistConcBancariaAutoComplete[];
 	
+	estornoIsNotNull: boolean;
+	
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
 
 export class CaixaLancamento {
 	id: string;
-	caixaDiario: CaixaDiario;
 	descricao: string;
+	caixaDiario: CaixaDiario;
 	dataLancamento: Date;
 	tipoLancamentoFinanceiro: TipoLancamentoFinanceiro;
 	valorCredito: number;
@@ -84,13 +86,17 @@ export class CaixaLancamento {
 	planoContas: PlanoConta;
 	cliente: Cliente;
 	fornecedor: Fornecedor;
-	tipoFonteMovimento: TipoFonteMovimento;
-	idFonteMovimento: string;
+	maisOpcoes: boolean = false;
 	documento: string;
+	observacoes: string;
 	idConcBancaria: string;
 	histConcBancaria: string;
 	numDocConcBancaria: string;
-	observacoes: string;
+	estorno: boolean = false;
+	estornoLancamento: CaixaLancamento;
+	estornoHistorico: string;
+	tipoFonteMovimento: TipoFonteMovimento;
+	idFonteMovimento: string;
 	version: number;
 }
 

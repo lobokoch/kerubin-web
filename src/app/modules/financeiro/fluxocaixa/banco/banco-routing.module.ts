@@ -13,7 +13,7 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   // Must add in forRoot
-  // { path: 'banco', loadChildren: './modules/financeiro/fluxo_caixa/banco/banco.module#BancoModule' }
+  // { path: 'banco', loadChildren: './modules/cadastros/banco/banco/banco.module#BancoModule' }
   {
     path: '',
     component: BancoListComponent,

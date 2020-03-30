@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.planoConta') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.fluxo_caixa.planoConta') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de plano de contas."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,37 +41,52 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.planoConta_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_id') }}
+			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="planoConta.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="planoConta.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="codigo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText appFocus #codigo="ngModel" ngModel [(ngModel)]="planoConta.codigo" name="codigo" required>
+			<label for="codigo">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #codigoElementRef #codigo="ngModel" [(ngModel)]="planoConta.codigo" name="codigo" required>
 			<div class="invalid-message" *ngIf="codigo.invalid && codigo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="descricao">{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="planoConta.descricao" name="descricao" required>
+			<label for="descricao">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #descricao="ngModel" [(ngModel)]="planoConta.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoFinanceiro') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="planoContaTipoFinanceiroOptions" placeholder="Selecione um item..." #tipoFinanceiro="ngModel" ngModel [(ngModel)]="planoConta.tipoFinanceiro" name="tipoFinanceiro" required></p-dropdown>
+			<label for="tipoFinanceiro">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoFinanceiro') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<p-dropdown [options]="planoContaTipoFinanceiroOptions" placeholder="Selecione um item..." #tipoFinanceiro="ngModel" [(ngModel)]="planoConta.tipoFinanceiro" name="tipoFinanceiro" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoFinanceiro.invalid && tipoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoReceitaDespesa">{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoReceitaDespesa') }}</label>
-			<p-dropdown [options]="planoContaTipoReceitaDespesaOptions" placeholder="Selecione um item..." #tipoReceitaDespesa="ngModel" ngModel [(ngModel)]="planoConta.tipoReceitaDespesa" name="tipoReceitaDespesa"></p-dropdown>
+			<label for="tipoReceitaDespesa">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoReceitaDespesa') }}
+			</label>
+			<p-dropdown [options]="planoContaTipoReceitaDespesaOptions" placeholder="Selecione um item..." #tipoReceitaDespesa="ngModel" [(ngModel)]="planoConta.tipoReceitaDespesa" name="tipoReceitaDespesa"></p-dropdown>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="planoContaPai">{{ getTranslation('financeiro.fluxo_caixa.planoConta_planoContaPai') }}</label>
+			<label for="planoContaPai">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_planoContaPai') }}
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions"
@@ -56,7 +94,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)"
 			 (onBlur)="planoContaPlanoContaPaiAutoCompleteOnBlur($event)"
 			 [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter"
-			 #planoContaPai="ngModel" ngModel [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
+			 #planoContaPai="ngModel" [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
 				<ng-template let-planoContaPai pTemplate="item">
 					<div class="ui-helper-clearfix">{{ planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai) }}</div>
 				</ng-template>
@@ -64,25 +102,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}<span class="kb-label-required">*</span></label>
-			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="planoConta.ativo" name="ativo" required></p-inputSwitch>
+			<label style="display: block" for="ativo">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<p-inputSwitch #ativo="ngModel" [(ngModel)]="planoConta.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.planoConta_deleted') }}</label>
-			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="planoConta.deleted" name="deleted"></p-inputSwitch>
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.planoConta_deleted') }}
+			</label>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="planoConta.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/planoconta" pButton label="Pesquisar"></a>
+				<a routerLink="/planoconta" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de plano de contas."></a>
 			</div>
 		</div>
 		

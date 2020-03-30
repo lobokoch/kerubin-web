@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { Caixa } from './caixa.model';
 import { CaixaService } from './caixa.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -25,10 +26,14 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class CaixaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
 	caixa = new Caixa();
+	
+	@ViewChild('nomeElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private caixaService: CaixaService,
@@ -46,12 +51,18 @@ export class CaixaComponent implements OnInit {
 	    if (id) {
 	      this.getCaixaById(id);
 	    }
+	    this.defaultElementSetFocus();
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.caixa = new Caixa();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -78,7 +89,6 @@ export class CaixaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		this.rulesOnCreate();
 		
@@ -86,6 +96,7 @@ export class CaixaComponent implements OnInit {
 	    .then((caixa) => {
 	      this.caixa = caixa;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -97,6 +108,7 @@ export class CaixaComponent implements OnInit {
 	    .then((caixa) => {
 	      this.caixa = caixa;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -105,7 +117,9 @@ export class CaixaComponent implements OnInit {
 	
 	getCaixaById(id: string) {
 	    this.caixaService.retrieve(id)
-	    .then((caixa) => this.caixa = caixa)
+	    .then((caixa) => { 
+	    	this.caixa = caixa;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -135,10 +149,30 @@ export class CaixaComponent implements OnInit {
 	
 	
 	
+										
+	// Begin RuleDisableComponent 
+	
+	nomeRuleDisableComponent() {
+		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
+		return expression;
+	}
+	
+	ativoRuleDisableComponent() {
+		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
+		return expression;
+	}
+	
+	observacoesRuleDisableComponent() {
+		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
+		return expression;
+	}
+	// End Begin RuleDisableComponent
+	
+	
+	
 	caixaRuleDisableCUD() {
 		const expression = this.caixa.id && (String(this.caixa.id) === 'bd1e9cb7-e7f6-40da-af5c-1f461dac1d11');
 		return expression;
-		
 	}
 	
 	initLocaleSettings() {
@@ -146,4 +180,13 @@ export class CaixaComponent implements OnInit {
 	}
 	
 	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

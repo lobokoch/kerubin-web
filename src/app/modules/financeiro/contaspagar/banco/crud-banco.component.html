@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_pagar.banco') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.contas_pagar.banco') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de banco."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,38 +41,48 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_pagar.banco_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.contas_pagar.banco_id') }}
+			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="banco.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="numero">{{ getTranslation('financeiro.contas_pagar.banco_numero') }}<span class="kb-label-required">*</span></label>
+			<label for="numero">
+				{{ getTranslation('financeiro.contas_pagar.banco_numero') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<input type="text" pInputText appFocus #numero="ngModel" ngModel [(ngModel)]="banco.numero" name="numero" required>
 			<div class="invalid-message" *ngIf="numero.invalid && numero.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="nome">{{ getTranslation('financeiro.contas_pagar.banco_nome') }}<span class="kb-label-required">*</span></label>
+			<label for="nome">
+				{{ getTranslation('financeiro.contas_pagar.banco_nome') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<input type="text" pInputText #nome="ngModel" ngModel [(ngModel)]="banco.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.contas_pagar.banco_deleted') }}</label>
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.contas_pagar.banco_deleted') }}
+			</label>
 			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="banco.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/banco" pButton label="Pesquisar"></a>
+				<a routerLink="/banco" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de banco."></a>
 			</div>
 		</div>
 		

@@ -88,7 +88,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						
 						
 						<div class="ui-g-12 ui-md-4 ui-fluid">
-							<label style="display: block" class="label-l label-r">Pagas</label>
+							<label style="display: block" class="label-l label-r">Recebidas</label>
 							<p-inputSwitch [(ngModel)]="contaReceberListFilter.dataPagamentoIsNotNull"></p-inputSwitch>
 						</div>
 						
@@ -117,7 +117,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 							field="histConcBancaria"></p-autoComplete>
 						</div>
 						
-						<div class="ui-g-12 ui-md-6 ui-fluid">
+						<div class="ui-g-12 ui-md-12 ui-fluid">
 							<label class="label-r">Agrupador:</label>
 							<p-autoComplete name="contaReceberAgrupadorAutoComplete" 
 							placeholder="Digite para pesquisar..." [dropdown]="true" 
@@ -159,14 +159,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    
 			    <ng-template pTemplate="header">
 		            <tr>
-		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.contas_receber.contaReceber_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataVencimento'">{{ getTranslation('financeiro.contas_receber.contaReceber_dataVencimento_grid') }}<p-sortIcon [field]="'dataVencimento'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'valor'">{{ getTranslation('financeiro.contas_receber.contaReceber_valor_grid') }}<p-sortIcon [field]="'valor'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'cliente'">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente_grid') }}<p-sortIcon [field]="'cliente'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">{{ getTranslation('financeiro.contas_receber.contaReceber_dataPagamento_grid') }}<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
 		            	<th style="width: 8em" [pSortableColumn]="'valorPago'">{{ getTranslation('financeiro.contas_receber.contaReceber_valorPago_grid') }}<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'cliente'">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente_grid') }}<p-sortIcon [field]="'cliente'"></p-sortIcon></th>
 						<th style="width: 14em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -174,12 +174,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-contaReceber>
 		            <tr [pSelectableRow]="contaReceber">
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
-		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas_grid') }}:</span>
-		            		{{contaReceberPlanoContasAutoCompleteFieldConverter(contaReceber?.planoContas)}}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_descricao_grid') }}:</span>
 		            		{{ contaReceber?.descricao }}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
+		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_planoContas_grid') }}:</span>
+		            		{{contaReceberPlanoContasAutoCompleteFieldConverter(contaReceber?.planoContas)}}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_dataVencimento_grid') }}:</span>
@@ -194,16 +194,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		{{ getTranslation('financeiro.contas_receber.contaReceber_formaPagamento' + '_' + contaReceber?.formaPagamento?.toLowerCase()) }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
+		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente_grid') }}:</span>
+		            		{{contaReceberClienteAutoCompleteFieldConverter(contaReceber?.cliente)}}
+		            	</td>
+		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_dataPagamento_grid') }}:</span>
 		            		{{contaReceber?.dataPagamento | date:'dd/MM/yyyy' }}
 		            	</td>
 		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)" class="kb-field-money">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_valorPago_grid') }}:</span>
 		            		{{contaReceber?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaReceber)">
-		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_receber.contaReceber_cliente_grid') }}:</span>
-		            		{{contaReceberClienteAutoCompleteFieldConverter(contaReceber?.cliente)}}
 		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/contareceber', contaReceber.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
@@ -224,7 +224,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		              		    [disabled]="!actionEstornarRecebimentoContaComUmCliqueWhen(contaReceber)"
 		              		    (click)="actionEstornarRecebimentoContaComUmClique(contaReceber)"
 		              		    icon="pi pi-arrow-up"  tooltipPosition="left"
-		              		    pTooltip="Estornar recebimento da conta">
+		              		    pTooltip="Estornar o recebimento da conta">
 		              		</button>
 		              	</td>
 		            </tr>
@@ -247,24 +247,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						<td class="kb-sum-footer sumField kb-conta-valor-apagar">(A): {{ contaReceberSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer sumField kb-conta-valor-pago">(B): {{ contaReceberSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer sumField kb-conta-valor-pago">(B): {{ contaReceberSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 						<td class="kb-sum-footer">(<span class="kb-conta-valor-apagar">A</span>-<span class="kb-conta-valor-pago">B</span>): {{ (contaReceberSumFields.sumValor - contaReceberSumFields.sumValorPago) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 					</tr>
 				</ng-template>
 				
 				<ng-template pTemplate="summary">
-					<div class="kb-mobile-block"><span class=" kb-conta-valor-apagar">Soma "Valor da conta" (A): {{ contaReceberSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
-					<div class="kb-mobile-block"><span class=" kb-conta-valor-pago">Soma "Valor pago" (B): {{ contaReceberSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
+					<div class="kb-mobile-block"><span class=" kb-conta-valor-apagar">Soma "Valor total" (A): {{ contaReceberSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
+					<div class="kb-mobile-block"><span class=" kb-conta-valor-pago">Soma "Valor total recebido" (B): {{ contaReceberSumFields.sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</span></div>
 					<div>Sumarização (<span class="kb-conta-valor-apagar">A</span>-<span class="kb-conta-valor-pago">B</span>): {{ (contaReceberSumFields.sumValor - contaReceberSumFields.sumValorPago) | currency:'BRL':'symbol':'1.2-2':'pt' }}</div>
 				</ng-template>
 			</p-table>
 		</div>
 		<!-- End GRID -->
 		
-		<div class="ui-g-12 ui-md-2 ui-fluid">
-			<a routerLink="/contareceber/novo" pButton label="Novo registro"></a>
+		<div class="ui-g-12 crud-buttons">
+		  <div class="ui-g-12 ui-md-2 ui-fluid">
+		    <a routerLink="/contareceber/novo" pButton  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro de conta a receber."></a>
+		  </div>
 		</div>
+		
 	</div>
 	
 	</p-panel>

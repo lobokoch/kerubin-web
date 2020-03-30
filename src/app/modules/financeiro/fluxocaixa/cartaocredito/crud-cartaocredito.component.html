@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.fluxo_caixa.cartaoCredito') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de cartão de crédito."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,14 +41,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_id') }}
+			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="cartaoCredito.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="cartaoCredito.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="banco">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_banco') }}<span class="kb-label-required">*</span></label>
+			<label for="banco">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_banco') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="cartaoCreditoBancoAutoCompleteSuggestions"
@@ -33,7 +61,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBancoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBancoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBancoAutoCompleteFieldConverter"
-			 #banco="ngModel" ngModel [(ngModel)]="cartaoCredito.banco" name="banco" required>
+			 #bancoElementRef #banco="ngModel" [(ngModel)]="cartaoCredito.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBancoAutoCompleteFieldConverter(banco) }}</div>
 				</ng-template>
@@ -42,29 +70,42 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="nomeTitular">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_nomeTitular') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #nomeTitular="ngModel" ngModel [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
+			<label for="nomeTitular">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_nomeTitular') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #nomeTitular="ngModel" [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
 			<div class="invalid-message" *ngIf="nomeTitular.invalid && nomeTitular.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="numeroCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_numeroCartao') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #numeroCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
+			<label for="numeroCartao">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_numeroCartao') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<input type="text" pInputText #numeroCartao="ngModel" [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
 			<div class="invalid-message" *ngIf="numeroCartao.invalid && numeroCartao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="validade">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_validade') }}</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #validade="ngModel" ngModel [(ngModel)]="cartaoCredito.validade" name="validade"></p-calendar>
+			<label for="validade">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_validade') }}
+			</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #validade="ngModel" [(ngModel)]="cartaoCredito.validade" name="validade"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="valorLimite">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_valorLimite') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorLimite="ngModel" ngModel [(ngModel)]="cartaoCredito.valorLimite" name="valorLimite">
+			<label for="valorLimite">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_valorLimite') }}
+			</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorLimite="ngModel" [(ngModel)]="cartaoCredito.valorLimite" name="valorLimite">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="bandeiraCartao">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_bandeiraCartao') }}<span class="kb-label-required">*</span></label>
+			<label for="bandeiraCartao">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_bandeiraCartao') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="cartaoCreditoBandeiraCartaoAutoCompleteSuggestions"
@@ -72,7 +113,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBandeiraCartaoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter"
-			 #bandeiraCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
+			 #bandeiraCartao="ngModel" [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
 				<ng-template let-bandeiraCartao pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao) }}</div>
 				</ng-template>
@@ -81,25 +122,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_ativo') }}<span class="kb-label-required">*</span></label>
-			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
+			<label style="display: block" for="ativo">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_ativo') }}
+				<span class="kb-label-required">*</span>
+			</label>
+			<p-inputSwitch #ativo="ngModel" [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_deleted') }}</label>
-			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="cartaoCredito.deleted" name="deleted"></p-inputSwitch>
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_deleted') }}
+			</label>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="cartaoCredito.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/cartaocredito" pButton label="Pesquisar"></a>
+				<a routerLink="/cartaocredito" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de cartão de crédito."></a>
 			</div>
 		</div>
 		

@@ -71,25 +71,27 @@ export class ContaPagarListFilter extends PaginationFilter {
 
 export class ContaPagar {
 	id: string;
-	planoContas: PlanoConta;
 	descricao: string;
+	planoContas: PlanoConta;
 	dataVencimento: Date;
 	valor: number;
 	formaPagamento: FormaPagamento;
 	contaBancaria: ContaBancaria;
 	cartaoCredito: CartaoCredito;
 	outrosDescricao: string;
+	fornecedor: Fornecedor;
+	contaPaga: boolean = false;
 	dataPagamento: Date;
 	valorDesconto: number;
 	valorMulta: number;
 	valorJuros: number;
 	valorAcrescimos: number;
 	valorPago: number;
-	fornecedor: Fornecedor;
-	numDocumento: string;
+	maisOpcoes: boolean = false;
 	idConcBancaria: string;
 	histConcBancaria: string;
 	numDocConcBancaria: string;
+	numDocumento: string;
 	observacoes: string;
 	agrupador: string;
 }

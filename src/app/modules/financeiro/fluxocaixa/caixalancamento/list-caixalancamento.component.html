@@ -129,6 +129,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 							(completeMethod)="caixaLancamentoHistConcBancariaAutoComplete($event)"
 							field="histConcBancaria"></p-autoComplete>
 						</div>
+						
+						
+						<div class="ui-g-12 ui-md-12 ui-fluid">
+							<label style="display: block" class="label-l label-r">Estornados</label>
+							<p-inputSwitch [(ngModel)]="caixaLancamentoListFilter.estornoIsNotNull"></p-inputSwitch>
+						</div>
+						
+						
 					</div>
 					
 					<div>
@@ -151,12 +159,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [lazy]="true" (onLazyLoad)="caixaLancamentoListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
 		            <tr>
-		            	<th [pSortableColumn]="'caixaDiario'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}<p-sortIcon [field]="'caixaDiario'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'caixaDiario'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}<p-sortIcon [field]="'caixaDiario'"></p-sortIcon></th>
 		            	<th style="width: 7em" [pSortableColumn]="'dataLancamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento_grid') }}<p-sortIcon [field]="'dataLancamento'"></p-sortIcon></th>
 		            	<th [ngClass]="['kb-fin-credito']" style="width: 12em" [pSortableColumn]="'valorCredito'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito_grid') }}<p-sortIcon [field]="'valorCredito'"></p-sortIcon></th>
 		            	<th [ngClass]="['kb-fin-debito']" style="width: 12em" [pSortableColumn]="'valorDebito'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito_grid') }}<p-sortIcon [field]="'valorDebito'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'estorno'">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_estorno_grid') }}<p-sortIcon [field]="'estorno'"></p-sortIcon></th>
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
@@ -164,12 +173,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    <ng-template pTemplate="body" let-caixaLancamento>
 		            <tr [pSelectableRow]="caixaLancamento">
 		            	<td>
-		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}:</span>
-		            		{{caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaLancamento?.caixaDiario)}}
-		            	</td>
-		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao_grid') }}:</span>
 		            		{{ caixaLancamento?.descricao }}
+		            	</td>
+		            	<td>
+		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario_grid') }}:</span>
+		            		{{caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaLancamento?.caixaDiario)}}
 		            	</td>
 		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento_grid') }}:</span>
@@ -187,6 +196,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento_grid') }}:</span>
 		            		{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento' + '_' + caixaLancamento?.formaPagamento?.toLowerCase()) }}
 		            	</td>
+		            	<td>
+		            		<span class="ui-column-title">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_estorno_grid') }}:</span>
+		            		{{caixaLancamento?.estorno? 'Sim': 'Não' }}
+		            	</td>
 		              	<td class="kb-actions">
 		              		<a pButton [routerLink]="['/caixalancamento', caixaLancamento.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
 		              		<button [disabled]="caixaLancamentoRuleDisableCUD(caixaLancamento)" (click)="deleteCaixaLancamento(caixaLancamento)" pButton icon="pi pi-trash"  pTooltip="Excluir" tooltipPosition="top"></button>
@@ -197,7 +210,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		        
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
-				        <td [attr.colspan]="7">
+				        <td [attr.colspan]="8">
 				            Nenhum registro encontrado.
 				        </td>
 				    </tr>
@@ -211,22 +224,26 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						<td class="kb-sum-footer sumField kb-fin-credito">(A): {{ caixaLancamentoSumFields.sumValorCredito | number:'1.2-2' }}</td>
 						<td class="kb-sum-footer sumField kb-fin-debito">(B): {{ doShowNumberAsNegative(caixaLancamentoSumFields.sumValorDebito) | number:'1.2-2' }}</td>
 						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer">(<span class="kb-fin-credito">A</span>-<span class="kb-fin-debito">B</span>): {{ (caixaLancamentoSumFields.sumValorCredito - caixaLancamentoSumFields.sumValorDebito) | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
 					</tr>
 				</ng-template>
 				
 				<ng-template pTemplate="summary">
-					<div class="kb-mobile-block"><span class=" kb-fin-credito">Soma "Valor crédito" (A): {{ caixaLancamentoSumFields.sumValorCredito | number:'1.2-2' }}</span></div>
-					<div class="kb-mobile-block"><span class=" kb-fin-debito">Soma "Valor débito" (B): {{ doShowNumberAsNegative(caixaLancamentoSumFields.sumValorDebito) | number:'1.2-2' }}</span></div>
+					<div class="kb-mobile-block"><span class=" kb-fin-credito">Soma "Valor" (A): {{ caixaLancamentoSumFields.sumValorCredito | number:'1.2-2' }}</span></div>
+					<div class="kb-mobile-block"><span class=" kb-fin-debito">Soma "Valor" (B): {{ doShowNumberAsNegative(caixaLancamentoSumFields.sumValorDebito) | number:'1.2-2' }}</span></div>
 					<div>Sumarização (<span class="kb-fin-credito">A</span>-<span class="kb-fin-debito">B</span>): {{ (caixaLancamentoSumFields.sumValorCredito - caixaLancamentoSumFields.sumValorDebito) | currency:'BRL':'symbol':'1.2-2':'pt' }}</div>
 				</ng-template>
 			</p-table>
 		</div>
 		<!-- End GRID -->
 		
-		<div class="ui-g-12 ui-md-2 ui-fluid">
-			<a routerLink="/caixalancamento/novo" pButton label="Novo registro"></a>
+		<div class="ui-g-12 crud-buttons">
+		  <div class="ui-g-12 ui-md-2 ui-fluid">
+		    <a routerLink="/caixalancamento/novo" pButton  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></a>
+		  </div>
 		</div>
+		
 	</div>
 	
 	</p-panel>

@@ -30,6 +30,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class PlanoContaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	planoConta = new PlanoConta();
 	planoContaPlanoContaPaiAutoCompleteSuggestions: PlanoContaAutoComplete[];
 	planoContaTipoFinanceiroOptions: TipoPlanoContaFinanceiro[];
@@ -54,6 +56,10 @@ export class PlanoContaComponent implements OnInit {
 	    if (id) {
 	      this.getPlanoContaById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -87,7 +93,6 @@ export class PlanoContaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.planoContaService.create(this.planoConta)
@@ -113,7 +118,9 @@ export class PlanoContaComponent implements OnInit {
 	
 	getPlanoContaById(id: string) {
 	    this.planoContaService.retrieve(id)
-	    .then((planoConta) => this.planoConta = planoConta)
+	    .then((planoConta) => { 
+	    	this.planoConta = planoConta;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -203,6 +210,9 @@ export class PlanoContaComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	

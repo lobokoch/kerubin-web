@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.contas_pagar.bandeiraCartao') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de bandeira de cartão."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,32 +41,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_id') }}
+			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="bandeiraCartao.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="nomeBandeira">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_nomeBandeira') }}<span class="kb-label-required">*</span></label>
+			<label for="nomeBandeira">
+				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_nomeBandeira') }}
+				<span class="kb-label-required">*</span>
+			</label>
 			<input type="text" pInputText appFocus #nomeBandeira="ngModel" ngModel [(ngModel)]="bandeiraCartao.nomeBandeira" name="nomeBandeira" required>
 			<div class="invalid-message" *ngIf="nomeBandeira.invalid && nomeBandeira.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_deleted') }}</label>
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_deleted') }}
+			</label>
 			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="bandeiraCartao.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/bandeiracartao" pButton label="Pesquisar"></a>
+				<a routerLink="/bandeiracartao" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de bandeira de cartão."></a>
 			</div>
 		</div>
 		

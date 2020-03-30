@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { ContaBancaria } from './contabancaria.model';
 import { ContaBancariaService } from './contabancaria.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -31,12 +32,16 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ContaBancariaComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
 	contaBancaria = new ContaBancaria();
 	contaBancariaAgenciaAutoCompleteSuggestions: AgenciaBancariaAutoComplete[];
 	contaBancariaTipoContaBancariaOptions: TipoContaBancaria[];
+	
+	@ViewChild('nomeTitularElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private contaBancariaService: ContaBancariaService,
@@ -55,6 +60,11 @@ export class ContaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getContaBancariaById(id);
 	    }
+	    this.defaultElementSetFocus();
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -62,6 +72,7 @@ export class ContaBancariaComponent implements OnInit {
 	    setTimeout(function() {
 	      this.contaBancaria = new ContaBancaria();
 	      this.initializeEnumFieldsWithDefault();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -88,13 +99,13 @@ export class ContaBancariaComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -106,6 +117,7 @@ export class ContaBancariaComponent implements OnInit {
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -114,7 +126,9 @@ export class ContaBancariaComponent implements OnInit {
 	
 	getContaBancariaById(id: string) {
 	    this.contaBancariaService.retrieve(id)
-	    .then((contaBancaria) => this.contaBancaria = contaBancaria)
+	    .then((contaBancaria) => { 
+	    	this.contaBancaria = contaBancaria;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -210,9 +224,20 @@ export class ContaBancariaComponent implements OnInit {
 	
 	
 	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
 	}
 	
 	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

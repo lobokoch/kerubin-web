@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { BandeiraCartao } from './bandeiracartao.model';
 import { BandeiraCartaoService } from './bandeiracartao.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -24,7 +25,11 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class BandeiraCartaoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	bandeiraCartao = new BandeiraCartao();
+	
+	@ViewChild('nomeBandeiraElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private bandeiraCartaoService: BandeiraCartaoService,
@@ -39,12 +44,18 @@ export class BandeiraCartaoComponent implements OnInit {
 	    if (id) {
 	      this.getBandeiraCartaoById(id);
 	    }
+	    this.defaultElementSetFocus();
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.bandeiraCartao = new BandeiraCartao();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -71,13 +82,13 @@ export class BandeiraCartaoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.bandeiraCartaoService.create(this.bandeiraCartao)
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -89,6 +100,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -97,7 +109,9 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	getBandeiraCartaoById(id: string) {
 	    this.bandeiraCartaoService.retrieve(id)
-	    .then((bandeiraCartao) => this.bandeiraCartao = bandeiraCartao)
+	    .then((bandeiraCartao) => { 
+	    	this.bandeiraCartao = bandeiraCartao;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -124,4 +138,15 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	
 	
+	
+	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

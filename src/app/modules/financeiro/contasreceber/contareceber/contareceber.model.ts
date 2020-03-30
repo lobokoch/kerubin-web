@@ -71,25 +71,27 @@ export class ContaReceberListFilter extends PaginationFilter {
 
 export class ContaReceber {
 	id: string;
-	planoContas: PlanoConta;
 	descricao: string;
+	planoContas: PlanoConta;
 	dataVencimento: Date;
 	valor: number;
 	formaPagamento: FormaPagamento;
 	contaBancaria: ContaBancaria;
 	cartaoCredito: CartaoCredito;
 	outrosDescricao: string;
+	cliente: Cliente;
+	contaPaga: boolean = false;
 	dataPagamento: Date;
 	valorDesconto: number;
 	valorMulta: number;
 	valorJuros: number;
 	valorAcrescimos: number;
 	valorPago: number;
-	cliente: Cliente;
-	numDocumento: string;
+	maisOpcoes: boolean = false;
 	idConcBancaria: string;
 	histConcBancaria: string;
 	numDocConcBancaria: string;
+	numDocumento: string;
 	observacoes: string;
 	agrupador: string;
 }

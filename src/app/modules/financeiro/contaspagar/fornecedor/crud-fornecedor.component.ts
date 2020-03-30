@@ -26,6 +26,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class FornecedorComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	fornecedor = new Fornecedor();
 	fornecedorTipoPessoaOptions: TipoPessoa[];
 	
@@ -44,6 +46,10 @@ export class FornecedorComponent implements OnInit {
 	    if (id) {
 	      this.getFornecedorById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -77,7 +83,6 @@ export class FornecedorComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.fornecedorService.create(this.fornecedor)
@@ -103,7 +108,9 @@ export class FornecedorComponent implements OnInit {
 	
 	getFornecedorById(id: string) {
 	    this.fornecedorService.retrieve(id)
-	    .then((fornecedor) => this.fornecedor = fornecedor)
+	    .then((fornecedor) => { 
+	    	this.fornecedor = fornecedor;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -136,6 +143,9 @@ export class FornecedorComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	

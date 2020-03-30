@@ -24,6 +24,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class BandeiraCartaoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	bandeiraCartao = new BandeiraCartao();
 	
 	constructor(
@@ -39,6 +41,10 @@ export class BandeiraCartaoComponent implements OnInit {
 	    if (id) {
 	      this.getBandeiraCartaoById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -71,7 +77,6 @@ export class BandeiraCartaoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.bandeiraCartaoService.create(this.bandeiraCartao)
@@ -97,7 +102,9 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	getBandeiraCartaoById(id: string) {
 	    this.bandeiraCartaoService.retrieve(id)
-	    .then((bandeiraCartao) => this.bandeiraCartao = bandeiraCartao)
+	    .then((bandeiraCartao) => { 
+	    	this.bandeiraCartao = bandeiraCartao;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -119,6 +126,9 @@ export class BandeiraCartaoComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	

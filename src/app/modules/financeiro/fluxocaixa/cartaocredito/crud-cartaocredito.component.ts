@@ -11,6 +11,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { AutoComplete } from 'primeng/autocomplete';
+import { ViewChild } from '@angular/core';
 import { CartaoCredito } from './cartaocredito.model';
 import { CartaoCreditoService } from './cartaocredito.service';
 import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
@@ -33,6 +35,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class CartaoCreditoComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	
 	calendarLocale: any;
 	
@@ -41,6 +45,8 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteSuggestions: BandeiraCartaoAutoComplete[];
+	
+	@ViewChild('bancoElementRef', {static: true}) defaultElementRef: AutoComplete;
 	
 	constructor(
 	    private cartaoCreditoService: CartaoCreditoService,
@@ -60,12 +66,20 @@ export class CartaoCreditoComponent implements OnInit {
 	    if (id) {
 	      this.getCartaoCreditoById(id);
 	    }
+	    setTimeout(function() {
+	    	this.defaultElementSetFocus();
+	    }.bind(this), 1);
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cartaoCredito = new CartaoCredito();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -92,13 +106,13 @@ export class CartaoCreditoComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -110,6 +124,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -118,7 +133,9 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	getCartaoCreditoById(id: string) {
 	    this.cartaoCreditoService.retrieve(id)
-	    .then((cartaoCredito) => this.cartaoCredito = cartaoCredito)
+	    .then((cartaoCredito) => { 
+	    	this.cartaoCredito = cartaoCredito;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -238,9 +255,20 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 	
+	
+	
 	initLocaleSettings() {
 		this.calendarLocale = this.financeiroFluxoCaixaTranslationService.getCalendarLocaleSettings();
 	}
 	
 	
+	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.focusInput();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

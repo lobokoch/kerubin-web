@@ -139,6 +139,11 @@ export class CaixaLancamentoService {
 		        caixaLancamento.fornecedor = new Fornecedor();
 		      }
 		      	
+		      
+		      if (!caixaLancamento.estornoLancamento) {
+		        caixaLancamento.estornoLancamento = new CaixaLancamento();
+		      }
+		      	
 		});*/
 	}
 	
@@ -250,6 +255,22 @@ export class CaixaLancamentoService {
 	      .toPromise()
 	      .then(response => {
 	        const result = response as FornecedorAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	
+	caixaLancamentoEstornoLancamentoAutoComplete(query: string): Promise<CaixaLancamentoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+		this.analitycs.sendEvent('financeiro.fluxo_caixa.CaixaLancamento', 'caixaLancamentoEstornoLancamentoAutoComplete', JSON.stringify(params));
+	    return this.http.get<CaixaLancamentoAutoComplete[]>(`${this.url}/caixaLancamentoEstornoLancamentoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as CaixaLancamentoAutoComplete[];
 	        return result;
 	      });
 	
@@ -400,6 +421,12 @@ export class CaixaLancamentoService {
 		if (filter.histConcBancaria) {
 			const histConcBancaria = filter.histConcBancaria.map(item => item.histConcBancaria).join(',');
 			params = params.set('histConcBancaria', histConcBancaria);
+		}
+		
+		// estornoIsNotNull
+		if (filter.estornoIsNotNull) {
+			const value = filter.estornoIsNotNull ? 'true' : 'false';
+			params = params.set('estornoIsNotNull', value);
 		}
 		
 		// customParams

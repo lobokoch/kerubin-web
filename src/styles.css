@@ -467,8 +467,7 @@ a, button {
 /* End Fluxo de caixa */
 
 .kb-form-panel-header {
- /* background-color:  rgb(244, 244, 244);*/
-  padding: 3px;
+  padding: 3px !important;
   margin-bottom: 0px;
   font-weight: bold;
 }
@@ -788,3 +787,31 @@ hr {
   }
 }
 /* End loading animation */
+
+.separator-default {
+  border: 0;
+  height: 0;
+  border-top: 4px solid #c8c8c8;
+}
+
+.crud-buttons {
+  border-top: 1px solid #c8c8c8;
+}
+
+/* Hack para aumentar the tooltip width */
+.kb-help-text-big .ui-tooltip-text {
+  width: 40em;
+}
+
+
+.kb-no-margins1 {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+/*.ui-panel-titlebar {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}*/

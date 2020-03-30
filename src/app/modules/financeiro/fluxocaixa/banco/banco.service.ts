@@ -15,13 +15,14 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 import { Banco } from './banco.model';
 import { BancoAutoComplete } from './banco.model';
 import { BancoListFilter } from './banco.model';
+import { BancoNomeAutoComplete } from './banco.model';
 import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class BancoService {
 	
-	url = environment.apiUrl + '/financeiro/fluxo_caixa/entities/banco';
+	url = environment.apiUrl + '/cadastros/banco/entities/banco';
 	
 	constructor(
 		private analitycs: AnalyticsService,
@@ -39,45 +40,52 @@ export class BancoService {
 	
 	create(banco: Banco): Promise<Banco> {
 		const headers = this.getHeaders();    
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'create', 'create Banco');
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'create', 'create Banco');
 	    return this.http.post(this.url, banco, { headers })
 	    .toPromise()
 	    .then(response => {
 	      const created = response as Banco;
+	      this.adjustEntityDates([created]);
 	      return created;
 	    });
 	}
 	
 	update(banco: Banco): Promise<Banco> {
 	    const headers = this.getHeaders();
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'update', 'update Banco');
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'update', 'update Banco');
 	    return this.http.put(`${this.url}/${banco.id}`, banco, { headers })
 	    .toPromise()
 	    .then(response => {
 	      const updated = response as Banco;
+	      this.adjustEntityDates([updated]);
 	      return updated;
 	    });
 	}
 	
 	delete(id: string): Promise<void> {
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'delete', 'delete Banco');
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'delete', 'delete Banco');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
 	retrieve(id: string): Promise<Banco> {
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'retrieve', 'retrieve Banco');
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'retrieve', 'retrieve Banco');
 	    const headers = this.getHeaders();
 	    return this.http.get<Banco>(`${this.url}/${id}`, { headers })
 	    .toPromise()
 	    .then(response => {
 	      const banco = response as Banco;
+	      this.adjustEntityDates([banco]);
 	      return banco;
 	    });
 	}
 	
 	
+	private adjustEntityDates(entityList: Banco[]) {
+		entityList.forEach(banco => {
+		});
+	}
 	
 	
 	autoComplete(query: string): Promise<BancoAutoComplete[]> {
@@ -85,7 +93,7 @@ export class BancoService {
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'autoComplete', JSON.stringify(params));
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'autoComplete', JSON.stringify(params));
 	    return this.http.get<BancoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -97,11 +105,26 @@ export class BancoService {
 	
 				
 	
+	bancoNomeAutoComplete(query: string): Promise<any> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'bancoNomeAutoComplete', JSON.stringify(params));
+	    return this.http.get<any>(`${this.url}/bancoNomeAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as BancoNomeAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
 	bancoList(bancoListFilter: BancoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
 	    const params = this.mountAndGetSearchParams(bancoListFilter);
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'bancoList', JSON.stringify(params));
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'bancoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
@@ -109,6 +132,7 @@ export class BancoService {
 	        const items = data.content; /* array of Banco */
 	        const totalElements = data.totalElements;
 	
+	        this.adjustEntityDates(items);
 	
 	        const result = {
 	          items,
@@ -130,6 +154,11 @@ export class BancoService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// nome
+		if (filter.nome) {
+			const nome = filter.nome.map(item => item.nome).join(',');
+			params = params.set('nome', nome);
+		}
 		
 		// customParams
 		if (filter.customParams && filter.customParams.size > 0) {
@@ -182,7 +211,7 @@ export class BancoService {
 	    const headers = this.getHeaders();
 		
 	    const params = this.mountAndGetSearchParams(filter);
-		this.analitycs.sendEvent('financeiro.fluxo_caixa.Banco', 'getTotaisfilterBanco', JSON.stringify(params));
+		this.analitycs.sendEvent('cadastros.banco.Banco', 'getTotaisfilterBanco', JSON.stringify(params));
 	    return this.http.get<TotaisfilterBanco>(`${this.url}/getTotaisfilterBanco`, { headers, params })
 	    .toPromise()
 	    .then(response => {

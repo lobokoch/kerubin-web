@@ -27,8 +27,13 @@ export class PaginationFilter {
   }
 }
 
+export class BancoNomeAutoComplete {
+	nome: string;
+}
+
 export class BancoListFilter extends PaginationFilter {
 	
+	nome: BancoNomeAutoComplete[];
 	
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
@@ -38,7 +43,6 @@ export class Banco {
 	id: string;
 	numero: string;
 	nome: string;
-	deleted: boolean = false;
 }
 
 export class BancoAutoComplete {

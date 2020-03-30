@@ -10,7 +10,30 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="container">
 	<p-panel>
 		<p-header>
-			<div class="kb-form-panel-header">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento') }}</div>
+			<div class="ui-g kb-no-margins1">
+			
+			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
+			    <div class="kb-form-panel-header">
+				  {{ getTranslation('financeiro.fluxo_caixa.caixaLancamento') }}
+				    <!-- help -->
+				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de lançamentos no caixa."></i>
+				    <!-- help -->
+				</div>
+			  </div>
+			  
+			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
+	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
+	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
+	              <span style="margin-left: 3px;">
+	              {{ getShowHideHelpLabel() }}
+	               <!-- help -->
+	               <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostre ou oculte as dicas de ajuda dos campos."></i>
+	               <!-- help -->
+	              </span>
+	            </div>
+	          </div>
+			  
+			</div>
 		</p-header>
 	
 
@@ -18,14 +41,34 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	<div class="ui-g">
   	
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_id') }}</label>
+			<label for="id" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_id') }}
+			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="caixaLancamento.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="caixaLancamento.id" name="id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="caixaDiario">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario') }}<span class="kb-label-required">*</span></label>
+			<label for="descricao">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para o lançamento. Por exemplo: Compra de guloseimas para as crianças."></i>
+				<!-- help -->
+			</label>
+			<input type="text" pInputText #descricaoElementRef #descricao="ngModel" [(ngModel)]="caixaLancamento.descricao" name="descricao" required>
+			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-6">
+			<label for="caixaDiario">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_caixaDiario') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o caixa onde os movimentos de pagamento e/ou recebimentos serão lançados. O Kerubin cria automaticamente um caixa para você usar."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoCaixaDiarioAutoCompleteSuggestions"
@@ -33,7 +76,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoCaixaDiarioAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoCaixaDiarioAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoCaixaDiarioAutoCompleteFieldConverter"
-			 #caixaDiario="ngModel" ngModel [(ngModel)]="caixaLancamento.caixaDiario" name="caixaDiario" required>
+			 #caixaDiario="ngModel" [(ngModel)]="caixaLancamento.caixaDiario" name="caixaDiario" required>
 				<ng-template let-caixaDiario pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoCaixaDiarioAutoCompleteFieldConverter(caixaDiario) }}</div>
 				</ng-template>
@@ -41,42 +84,69 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<div class="invalid-message" *ngIf="caixaDiario.invalid && caixaDiario.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="descricao">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_descricao') }}<span class="kb-label-required">*</span></label>
-			<input type="text" pInputText #descricao="ngModel" ngModel [(ngModel)]="caixaLancamento.descricao" name="descricao" required>
-			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
-		</div>
-		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="dataLancamento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento') }}<span class="kb-label-required">*</span></label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataLancamento="ngModel" ngModel [(ngModel)]="caixaLancamento.dataLancamento" name="dataLancamento" required></p-calendar>
+			<label for="dataLancamento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_dataLancamento') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data em que o movimento (pagamento ou recebimento) ocorreu. Não pode ser uma data futura."></i>
+				<!-- help -->
+			</label>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataLancamento="ngModel" [(ngModel)]="caixaLancamento.dataLancamento" name="dataLancamento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataLancamento.invalid && dataLancamento.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="tipoLancamentoFinanceiro">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="caixaLancamentoTipoLancamentoFinanceiroOptions" placeholder="Selecione um item..." #tipoLancamentoFinanceiro="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoLancamentoFinanceiro" name="tipoLancamentoFinanceiro" required></p-dropdown>
+			<label for="tipoLancamentoFinanceiro">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoLancamentoFinanceiro') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha 'Débito', caso você esteja registrando um pagamento, ou 'Crédito' caso esteja registrando um recebimento."></i>
+				<!-- help -->
+			</label>
+			<p-dropdown [options]="caixaLancamentoTipoLancamentoFinanceiroOptions" placeholder="Selecione um item..." #tipoLancamentoFinanceiro="ngModel" [(ngModel)]="caixaLancamento.tipoLancamentoFinanceiro" name="tipoLancamentoFinanceiro" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoLancamentoFinanceiro.invalid && tipoLancamentoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-credito" [ngClass]="ruleValorCreditoAppyStyleClass()">
-			<label for="valorCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorCredito" name="valorCredito">
+		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-credito" [style.display]="ruleValorCreditoAppyHiddeComponent()">
+			<label for="valorCredito">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorCredito') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor recebido."></i>
+				<!-- help -->
+			</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorCredito="ngModel" [(ngModel)]="caixaLancamento.valorCredito" name="valorCredito">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-debito" [ngClass]="ruleValorDebitoAppyStyleClass()">
-			<label for="valorDebito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito') }}</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDebito="ngModel" ngModel [(ngModel)]="caixaLancamento.valorDebito" name="valorDebito">
+		<div class="ui-g-12 ui-fluid ui-md-2 kb-fin-debito" [style.display]="ruleValorDebitoAppyHiddeComponent()">
+			<label for="valorDebito">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_valorDebito') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor pago."></i>
+				<!-- help -->
+			</label>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDebito="ngModel" [(ngModel)]="caixaLancamento.valorDebito" name="valorDebito">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="formaPagamento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento') }}<span class="kb-label-required">*</span></label>
-			<p-dropdown [options]="caixaLancamentoFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="caixaLancamento.formaPagamento" name="formaPagamento" required></p-dropdown>
+			<label for="formaPagamento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_formaPagamento') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a forma de pagamento que será ou foi utilizada para pagar esta conta."></i>
+				<!-- help -->
+			</label>
+			<p-dropdown [options]="caixaLancamentoFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" [(ngModel)]="caixaLancamento.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleContaBancariaAppyStyleClass()">
-			<label for="contaBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_contaBancaria') }}</label>
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleContaBancariaAppyHiddeComponent()">
+			<label for="contaBancaria">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_contaBancaria') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a conta bancária que foi ou será utilizada para pagar esta conta."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoContaBancariaAutoCompleteSuggestions"
@@ -84,15 +154,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoContaBancariaAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoContaBancariaAutoCompleteFieldConverter"
-			 #contaBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.contaBancaria" name="contaBancaria">
+			 #contaBancaria="ngModel" [(ngModel)]="caixaLancamento.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleCartaoCreditoAppyStyleClass()">
-			<label for="cartaoCredito">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cartaoCredito') }}</label>
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCartaoCreditoAppyHiddeComponent()">
+			<label for="cartaoCredito">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cartaoCredito') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o cartão de crédito que foi ou será utilizado para pagar esta conta."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoCartaoCreditoAutoCompleteSuggestions"
@@ -100,20 +175,38 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoCartaoCreditoAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoCartaoCreditoAutoCompleteFieldConverter"
-			 #cartaoCredito="ngModel" ngModel [(ngModel)]="caixaLancamento.cartaoCredito" name="cartaoCredito">
+			 #cartaoCredito="ngModel" [(ngModel)]="caixaLancamento.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleOutrosDescricaoAppyStyleClass()">
-			<label for="outrosDescricao">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_outrosDescricao') }}</label>
-			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="caixaLancamento.outrosDescricao" name="outrosDescricao">
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleOutrosDescricaoAppyHiddeComponent()">
+			<label for="outrosDescricao">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_outrosDescricao') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, informe dados adicionais referente a forma de pagamento informada."></i>
+				<!-- help -->
+			</label>
+			<input type="text" pInputText #outrosDescricao="ngModel" [(ngModel)]="caixaLancamento.outrosDescricao" name="outrosDescricao">
 		</div>
 		
+		
+		<!-- separator -->
+		<div class="ui-g-12">
+			<hr class="separator-default">
+		</div>
+		<!-- separator -->
+		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="planoContas">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_planoContas') }}<span class="kb-label-required">*</span></label>
+			<label for="planoContas">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_planoContas') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Associa contas diferentes a uma categoria mais geral. Por exemplo, contas de: Luz, Água, Gás, Aluguel e Condomínio poderiam pertencer ao Plano de contas: Habitação."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoPlanoContasAutoCompleteSuggestions"
@@ -121,7 +214,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoPlanoContasAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoPlanoContasAutoCompleteFieldConverter"
-			 #planoContas="ngModel" ngModel [(ngModel)]="caixaLancamento.planoContas" name="planoContas" required>
+			 #planoContas="ngModel" [(ngModel)]="caixaLancamento.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -129,8 +222,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<div class="invalid-message" *ngIf="planoContas.invalid && planoContas.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleClienteAppyStyleClass()">
-			<label for="cliente">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cliente') }}</label>
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleClienteAppyHiddeComponent()">
+			<label for="cliente">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_cliente') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, escolha o cliente que originou esta cobrança."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoClienteAutoCompleteSuggestions"
@@ -138,15 +236,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoClienteAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoClienteAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoClienteAutoCompleteFieldConverter"
-			 #cliente="ngModel" ngModel [(ngModel)]="caixaLancamento.cliente" name="cliente">
+			 #cliente="ngModel" [(ngModel)]="caixaLancamento.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoClienteAutoCompleteFieldConverter(cliente) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-12" [ngClass]="ruleFornecedorAppyStyleClass()">
-			<label for="fornecedor">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_fornecedor') }}</label>
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleFornecedorAppyHiddeComponent()">
+			<label for="fornecedor">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_fornecedor') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, escolha o fornecedor que originou este pagamento."></i>
+				<!-- help -->
+			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="caixaLancamentoFornecedorAutoCompleteSuggestions"
@@ -154,74 +257,188 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaLancamentoFornecedorAutoCompleteClear($event)"
 			 (onBlur)="caixaLancamentoFornecedorAutoCompleteOnBlur($event)"
 			 [field]="caixaLancamentoFornecedorAutoCompleteFieldConverter"
-			 #fornecedor="ngModel" ngModel [(ngModel)]="caixaLancamento.fornecedor" name="fornecedor">
+			 #fornecedor="ngModel" [(ngModel)]="caixaLancamento.fornecedor" name="fornecedor">
 				<ng-template let-fornecedor pTemplate="item">
 					<div class="ui-helper-clearfix">{{ caixaLancamentoFornecedorAutoCompleteFieldConverter(fornecedor) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="tipoFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}<span class="kb-label-required">*</span></label>
+		
+		<!-- separator -->
+		<div class="ui-g-12">
+			<hr class="separator-default">
+		</div>
+		<!-- separator -->
+		
+		<div class="ui-g-12 ui-fluid ui-md-12">
+			<label style="display: block" for="maisOpcoes">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_maisOpcoes') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostra ou oculta opções extras para o movimento."></i>
+				<!-- help -->
+			</label>
+			<p-inputSwitch #maisOpcoes="ngModel" [(ngModel)]="caixaLancamento.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleDocumentoAppyHiddeComponent()">
+			<label for="documento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_documento') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe caso o movimento tenha um documento relacionado."></i>
+				<!-- help -->
+			</label>
+			<input type="text" pInputText #documento="ngModel" [(ngModel)]="caixaLancamento.documento" name="documento">
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleObservacoesAppyHiddeComponent()">
+			<label for="observacoes">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_observacoes') }}
+			</label>
+			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="caixaLancamento.observacoes" name="observacoes"></textarea>
+		</div>
+		
+		
+		<!-- separator -->
+		<div class="ui-g-12" [style.display]="ruleIdConcBancariaAppyHiddeComponent()">
+			<hr class="separator-default">
+		</div>
+		<!-- separator -->
+		
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleIdConcBancariaAppyHiddeComponent()">
+			<label for="idConcBancaria">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idConcBancaria') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador da conciliação bancária (movimento via importação de extrato bancário)."></i>
+				<!-- help -->
+			</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #idConcBancaria="ngModel" [(ngModel)]="caixaLancamento.idConcBancaria" name="idConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-5" [style.display]="ruleHistConcBancariaAppyHiddeComponent()">
+			<label for="histConcBancaria">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_histConcBancaria') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descrição da transação bancária (movimento via importação de extrato bancário)."></i>
+				<!-- help -->
+			</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #histConcBancaria="ngModel" [(ngModel)]="caixaLancamento.histConcBancaria" name="histConcBancaria">
+			</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleNumDocConcBancariaAppyHiddeComponent()">
+			<label for="numDocConcBancaria">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_numDocConcBancaria') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Documento da transação bancária (movimento via importação de extrato bancário)."></i>
+				<!-- help -->
+			</label>
+			<div class="input-readonly">
+				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" [(ngModel)]="caixaLancamento.numDocConcBancaria" name="numDocConcBancaria">
+			</div>
+		</div>
+		
+		
+		<!-- separator -->
+		<div class="ui-g-12" [style.display]="ruleEstornoAppyHiddeComponent()">
+			<hr class="separator-default">
+		</div>
+		<!-- separator -->
+		
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleEstornoAppyHiddeComponent()">
+			<label style="display: block" for="estorno">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_estorno') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se este movimento é um estorno de outro movimento. Este campo não pode ser alterado."></i>
+				<!-- help -->
+			</label>
+			<p-inputSwitch #estorno="ngModel" [(ngModel)]="caixaLancamento.estorno" name="estorno" [disabled]="true"></p-inputSwitch>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleEstornoLancamentoAppyHiddeComponent()">
+			<label for="estornoLancamento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_estornoLancamento') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica o movimento que foi estornado e resultou nesse movimento de estorno."></i>
+				<!-- help -->
+			</label>
+			<p-autoComplete 
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="caixaLancamentoEstornoLancamentoAutoCompleteSuggestions"
+			 (completeMethod)="caixaLancamentoEstornoLancamentoAutoComplete($event)"
+			 (onClear)="caixaLancamentoEstornoLancamentoAutoCompleteClear($event)"
+			 (onBlur)="caixaLancamentoEstornoLancamentoAutoCompleteOnBlur($event)"
+			 [field]="caixaLancamentoEstornoLancamentoAutoCompleteFieldConverter"
+			 #estornoLancamento="ngModel" [(ngModel)]="caixaLancamento.estornoLancamento" name="estornoLancamento" [disabled]="true">
+				<ng-template let-estornoLancamento pTemplate="item">
+					<div class="ui-helper-clearfix">{{ caixaLancamentoEstornoLancamentoAutoCompleteFieldConverter(estornoLancamento) }}</div>
+				</ng-template>
+			</p-autoComplete>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleEstornoHistoricoAppyHiddeComponent()">
+			<label for="estornoHistorico">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_estornoHistorico') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Histórico do movimento de estorno."></i>
+				<!-- help -->
+			</label>
+			<textarea pInputTextarea rows="3" #estornoHistorico="ngModel" [(ngModel)]="caixaLancamento.estornoHistorico" name="estornoHistorico" [disabled]="true"></textarea>
+		</div>
+		
+		
+		<!-- separator -->
+		<div class="ui-g-12" [style.display]="ruleTipoFonteMovimentoAppyHiddeComponent()">
+			<hr class="separator-default">
+		</div>
+		<!-- separator -->
+		
+		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleTipoFonteMovimentoAppyHiddeComponent()">
+			<label for="tipoFonteMovimento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_tipoFonteMovimento') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Origem do movimento, podendo ser: 'Contas a pagar', 'Contas a receber' ou 'Lançamento direto no caixa'."></i>
+				<!-- help -->
+			</label>
 			<div class="dropdown-readonly">
-				<p-dropdown [readonly]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
+				<p-dropdown [readonly]="true" [options]="caixaLancamentoTipoFonteMovimentoOptions" placeholder="Selecione um item..." #tipoFonteMovimento="ngModel" [(ngModel)]="caixaLancamento.tipoFonteMovimento" name="tipoFonteMovimento" required></p-dropdown>
 			</div>
 			
 			<div class="invalid-message" *ngIf="tipoFonteMovimento.invalid && tipoFonteMovimento.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6" [ngClass]="ruleIdFonteMovimentoAppyStyleClass()">
-			<label for="idFonteMovimento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idFonteMovimento') }}</label>
+		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleIdFonteMovimentoAppyHiddeComponent()">
+			<label for="idFonteMovimento">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idFonteMovimento') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único do movimento. Existirá somente quando o movimento for originado no contas a pagar ou no contas a receber."></i>
+				<!-- help -->
+			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #idFonteMovimento="ngModel" ngModel [(ngModel)]="caixaLancamento.idFonteMovimento" name="idFonteMovimento">
+				<input type="text" pInputText readonly #idFonteMovimento="ngModel" [(ngModel)]="caixaLancamento.idFonteMovimento" name="idFonteMovimento">
 			</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="documento">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_documento') }}</label>
-			<input type="text" pInputText #documento="ngModel" ngModel [(ngModel)]="caixaLancamento.documento" name="documento">
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-4" [ngClass]="ruleIdConcBancariaAppyStyleClass()">
-			<label for="idConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_idConcBancaria') }}</label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly #idConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.idConcBancaria" name="idConcBancaria">
-			</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-5" [ngClass]="ruleHistConcBancariaAppyStyleClass()">
-			<label for="histConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_histConcBancaria') }}</label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly #histConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.histConcBancaria" name="histConcBancaria">
-			</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-3" [ngClass]="ruleNumDocConcBancariaAppyStyleClass()">
-			<label for="numDocConcBancaria">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_numDocConcBancaria') }}</label>
-			<div class="input-readonly">
-				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" ngModel [(ngModel)]="caixaLancamento.numDocConcBancaria" name="numDocConcBancaria">
-			</div>
-		</div>
-		
-		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="observacoes">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_observacoes') }}</label>
-			<textarea pInputTextarea rows="3" #observacoes="ngModel" ngModel [(ngModel)]="caixaLancamento.observacoes" name="observacoes"></textarea>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="version" class="hidden">{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_version') }}</label>
-			<input type="hidden" pInputText #version="ngModel" ngModel [(ngModel)]="caixaLancamento.version" name="version">
+			<label for="version" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.caixaLancamento_version') }}
+			</label>
+			<input type="hidden" pInputText #version="ngModel" [(ngModel)]="caixaLancamento.version" name="version">
 		</div>
 		
-		<div class="ui-g-12">
+		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button [disabled]="caixaLancamentoRuleDisableCUD()" class="botao-margem-direita" pButton type="submit" label="Salvar"></button>
+				<button [disabled]="caixaLancamentoRuleDisableCUD()" pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button" label="Novo"></button>
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/caixalancamento" pButton label="Pesquisar"></a>
+				<a routerLink="/caixalancamento" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de lançamentos no caixa."></a>
 			</div>
 		</div>
 		

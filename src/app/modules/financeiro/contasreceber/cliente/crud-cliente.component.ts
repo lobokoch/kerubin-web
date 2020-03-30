@@ -26,6 +26,8 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ClienteComponent implements OnInit {
+	showHideHelp = false; // for show/hide help.
+	
 	cliente = new Cliente();
 	clienteTipoPessoaOptions: TipoPessoa[];
 	
@@ -44,6 +46,10 @@ export class ClienteComponent implements OnInit {
 	    if (id) {
 	      this.getClienteById(id);
 	    }
+	}
+	
+	getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
 	begin(form: FormControl) {
@@ -77,7 +83,6 @@ export class ClienteComponent implements OnInit {
 	      this.create();
 	    }
 	}
-	
 	create() {
 		
 	    this.clienteService.create(this.cliente)
@@ -103,7 +108,9 @@ export class ClienteComponent implements OnInit {
 	
 	getClienteById(id: string) {
 	    this.clienteService.retrieve(id)
-	    .then((cliente) => this.cliente = cliente)
+	    .then((cliente) => { 
+	    	this.cliente = cliente;
+	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
 	    });
@@ -136,6 +143,9 @@ export class ClienteComponent implements OnInit {
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
+	
+	
+	
 	
 	
 	
