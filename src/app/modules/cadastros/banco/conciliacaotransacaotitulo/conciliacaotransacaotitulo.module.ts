@@ -32,7 +32,7 @@ import { ConciliacaoTransacaoTituloService } from './conciliacaotransacaotitulo.
 import { ConciliacaoTransacaoTituloListComponent } from './list-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloComponent } from './crud-conciliacaotransacaotitulo.component';
 import { ConciliacaoTransacaoTituloRoutingModule } from './conciliacaotransacaotitulo-routing.module';
-import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
+// import { ConciliacaoTransacaoModule } from '../conciliacaotransacao/conciliacaotransacao.module';
 import { PlanoContaModule } from '../planoconta/planoconta.module';
 // Kerubin - END
 
@@ -61,8 +61,8 @@ import { PlanoContaModule } from '../planoconta/planoconta.module';
 	CardModule,
 
     // Kerubin
-    ConciliacaoTransacaoTituloRoutingModule,
-	ConciliacaoTransacaoModule,
+  ConciliacaoTransacaoTituloRoutingModule,
+	// ConciliacaoTransacaoModule,
 	PlanoContaModule
 
   ],
