@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.cliente_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="cliente.id" name="id">
@@ -62,6 +65,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="nome">
 				{{ getTranslation('financeiro.fluxo_caixa.cliente_nome') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #nome="ngModel" [(ngModel)]="cliente.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
@@ -70,6 +76,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="cnpjCPF">
 				{{ getTranslation('financeiro.fluxo_caixa.cliente_cnpjCPF') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Documento (CNPJ/CPF)."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #cnpjCPF="ngModel" [(ngModel)]="cliente.cnpjCPF" name="cnpjCPF">
 		</div>
@@ -77,6 +86,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label style="display: block" for="ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.cliente_ativo') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #ativo="ngModel" [(ngModel)]="cliente.ativo" name="ativo"></p-inputSwitch>
 		</div>
@@ -84,6 +96,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.cliente_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #deleted="ngModel" [(ngModel)]="cliente.deleted" name="deleted"></p-inputSwitch>
 		</div>

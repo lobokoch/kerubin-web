@@ -43,9 +43,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="contaPagar.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="contaPagar.id" name="id">
 			</div>
 		</div>
 		
@@ -57,7 +60,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para esta conta a pagar, exemplo: Luz, Combustível, Aluguel, Mensalidade da escola."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText appFocus #descricao="ngModel" ngModel [(ngModel)]="contaPagar.descricao" name="descricao" required>
+			<input type="text" pInputText #descricaoElementRef #descricao="ngModel" [(ngModel)]="contaPagar.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -76,7 +79,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaPagarPlanoContasAutoCompleteClear($event)"
 			 (onBlur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaPagarPlanoContasAutoCompleteFieldConverter"
-			 #planoContas="ngModel" ngModel [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
+			 #planoContas="ngModel" [(ngModel)]="contaPagar.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -92,7 +95,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data de vencimento da conta. Esta data você encontra no documento da conta. Por exemplo, na fatura da Luz."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -104,7 +107,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor total que você terá que pagar por esta conta."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaPagar.valor" name="valor" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" [(ngModel)]="contaPagar.valor" name="valor" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			 required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
@@ -117,7 +120,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a forma de pagamento que será ou foi utilizada para pagar esta conta."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="contaPagar.formaPagamento" name="formaPagamento" required></p-dropdown>
+			<p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" [(ngModel)]="contaPagar.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -135,7 +138,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaPagarContaBancariaAutoCompleteClear($event)"
 			 (onBlur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaPagarContaBancariaAutoCompleteFieldConverter"
-			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
+			 #contaBancaria="ngModel" [(ngModel)]="contaPagar.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
@@ -156,7 +159,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)"
 			 (onBlur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter"
-			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
+			 #cartaoCredito="ngModel" [(ngModel)]="contaPagar.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
@@ -170,7 +173,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, informe dados adicionais referente a forma de pagamento informada."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="contaPagar.outrosDescricao" name="outrosDescricao">
+			<input type="text" pInputText #outrosDescricao="ngModel" [(ngModel)]="contaPagar.outrosDescricao" name="outrosDescricao">
 		</div>
 		
 		
@@ -194,7 +197,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaPagarFornecedorAutoCompleteClear($event)"
 			 (onBlur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
 			 [field]="contaPagarFornecedorAutoCompleteFieldConverter"
-			 #fornecedor="ngModel" ngModel [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
+			 #fornecedor="ngModel" [(ngModel)]="contaPagar.fornecedor" name="fornecedor">
 				<ng-template let-fornecedor pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaPagarFornecedorAutoCompleteFieldConverter(fornecedor) }}</div>
 				</ng-template>
@@ -216,7 +219,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ative esta opção somente quando a conta já tiver sido paga. Neste caso, CONFIRA e informe OS DADOS DO PAGAMENTO, como por exemplo: Data do pagamento e Valor total pago."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #contaPaga="ngModel" ngModel [(ngModel)]="contaPagar.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<p-inputSwitch #contaPaga="ngModel" [(ngModel)]="contaPagar.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			 required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="contaPaga.invalid && contaPaga.dirty">Campo obrigatório.</div>
 		</div>
@@ -228,7 +231,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data em que esta conta foi paga. Ao informar a data do pagamento, o campo Valor total pago é sugerido com o Valor total automaticamente."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento" (onBlur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento" (onBlur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			 (onClose)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			></p-calendar>
 		</div>
@@ -236,32 +239,44 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorDescontoAppyHiddeComponent()">
 			<label for="valorDesconto">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorDesconto') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descontos."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorMultaAppyHiddeComponent()">
 			<label for="valorMulta">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorMulta') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Multas."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaPagar.valorMulta" name="valorMulta" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" [(ngModel)]="contaPagar.valorMulta" name="valorMulta" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorJurosAppyHiddeComponent()">
 			<label for="valorJuros">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorJuros') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Juros mora."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaPagar.valorJuros" name="valorJuros" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" [(ngModel)]="contaPagar.valorJuros" name="valorJuros" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorAcrescimosAppyHiddeComponent()">
 			<label for="valorAcrescimos">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorAcrescimos') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Acréscimos."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
@@ -272,7 +287,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total que foi pago por esta conta. Caso informe algum dos campos: Descontos, Multas, Juros mora ou Acréscimos, o valor total pago é calculado automaticamente."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaPagar.valorPago" name="valorPago" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" [(ngModel)]="contaPagar.valorPago" name="valorPago" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
@@ -290,7 +305,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostra ou oculta opções extras para a conta."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #maisOpcoes="ngModel" ngModel [(ngModel)]="contaPagar.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
+			<p-inputSwitch #maisOpcoes="ngModel" [(ngModel)]="contaPagar.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
 		</div>
 		
 		
@@ -308,7 +323,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #idConcBancaria="ngModel" ngModel [(ngModel)]="contaPagar.idConcBancaria" name="idConcBancaria">
+				<input type="text" pInputText readonly #idConcBancaria="ngModel" [(ngModel)]="contaPagar.idConcBancaria" name="idConcBancaria">
 			</div>
 		</div>
 		
@@ -320,7 +335,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #histConcBancaria="ngModel" ngModel [(ngModel)]="contaPagar.histConcBancaria" name="histConcBancaria">
+				<input type="text" pInputText readonly #histConcBancaria="ngModel" [(ngModel)]="contaPagar.histConcBancaria" name="histConcBancaria">
 			</div>
 		</div>
 		
@@ -332,7 +347,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" ngModel [(ngModel)]="contaPagar.numDocConcBancaria" name="numDocConcBancaria">
+				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" [(ngModel)]="contaPagar.numDocConcBancaria" name="numDocConcBancaria">
 			</div>
 		</div>
 		
@@ -350,14 +365,17 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe caso a conta tenha um documento relacionado."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numDocumento="ngModel" ngModel [(ngModel)]="contaPagar.numDocumento" name="numDocumento">
+			<input type="text" pInputText #numDocumento="ngModel" [(ngModel)]="contaPagar.numDocumento" name="numDocumento">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleObservacoesAppyHiddeComponent()">
 			<label for="observacoes">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_observacoes') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
+				<!-- help -->
 			</label>
-			<textarea pInputTextarea rows="3" #observacoes="ngModel" ngModel [(ngModel)]="contaPagar.observacoes" name="observacoes"></textarea>
+			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="contaPagar.observacoes" name="observacoes"></textarea>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleAgrupadorAppyHiddeComponent()">
@@ -367,7 +385,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe um texto para agrupar contas iguais a esta. Você poderá filtrar todas as contas que possuem o mesmo agrupador, por exemplo: luz_2020."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #agrupador="ngModel" ngModel [(ngModel)]="contaPagar.agrupador" name="agrupador">
+			<input type="text" pInputText #agrupador="ngModel" [(ngModel)]="contaPagar.agrupador" name="agrupador">
 		</div>
 		 
 		<!-- BEGIN make copies -->

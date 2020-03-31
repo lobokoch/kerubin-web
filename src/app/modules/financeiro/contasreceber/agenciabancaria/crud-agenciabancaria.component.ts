@@ -11,6 +11,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { AutoComplete } from 'primeng/autocomplete';
+import { ViewChild } from '@angular/core';
 import { AgenciaBancaria } from './agenciabancaria.model';
 import { AgenciaBancariaService } from './agenciabancaria.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
@@ -33,6 +35,8 @@ export class AgenciaBancariaComponent implements OnInit {
 	agenciaBancaria = new AgenciaBancaria();
 	agenciaBancariaBancoAutoCompleteSuggestions: BancoAutoComplete[];
 	
+	@ViewChild('bancoElementRef', {static: true}) defaultElementRef: AutoComplete;
+	
 	constructor(
 	    private agenciaBancariaService: AgenciaBancariaService,
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
@@ -47,6 +51,9 @@ export class AgenciaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getAgenciaBancariaById(id);
 	    }
+	    setTimeout(function() {
+	    	this.defaultElementSetFocus();
+	    }.bind(this), 1);
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -57,6 +64,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.agenciaBancaria = new AgenciaBancaria();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -89,6 +97,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -100,6 +109,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -189,4 +199,12 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	
 	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.focusInput();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

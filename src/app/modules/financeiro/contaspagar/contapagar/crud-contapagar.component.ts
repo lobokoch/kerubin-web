@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { ContaPagar } from './contapagar.model';
 import { ContaPagarService } from './contapagar.service';
 import { CustomContaPagarService } from './custom-contapagar.service';
@@ -71,6 +72,8 @@ export class ContaPagarComponent implements OnInit {
 	contaPagarFornecedorAutoCompleteSuggestions: FornecedorAutoComplete[];
 	contaPagarFormaPagamentoOptions: FormaPagamento[];
 	
+	@ViewChild('descricaoElementRef', {static: true}) defaultElementRef: ElementRef;
+	
 	constructor(
 	    private contaPagarService: ContaPagarService,
 	    private customContaPagarService: CustomContaPagarService,
@@ -129,6 +132,7 @@ export class ContaPagarComponent implements OnInit {
 	    }
 	    // End custom action.
 	    
+	    this.defaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -154,6 +158,7 @@ export class ContaPagarComponent implements OnInit {
 		  }
 		  // End custom action.
 		  
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -245,6 +250,7 @@ export class ContaPagarComponent implements OnInit {
 	      }
 	      // End custom action.
 	      
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -270,6 +276,7 @@ export class ContaPagarComponent implements OnInit {
 	      }
 	      // End custom action.
 	      
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -791,5 +798,13 @@ export class ContaPagarComponent implements OnInit {
 		this.customContaPagarService.beforeContaPagaChange(event);
 		// End custom action.
 		
+	}
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
 	}
 }

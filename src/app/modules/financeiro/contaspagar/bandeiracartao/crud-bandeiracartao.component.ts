@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { BandeiraCartao } from './bandeiracartao.model';
 import { BandeiraCartaoService } from './bandeiracartao.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
@@ -28,6 +29,8 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	bandeiraCartao = new BandeiraCartao();
 	
+	@ViewChild('nomeBandeiraElementRef', {static: true}) defaultElementRef: ElementRef;
+	
 	constructor(
 	    private bandeiraCartaoService: BandeiraCartaoService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
@@ -41,6 +44,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    if (id) {
 	      this.getBandeiraCartaoById(id);
 	    }
+	    this.defaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -51,6 +55,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.bandeiraCartao = new BandeiraCartao();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -83,6 +88,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -94,6 +100,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -134,4 +141,12 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	
 	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

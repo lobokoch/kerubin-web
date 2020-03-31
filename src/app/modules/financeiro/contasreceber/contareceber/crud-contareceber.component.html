@@ -43,9 +43,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="contaReceber.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="contaReceber.id" name="id">
 			</div>
 		</div>
 		
@@ -57,7 +60,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para esta conta a receber, exemplo: Vendas de Tupperware."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText appFocus #descricao="ngModel" ngModel [(ngModel)]="contaReceber.descricao" name="descricao" required>
+			<input type="text" pInputText #descricaoElementRef #descricao="ngModel" [(ngModel)]="contaReceber.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -76,7 +79,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaReceberPlanoContasAutoCompleteClear($event)"
 			 (onBlur)="contaReceberPlanoContasAutoCompleteOnBlur($event)"
 			 [field]="contaReceberPlanoContasAutoCompleteFieldConverter"
-			 #planoContas="ngModel" ngModel [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
+			 #planoContas="ngModel" [(ngModel)]="contaReceber.planoContas" name="planoContas" required>
 				<ng-template let-planoContas pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberPlanoContasAutoCompleteFieldConverter(planoContas) }}</div>
 				</ng-template>
@@ -92,7 +95,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data de vencimento da conta."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" ngModel [(ngModel)]="contaReceber.dataVencimento" name="dataVencimento" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" [(ngModel)]="contaReceber.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -104,7 +107,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor total que você receberá por esta conta."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" ngModel [(ngModel)]="contaReceber.valor" name="valor" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" [(ngModel)]="contaReceber.valor" name="valor" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			 required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
@@ -117,7 +120,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a forma de pagamento que será ou foi utilizada para receber esta conta."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="contaReceberFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" ngModel [(ngModel)]="contaReceber.formaPagamento" name="formaPagamento" required></p-dropdown>
+			<p-dropdown [options]="contaReceberFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" [(ngModel)]="contaReceber.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -135,7 +138,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaReceberContaBancariaAutoCompleteClear($event)"
 			 (onBlur)="contaReceberContaBancariaAutoCompleteOnBlur($event)"
 			 [field]="contaReceberContaBancariaAutoCompleteFieldConverter"
-			 #contaBancaria="ngModel" ngModel [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
+			 #contaBancaria="ngModel" [(ngModel)]="contaReceber.contaBancaria" name="contaBancaria">
 				<ng-template let-contaBancaria pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria) }}</div>
 				</ng-template>
@@ -156,7 +159,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaReceberCartaoCreditoAutoCompleteClear($event)"
 			 (onBlur)="contaReceberCartaoCreditoAutoCompleteOnBlur($event)"
 			 [field]="contaReceberCartaoCreditoAutoCompleteFieldConverter"
-			 #cartaoCredito="ngModel" ngModel [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
+			 #cartaoCredito="ngModel" [(ngModel)]="contaReceber.cartaoCredito" name="cartaoCredito">
 				<ng-template let-cartaoCredito pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito) }}</div>
 				</ng-template>
@@ -170,7 +173,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, informe dados adicionais referente a forma de pagamento informada."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #outrosDescricao="ngModel" ngModel [(ngModel)]="contaReceber.outrosDescricao" name="outrosDescricao">
+			<input type="text" pInputText #outrosDescricao="ngModel" [(ngModel)]="contaReceber.outrosDescricao" name="outrosDescricao">
 		</div>
 		
 		
@@ -194,7 +197,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="contaReceberClienteAutoCompleteClear($event)"
 			 (onBlur)="contaReceberClienteAutoCompleteOnBlur($event)"
 			 [field]="contaReceberClienteAutoCompleteFieldConverter"
-			 #cliente="ngModel" ngModel [(ngModel)]="contaReceber.cliente" name="cliente">
+			 #cliente="ngModel" [(ngModel)]="contaReceber.cliente" name="cliente">
 				<ng-template let-cliente pTemplate="item">
 					<div class="ui-helper-clearfix">{{ contaReceberClienteAutoCompleteFieldConverter(cliente) }}</div>
 				</ng-template>
@@ -216,7 +219,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ative esta opção somente quando a conta já tiver sido recebida. Neste caso, CONFIRA e informe OS DADOS DO RECEBIMENTO, como por exemplo: Data do recebimento e Valor total recebido."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #contaPaga="ngModel" ngModel [(ngModel)]="contaReceber.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" required></p-inputSwitch>
+			<p-inputSwitch #contaPaga="ngModel" [(ngModel)]="contaReceber.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="contaPaga.invalid && contaPaga.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -227,7 +230,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data em que esta conta foi recebida. Ao informar a data do recebimento, o campo Valor total recebido é sugerido com o Valor total automaticamente."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" ngModel [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento" (onBlur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" [(ngModel)]="contaReceber.dataPagamento" name="dataPagamento" (onBlur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			 (onClose)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			></p-calendar>
 		</div>
@@ -235,32 +238,44 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorDescontoAppyHiddeComponent()">
 			<label for="valorDesconto">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_valorDesconto') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descontos."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" ngModel [(ngModel)]="contaReceber.valorDesconto" name="valorDesconto" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" [(ngModel)]="contaReceber.valorDesconto" name="valorDesconto" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorMultaAppyHiddeComponent()">
 			<label for="valorMulta">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_valorMulta') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Multas."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" ngModel [(ngModel)]="contaReceber.valorMulta" name="valorMulta" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" [(ngModel)]="contaReceber.valorMulta" name="valorMulta" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorJurosAppyHiddeComponent()">
 			<label for="valorJuros">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_valorJuros') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Juros mora."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" ngModel [(ngModel)]="contaReceber.valorJuros" name="valorJuros" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" [(ngModel)]="contaReceber.valorJuros" name="valorJuros" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorAcrescimosAppyHiddeComponent()">
 			<label for="valorAcrescimos">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_valorAcrescimos') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Acréscimos."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" ngModel [(ngModel)]="contaReceber.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" [(ngModel)]="contaReceber.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
@@ -271,7 +286,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total que foi recebido por esta conta. Caso informe algum dos campos: Descontos, Multas, Juros mora ou Acréscimos, o valor total recebido é calculado automaticamente."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" ngModel [(ngModel)]="contaReceber.valorPago" name="valorPago" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" [(ngModel)]="contaReceber.valorPago" name="valorPago" (blur)="ruleContaReceberValorPagoOnAppyMathExpression($event)" 
 			>
 		</div>
 		
@@ -289,7 +304,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostra ou oculta opções extras para a conta."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #maisOpcoes="ngModel" ngModel [(ngModel)]="contaReceber.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
+			<p-inputSwitch #maisOpcoes="ngModel" [(ngModel)]="contaReceber.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
 		</div>
 		
 		
@@ -307,7 +322,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #idConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.idConcBancaria" name="idConcBancaria">
+				<input type="text" pInputText readonly #idConcBancaria="ngModel" [(ngModel)]="contaReceber.idConcBancaria" name="idConcBancaria">
 			</div>
 		</div>
 		
@@ -319,7 +334,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #histConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.histConcBancaria" name="histConcBancaria">
+				<input type="text" pInputText readonly #histConcBancaria="ngModel" [(ngModel)]="contaReceber.histConcBancaria" name="histConcBancaria">
 			</div>
 		</div>
 		
@@ -331,7 +346,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" ngModel [(ngModel)]="contaReceber.numDocConcBancaria" name="numDocConcBancaria">
+				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" [(ngModel)]="contaReceber.numDocConcBancaria" name="numDocConcBancaria">
 			</div>
 		</div>
 		
@@ -349,14 +364,17 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe caso a conta tenha um documento relacionado."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numDocumento="ngModel" ngModel [(ngModel)]="contaReceber.numDocumento" name="numDocumento">
+			<input type="text" pInputText #numDocumento="ngModel" [(ngModel)]="contaReceber.numDocumento" name="numDocumento">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleObservacoesAppyHiddeComponent()">
 			<label for="observacoes">
 				{{ getTranslation('financeiro.contas_receber.contaReceber_observacoes') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
+				<!-- help -->
 			</label>
-			<textarea pInputTextarea rows="3" #observacoes="ngModel" ngModel [(ngModel)]="contaReceber.observacoes" name="observacoes"></textarea>
+			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="contaReceber.observacoes" name="observacoes"></textarea>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleAgrupadorAppyHiddeComponent()">
@@ -366,7 +384,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe um texto para agrupar contas iguais a esta. Você poderá filtrar todas as contas que possuem o mesmo agrupador, por exemplo: vendas_2020."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #agrupador="ngModel" ngModel [(ngModel)]="contaReceber.agrupador" name="agrupador">
+			<input type="text" pInputText #agrupador="ngModel" [(ngModel)]="contaReceber.agrupador" name="agrupador">
 		</div>
 		 
 		<!-- BEGIN make copies -->

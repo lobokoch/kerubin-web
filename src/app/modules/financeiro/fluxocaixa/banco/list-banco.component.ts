@@ -13,11 +13,10 @@ import * as moment from 'moment';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 import { BancoService } from './banco.service';
-import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
+import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
 import { Banco } from './banco.model';
 import { BancoListFilter } from './banco.model';
 import { SortField } from './banco.model';
-import { BancoNomeAutoComplete } from './banco.model';
 
 @Component({
   selector: 'app-list-banco',
@@ -32,14 +31,12 @@ export class BancoListComponent implements OnInit {
 	bancoListTotalElements = 0;
 	bancoListFilter = new BancoListFilter();
 	
-	bancoNomeAutoCompleteSuggestions: BancoNomeAutoComplete[];
-	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
 	
 	constructor(
 	    private bancoService: BancoService,
-	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
+	    private financeiroFluxoCaixaTranslationService: FinanceiroFluxoCaixaTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
@@ -102,17 +99,6 @@ export class BancoListComponent implements OnInit {
 	    this.bancoList(pageNumber);
 	}
 	
-	bancoNomeAutoComplete(event) {
-	    const query = event.query;
-	    this.bancoService.bancoNomeAutoComplete(query)
-	    .then((result) => {
-	      this.bancoNomeAutoCompleteSuggestions = result;
-	    })
-	    .catch(erro => {
-	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
-	    });
-	}
-	
 	
 	
 	
@@ -120,7 +106,7 @@ export class BancoListComponent implements OnInit {
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
-		const value = this.cadastrosBancoTranslationService.getTranslation(key);
+		const value = this.financeiroFluxoCaixaTranslationService.getTranslation(key);
 		return value;
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);

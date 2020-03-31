@@ -43,9 +43,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="bandeiraCartao.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="bandeiraCartao.id" name="id">
 			</div>
 		</div>
 		
@@ -53,21 +56,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="nomeBandeira">
 				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_nomeBandeira') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Bandeira do cartão."></i>
+				<!-- help -->
 			</label>
-			<input type="text" pInputText appFocus #nomeBandeira="ngModel" ngModel [(ngModel)]="bandeiraCartao.nomeBandeira" name="nomeBandeira" required>
+			<input type="text" pInputText #nomeBandeiraElementRef #nomeBandeira="ngModel" [(ngModel)]="bandeiraCartao.nomeBandeira" name="nomeBandeira" required>
 			<div class="invalid-message" *ngIf="nomeBandeira.invalid && nomeBandeira.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.bandeiraCartao_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
-			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="bandeiraCartao.deleted" name="deleted"></p-inputSwitch>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="bandeiraCartao.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro registro."></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>

@@ -14,8 +14,7 @@ import {MessageService} from 'primeng/api';
 import { ElementRef, ViewChild } from '@angular/core';
 import { Banco } from './banco.model';
 import { BancoService } from './banco.service';
-import { CadastrosBancoTranslationService } from './../i18n/cadastros-banco-translation.service';
-import * as moment from 'moment';
+import { FinanceiroFluxoCaixaTranslationService } from './../i18n/financeiro-fluxocaixa-translation.service';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
 
@@ -28,23 +27,19 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 export class BancoComponent implements OnInit {
 	showHideHelp = false; // for show/hide help.
 	
-	
-	calendarLocale: any;
-	
 	banco = new Banco();
 	
 	@ViewChild('numeroElementRef', {static: true}) defaultElementRef: ElementRef;
 	
 	constructor(
 	    private bancoService: BancoService,
-	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
+	    private financeiroFluxoCaixaTranslationService: FinanceiroFluxoCaixaTranslationService,
 	    private route: ActivatedRoute,
 	    private messageHandler: MessageHandlerService
 	) { 
 	}
 	
 	ngOnInit() {
-		this.initLocaleSettings();
 	    const id = this.route.snapshot.params['id'];
 	    if (id) {
 	      this.getBancoById(id);
@@ -132,7 +127,7 @@ export class BancoComponent implements OnInit {
 	
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
-		const value = this.cadastrosBancoTranslationService.getTranslation(key);
+		const value = this.financeiroFluxoCaixaTranslationService.getTranslation(key);
 		return value;
 		
 		// const result = key.substring(key.lastIndexOf('_') + 1);
@@ -143,11 +138,6 @@ export class BancoComponent implements OnInit {
 	
 	
 	
-	
-	
-	initLocaleSettings() {
-		this.calendarLocale = this.cadastrosBancoTranslationService.getCalendarLocaleSettings();
-	}
 	
 	
 	

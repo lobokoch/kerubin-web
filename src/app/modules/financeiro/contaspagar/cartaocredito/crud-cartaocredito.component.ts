@@ -11,6 +11,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { AutoComplete } from 'primeng/autocomplete';
+import { ViewChild } from '@angular/core';
 import { CartaoCredito } from './cartaocredito.model';
 import { CartaoCreditoService } from './cartaocredito.service';
 import { FinanceiroContasPagarTranslationService } from './../i18n/financeiro-contaspagar-translation.service';
@@ -44,6 +46,8 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteSuggestions: BandeiraCartaoAutoComplete[];
 	
+	@ViewChild('bancoElementRef', {static: true}) defaultElementRef: AutoComplete;
+	
 	constructor(
 	    private cartaoCreditoService: CartaoCreditoService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
@@ -62,6 +66,9 @@ export class CartaoCreditoComponent implements OnInit {
 	    if (id) {
 	      this.getCartaoCreditoById(id);
 	    }
+	    setTimeout(function() {
+	    	this.defaultElementSetFocus();
+	    }.bind(this), 1);
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -72,6 +79,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cartaoCredito = new CartaoCredito();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -104,6 +112,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -115,6 +124,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -253,4 +263,12 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.focusInput();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

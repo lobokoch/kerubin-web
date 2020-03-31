@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="agenciaBancaria.id" name="id">
@@ -53,6 +56,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="banco">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_banco') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Banco."></i>
+				<!-- help -->
 			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -73,6 +79,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="numeroAgencia">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número da agência."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #numeroAgencia="ngModel" [(ngModel)]="agenciaBancaria.numeroAgencia" name="numeroAgencia" required>
 			<div class="invalid-message" *ngIf="numeroAgencia.invalid && numeroAgencia.dirty">Campo obrigatório.</div>
@@ -82,6 +91,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="digitoAgencia">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Dígito."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #digitoAgencia="ngModel" [(ngModel)]="agenciaBancaria.digitoAgencia" name="digitoAgencia" required>
 			<div class="invalid-message" *ngIf="digitoAgencia.invalid && digitoAgencia.dirty">Campo obrigatório.</div>
@@ -90,6 +102,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="endereco">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Endereço/localização da agência."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #endereco="ngModel" [(ngModel)]="agenciaBancaria.endereco" name="endereco">
 		</div>
@@ -97,6 +112,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #deleted="ngModel" [(ngModel)]="agenciaBancaria.deleted" name="deleted"></p-inputSwitch>
 		</div>

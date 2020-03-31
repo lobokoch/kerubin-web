@@ -43,9 +43,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" ngModel [(ngModel)]="cartaoCredito.id" name="id">
+				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="cartaoCredito.id" name="id">
 			</div>
 		</div>
 		
@@ -53,6 +56,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="banco">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_banco') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Banco."></i>
+				<!-- help -->
 			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -61,7 +67,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBancoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBancoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBancoAutoCompleteFieldConverter"
-			 #banco="ngModel" ngModel [(ngModel)]="cartaoCredito.banco" name="banco" required>
+			 #bancoElementRef #banco="ngModel" [(ngModel)]="cartaoCredito.banco" name="banco" required>
 				<ng-template let-banco pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBancoAutoCompleteFieldConverter(banco) }}</div>
 				</ng-template>
@@ -73,8 +79,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="nomeTitular">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_nomeTitular') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome do títular do cartão."></i>
+				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeTitular="ngModel" ngModel [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
+			<input type="text" pInputText #nomeTitular="ngModel" [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
 			<div class="invalid-message" *ngIf="nomeTitular.invalid && nomeTitular.dirty">Campo obrigatório.</div>
 		</div>
 		
@@ -82,29 +91,41 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="numeroCartao">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_numeroCartao') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número do cartão."></i>
+				<!-- help -->
 			</label>
-			<input type="text" pInputText #numeroCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
+			<input type="text" pInputText #numeroCartao="ngModel" [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
 			<div class="invalid-message" *ngIf="numeroCartao.invalid && numeroCartao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="validade">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_validade') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Validade."></i>
+				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #validade="ngModel" ngModel [(ngModel)]="cartaoCredito.validade" name="validade"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #validade="ngModel" [(ngModel)]="cartaoCredito.validade" name="validade"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valorLimite">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_valorLimite') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Limite de crédito."></i>
+				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorLimite="ngModel" ngModel [(ngModel)]="cartaoCredito.valorLimite" name="valorLimite">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorLimite="ngModel" [(ngModel)]="cartaoCredito.valorLimite" name="valorLimite">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="bandeiraCartao">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_bandeiraCartao') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Bandeira do cartão."></i>
+				<!-- help -->
 			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -113,7 +134,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBandeiraCartaoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter"
-			 #bandeiraCartao="ngModel" ngModel [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
+			 #bandeiraCartao="ngModel" [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
 				<ng-template let-bandeiraCartao pTemplate="item">
 					<div class="ui-helper-clearfix">{{ cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao) }}</div>
 				</ng-template>
@@ -125,21 +146,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label style="display: block" for="ativo">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_ativo') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Cartão ativo."></i>
+				<!-- help -->
 			</label>
-			<p-inputSwitch #ativo="ngModel" ngModel [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
+			<p-inputSwitch #ativo="ngModel" [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.cartaoCredito_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
-			<p-inputSwitch #deleted="ngModel" ngModel [(ngModel)]="cartaoCredito.deleted" name="deleted"></p-inputSwitch>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="cartaoCredito.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 crud-buttons">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro registro."></button>
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>

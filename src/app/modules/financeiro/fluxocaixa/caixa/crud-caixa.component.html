@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="caixa.id" name="id">
@@ -88,6 +91,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="observacoes">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_observacoes') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #observacoes="ngModel" [(ngModel)]="caixa.observacoes" name="observacoes" [disabled]="observacoesRuleDisableComponent()">
 		</div>
@@ -95,6 +101,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="version" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_version') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Versão."></i>
+				<!-- help -->
 			</label>
 			<input type="hidden" pInputText #version="ngModel" [(ngModel)]="caixa.version" name="version">
 		</div>

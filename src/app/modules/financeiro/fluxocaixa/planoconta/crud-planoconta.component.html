@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="planoConta.id" name="id">
@@ -53,6 +56,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="codigo">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Código."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #codigoElementRef #codigo="ngModel" [(ngModel)]="planoConta.codigo" name="codigo" required>
 			<div class="invalid-message" *ngIf="codigo.invalid && codigo.dirty">Campo obrigatório.</div>
@@ -62,6 +68,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="descricao">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descrição."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #descricao="ngModel" [(ngModel)]="planoConta.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
@@ -79,6 +88,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="tipoReceitaDespesa">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoReceitaDespesa') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Tipo receita/despesa."></i>
+				<!-- help -->
 			</label>
 			<p-dropdown [options]="planoContaTipoReceitaDespesaOptions" placeholder="Selecione um item..." #tipoReceitaDespesa="ngModel" [(ngModel)]="planoConta.tipoReceitaDespesa" name="tipoReceitaDespesa"></p-dropdown>
 		</div>
@@ -86,6 +98,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="planoContaPai">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_planoContaPai') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Plano de conta pai."></i>
+				<!-- help -->
 			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -105,6 +120,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label style="display: block" for="ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #ativo="ngModel" [(ngModel)]="planoConta.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
@@ -113,6 +131,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #deleted="ngModel" [(ngModel)]="planoConta.deleted" name="deleted"></p-inputSwitch>
 		</div>

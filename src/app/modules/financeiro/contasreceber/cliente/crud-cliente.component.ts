@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
@@ -31,6 +32,8 @@ export class ClienteComponent implements OnInit {
 	cliente = new Cliente();
 	clienteTipoPessoaOptions: TipoPessoa[];
 	
+	@ViewChild('tipoPessoaElementRef', {static: true}) defaultElementRef: ElementRef;
+	
 	constructor(
 	    private clienteService: ClienteService,
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
@@ -46,6 +49,7 @@ export class ClienteComponent implements OnInit {
 	    if (id) {
 	      this.getClienteById(id);
 	    }
+	    this.defaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -57,6 +61,7 @@ export class ClienteComponent implements OnInit {
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
 	      this.initializeEnumFieldsWithDefault();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -89,6 +94,7 @@ export class ClienteComponent implements OnInit {
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -100,6 +106,7 @@ export class ClienteComponent implements OnInit {
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -151,4 +158,12 @@ export class ClienteComponent implements OnInit {
 	
 	
 	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

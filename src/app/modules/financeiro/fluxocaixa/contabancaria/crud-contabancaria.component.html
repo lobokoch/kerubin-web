@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="contaBancaria.id" name="id">
@@ -53,6 +56,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="nomeTitular">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_nomeTitular') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome do títular da conta."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #nomeTitularElementRef #nomeTitular="ngModel" [(ngModel)]="contaBancaria.nomeTitular" name="nomeTitular" required>
 			<div class="invalid-message" *ngIf="nomeTitular.invalid && nomeTitular.dirty">Campo obrigatório.</div>
@@ -62,6 +68,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="agencia">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_agencia') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Agência bancária."></i>
+				<!-- help -->
 			</label>
 			<p-autoComplete 
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
@@ -82,6 +91,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="tipoContaBancaria">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_tipoContaBancaria') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Tipo da conta."></i>
+				<!-- help -->
 			</label>
 			<p-dropdown [options]="contaBancariaTipoContaBancariaOptions" placeholder="Selecione um item..." #tipoContaBancaria="ngModel" [(ngModel)]="contaBancaria.tipoContaBancaria" name="tipoContaBancaria" required></p-dropdown>
 			<div class="invalid-message" *ngIf="tipoContaBancaria.invalid && tipoContaBancaria.dirty">Campo obrigatório.</div>
@@ -91,6 +103,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label for="numeroConta">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_numeroConta') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número da conta."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #numeroConta="ngModel" [(ngModel)]="contaBancaria.numeroConta" name="numeroConta" required>
 			<div class="invalid-message" *ngIf="numeroConta.invalid && numeroConta.dirty">Campo obrigatório.</div>
@@ -99,6 +114,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="digito">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_digito') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Dígito."></i>
+				<!-- help -->
 			</label>
 			<input type="text" pInputText #digito="ngModel" [(ngModel)]="contaBancaria.digito" name="digito">
 		</div>
@@ -106,6 +124,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid">
 			<label for="dataValidade">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_dataValidade') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Validade."></i>
+				<!-- help -->
 			</label>
 			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataValidade="ngModel" [(ngModel)]="contaBancaria.dataValidade" name="dataValidade"></p-calendar>
 		</div>
@@ -114,6 +135,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<label style="display: block" for="ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_ativo') }}
 				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Conta ativa."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #ativo="ngModel" [(ngModel)]="contaBancaria.ativo" name="ativo" required></p-inputSwitch>
 			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
@@ -122,6 +146,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label style="display: block" for="deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.contaBancaria_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
 			</label>
 			<p-inputSwitch #deleted="ngModel" [(ngModel)]="contaBancaria.deleted" name="deleted"></p-inputSwitch>
 		</div>

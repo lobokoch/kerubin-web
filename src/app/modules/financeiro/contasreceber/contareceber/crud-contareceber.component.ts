@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { ContaReceber } from './contareceber.model';
 import { ContaReceberService } from './contareceber.service';
 import { CustomContaReceberService } from './custom-contareceber.service';
@@ -71,6 +72,8 @@ export class ContaReceberComponent implements OnInit {
 	contaReceberClienteAutoCompleteSuggestions: ClienteAutoComplete[];
 	contaReceberFormaPagamentoOptions: FormaPagamento[];
 	
+	@ViewChild('descricaoElementRef', {static: true}) defaultElementRef: ElementRef;
+	
 	constructor(
 	    private contaReceberService: ContaReceberService,
 	    private customContaReceberService: CustomContaReceberService,
@@ -129,6 +132,7 @@ export class ContaReceberComponent implements OnInit {
 	    }
 	    // End custom action.
 	    
+	    this.defaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -154,6 +158,7 @@ export class ContaReceberComponent implements OnInit {
 		  }
 		  // End custom action.
 		  
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -245,6 +250,7 @@ export class ContaReceberComponent implements OnInit {
 	      }
 	      // End custom action.
 	      
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -270,6 +276,7 @@ export class ContaReceberComponent implements OnInit {
 	      }
 	      // End custom action.
 	      
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -791,5 +798,13 @@ export class ContaReceberComponent implements OnInit {
 		this.customContaReceberService.beforeContaPagaChange(event);
 		// End custom action.
 		
+	}
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
 	}
 }

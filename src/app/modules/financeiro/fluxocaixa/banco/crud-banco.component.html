@@ -14,7 +14,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			
 			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
 			    <div class="kb-form-panel-header">
-				  {{ getTranslation('cadastros.banco.banco') }}
+				  {{ getTranslation('financeiro.fluxo_caixa.banco') }}
 				    <!-- help -->
 				    <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nesta tela, controle os registros de banco."></i>
 				    <!-- help -->
@@ -42,35 +42,48 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   	
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
-				{{ getTranslation('cadastros.banco.banco_id') }}
+				{{ getTranslation('financeiro.fluxo_caixa.banco_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="banco.id" name="id">
 			</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4">
+		<div class="ui-g-12 ui-fluid">
 			<label for="numero">
-				{{ getTranslation('cadastros.banco.banco_numero') }}
+				{{ getTranslation('financeiro.fluxo_caixa.banco_numero') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
-				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o código do banco. Por exemplo, o Banco do Brasil é código: 001."></i>
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número."></i>
 				<!-- help -->
 			</label>
 			<input type="text" pInputText #numeroElementRef #numero="ngModel" [(ngModel)]="banco.numero" name="numero" required>
 			<div class="invalid-message" *ngIf="numero.invalid && numero.dirty">Campo obrigatório.</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-8">
+		<div class="ui-g-12 ui-fluid">
 			<label for="nome">
-				{{ getTranslation('cadastros.banco.banco_nome') }}
+				{{ getTranslation('financeiro.fluxo_caixa.banco_nome') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
-				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o nome do banco. Por exemplo, Banco do Brasil S.A."></i>
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome."></i>
 				<!-- help -->
 			</label>
 			<input type="text" pInputText #nome="ngModel" [(ngModel)]="banco.nome" name="nome" required>
 			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
+		</div>
+		
+		<div class="ui-g-12 ui-fluid hidden">
+			<label style="display: block" for="deleted" class="hidden">
+				{{ getTranslation('financeiro.fluxo_caixa.banco_deleted') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
+				<!-- help -->
+			</label>
+			<p-inputSwitch #deleted="ngModel" [(ngModel)]="banco.deleted" name="deleted"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 crud-buttons">

@@ -11,6 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MessageService} from 'primeng/api';
 
+import { ElementRef, ViewChild } from '@angular/core';
 import { ContaBancaria } from './contabancaria.model';
 import { ContaBancariaService } from './contabancaria.service';
 import { FinanceiroContasReceberTranslationService } from './../i18n/financeiro-contasreceber-translation.service';
@@ -40,6 +41,8 @@ export class ContaBancariaComponent implements OnInit {
 	contaBancariaAgenciaAutoCompleteSuggestions: AgenciaBancariaAutoComplete[];
 	contaBancariaTipoContaBancariaOptions: TipoContaBancaria[];
 	
+	@ViewChild('nomeTitularElementRef', {static: true}) defaultElementRef: ElementRef;
+	
 	constructor(
 	    private contaBancariaService: ContaBancariaService,
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
@@ -57,6 +60,7 @@ export class ContaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getContaBancariaById(id);
 	    }
+	    this.defaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
@@ -68,6 +72,7 @@ export class ContaBancariaComponent implements OnInit {
 	    setTimeout(function() {
 	      this.contaBancaria = new ContaBancaria();
 	      this.initializeEnumFieldsWithDefault();
+		  this.defaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -100,6 +105,7 @@ export class ContaBancariaComponent implements OnInit {
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
+	      this.defaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -111,6 +117,7 @@ export class ContaBancariaComponent implements OnInit {
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro alterado!');
+	      this.defaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -225,4 +232,12 @@ export class ContaBancariaComponent implements OnInit {
 	
 	
 	
+				
+	defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+	}
 }

@@ -43,6 +43,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('cadastros.fornecedor.fornecedor_id') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
+				<!-- help -->
 			</label>
 			<div class="input-readonly">
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="fornecedor.id" name="id">
@@ -267,6 +270,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<div class="ui-g-12 ui-fluid ui-md-11" [style.display]="ruleObservacoesAppyHiddeComponent()">
 			<label for="observacoes">
 				{{ getTranslation('cadastros.fornecedor.fornecedor_observacoes') }}
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
+				<!-- help -->
 			</label>
 			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="fornecedor.observacoes" name="observacoes"></textarea>
 		</div>
