@@ -24,7 +24,10 @@ import { PlanoContaService } from '../planoconta/planoconta.service';
 
 export class PlanoContaTreeComponent implements OnInit {
 
-  @ViewChild('descricao', {static: false}) descricaoField: ElementRef;
+  // @ViewChild('descricao', {static: false}) descricaoField: ElementRef;
+  @ViewChild('descricaoElementRef', {static: true}) defaultElementRef: ElementRef;
+
+  showHideHelp = false; // for show/hide help.
 
   loadingTree = false;
   planoContasTree: TreeNode[];
@@ -65,6 +68,7 @@ export class PlanoContaTreeComponent implements OnInit {
       .then(nodes => {
         this.planoContasTree = nodes;
         this.loadingTree = false;
+        this.defaultElementSetFocus();
       })
       .catch(error => {
         this.loadingTree = false;
@@ -78,12 +82,18 @@ export class PlanoContaTreeComponent implements OnInit {
     if (id) {
       this.getPlanoContaById(id);
     }
+    this.defaultElementSetFocus();
   }
+
+  getShowHideHelpLabel(): string {
+		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
+	}
 
   begin(form: FormControl) {
     form.reset();
     setTimeout(function () {
       this.doNew();
+      this.defaultElementSetFocus();
     }.bind(this), 1);
 
   }
@@ -115,7 +125,7 @@ export class PlanoContaTreeComponent implements OnInit {
 
     this.planoConta = planoConta;
 
-    this.descricaoField.nativeElement.focus();
+    this.defaultElementSetFocus();
   }
 
   buildNextPlanoContaCodigo(node: TreeNode): string {
@@ -238,6 +248,7 @@ export class PlanoContaTreeComponent implements OnInit {
         this.planoConta = planoConta;
         this.messageHandlerService.showSuccess('Registro criado com sucesso!');
         this.getPlanoContasNode(this.selectedNode);
+        this.defaultElementSetFocus();
       }).
       catch(error => {
         this.messageHandlerService.showError(error);
@@ -254,6 +265,7 @@ export class PlanoContaTreeComponent implements OnInit {
         this.planoConta = planoConta;
         this.messageHandlerService.showSuccess('Registro alterado!');
         this.getPlanoContasNode(this.selectedNode);
+        this.defaultElementSetFocus();
       })
       .catch(error => {
         this.messageHandlerService.showError(error);
@@ -383,6 +395,7 @@ export class PlanoContaTreeComponent implements OnInit {
       .then((planoConta) => {
         this.planoConta = planoConta;
         this.planoContaOld = this.clonePlanoConta(planoConta);
+        this.defaultElementSetFocus();
       })
       .catch(error => {
         this.messageHandlerService.showError('Erro ao buscar registro: ' + id);
@@ -471,5 +484,43 @@ export class PlanoContaTreeComponent implements OnInit {
   }
 
   /////////////
+
+  defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
+  }
+
+  // Begin RuleWithSlotAppyHiddeComponent
+
+	ruleTipoReceitaDespesaAppyHiddeComponent() {
+		const expression = (this.planoConta.maisOpcoes === false);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+
+	ruleAtivoAppyHiddeComponent() {
+		const expression = (this.planoConta.maisOpcoes === false);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+
+	rulePlanoContaPaiAppyHiddeComponent() {
+		const expression = (this.planoConta.maisOpcoes === false);
+		if (expression) {
+			return 'none'; // Will hidde de component.
+		} else {
+			return 'inline'; // Default css show element value.
+		}
+	}
+	// End Begin RuleWithSlotAppyHiddeComponent
 
 }

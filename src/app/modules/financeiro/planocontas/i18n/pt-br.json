@@ -10,13 +10,15 @@
 	"financeiro.plano_contas.planoConta_tipoFinanceiro_grid": "Tipo financeiro",
 	"financeiro.plano_contas.planoConta_tipoFinanceiro_receita": "Receita",
 	"financeiro.plano_contas.planoConta_tipoFinanceiro_despesa": "Despesa",
+	"financeiro.plano_contas.planoConta_maisOpcoes": "Mostrar mais opções",
+	"financeiro.plano_contas.planoConta_maisOpcoes_grid": "Mostrar mais opções",
+	"financeiro.plano_contas.planoConta_ativo": "Ativo",
+	"financeiro.plano_contas.planoConta_ativo_grid": "Ativo",
 	"financeiro.plano_contas.planoConta_tipoReceitaDespesa": "Tipo receita/despesa",
 	"financeiro.plano_contas.planoConta_tipoReceitaDespesa_grid": "Tipo receita/despesa",
 	"financeiro.plano_contas.planoConta_tipoReceitaDespesa_fixo": "Fixa",
 	"financeiro.plano_contas.planoConta_tipoReceitaDespesa_variavel": "Variável",
 	"financeiro.plano_contas.planoConta_tipoReceitaDespesa_null": "",
 	"financeiro.plano_contas.planoConta_planoContaPai": "Plano de conta pai",
-	"financeiro.plano_contas.planoConta_planoContaPai_grid": "Plano de conta pai",
-	"financeiro.plano_contas.planoConta_ativo": "Ativo",
-	"financeiro.plano_contas.planoConta_ativo_grid": "Ativo"
+	"financeiro.plano_contas.planoConta_planoContaPai_grid": "Plano de conta pai"
 }
