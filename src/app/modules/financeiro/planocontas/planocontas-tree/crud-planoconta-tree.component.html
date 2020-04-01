@@ -144,7 +144,6 @@
                  [suggestions]="planoContaPlanoContaPaiAutoCompleteSuggestions"
                  (completeMethod)="planoContaPlanoContaPaiAutoComplete($event)"
                  (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)"
-                 (onBlur)="planoContaPlanoContaPaiAutoCompleteOnBlur($event)"
                  [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter"
                  #planoContaPai="ngModel" [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
                   <ng-template let-planoContaPai pTemplate="item">
