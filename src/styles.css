@@ -723,6 +723,10 @@ a.ui-button-success:hover {
   div.kb-mobile-inline {
     display: none !important;
   }
+
+  .kb-mobile-only {
+    display: none !important;
+  }
 }
 
 
@@ -792,6 +796,14 @@ hr {
   border: 0;
   height: 0;
   border-top: 4px solid #c8c8c8;
+}
+
+.crud-buttons-top {
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.crud-buttons-bottom {
+  border-top: 1px solid #c8c8c8;
 }
 
 .crud-buttons {

@@ -39,7 +39,21 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
-  	
+		
+		<!-- Begin buttons -->
+		<div class="ui-g-12 crud-buttons-top kb-mobile-only">
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+			</div>
+			<div class="ui-g-12 ui-md-2 ui-fluid">
+				<a routerLink="/tenant" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de tenant."></a>
+			</div>
+		</div>
+		<!-- End buttons -->
+		
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('security.authorization.tenant_id') }}
@@ -98,7 +112,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<p-inputSwitch #active="ngModel" [(ngModel)]="tenant.active" name="active"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12 crud-buttons">
+		<!-- Begin buttons -->
+		<div class="ui-g-12 crud-buttons-bottom">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
@@ -109,6 +124,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<a routerLink="/tenant" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de tenant."></a>
 			</div>
 		</div>
+		<!-- End buttons -->
 		
 	
 	</div>

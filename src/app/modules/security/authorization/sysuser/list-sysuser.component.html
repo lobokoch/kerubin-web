@@ -44,6 +44,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-accordion>
 		<!-- End Filters -->
 		
+		<!-- Begin buttons -->
+		<div class="ui-g-12 crud-buttons-top kb-mobile-only">
+		  <div class="ui-g-12 ui-md-2 ui-fluid">
+		    <a routerLink="/sysuser/novo" pButton  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></a>
+		  </div>
+		</div>
+		<!-- End buttons -->
+		
+		
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
 			<p-table selectionMode="single" [loading]="tableLoading" 
@@ -115,11 +124,13 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</div>
 		<!-- End GRID -->
 		
-		<div class="ui-g-12 crud-buttons">
+		<!-- Begin buttons -->
+		<div class="ui-g-12 crud-buttons-bottom">
 		  <div class="ui-g-12 ui-md-2 ui-fluid">
 		    <a routerLink="/sysuser/novo" pButton  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></a>
 		  </div>
 		</div>
+		<!-- End buttons -->
 		
 	</div>
 	
