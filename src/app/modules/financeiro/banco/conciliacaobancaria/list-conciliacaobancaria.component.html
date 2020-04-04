@@ -13,34 +13,40 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<p-header>
 			<div class="kb-form-panel-header">{{ getTranslation('cadastros.banco.conciliacaoBancaria') }}</div>
 		</p-header>
-	
+
 
   	<div class="ui-g">
-		
+
 		<!-- Begin Filters -->
 		<p-accordion class="ui-g-12">
 			<p-accordionTab header="Filtros">
-			
+
 				<div class="ui-g">
 					<div class="ui-g-12">
 					</div>
-					
+
 					<div>
 						<p-button label="Aplicar os filtros e pesquisar" icon="pi pi-search" iconPos="left" (click)="conciliacaoBancariaFilterSearch()"></p-button>
 					</div>
 				</div>
-				
-			
+
+
 			</p-accordionTab>
 		</p-accordion>
 		<!-- End Filters -->
-		
+
+    <!-- Begin buttons -->
+		<div class="ui-g-12 ui-md-2 ui-fluid crud-buttons-top kb-mobile-only">
+			<a routerLink="/conciliacaobancaria/novo" pButton label="Novo registro" tooltipPosition="top" pTooltip="Criar nova conciliação bancária."></a>
+    </div>
+    <!-- End buttons -->
+
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-			<p-table selectionMode="single" [loading]="tableLoading" 
+			<p-table selectionMode="single" [loading]="tableLoading"
 				[responsive]="true" sortMode="multiple" [paginator]="true" [resizableColumns]="true"
 				[value]="conciliacaoBancariaListItems"
-			    [rows]="conciliacaoBancariaListFilter.pageSize" 
+			    [rows]="conciliacaoBancariaListFilter.pageSize"
 			    [totalRecords]="conciliacaoBancariaListTotalElements"
 			    [lazy]="true" (onLazyLoad)="conciliacaoBancariaListOnLazyLoad($event)" >
 			    <ng-template pTemplate="header">
@@ -54,7 +60,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 						<th style="width: 12em">Ações</th>
 		            </tr>
 		        </ng-template>
-		        
+
 			    <ng-template pTemplate="body" let-conciliacaoBancaria>
 		            <tr [pSelectableRow]="conciliacaoBancaria">
 		            	<td>
@@ -81,8 +87,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		              	</td>
 		            </tr>
 		        </ng-template>
-		        
-		        
+
+
 		        <ng-template pTemplate="emptymessage" let-columns>
 				    <tr>
 				        <td [attr.colspan]="7">
@@ -90,16 +96,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				        </td>
 				    </tr>
 				</ng-template>
-				
+
 			</p-table>
 		</div>
 		<!-- End GRID -->
-		
-		<div class="ui-g-12 ui-md-2 ui-fluid">
-			<a routerLink="/conciliacaobancaria/novo" pButton label="Novo registro"></a>
-		</div>
+
+    <!-- Begin buttons -->
+		<div class="ui-g-12 ui-md-2 ui-fluid crud-buttons-bottom">
+      <a routerLink="/conciliacaobancaria/novo" pButton label="Novo registro" tooltipPosition="top" pTooltip="Criar nova conciliação bancária."></a>
+    </div>
+    <!-- End buttons -->
+
 	</div>
-	
+
 	</p-panel>
-  
+
 </div>
