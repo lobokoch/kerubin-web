@@ -122,7 +122,7 @@ export class DashboardContaReceberComponent implements OnInit {
       labels: monthNames,
       datasets: [
         {
-          label: 'A receber',
+          label: 'Previsto',
           //    'Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
           data: dataApagar,
           backgroundColor: 'rgba(255, 0, 0, 0.4)',
@@ -130,7 +130,7 @@ export class DashboardContaReceberComponent implements OnInit {
           borderWidth: '1'
         },
         {
-          label: 'Recebido',
+          label: 'Realizado',
           backgroundColor: 'rgba(0, 206, 0, 0.4)',
           borderColor: 'rgba(0, 206, 0, 1)',
           borderWidth: '1',

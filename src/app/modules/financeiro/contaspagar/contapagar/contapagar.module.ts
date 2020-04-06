@@ -25,6 +25,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
+import {SelectButtonModule} from 'primeng/selectbutton';
+
 
 // Kerubin - BEGIN
 import { FinanceiroContasPagarTranslationService } from './../i18n/./../i18n/financeiro-contaspagar-translation.service';
@@ -60,7 +62,8 @@ import { FornecedorModule } from '../fornecedor/fornecedor.module';
 	DropdownModule,
 	CalendarModule,
 	CurrencyMaskModule,
-	CardModule,
+  CardModule,
+  SelectButtonModule,
 
     // Kerubin
     ContaPagarRoutingModule,

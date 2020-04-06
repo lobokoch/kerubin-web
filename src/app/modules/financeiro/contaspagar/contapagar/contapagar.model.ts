@@ -45,26 +45,26 @@ export class ContaPagarAgrupadorAutoComplete {
 }
 
 export class ContaPagarListFilter extends PaginationFilter {
-	
+
 	descricao: ContaPagarDescricaoAutoComplete[];
-	
+
 	dataVencimentoFrom: Date;
 	dataVencimentoTo: Date;
-	
+
 	valorFrom: number;
 	valorTo: number;
-	
+
 	formaPagamento: FormaPagamento;
-	
+
 	dataPagamentoIsNotNull: boolean;
 	dataPagamentoIsNull: boolean;
-	
+
 	idConcBancariaIsNotNull: boolean;
-	
+
 	histConcBancaria: ContaPagarHistConcBancariaAutoComplete[];
-	
+
 	agrupador: ContaPagarAgrupadorAutoComplete[];
-	
+
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
@@ -108,4 +108,16 @@ export class ContaPagarSumFields {
 	sumValorJuros: number;
 	sumValorAcrescimos: number;
 	sumValorPago: number;
+}
+
+
+export class ContaPagarMultiple {
+  id: string;
+	dataPagamento: Date;
+	valorPago: number;
+  descricao: string;
+	formaPagamento: FormaPagamento;
+	contaBancaria: ContaBancaria;
+	cartaoCredito: CartaoCredito;
+	fornecedor: Fornecedor;
 }

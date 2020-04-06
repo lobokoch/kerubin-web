@@ -39,9 +39,12 @@ export class DashboardFluxoCaixaComponent implements OnInit {
           const dataset = data.datasets[tooltipItem.datasetIndex];
           const value = dataset.data[tooltipItem.index];
           let label = data.labels[tooltipItem.index];
+          const percent = data.percents[tooltipItem.index];
           label = label ? (' ' + label + ': ') : ' ';
           // return label + this.decimalPipe.transform(value, '1.2-2');
-          return label + value.toLocaleString('pt', { style: 'currency', currency: 'BRL' });
+          return label +
+            value.toLocaleString('pt', { style: 'currency', currency: 'BRL' })
+            + ' (' + percent.toFixed() + ' %)';
         }
       }
     },
@@ -124,6 +127,8 @@ export class DashboardFluxoCaixaComponent implements OnInit {
       .then(response => {
         const items = response;
 
+        this.calcPercents(items);
+
         let monthIndex = -1;
         if (items) {
           monthIndex = items.length - 1; // Current month
@@ -141,10 +146,24 @@ export class DashboardFluxoCaixaComponent implements OnInit {
       });
   }
 
+  calcPercents(monthItems: FluxoCaixaPlanoContasForMonth[]) {
+    if (monthItems) {
+      monthItems.forEach((monthItem) => {
+        const total = monthItem.items.map((item) => item.value).reduce((a, b) => a + b, 0);
+        monthItem.items.forEach((item) => {
+          item.percent = item.value / total * 100;
+        });
+      });
+    }
+  }
+
   private getResumoMensalPorPlanoContasCreditos() {
     this.dashboardService.getResumoMensalPorPlanoContasCreditos()
       .then(response => {
         const items = response;
+
+        this.calcPercents(items);
+
         //
         let monthIndex = -1;
         if (items) {
@@ -245,6 +264,8 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     // const monthName = item.monthName;
     const chartLabels = item.items.map(it => it.planoContaCode + ' - ' + it.planoContaDescription);
     const chartData = item.items.map(it => it.value);
+    const percents = item.items.map(it => it.percent);
+
 
     const myColors = this.getMyColors(chartLabels, colorMap);
 
@@ -252,6 +273,7 @@ export class DashboardFluxoCaixaComponent implements OnInit {
     const backgroundColor = myColors;
 
     const pieChart = {
+      percents: percents,
       labels: chartLabels,
       datasets: [
         {

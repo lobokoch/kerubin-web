@@ -34,7 +34,7 @@ export class KerubinMenuComponent implements OnInit {
     this.items = [
 
       {
-        label: 'Dashboards',
+        label: 'Gráficos',
         icon: 'pi pi-pw',
         items: [
 

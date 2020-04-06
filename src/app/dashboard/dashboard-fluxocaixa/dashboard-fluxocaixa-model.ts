@@ -13,6 +13,7 @@ export class FluxoCaixaPlanoContasItem {
   value: number;
   planoContaCode: string;
   planoContaDescription: string;
+  percent: number;
 }
 
 export class FluxoCaixaPlanoContasForMonth {

@@ -11,7 +11,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	<p-panel>
 		<p-header>
 			<div class="ui-g kb-no-margins1">
-			
+
 			  <div class="ui-g-12 ui-md-10 kb-no-margins1">
 			    <div class="kb-form-panel-header">
 				  {{ getTranslation('financeiro.contas_pagar.contaPagar') }}
@@ -20,7 +20,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				    <!-- help -->
 				</div>
 			  </div>
-			  
+
 			  <div class="ui-g-12 ui-md-2 kb-no-margins1">
 	            <div class="kb-no-margins1" style="display: flex; align-items: center; justify-content: flex-end;">
 	              <p-inputSwitch [(ngModel)]="showHideHelp"></p-inputSwitch>
@@ -32,14 +32,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 	              </span>
 	            </div>
 	          </div>
-			  
+
 			</div>
 		</p-header>
-	
+
 
   <form #form1="ngForm" (ngSubmit)="save(form1.form)">
   	<div class="ui-g">
-		
+
 		<!-- Begin buttons -->
 		<div class="ui-g-12 crud-buttons-top kb-mobile-only">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
@@ -53,7 +53,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</div>
 		</div>
 		<!-- End buttons -->
-		
+
 		<div class="ui-g-12 ui-fluid hidden">
 			<label for="id" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_id') }}
@@ -65,7 +65,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="contaPagar.id" name="id">
 			</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="descricao">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao') }}
@@ -77,7 +77,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #descricaoElementRef #descricao="ngModel" [(ngModel)]="contaPagar.descricao" name="descricao" required>
 			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6">
 			<label for="planoContas">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas') }}
@@ -86,7 +86,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Associa contas diferentes a uma categoria mais geral. Por exemplo, contas de: Luz, Água, Gás, Aluguel e Condomínio poderiam pertencer ao Plano de contas: Habitação."></i>
 				<!-- help -->
 			</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarPlanoContasAutoComplete($event)"
@@ -100,7 +100,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</p-autoComplete>
 			<div class="invalid-message" *ngIf="planoContas.invalid && planoContas.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="dataVencimento">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento') }}
@@ -112,7 +112,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataVencimento="ngModel" [(ngModel)]="contaPagar.dataVencimento" name="dataVencimento" required></p-calendar>
 			<div class="invalid-message" *ngIf="dataVencimento.invalid && dataVencimento.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="valor">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valor') }}
@@ -121,11 +121,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor total que você terá que pagar por esta conta."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" [(ngModel)]="contaPagar.valor" name="valor" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valor="ngModel" [(ngModel)]="contaPagar.valor" name="valor" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			 required>
 			<div class="invalid-message" *ngIf="valor.invalid && valor.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2">
 			<label for="formaPagamento">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento') }}
@@ -137,7 +137,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #formaPagamento="ngModel" [(ngModel)]="contaPagar.formaPagamento" name="formaPagamento" required></p-dropdown>
 			<div class="invalid-message" *ngIf="formaPagamento.invalid && formaPagamento.dirty">Campo obrigatório.</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleContaBancariaAppyHiddeComponent()">
 			<label for="contaBancaria">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_contaBancaria') }}
@@ -145,7 +145,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a conta bancária que foi ou será utilizada para pagar esta conta."></i>
 				<!-- help -->
 			</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarContaBancariaAutoComplete($event)"
@@ -158,7 +158,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleCartaoCreditoAppyHiddeComponent()">
 			<label for="cartaoCredito">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_cartaoCredito') }}
@@ -166,7 +166,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o cartão de crédito que foi ou será utilizado para pagar esta conta."></i>
 				<!-- help -->
 			</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)"
@@ -179,7 +179,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleOutrosDescricaoAppyHiddeComponent()">
 			<label for="outrosDescricao">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_outrosDescricao') }}
@@ -189,14 +189,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</label>
 			<input type="text" pInputText #outrosDescricao="ngModel" [(ngModel)]="contaPagar.outrosDescricao" name="outrosDescricao">
 		</div>
-		
-		
+
+
 		<!-- separator -->
 		<div class="ui-g-12">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label for="fornecedor">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor') }}
@@ -204,7 +204,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, escolha o fornecedor que originou esta conta."></i>
 				<!-- help -->
 			</label>
-			<p-autoComplete 
+			<p-autoComplete
 			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
 			 [suggestions]="contaPagarFornecedorAutoCompleteSuggestions"
 			 (completeMethod)="contaPagarFornecedorAutoComplete($event)"
@@ -217,27 +217,120 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				</ng-template>
 			</p-autoComplete>
 		</div>
-		
-		
+
+
 		<!-- separator -->
 		<div class="ui-g-12">
 			<hr class="separator-default">
 		</div>
-		<!-- separator -->
-		
+    <!-- separator -->
+
+    <!-- BEGIN PAGAMENTOS -->
+    <div class="ui-g-12 ui-fluid">
+      <div>
+        <label style="display: block" for="contaPagamento">
+          Pagamento
+        </label>
+        <p-inputSwitch #contaPagamento_="ngModel" [(ngModel)]="contaPagamento"
+        name="contaPagamento_"  required></p-inputSwitch>
+      </div>
+    </div>
+
+
+		<div *ngIf="contaPagamento" class="ui-g-12 ui-fluid">
+
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label style="display: block" for="contaPaga">
-				{{ getTranslation('financeiro.contas_pagar.contaPagar_contaPaga') }}
-				<span class="kb-label-required">*</span>
-				<!-- help -->
-				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ative esta opção somente quando a conta já tiver sido paga. Neste caso, CONFIRA e informe OS DADOS DO PAGAMENTO, como por exemplo: Data do pagamento e Valor total pago."></i>
-				<!-- help -->
-			</label>
-			<p-inputSwitch #contaPaga="ngModel" [(ngModel)]="contaPagar.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
-			 required></p-inputSwitch>
-			<div class="invalid-message" *ngIf="contaPaga.invalid && contaPaga.dirty">Campo obrigatório.</div>
+      <div class="ui-g-12 ui-fluid ui-md-4">
+        <p-selectButton [options]="tiposPagamentos" name="tipoPagamento" #tipoPagamento="ngModel" [(ngModel)]="tipoPagamentoSelected"></p-selectButton>
+      </div>
+
+      <div class="ui-g-12 ui-fluid ui-md-8">
+        <div style="margin-left: 20px;">
+          <label style="display: block" for="contaPaga">
+            {{ getTranslation('financeiro.contas_pagar.contaPagar_contaPaga') }}
+            <span class="kb-label-required">*</span>
+            <!-- help -->
+            <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ative esta opção somente quando a conta já tiver sido paga. Neste caso, CONFIRA e informe OS DADOS DO PAGAMENTO, como por exemplo: Data do pagamento e Valor total pago."></i>
+            <!-- help -->
+          </label>
+          <p-inputSwitch #contaPaga="ngModel" [(ngModel)]="contaPagar.contaPaga" name="contaPaga" (onChange)="contaPagaChange($event)" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
+          required></p-inputSwitch>
+          <div class="invalid-message" *ngIf="contaPaga.invalid && contaPaga.dirty">Campo obrigatório.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BEGIN pagamentos MULTIPLOS -->
+    <!-- Begin GRID -->
+		<div *ngIf="tipoPagamentoSelected === 'MULTIPLE'" class="ui-g-12 crud-buttons-bottom" name="data-grid">
+			<p-table selectionMode="single" [loading]="tableLoading"
+				[responsive]="true" sortMode="multiple" [paginator]="true" [resizableColumns]="true"
+				[value]="contaPagarMultipleListItems"
+			    [rows]="contaPagarMultipleListFilter_pageSize"
+			    [totalRecords]="contaPagarMultipleListTotalElements"
+			    >
+
+			    <ng-template pTemplate="header">
+		            <tr>
+		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">Data<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
+		            	<th style="width: 8em" [pSortableColumn]="'valorPago'">Valor<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'descricao'">Descrição<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'formaPagamento'">Forma de pagamento<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
+		            	<th [pSortableColumn]="'fornecedor'">Fornecedor<p-sortIcon [field]="'fornecedor'"></p-sortIcon></th>
+		            </tr>
+		        </ng-template>
+
+			    <ng-template pTemplate="body" let-contaPagarMultiple>
+		            <tr [pSelectableRow]="contaPagarMultiple">
+		            	<td>
+		            		<span class="ui-column-title">Data:</span>
+		            		{{ contaPagarMultiple?.dataPagamento | date:'dd/MM/yyyy' }}
+                  </td>
+		            	<td class="kb-field-money">
+		            		<span class="ui-column-title">Valor:</span>
+		            		{{ contaPagarMultiple?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
+                  </td>
+		            	<td>
+		            		<span class="ui-column-title">Descrição:</span>
+		            		{{ contaPagarMultiple?.descricao }}
+                  </td>
+		            	<td>
+		            		<span class="ui-column-title">Forma de pagamento:</span>
+		            		{{ contaPagarMultiple?.formaPagamento }}
+                  </td>
+		            	<td>
+		            		<span class="ui-column-title">Fornecedor:</span>
+		            		{{contaPagarMultipleFornecedorAutoCompleteFieldConverter(contaPagarMultiple?.fornecedor)}}
+                  </td>
+
+		            </tr>
+		        </ng-template>
+
+
+		        <ng-template pTemplate="emptymessage" let-columns>
+				    <tr>
+				        <td [attr.colspan]="9">
+				            Nenhum registro encontrado.
+				        </td>
+				    </tr>
+				</ng-template>
+
+				<ng-template pTemplate="footer">
+					<tr>
+						<td class="kb-sum-footer">Totais</td>
+						<td class="kb-sum-footer sumField kb-conta-valor-apagar">{{ contaPagarMultipleSumFields_sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+						<td class="kb-sum-footer"></td>
+					</tr>
+				</ng-template>
+
+			</p-table>
 		</div>
-		
+		<!-- End GRID -->
+    <!-- END pagamentos MULTIPLOS -->
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleDataPagamentoAppyHiddeComponent()">
 			<label for="dataPagamento">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento') }}
@@ -245,11 +338,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data em que esta conta foi paga. Ao informar a data do pagamento, o campo Valor total pago é sugerido com o Valor total automaticamente."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento" (onBlur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
-			 (onClose)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataPagamento="ngModel" [(ngModel)]="contaPagar.dataPagamento" name="dataPagamento" (onBlur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
+			 (onClose)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			></p-calendar>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorDescontoAppyHiddeComponent()">
 			<label for="valorDesconto">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorDesconto') }}
@@ -257,10 +350,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descontos."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorDesconto="ngModel" [(ngModel)]="contaPagar.valorDesconto" name="valorDesconto" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorMultaAppyHiddeComponent()">
 			<label for="valorMulta">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorMulta') }}
@@ -268,10 +361,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Multas."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" [(ngModel)]="contaPagar.valorMulta" name="valorMulta" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorMulta="ngModel" [(ngModel)]="contaPagar.valorMulta" name="valorMulta" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorJurosAppyHiddeComponent()">
 			<label for="valorJuros">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorJuros') }}
@@ -279,10 +372,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Juros mora."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" [(ngModel)]="contaPagar.valorJuros" name="valorJuros" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorJuros="ngModel" [(ngModel)]="contaPagar.valorJuros" name="valorJuros" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorAcrescimosAppyHiddeComponent()">
 			<label for="valorAcrescimos">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorAcrescimos') }}
@@ -290,10 +383,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Acréscimos."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorAcrescimos="ngModel" [(ngModel)]="contaPagar.valorAcrescimos" name="valorAcrescimos" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleValorPagoAppyHiddeComponent()">
 			<label for="valorPago">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_valorPago') }}
@@ -301,17 +394,18 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total que foi pago por esta conta. Caso informe algum dos campos: Descontos, Multas, Juros mora ou Acréscimos, o valor total pago é calculado automaticamente."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" [(ngModel)]="contaPagar.valorPago" name="valorPago" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)" 
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorPago="ngModel" [(ngModel)]="contaPagar.valorPago" name="valorPago" (blur)="ruleContaPagarValorPagoOnAppyMathExpression($event)"
 			>
 		</div>
-		
-		
+  </div>
+    <!-- END PAGAMENTOS -->
+
 		<!-- separator -->
 		<div class="ui-g-12">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12">
 			<label style="display: block" for="maisOpcoes">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_maisOpcoes') }}
@@ -321,14 +415,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</label>
 			<p-inputSwitch #maisOpcoes="ngModel" [(ngModel)]="contaPagar.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
 		</div>
-		
-		
+
+
 		<!-- separator -->
 		<div class="ui-g-12" [style.display]="ruleIdConcBancariaAppyHiddeComponent()">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleIdConcBancariaAppyHiddeComponent()">
 			<label for="idConcBancaria">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_idConcBancaria') }}
@@ -340,7 +434,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<input type="text" pInputText readonly #idConcBancaria="ngModel" [(ngModel)]="contaPagar.idConcBancaria" name="idConcBancaria">
 			</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-5" [style.display]="ruleHistConcBancariaAppyHiddeComponent()">
 			<label for="histConcBancaria">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_histConcBancaria') }}
@@ -352,7 +446,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<input type="text" pInputText readonly #histConcBancaria="ngModel" [(ngModel)]="contaPagar.histConcBancaria" name="histConcBancaria">
 			</div>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleNumDocConcBancariaAppyHiddeComponent()">
 			<label for="numDocConcBancaria">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_numDocConcBancaria') }}
@@ -364,14 +458,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<input type="text" pInputText readonly #numDocConcBancaria="ngModel" [(ngModel)]="contaPagar.numDocConcBancaria" name="numDocConcBancaria">
 			</div>
 		</div>
-		
+
 		<!-- separator -->
 		<div class="ui-g-12" [style.display]="ruleNumDocConcBancariaAppyHiddeComponent()">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
-		
-		
+
+
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleNumDocumentoAppyHiddeComponent()">
 			<label for="numDocumento">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_numDocumento') }}
@@ -381,7 +475,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</label>
 			<input type="text" pInputText #numDocumento="ngModel" [(ngModel)]="contaPagar.numDocumento" name="numDocumento">
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleObservacoesAppyHiddeComponent()">
 			<label for="observacoes">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_observacoes') }}
@@ -391,7 +485,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</label>
 			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="contaPagar.observacoes" name="observacoes"></textarea>
 		</div>
-		
+
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleAgrupadorAppyHiddeComponent()">
 			<label for="agrupador">
 				{{ getTranslation('financeiro.contas_pagar.contaPagar_agrupador') }}
@@ -401,25 +495,25 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</label>
 			<input type="text" pInputText #agrupador="ngModel" [(ngModel)]="contaPagar.agrupador" name="agrupador">
 		</div>
-		 
+
 		<!-- BEGIN make copies -->
 		<!-- placeholder="Informe um identificador, exemplo: #luz_2019" -->
 		<!-- <div class="invalid-message" *ngIf="copiesMustHaveGroup && !contaPagar.agrupador">Campo obrigatório para gerar cópias.</div> -->
 		    <p-accordion *ngIf="isEditing && !actionMakeCopiesHiddeWhen()" class="ui-g-12">
 		    	<p-accordionTab>
-		    	
+
 		    	<p-header>
 		    	<span style="font-weight: bold;">Clique aqui para criar várias cópias desta conta</span>
 		    	<!-- help -->
 		    	<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Crie várias cópias do registro atual."></i>
 		    	<!-- help -->
 		    	</p-header>
-		    	
+
 			    <div class="ui-g">
 			    	  <div class="ui-g-12">
 		    	        <div [innerHTML]="actionFazerCopiasContaPagarHelp()"></div>
 		    	      </div>
-			    
+
 				      <div class="ui-g-12 ui-fluid">
 				        <div class="ui-g-12 ui-fluid ui-md-2">
 				          <label for="numberOfCopies">
@@ -430,7 +524,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				          </label>
 				          <p-spinner size="30" name="numberOfCopies" [(ngModel)]="numberOfCopies" [min]="1" [max]="120"></p-spinner>
 				        </div>
-				
+
 				        <div class="ui-g-12 ui-fluid ui-md-2">
 				          <label for="copiesReferenceField" style="display: block">
 				          Campo de referência
@@ -440,7 +534,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				          </label>
 				          <p-dropdown optionLabel="label" name="copiesReferenceField" #copiesReferenceField="ngModel" [options]="copiesReferenceFieldOptions" ngModel [(ngModel)]="copiesReferenceFieldSelected" placeholder="Selecione"></p-dropdown>
 				        </div>
-				
+
 				        <div class="ui-g-12 ui-md-2 ui-fluid">
 				          <label for="copiesReferenceFieldInterval" style="display: block">
 				          Intervalo (dias)
@@ -450,19 +544,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				          </label>
 				          <p-spinner size="30" name="copiesReferenceFieldInterval" [(ngModel)]="copiesReferenceFieldInterval" [min]="1" [max]="1000"></p-spinner>
 				        </div>
-				
+
 				        <div class="ui-g-12 ui-md-2 ui-fluid">
 				          <span style="display: block">&nbsp;</span>
 				          <button pButton (click)="actionFazerCopiasContaPagar()" type="button" pTooltip="Criar e salvar as cópias desta conta" tooltipPosition="top" icon="pi pi-clone" label="Criar cópias" class="ui-button-info"></button>
 				        </div>
 				      </div>
-				      
+
 			    </div>
-		    
+
 		    	</p-accordionTab>
 		    </p-accordion>
 		    <!-- END make copies -->
-		
+
 		<!-- Begin buttons -->
 		<div class="ui-g-12 crud-buttons-bottom">
 			<div class="ui-g-12 ui-md-2 ui-fluid">
@@ -476,11 +570,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			</div>
 		</div>
 		<!-- End buttons -->
-		
-	
+
+
 	</div>
   </form>
-  
+
   </p-panel>
-  
+
 </div>
