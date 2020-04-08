@@ -42,7 +42,7 @@ export class ConciliacaoBancariaComponent implements OnInit {
 	conciliacaoBancaria = new ConciliacaoBancaria();
   conciliacaoBancariaSituacaoConciliacaoOptions: SituacaoConciliacao[];
 
-  @ViewChild('conciliacaoTransacaoList', {static: false}) conciliacaoTransacaoList: ConciliacaoTransacaoListComponent;
+  @ViewChild('conciliacaoTransacaoList') conciliacaoTransacaoList: ConciliacaoTransacaoListComponent;
 
 	// Begin polling reference variables
 	private pollingRecarregarConciliacaoRef: any = null;

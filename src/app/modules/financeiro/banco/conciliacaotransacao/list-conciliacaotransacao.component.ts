@@ -90,7 +90,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 
   // Definição de um emissor de eventos.
   @Output() transacaoAlterada = new EventEmitter();
-  @ViewChild('planoContasAutoCompleteEl', {static: false}) planoContasAutoCompleteElement: AutoComplete;
+  @ViewChild('planoContasAutoCompleteEl') planoContasAutoCompleteElement: AutoComplete;
 
 	constructor(
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
