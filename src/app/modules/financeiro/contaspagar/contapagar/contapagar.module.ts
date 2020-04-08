@@ -26,6 +26,7 @@ import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {ToolbarModule} from 'primeng/toolbar';
 
 
 // Kerubin - BEGIN
@@ -38,6 +39,7 @@ import { PlanoContaModule } from '../planoconta/planoconta.module';
 import { ContaBancariaModule } from '../contabancaria/contabancaria.module';
 import { CartaoCreditoModule } from '../cartaocredito/cartaocredito.module';
 import { FornecedorModule } from '../fornecedor/fornecedor.module';
+import {SplitButtonModule} from 'primeng/splitbutton';
 // Kerubin - END
 
 @NgModule({
@@ -64,6 +66,8 @@ import { FornecedorModule } from '../fornecedor/fornecedor.module';
 	CurrencyMaskModule,
   CardModule,
   SelectButtonModule,
+  ToolbarModule,
+  SplitButtonModule,
 
     // Kerubin
     ContaPagarRoutingModule,

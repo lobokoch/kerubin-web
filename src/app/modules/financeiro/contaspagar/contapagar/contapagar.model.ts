@@ -116,8 +116,10 @@ export class ContaPagarMultiple {
 	dataPagamento: Date;
 	valorPago: number;
   descricao: string;
+  planoContas: PlanoConta;
 	formaPagamento: FormaPagamento;
 	contaBancaria: ContaBancaria;
 	cartaoCredito: CartaoCredito;
-	fornecedor: Fornecedor;
+  fornecedor: Fornecedor;
+  contaPagarId: string;
 }

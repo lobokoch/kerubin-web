@@ -10,7 +10,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {MessageService} from 'primeng/api';
+import { MessageService, MenuItem } from 'primeng/api';
 
 import { ElementRef, ViewChild } from '@angular/core';
 import { ContaPagar } from './contapagar.model';
@@ -47,13 +47,16 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 })
 
 export class ContaPagarComponent implements OnInit {
-  contaPagarMultiple: ContaPagarMultiple;
+  displayDialogMultipleCrud = false;
+  contaPagarMultiple = new ContaPagarMultiple();
   contaPagarMultipleListItems: ContaPagarMultiple[];
+  contaPagarMultipleItemsSelected: ContaPagarMultiple[];
   contaPagarMultipleListFilter_pageSize = 5;
   contaPagarMultipleListTotalElements = 100;
   contaPagarMultipleSumFields_sumValorPago = 0;
   contaPagamento = false;
-
+  contaPagarMultipleCanEdit = false;
+  contaPagarMultipleCanDelete = false;
 
 
   tipoPagamentoSelected = 'SINGLE'; // or MULTIPLE
@@ -694,7 +697,7 @@ export class ContaPagarComponent implements OnInit {
   }
 
   ruleHideTest() {
-    return this.tipoPagamentoSelected === 'MULTIPLE';
+    return !this.contaPagamento || this.tipoPagamentoSelected === 'MULTIPLE';
   }
 
 	ruleValorDescontoAppyHiddeComponent() {
@@ -846,7 +849,7 @@ export class ContaPagarComponent implements OnInit {
   loadContaPagarMultipleItems() {
     this.contaPagarMultipleListItems = new Array();
     this.contaPagarMultipleSumFields_sumValorPago = 0;
-    for (let i = 1; i <= 100; i++) {
+    /*for (let i = 1; i <= 100; i++) {
       const item = new ContaPagarMultiple();
       item.id = i.toString();
       item.dataPagamento = moment().toDate();
@@ -854,7 +857,111 @@ export class ContaPagarComponent implements OnInit {
       this.contaPagarMultipleSumFields_sumValorPago += i;
       item.descricao = 'Item ' + i.toString();
       this.contaPagarMultipleListItems.push(item);
+    }*/
+  }
+
+  onDisplayDialogMultipleCrudConfirm() {
+    this.displayDialogMultipleCrud = false;
+    const itemIndex = this.contaPagarMultipleListItems.findIndex(it => it.id === this.contaPagarMultiple.id);
+    if (itemIndex === -1) { // is new
+      this.contaPagarMultipleListItems.push(this.contaPagarMultiple);
+    } else { // updated
+      this.contaPagarMultipleListItems[itemIndex] = this.contaPagarMultiple;
     }
+
+    this.contaPagarMultiple = new ContaPagarMultiple();
+  }
+
+  onContaPagarMultipleNovo() {
+    this.contaPagarMultiple = new ContaPagarMultiple();
+    this.contaPagarMultiple.id = Math.random().toString(36).substr(2, 9);
+    this.contaPagarMultiple.descricao = this.contaPagar.descricao;
+    this.contaPagarMultiple.dataPagamento = moment().toDate();
+    this.contaPagarMultiple.planoContas = this.contaPagar.planoContas;
+    this.contaPagarMultiple.formaPagamento = this.contaPagar.formaPagamento;
+    this.contaPagarMultiple.contaBancaria = this.contaPagar.contaBancaria;
+    this.contaPagarMultiple.cartaoCredito = this.contaPagar.cartaoCredito;
+    this.contaPagarMultiple.fornecedor = this.contaPagar.fornecedor;
+    this.contaPagarMultiple.contaPagarId = this.contaPagar.id;
+
+    this.displayDialogMultipleCrud = true;
+  }
+
+  onContaPagarMultipleEdit() {
+    this.displayDialogMultipleCrud = true;
+  }
+
+  onContaPagarMultipleDelete() {
+
+    if (!this.contaPagarMultipleItemsSelected) {
+      return;
+    }
+
+    let message = 'Confirma a exclusão do registro selecionado?';
+    if (this.contaPagarMultipleItemsSelected.length > 1) {
+      message = `Confirma a exclusão dos ${this.contaPagarMultipleItemsSelected.length} registros selecionados?`;
+    }
+
+
+    this.confirmation.confirm({
+      message: message,
+      accept: () => {
+        this.contaPagarMultipleItemsSelected.forEach(item => {
+          const index = this.contaPagarMultipleListItems.indexOf(item);
+          this.contaPagarMultipleListItems.splice(index, 1);
+        });
+        this.contaPagarMultipleItemsSelected = new Array();
+        this.messageHandler.showSuccess('Exclusão efetuada com sucesso!');
+        /*this.contaPagarService.delete(contaPagar.id)
+        .then(() => {
+          this.contaPagarList(0);
+        })
+        .catch((e) => {
+          this.messageHandler.showError(e);
+        });*/
+      }
+    });
+  }
+
+  onDisplayDialogMultipleCrudCancel() {
+    this.displayDialogMultipleCrud = false;
+    this.contaPagarMultiple = new ContaPagarMultiple();
+  }
+
+  contaPagarMultipleToolBarButtons() {
+    this.contaPagarMultipleCanEdit = this.contaPagarMultipleItemsSelected &&
+      this.contaPagarMultipleItemsSelected.length === 1;
+
+    this.contaPagarMultipleCanDelete = this.contaPagarMultipleItemsSelected &&
+      this.contaPagarMultipleItemsSelected.length > 0;
+  }
+
+  onContaPagarMultipleRowSelectCheckBox(event) {
+    if (this.contaPagarMultipleItemsSelected &&
+      this.contaPagarMultipleItemsSelected.length === 1) { // If has only one item, get it.
+        this.contaPagarMultiple = this.cloneContaPagarMultiple(this.contaPagarMultipleItemsSelected[0]);
+    } else {
+      this.contaPagarMultiple = new ContaPagarMultiple();
+    }
+    this.contaPagarMultipleToolBarButtons();
+  }
+
+  onContaPagarMultipleRowSelect(event) {
+    this.contaPagarMultiple = this.cloneContaPagarMultiple(event.data);
+    this.contaPagarMultipleToolBarButtons();
+  }
+
+  onContaPagarMultipleRowUnselect(event) {
+    this.contaPagarMultiple = new ContaPagarMultiple();
+    this.contaPagarMultipleToolBarButtons();
+  }
+
+  cloneContaPagarMultiple(obj: ContaPagarMultiple): ContaPagarMultiple {
+    const result = new ContaPagarMultiple();
+    for (const prop of Object.keys(obj)) {
+      result[prop] = obj[prop];
+    }
+    return result;
   }
 
 
