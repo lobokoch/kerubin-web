@@ -113,13 +113,13 @@ export class ContaPagarSumFields {
 
 export class ContaPagarMultiple {
   id: string;
+  descricao: string;
 	dataPagamento: Date;
 	valorPago: number;
-  descricao: string;
   planoContas: PlanoConta;
 	formaPagamento: FormaPagamento;
 	contaBancaria: ContaBancaria;
 	cartaoCredito: CartaoCredito;
   fornecedor: Fornecedor;
-  contaPagarId: string;
+  contaPagar: string; // id
 }

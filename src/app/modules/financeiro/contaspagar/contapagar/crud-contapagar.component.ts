@@ -882,7 +882,7 @@ export class ContaPagarComponent implements OnInit {
     this.contaPagarMultiple.contaBancaria = this.contaPagar.contaBancaria;
     this.contaPagarMultiple.cartaoCredito = this.contaPagar.cartaoCredito;
     this.contaPagarMultiple.fornecedor = this.contaPagar.fornecedor;
-    this.contaPagarMultiple.contaPagarId = this.contaPagar.id;
+    this.contaPagarMultiple.contaPagar = this.contaPagar.id;
 
     this.displayDialogMultipleCrud = true;
   }

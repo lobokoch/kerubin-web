@@ -602,147 +602,17 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 </div>
 
 <p-dialog header="Registrar pagamento" [(visible)]="displayDialogMultipleCrud"
-  [focusOnShow]="false" [contentStyle]="{'overflow':'visible'}"
-  [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '350px'}">
+  [contentStyle]="{'overflow':'visible'}" postion="top" postionTop="10"
+  [blockScroll]="true"
+  showEffect="fade" [modal]="true"  [style]="{width: '400px'}">
 
   <div class="ui-g ui-fluid">
 
-    <div class="ui-g-12 ui-fluid">
-      <label for="contaPagarMultiple_descricao">
-        Descrição
-        <span class="kb-label-required">*</span>
-        <!-- help -->
-        <i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para esta conta a pagar, exemplo: Luz, Combustível, Aluguel, Mensalidade da escola."></i>
-        <!-- help -->
-      </label>
-      <input type="text" pInputText #contaPagarMultiple_descricaoElementRef #contaPagarMultiple_descricao="ngModel" [(ngModel)]="contaPagarMultiple.descricao" name="contaPagarMultiple_descricao" required>
-      <div class="invalid-message" *ngIf="contaPagarMultiple_descricao.invalid && contaPagarMultiple_descricao.dirty">Campo obrigatório.</div>
-    </div>
+    <!-- BEGIN -->
 
-    <div class="ui-g-12 ui-fluid">
-			<label for="contaPagarMultiple_dataPagamento">
-        Data
-        <span class="kb-label-required">*</span>
-				<!-- help -->
-				<i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data de pagamento. Ao informar a data do pagamento, o campo Valor total pago é sugerido com o Valor total automaticamente."></i>
-				<!-- help -->
-			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #contaPagarMultiple_dataPagamento="ngModel" [(ngModel)]="contaPagarMultiple.dataPagamento" name="contaPagarMultiple_dataPagamento"></p-calendar>
-		</div>
+    <app-crud-contapagarmultiple></app-crud-contapagarmultiple>
 
-		<div class="ui-g-12 ui-fluid">
-			<label for="contaPagarMultiple_valorPago">
-        Valor
-        <span class="kb-label-required">*</span>
-				<!-- help -->
-				<i class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total que foi pago por esta conta. Caso informe algum dos campos: Descontos, Multas, Juros mora ou Acréscimos, o valor total pago é calculado automaticamente."></i>
-				<!-- help -->
-			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #contaPagarMultiple_valorPago="ngModel" [(ngModel)]="contaPagarMultiple.valorPago" name="contaPagarMultiple_valorPago">
-		</div>
-
-
-  <div class="ui-g-12 ui-fluid">
-    <label for="contaPagarMultiple_planoContas">
-      Plano de contas
-      <span class="kb-label-required">*</span>
-      <!-- help -->
-      <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Associa contas diferentes a uma categoria mais geral. Por exemplo, contas de: Luz, Água, Gás, Aluguel e Condomínio poderiam pertencer ao Plano de contas: Habitação."></i>
-      <!-- help -->
-    </label>
-    <p-autoComplete
-    p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
-     [suggestions]="contaPagarPlanoContasAutoCompleteSuggestions"
-     (completeMethod)="contaPagarPlanoContasAutoComplete($event)"
-     (onClear)="contaPagarPlanoContasAutoCompleteClear($event)"
-     (onBlur)="contaPagarPlanoContasAutoCompleteOnBlur($event)"
-     [field]="contaPagarPlanoContasAutoCompleteFieldConverter"
-     #contaPagarMultiple_planoContas="ngModel" [(ngModel)]="contaPagarMultiple.planoContas" name="contaPagarMultiple_planoContas" required>
-      <ng-template let-contaPagarMultiple_planoContas pTemplate="item">
-        <div class="ui-helper-clearfix">{{ contaPagarPlanoContasAutoCompleteFieldConverter(contaPagarMultiple_planoContas) }}</div>
-      </ng-template>
-    </p-autoComplete>
-    <div class="invalid-message" *ngIf="contaPagarMultiple_planoContas.invalid && contaPagarMultiple_planoContas.dirty">Campo obrigatório.</div>
-  </div>
-
-
-
-
-  <div class="ui-g-12 ui-fluid">
-    <label for="contaPagarMultiple_formaPagamento">
-      {{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento') }}
-      <span class="kb-label-required">*</span>
-      <!-- help -->
-      <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a forma de pagamento que será ou foi utilizada para pagar esta conta."></i>
-      <!-- help -->
-    </label>
-    <p-dropdown [options]="contaPagarFormaPagamentoOptions" placeholder="Selecione um item..." #contaPagarMultiple_formaPagamento="ngModel" [(ngModel)]="contaPagarMultiple.formaPagamento" name="contaPagarMultiple_formaPagamento" required></p-dropdown>
-    <div class="invalid-message" *ngIf="contaPagarMultiple_formaPagamento.invalid && contaPagarMultiple_formaPagamento.dirty">Campo obrigatório.</div>
-  </div>
-
-  <div class="ui-g-12 ui-fluid" [style.display]="ruleContaBancariaAppyHiddeComponent()">
-    <label for="contaPagarMultiple_contaBancaria">
-      {{ getTranslation('financeiro.contas_pagar.contaPagar_contaBancaria') }}
-      <!-- help -->
-      <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha a conta bancária que foi ou será utilizada para pagar esta conta."></i>
-      <!-- help -->
-    </label>
-    <p-autoComplete
-    p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
-     [suggestions]="contaPagarContaBancariaAutoCompleteSuggestions"
-     (completeMethod)="contaPagarContaBancariaAutoComplete($event)"
-     (onClear)="contaPagarContaBancariaAutoCompleteClear($event)"
-     (onBlur)="contaPagarContaBancariaAutoCompleteOnBlur($event)"
-     [field]="contaPagarContaBancariaAutoCompleteFieldConverter"
-     #contaPagarMultiple_contaBancaria="ngModel" [(ngModel)]="contaPagarMultiple.contaBancaria" name="contaPagarMultiple_contaBancaria">
-      <ng-template let-contaPagarMultiple_contaBancaria pTemplate="item">
-        <div class="ui-helper-clearfix">{{ contaPagarContaBancariaAutoCompleteFieldConverter(contaPagarMultiple_contaBancaria) }}</div>
-      </ng-template>
-    </p-autoComplete>
-  </div>
-
-  <div class="ui-g-12 ui-fluid" [style.display]="ruleCartaoCreditoAppyHiddeComponent()">
-    <label for="contaPagarMultiple_cartaoCredito">
-      {{ getTranslation('financeiro.contas_pagar.contaPagar_cartaoCredito') }}
-      <!-- help -->
-      <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o cartão de crédito que foi ou será utilizado para pagar esta conta."></i>
-      <!-- help -->
-    </label>
-    <p-autoComplete
-    p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
-     [suggestions]="contaPagarCartaoCreditoAutoCompleteSuggestions"
-     (completeMethod)="contaPagarCartaoCreditoAutoComplete($event)"
-     (onClear)="contaPagarCartaoCreditoAutoCompleteClear($event)"
-     (onBlur)="contaPagarCartaoCreditoAutoCompleteOnBlur($event)"
-     [field]="contaPagarCartaoCreditoAutoCompleteFieldConverter"
-     #contaPagarMultiple_cartaoCredito="ngModel" [(ngModel)]="contaPagarMultiple.cartaoCredito" name="contaPagarMultiple_cartaoCredito">
-      <ng-template let-contaPagarMultiple_cartaoCredito pTemplate="item">
-        <div class="ui-helper-clearfix">{{ contaPagarCartaoCreditoAutoCompleteFieldConverter(contaPagarMultiple_cartaoCredito) }}</div>
-      </ng-template>
-    </p-autoComplete>
-  </div>
-
-  <div class="ui-g-12 ui-fluid ui-md-12">
-    <label for="contaPagarMultiple_fornecedor">
-      {{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor') }}
-      <!-- help -->
-      <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso tenha, escolha o fornecedor que originou esta conta."></i>
-      <!-- help -->
-    </label>
-    <p-autoComplete
-    p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
-     [suggestions]="contaPagarFornecedorAutoCompleteSuggestions"
-     (completeMethod)="contaPagarFornecedorAutoComplete($event)"
-     (onClear)="contaPagarFornecedorAutoCompleteClear($event)"
-     (onBlur)="contaPagarFornecedorAutoCompleteOnBlur($event)"
-     [field]="contaPagarFornecedorAutoCompleteFieldConverter"
-     #contaPagarMultiple_fornecedor="ngModel" [(ngModel)]="contaPagarMultiple.fornecedor" name="contaPagarMultiple_fornecedor">
-      <ng-template let-contaPagarMultiple_fornecedor pTemplate="item">
-        <div class="ui-helper-clearfix">{{ contaPagarFornecedorAutoCompleteFieldConverter(contaPagarMultiple_fornecedor) }}</div>
-      </ng-template>
-    </p-autoComplete>
-  </div>
-
+    <!-- END -->
 
   </div>
   <p-footer>
