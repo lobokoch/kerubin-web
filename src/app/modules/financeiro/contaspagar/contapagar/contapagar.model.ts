@@ -10,6 +10,7 @@ import { FormaPagamento } from './../enums/financeiro-contaspagar-enums.model';
 import { ContaBancaria } from './../contabancaria/contabancaria.model';
 import { CartaoCredito } from './../cartaocredito/cartaocredito.model';
 import { Fornecedor } from './../fornecedor/fornecedor.model';
+import { TipoPagamentoConta } from './../enums/financeiro-contaspagar-enums.model';
 
 export class SortField {
   field: string;
@@ -94,6 +95,8 @@ export class ContaPagar {
 	numDocumento: string;
 	observacoes: string;
 	agrupador: string;
+	tipoPagamento: string;
+	contaPagarPai: string;
 }
 
 export class ContaPagarAutoComplete {
@@ -108,18 +111,4 @@ export class ContaPagarSumFields {
 	sumValorJuros: number;
 	sumValorAcrescimos: number;
 	sumValorPago: number;
-}
-
-
-export class ContaPagarMultiple {
-  id: string;
-  descricao: string;
-	dataPagamento: Date;
-	valorPago: number;
-  planoContas: PlanoConta;
-	formaPagamento: FormaPagamento;
-	contaBancaria: ContaBancaria;
-	cartaoCredito: CartaoCredito;
-  fornecedor: Fornecedor;
-  contaPagar: string; // id
 }

@@ -8,37 +8,44 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 import { SelectItem } from 'primeng/api';
 
 export interface FormaPagamento extends SelectItem {
-	
+
   label?: string;
   value: any;
-  
+
 }
 
 export interface TipoReceitaDespesa extends SelectItem {
-	
+
   label?: string;
   value: any;
-  
+
 }
 
 export interface TipoContaBancaria extends SelectItem {
-	
+
   label?: string;
   value: any;
-  
+
 }
 
 export interface TipoPlanoContaFinanceiro extends SelectItem {
-	
+
   label?: string;
   value: any;
-  
+
 }
 
 export interface TipoPessoa extends SelectItem {
-	
+
   label?: string;
   value: any;
-  
+
+}
+
+export interface TipoPagamentoConta extends SelectItem {
+
+  label?: string;
+  value: any;
+
 }
 

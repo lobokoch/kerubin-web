@@ -226,17 +226,25 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     <!-- separator -->
 
     <!-- BEGIN PAGAMENTOS -->
-    <div class="ui-g-12 ui-fluid">
+    <div class="ui-g-12 ui-fluid kb-no-margins-tb">
 
-      <div class="ui-g-12 ui-fluid">
+      <div class="ui-g-12 ui-fluid kb-no-margins-ltb">
 
-      <div class="ui-g-12 ui-md-2">
-        <label style="display: block" for="contaPagamento">Fazer pagamento</label>
-        <p-inputSwitch #contaPagamento_="ngModel" [(ngModel)]="contaPagamento"  name="contaPagamento_"  required></p-inputSwitch>
+      <div class="ui-g-12 ui-md-2 kb-no-margins-ltb">
+        <label style="display: block" for="contaPagamento">Pagamento(s)
+        <!-- help -->
+        <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ative esta opção para realizar/visualizar os pagamentos lançados para esta conta."></i>
+        <!-- help -->
+        </label>
+        <p-inputSwitch #contaPagamento_="ngModel" (onChange)="onContaPagarContaPagamentoChange($event)" [(ngModel)]="contaPagamento"  name="contaPagamento_"  required></p-inputSwitch>
       </div>
 
       <div *ngIf="contaPagamento" class="ui-g-12 ui-fluid ui-md-4">
-        <p-selectButton [options]="tiposPagamentos" name="tipoPagamento" #tipoPagamento="ngModel" [(ngModel)]="tipoPagamentoSelected"></p-selectButton>
+        <p-selectButton [options]="tiposPagamentos" name="contaPagar_tipoPagamento"
+        (onChange)="onTipoPagamentoChanged($event)"
+        (onOptionClick)="onTipoPagamentoClicked($event)"
+        #contaPagar_tipoPagamento="ngModel" [(ngModel)]="contaPagar.tipoPagamento">
+      </p-selectButton>
       </div>
 
       <div *ngIf="contaPagamento" class="ui-g-12  ui-md-2">
@@ -252,7 +260,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
         </div>
       </div>
 
-      <div *ngIf="contaPagamento && tipoPagamentoSelected === 'MULTIPLE'" class="ui-g-12 ui-md-4">
+      <div *ngIf="contaPagamento && canShowContaPagarMultipleToolBar()" class="ui-g-12 ui-md-4">
       <p-toolbar>
         <div class="ui-toolbar-group-left">
             <button style="width: 70px;" pButton (click)="onContaPagarMultipleNovo()" type="button" label="Novo" tooltipPosition="top" pTooltip="Criar um novo pagamento para esta conta."></button>
@@ -268,88 +276,34 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     <!-- BEGIN pagamentos MULTIPLOS -->
 
     <!-- Begin GRID -->
-		<div *ngIf="contaPagamento && tipoPagamentoSelected === 'MULTIPLE'" class="ui-g-12 crud-buttons-bottom" name="data-grid">
-      <p-table [loading]="tableLoading" [rowHover]="true" dataKey="id"
-      [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,50,100]"
-      currentPageReportTemplate="Página {currentPage} de {totalPages}."
-				[responsive]="true" sortMode="multiple" [paginator]="true" [resizableColumns]="true"
-        [value]="contaPagarMultipleListItems"
-        [(selection)]="contaPagarMultipleItemsSelected"
-          [rows]="contaPagarMultipleListFilter_pageSize"
-          (onRowSelect)="onContaPagarMultipleRowSelect($event)"
-          (onRowUnselect)="onContaPagarMultipleRowUnselect($event)"
-			    >
 
-			    <ng-template pTemplate="header">
-		            <tr>
-                  <th style="width: 4em">
-                    <p-tableHeaderCheckbox (click)="onContaPagarMultipleRowSelectCheckBox($event)"></p-tableHeaderCheckbox>
-                  </th>
-		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">Data<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'valorPago'">Valor<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'descricao'">Descrição<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'planoContas'">Plano de contas<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'formaPagamento'">Forma de pag.<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'fornecedor'">Fornecedor<p-sortIcon [field]="'fornecedor'"></p-sortIcon></th>
-		            </tr>
-		        </ng-template>
+    <!--div *ngIf="contaPagamento && tipoPagamentoSelected === 'MULTIPLE'" class="ui-g-12 crud-buttons-bottom" name="data-grid"-->
+    <div [ngClass]="listContaPagarMultipleStyleClass()" name="data-grid">
 
-			    <ng-template pTemplate="body" let-contaPagarMultiple>
-		            <tr class="ui-selectable-row" [pSelectableRow]="contaPagarMultiple">
-                  <td>
-                    <p-tableCheckbox [value]="contaPagarMultiple"></p-tableCheckbox>
-                  </td>
-		            	<td>
-		            		<span class="ui-column-title">Data:</span>
-		            		{{ contaPagarMultiple?.dataPagamento | date:'dd/MM/yyyy' }}
-                  </td>
-		            	<td class="kb-field-money">
-		            		<span class="ui-column-title">Valor:</span>
-		            		{{ contaPagarMultiple?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
-                  </td>
-		            	<td>
-		            		<span class="ui-column-title">Descrição:</span>
-		            		{{ contaPagarMultiple?.descricao }}
-                  </td>
-		            	<td>
-                    <span class="ui-column-title">Plano de contas:</span>
-                    {{contaPagarPlanoContasAutoCompleteFieldConverter(contaPagarMultiple?.planoContas)}}
-                  </td>
-		            	<td>
-                    <span class="ui-column-title">Forma de pag.:</span>
-                    {{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento' + '_' + contaPagarMultiple?.formaPagamento?.toLowerCase()) }}
-                  </td>
-		            	<td>
-		            		<span class="ui-column-title">Fornecedor:</span>
-		            		{{contaPagarFornecedorAutoCompleteFieldConverter(contaPagarMultiple?.fornecedor)}}
-                  </td>
+      <div class="ui-g-12 ui-md-8 ui-fluid">
+        <p-progressBar unit="% do valor previsto foi pago."
+          [ngClass]="getContaPagarMultipleProgressBarStyleClass()"
+          [value]="getContaPagarMultipleProgressBarValue()">
+        </p-progressBar>
+      </div>
 
-		            </tr>
-		        </ng-template>
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <div class="kb-dif-multiple" style="display: flex; align-items: center">
+          Diferença (valor total - total pago):<span style="margin-left: 5px; font-weight: bold;">{{ getContaPagarMultipleProgressBarDiff() | currency:'BRL':'symbol':'1.2-2':'pt' }}</span>
+        </div>
+      </div>
 
+      <div class="ui-g-12 ui-fluid">
+        <app-list-contapagarmultiple #contaPagarMultipleDataGridRef
+        [contaPagarId]="contaPagar?.id"
+        (contaPagarMultipleDataGridRowSelect)="onContaPagarMultipleRowSelect($event)"
+        (contaPagarMultipleDataGridRowUnselect)="onContaPagarMultipleRowUnselect($event)"
+        (contaPagarMultipleTableHeaderCheckboxClick)="onContaPagarMultipleTableHeaderCheckboxClick($event)"
+        (contaPagarMultipleListLoaded)="onContaPagarMultipleListLoaded($event)"
+        ></app-list-contapagarmultiple>
+      </div>
+    </div>
 
-		        <ng-template pTemplate="emptymessage" let-columns>
-				    <tr>
-				        <td [attr.colspan]="7">
-				            Nenhum registro encontrado.
-				        </td>
-				    </tr>
-				</ng-template>
-
-				<ng-template pTemplate="footer">
-					<tr>
-						<td class="kb-sum-footer">Total</td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer sumField kb-conta-valor-apagar">{{ contaPagarMultipleSumFields_sumValorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer"></td>
-						<td class="kb-sum-footer"></td>
-					</tr>
-				</ng-template>
-
-			</p-table>
-		</div>
 		<!-- End GRID -->
     <!-- END pagamentos MULTIPLOS -->
 
@@ -610,15 +564,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
     <!-- BEGIN -->
 
-    <app-crud-contapagarmultiple></app-crud-contapagarmultiple>
+    <app-crud-contapagarmultiple #contaPagarMultipleRef [disableLoadOnInit]="true"
+      (contaPagarMultipleSaved)="onContaPagarMultipleSaved($event)"
+      (contaPagarMultipleCanceled)="onContaPagarMultipleCanceled($event)"
+      >
+
+    </app-crud-contapagarmultiple>
 
     <!-- END -->
 
   </div>
-  <p-footer>
+  <!--p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">
         <button style="width:85px" type="button" pButton (click)="onDisplayDialogMultipleCrudConfirm()" label="Salvar"></button>
         <button style="width:85px" type="button" pButton (click)="onDisplayDialogMultipleCrudCancel()" label="Cancelar"></button>
       </div>
-  </p-footer>
+  </p-footer-->
 </p-dialog>

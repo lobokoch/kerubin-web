@@ -28,6 +28,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ToolbarModule} from 'primeng/toolbar';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 
 // Kerubin - BEGIN
@@ -70,6 +71,7 @@ import { ContaPagarMultipleModule } from './../contapagarmultiple/contapagarmult
   SelectButtonModule,
   ToolbarModule,
   SplitButtonModule,
+  ProgressBarModule,
 
     // Kerubin
     ContaPagarRoutingModule,

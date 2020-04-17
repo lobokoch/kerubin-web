@@ -823,10 +823,54 @@ hr {
   padding-bottom: 0px !important;
 }
 
+.kb-no-margins-tb { /* no margins top and bottom */
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.kb-no-margins-ltb { /* no margins top, bottom and left*/
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  margin-left: 0px !important;
+  padding-left: 0px !important;
+}
+
 /*.ui-panel-titlebar {
   padding-top: 2px !important;
   padding-bottom: 2px !important;
 }*/
 
+.kb-progress-bar-label .ui-progressbar {
+  background: #c8c8c8 !important;
+  border: 1px solid #000 !important;
+  height: 27px;
+}
 
+.kb-progress-bar-label .ui-progressbar .ui-progressbar-label {
+  color: #fff !important;
+}
+
+.kb-progress-bar-normal .ui-progressbar .ui-progressbar-value {
+  background: #007ad9 !important;
+}
+
+.kb-progress-bar-red .ui-progressbar .ui-progressbar-value {
+  background: red !important;
+}
+
+.kb-dif-multiple {
+  background: #f4f4f4;
+  border: 1px solid #c8c8c8;
+  color: #000;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  min-height: 27px;
+  display: flex;
+  align-items: center;
+}
 

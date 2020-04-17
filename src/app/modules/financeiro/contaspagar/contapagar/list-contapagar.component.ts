@@ -357,27 +357,27 @@ export class ContaPagarListComponent implements OnInit {
 	
 	applyAndGetRuleGridRowStyleClass(contaPagar: ContaPagar): String {
 		
-		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBefore(moment(), 'day')) {
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vencida';
 		}
 		
-		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isSame(moment(), 'day')) {
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vence-hoje';
 		}
 		
-		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isSame(moment().add(1, 'day'), 'day')) {
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
 			return 'kb-conta-vence-amanha';
 		}
 		
-		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBetween(moment(), moment().add(3, 'day'))) {
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(3, 'day'))) {
 			return 'kb-conta-vence-proximos-3-dias';
 		}
 		
-		if (!contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBetween(moment(), moment().endOf('week'))) {
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
 			return 'kb-conta-vence-esta-semana';
 		}
 		
-		if (contaPagar.dataPagamento) {
+		if ((contaPagar.contaPaga)) {
 			return 'kb-conta-paga';
 		}
 	
@@ -385,7 +385,7 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	actionBaixarContaComDataPagamentoHojeWhen(contaPagar: ContaPagar) {
-		return !contaPagar.dataPagamento;
+		return (contaPagar.contaPaga === false);
 	}
 	
 	actionBaixarContaComDataPagamentoHoje(contaPagar: ContaPagar) {
@@ -401,7 +401,7 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaPagar: ContaPagar) {
-		return !contaPagar.dataPagamento && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
+		return (contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
 	}
 	
 	actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar: ContaPagar) {
@@ -417,7 +417,7 @@ export class ContaPagarListComponent implements OnInit {
 	}
 	
 	actionEstornarPagamentoContaComUmCliqueWhen(contaPagar: ContaPagar) {
-		return contaPagar.dataPagamento;
+		return (contaPagar.contaPaga) && (String(contaPagar.tipoPagamento) === 'SINGLE');
 	}
 	
 	actionEstornarPagamentoContaComUmClique(contaPagar: ContaPagar) {

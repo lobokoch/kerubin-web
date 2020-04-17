@@ -7,7 +7,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************
 -->
 
-  <form #formContaPagarMultiple="ngForm" (ngSubmit)="saveFormContaPagarMultiple(formContaPagarMultiple.form)">
+  <form #formContaPagarMultipleRef #formContaPagarMultiple="ngForm" (ngSubmit)="saveFormContaPagarMultiple(formContaPagarMultiple.form)">
   	<div class="ui-g">
 
 		<!-- Begin buttons -->
@@ -44,7 +44,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data em que o pagamento foi realizado."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #contaPagarMultiple_dataPagamento_elementRef #contaPagarMultiple_dataPagamento="ngModel" [(ngModel)]="contaPagarMultiple.dataPagamento" name="contaPagarMultiple_dataPagamento" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #contaPagarMultiple_dataPagamento="ngModel" [(ngModel)]="contaPagarMultiple.dataPagamento" name="contaPagarMultiple_dataPagamento" required></p-calendar>
 			<div class="invalid-message" *ngIf="contaPagarMultiple_dataPagamento.invalid && contaPagarMultiple_dataPagamento.dirty">Campo obrigatório.</div>
 		</div>
 
@@ -56,8 +56,20 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o valor total que foi pago."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #contaPagarMultiple_valorPago="ngModel" [(ngModel)]="contaPagarMultiple.valorPago" name="contaPagarMultiple_valorPago" required>
+			<input pInputText #contaPagarMultiple_valorPago_elementRef type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #contaPagarMultiple_valorPago="ngModel" [(ngModel)]="contaPagarMultiple.valorPago" name="contaPagarMultiple_valorPago" required>
 			<div class="invalid-message" *ngIf="contaPagarMultiple_valorPago.invalid && contaPagarMultiple_valorPago.dirty">Campo obrigatório.</div>
+    </div>
+
+    <div class="ui-g-12 ui-fluid ui-md-12">
+			<label for="contaPagarMultiple_descricao">
+				{{ getTranslation('financeiro.contas_pagar.contaPagarMultiple_descricao') }}
+				<span class="kb-label-required">*</span>
+				<!-- help -->
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para o pagamento, exemplo: Abastecida de combustível, Almoço de segunda-feira, Supermercado."></i>
+				<!-- help -->
+			</label>
+			<input type="text" pInputText #contaPagarMultiple_descricao="ngModel" [(ngModel)]="contaPagarMultiple.descricao" name="contaPagarMultiple_descricao" required>
+			<div class="invalid-message" *ngIf="contaPagarMultiple_descricao.invalid && contaPagarMultiple_descricao.dirty">Campo obrigatório.</div>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-12">
@@ -96,18 +108,29 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<p-inputSwitch #contaPagarMultiple_maisOpcoes="ngModel" [(ngModel)]="contaPagarMultiple.maisOpcoes" name="contaPagarMultiple_maisOpcoes"></p-inputSwitch>
-		</div>
+    </div>
 
-		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleContaPagarMultiple_DescricaoAppyHiddeComponent()">
-			<label for="contaPagarMultiple_descricao">
-				{{ getTranslation('financeiro.contas_pagar.contaPagarMultiple_descricao') }}
+    <div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleContaPagarMultiple_PlanoContasAppyHiddeComponent()">
+			<label for="contaPagarMultiple_planoContas">
+				{{ getTranslation('financeiro.contas_pagar.contaPagarMultiple_planoContas') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
-				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe uma descrição para o pagamento, exemplo: Abastecida de combustível, Almoço de segunda-feira, Supermercado."></i>
+				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o plano de contas para deste pagamento."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #contaPagarMultiple_descricao="ngModel" [(ngModel)]="contaPagarMultiple.descricao" name="contaPagarMultiple_descricao" required>
-			<div class="invalid-message" *ngIf="contaPagarMultiple_descricao.invalid && contaPagarMultiple_descricao.dirty">Campo obrigatório.</div>
+			<p-autoComplete
+			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
+			 [suggestions]="contaPagarMultiplePlanoContasAutoCompleteSuggestions"
+			 (completeMethod)="contaPagarMultiplePlanoContasAutoComplete($event)"
+			 (onClear)="contaPagarMultiplePlanoContasAutoCompleteClear($event)"
+			 (onBlur)="contaPagarMultiplePlanoContasAutoCompleteOnBlur($event)"
+			 [field]="contaPagarMultiplePlanoContasAutoCompleteFieldConverter"
+			 #contaPagarMultiple_planoContas="ngModel" [(ngModel)]="contaPagarMultiple.planoContas" name="contaPagarMultiple_planoContas" required>
+				<ng-template let-contaPagarMultiple_planoContas pTemplate="item">
+					<div class="ui-helper-clearfix">{{ contaPagarMultiplePlanoContasAutoCompleteFieldConverter(contaPagarMultiple_planoContas) }}</div>
+				</ng-template>
+			</p-autoComplete>
+			<div class="invalid-message" *ngIf="contaPagarMultiple_planoContas.invalid && contaPagarMultiple_planoContas.dirty">Campo obrigatório.</div>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleContaPagarMultiple_FormaPagamentoAppyHiddeComponent()">
@@ -174,29 +197,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			<input type="text" pInputText #contaPagarMultiple_outrosDescricao="ngModel" [(ngModel)]="contaPagarMultiple.outrosDescricao" name="contaPagarMultiple_outrosDescricao">
 		</div>
 
-		<div class="ui-g-12 ui-fluid ui-md-12" [style.display]="ruleContaPagarMultiple_PlanoContasAppyHiddeComponent()">
-			<label for="contaPagarMultiple_planoContas">
-				{{ getTranslation('financeiro.contas_pagar.contaPagarMultiple_planoContas') }}
-				<span class="kb-label-required">*</span>
-				<!-- help -->
-				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha o plano de contas para deste pagamento."></i>
-				<!-- help -->
-			</label>
-			<p-autoComplete
-			p-autoComplete placeholder="Digite para pesquisar..." [dropdown]="true" [forceSelection]="true"
-			 [suggestions]="contaPagarMultiplePlanoContasAutoCompleteSuggestions"
-			 (completeMethod)="contaPagarMultiplePlanoContasAutoComplete($event)"
-			 (onClear)="contaPagarMultiplePlanoContasAutoCompleteClear($event)"
-			 (onBlur)="contaPagarMultiplePlanoContasAutoCompleteOnBlur($event)"
-			 [field]="contaPagarMultiplePlanoContasAutoCompleteFieldConverter"
-			 #contaPagarMultiple_planoContas="ngModel" [(ngModel)]="contaPagarMultiple.planoContas" name="contaPagarMultiple_planoContas" required>
-				<ng-template let-contaPagarMultiple_planoContas pTemplate="item">
-					<div class="ui-helper-clearfix">{{ contaPagarMultiplePlanoContasAutoCompleteFieldConverter(contaPagarMultiple_planoContas) }}</div>
-				</ng-template>
-			</p-autoComplete>
-			<div class="invalid-message" *ngIf="contaPagarMultiple_planoContas.invalid && contaPagarMultiple_planoContas.dirty">Campo obrigatório.</div>
-		</div>
-
 		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
 			<label for="contaPagarMultiple_contaPagar" class="hidden">
 				{{ getTranslation('financeiro.contas_pagar.contaPagarMultiple_contaPagar') }}
@@ -221,14 +221,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 		<!-- Begin buttons -->
 		<div class="ui-g-12 crud-buttons-bottom">
-			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro de registro de pagamento."></button>
+			<div class="ui-g-12 ui-md-4 ui-fluid">
+				<button pButton type="submit" class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro de registro de pagamento."></button>
 			</div>
-			<div class="ui-g-12 ui-md-2 ui-fluid">
+			<!--div class="ui-g-12 ui-md-2 ui-fluid">
 				<button pButton (click)="beginFormContaPagarMultiple(formContaPagarMultiple)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro de registro de pagamento."></button>
-			</div>
-			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<a routerLink="/contapagarmultiple" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de registros de pagamento."></a>
+			</div-->
+			<div class="ui-g-12 ui-md-4 ui-fluid">
+				<button pButton type="button" (click)="cancelFormContaPagarMultiple($event)" class="botao-margem-direita" label="Cancelar" tooltipPosition="top" pTooltip="Cancelar."></button>
 			</div>
 		</div>
 		<!-- End buttons -->

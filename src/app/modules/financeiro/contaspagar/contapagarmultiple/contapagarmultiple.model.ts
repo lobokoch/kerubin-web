@@ -29,12 +29,13 @@ export class PaginationFilter {
 
   constructor() {
     this.pageNumber = 0;
-    this.pageSize = 10;
+    this.pageSize = 5;
   }
 }
 
 export class ContaPagarMultipleListFilter extends PaginationFilter {
 	
+	contaPagarId: string;
 	
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();

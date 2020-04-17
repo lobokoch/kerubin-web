@@ -35,11 +35,11 @@ export class CustomContaReceberServiceImpl extends CustomContaReceberService {
         }
 			});
     } else {
-      const today =  moment();
+      const today =  moment({h: 0, m: 0, s: 0, ms: 0}).toDate();
       if (moment(this.component.contaReceber.dataVencimento).isBefore(today)) {
         this.component.contaReceber.dataPagamento = this.component.contaReceber.dataVencimento;
       } else {
-        this.component.contaReceber.dataPagamento = moment().toDate();
+        this.component.contaReceber.dataPagamento = today;
       }
       this.component.contaReceber.valorPago = this.component.contaReceber.valor;
     }

@@ -31,25 +31,25 @@ import { ContaPagarAutoComplete } from './../contapagar/contapagar.model';
 
 @Injectable()
 export class ContaPagarMultipleService {
-	
+
 	url = environment.apiUrl + '/financeiro/contas_pagar/entities/contaPagarMultiple';
-	
+
 	constructor(
 		private analitycs: AnalyticsService,
-		private http: HttpClientWithToken) { 
+		private http: HttpClientWithToken) {
 		// Generated code.
 	}
-	
+
 	// TODO: Provisório
 	private getHeaders(): Headers {
 		const headers = new Headers();
-	    
+
 	    headers.append('Content-Type', 'application/json');
 	    return headers;
 	}
-	
+
 	create(contaPagarMultiple: ContaPagarMultiple): Promise<ContaPagarMultiple> {
-		const headers = this.getHeaders();    
+		const headers = this.getHeaders();
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'create', 'create ContaPagarMultiple');
 	    return this.http.post(this.url, contaPagarMultiple, { headers })
 	    .toPromise()
@@ -60,7 +60,7 @@ export class ContaPagarMultipleService {
 	      return created;
 	    });
 	}
-	
+
 	update(contaPagarMultiple: ContaPagarMultiple): Promise<ContaPagarMultiple> {
 	    const headers = this.getHeaders();
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'update', 'update ContaPagarMultiple');
@@ -73,7 +73,7 @@ export class ContaPagarMultipleService {
 	      return updated;
 	    });
 	}
-	
+
 	delete(id: string): Promise<void> {
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'delete', 'delete ContaPagarMultiple');
 	    return this.http.delete(`${this.url}/${id}`)
@@ -93,49 +93,49 @@ export class ContaPagarMultipleService {
 	      return contaPagarMultiple;
 	    });
 	}
-	
-	
+
+
 	private adjustEntityDates(entityList: ContaPagarMultiple[]) {
 		entityList.forEach(contaPagarMultiple => {
 		      if (contaPagarMultiple.dataPagamento) {
 		        contaPagarMultiple.dataPagamento = moment(contaPagarMultiple.dataPagamento, 'YYYY-MM-DD').toDate();
 		      }
-		      	
+
 		});
 	}
-	
+
 	private adjustNullEntitySlots(entityList: ContaPagarMultiple[]) {
 		/*entityList.forEach(contaPagarMultiple => {
 		      if (!contaPagarMultiple.fornecedor) {
 		        contaPagarMultiple.fornecedor = new Fornecedor();
 		      }
-		      	
-		      
+
+
 		      if (!contaPagarMultiple.contaBancaria) {
 		        contaPagarMultiple.contaBancaria = new ContaBancaria();
 		      }
-		      	
-		      
+
+
 		      if (!contaPagarMultiple.cartaoCredito) {
 		        contaPagarMultiple.cartaoCredito = new CartaoCredito();
 		      }
-		      	
-		      
+
+
 		      if (!contaPagarMultiple.planoContas) {
 		        contaPagarMultiple.planoContas = new PlanoConta();
 		      }
-		      	
-		      
+
+
 		      if (!contaPagarMultiple.contaPagar) {
 		        contaPagarMultiple.contaPagar = new ContaPagar();
 		      }
-		      	
+
 		});*/
 	}
-	
+
 	autoComplete(query: string): Promise<ContaPagarMultipleAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'autoComplete', JSON.stringify(params));
@@ -145,15 +145,15 @@ export class ContaPagarMultipleService {
 	        const result = response as ContaPagarMultipleAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
-							
-	// Begin relationships autoComplete 
-	
+
+
+	// Begin relationships autoComplete
+
 	fornecedorFornecedorAutoComplete(query: string): Promise<FornecedorAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.Fornecedor', 'fornecedorFornecedorAutoComplete', JSON.stringify(params));
@@ -163,13 +163,13 @@ export class ContaPagarMultipleService {
 	        const result = response as FornecedorAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
-	
+
+
 	contaBancariaContaBancariaAutoComplete(query: string): Promise<ContaBancariaAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaBancaria', 'contaBancariaContaBancariaAutoComplete', JSON.stringify(params));
@@ -179,13 +179,13 @@ export class ContaPagarMultipleService {
 	        const result = response as ContaBancariaAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
-	
+
+
 	cartaoCreditoCartaoCreditoAutoComplete(query: string): Promise<CartaoCreditoAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.CartaoCredito', 'cartaoCreditoCartaoCreditoAutoComplete', JSON.stringify(params));
@@ -195,13 +195,13 @@ export class ContaPagarMultipleService {
 	        const result = response as CartaoCreditoAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
-	
+
+
 	planoContaPlanoContasAutoComplete(query: string): Promise<PlanoContaAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.PlanoConta', 'planoContaPlanoContasAutoComplete', JSON.stringify(params));
@@ -211,13 +211,13 @@ export class ContaPagarMultipleService {
 	        const result = response as PlanoContaAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
-	
+
+
 	contaPagarContaPagarAutoComplete(query: string): Promise<ContaPagarAutoComplete[]> {
 	    const headers = this.getHeaders();
-	
+
 	    let params = new HttpParams();
 	    params = params.set('query', query);
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagar', 'contaPagarContaPagarAutoComplete', JSON.stringify(params));
@@ -227,16 +227,16 @@ export class ContaPagarMultipleService {
 	        const result = response as ContaPagarAutoComplete[];
 	        return result;
 	      });
-	
+
 	}
-	
+
 	// End relationships autoComplete
-	
-				
-	
+
+
+
 	contaPagarMultipleList(contaPagarMultipleListFilter: ContaPagarMultipleListFilter): Promise<any> {
 	    const headers = this.getHeaders();
-	
+
 	    const params = this.mountAndGetSearchParams(contaPagarMultipleListFilter);
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'contaPagarMultipleList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
@@ -245,20 +245,20 @@ export class ContaPagarMultipleService {
 	        const data = response;
 	        const items = data.content; /* array of ContaPagarMultiple */
 	        const totalElements = data.totalElements;
-	
+
 	        this.adjustNullEntitySlots(items);
 	        this.adjustEntityDates(items);
-	
+
 	        const result = {
 	          items,
 	          totalElements
 	        };
-	
+
 	        return result;
 	      });
 	}
-	
-	
+
+
 	getContaPagarMultipleSumFields(contaPagarMultipleListFilter: ContaPagarMultipleListFilter): Promise<ContaPagarMultipleSumFields> {
 	    const headers = this.getHeaders();
 		const params = this.mountAndGetSearchParams(contaPagarMultipleListFilter);
@@ -270,37 +270,42 @@ export class ContaPagarMultipleService {
 		    return result;
 		  });
 	}
-	
+
 	mountAndGetSearchParams(filter: ContaPagarMultipleListFilter): HttpParams {
 	    let params = new HttpParams();
 	    if (filter.pageNumber) {
 	      params = params.set('page', filter.pageNumber.toString());
 	    }
-	
+
 	    if (filter.pageSize) {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
+		// contaPagarId
+		if (filter.contaPagarId) {
+			const value = filter.contaPagarId;
+			params = params.set('contaPagarId', value);
+		}
 		
 		// customParams
 		if (filter.customParams && filter.customParams.size > 0) {
 			const value = this.mapToJson(filter.customParams);
 			params = params.set('customParams', value);
 		}
-	
+
 	    // Sort
 	    if (filter.sortFields) {
 	      // search/nameStartsWith?name=K&sort=name,asc&sort=value,desc
-	      
+
 			filter.sortFields.forEach(sortField => {
 				const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
 				params = params.append('sort', sortValue);
 			});
 	    }
-	
+
 	    return params;
 	}
-	
+
  	mapToJson(someMap: Map<string, any>) {
       return JSON.stringify(this.mapToObj(someMap));
     }
@@ -312,15 +317,15 @@ export class ContaPagarMultipleService {
       });
       return obj;
     }
-	
+
 	dateToStr(data: Date): string {
 	    return moment(data).format('YYYY-MM-DD');
 	}
-	
+
 	/*** TODO: avaliar se vai ser feito isso.
 	replicateContaPagarMultiple(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
-	
+
 	    const payload = new ReplicateContaPagarMultiplePayload(id, quantity, groupId);
 	    return this.http.post(`${this.url}/replicateContaPagarMultiple`, payload, { headers } )
 	    .toPromise()
@@ -328,10 +333,10 @@ export class ContaPagarMultipleService {
 	      return response === true;
 	    });
 	}
-		
+
 	getTotaisfilterContaPagarMultiple(filter: ContaPagarMultiplerListFilter): Promise<TotaisfilterContaPagarMultiple> {
 	    const headers = this.getHeaders();
-		
+
 	    const params = this.mountAndGetSearchParams(filter);
 		this.analitycs.sendEvent('financeiro.contas_pagar.ContaPagarMultiple', 'getTotaisfilterContaPagarMultiple', JSON.stringify(params));
 	    return this.http.get<TotaisfilterContaPagarMultiple>(`${this.url}/getTotaisfilterContaPagarMultiple`, { headers, params })

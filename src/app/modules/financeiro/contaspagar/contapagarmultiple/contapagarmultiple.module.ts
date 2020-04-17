@@ -79,7 +79,8 @@ import { ContaPagarModule } from '../contapagar/contapagar.module';
   ],
 
   exports: [
-    ContaPagarMultipleComponent
+    ContaPagarMultipleComponent,
+    ContaPagarMultipleListComponent
   ],
 
   providers: [

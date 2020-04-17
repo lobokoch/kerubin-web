@@ -695,8 +695,6 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   }
 
   onPlanoContasAutoCompleteAfterShow(event) {
-    // this.planoContasAutoCompleteElement.domHandler.findSingle(this.planoContasAutoCompleteElement.el.nativeElement, 'input').focus();
-    console.log('onPlanoContasAutoCompleteAfterShow');
     this.planoContasAutoCompleteElement.focusInput();
   }
 
