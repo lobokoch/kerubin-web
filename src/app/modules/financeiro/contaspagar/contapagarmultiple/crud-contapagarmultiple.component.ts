@@ -172,9 +172,9 @@ export class ContaPagarMultipleComponent implements OnInit {
           this.contaPagarMultiple = contaPagarMultiple;
         } else {
           this.contaPagarMultiple = new ContaPagarMultiple();
+          this.initializeEnumFieldsWithDefault();
         }
 
-	      this.initializeEnumFieldsWithDefault();
 
 		  // Begin custom action.
 		  if (!this.customContaPagarMultipleService.afterOnNewRecord()) {
@@ -207,12 +207,12 @@ export class ContaPagarMultipleComponent implements OnInit {
         this.validateAllFormFields(form);
 	      return;
 	    }
-		
+
 		if (!this.doRulesFormBeforeSave()) {
 			return;
 		}
-		
-		
+
+
 		// Begin custom action.
 		if (!this.customContaPagarMultipleService.beforeSave()) {
 			return;
@@ -232,20 +232,20 @@ export class ContaPagarMultipleComponent implements OnInit {
 		// End custom action.
 
 	}
-	
+
 	// Begin rulesFormBeforeSave
 	doRulesFormBeforeSave(): boolean {
-		
+
 		if (!this.contaPagarMultiple.contaPagar || !this.contaPagarMultiple.contaPagar.id) {
 			this.messageHandler.showError('A conta pai não existe ainda ou não possui um identificador válido.');
 			return false;
 		}
-		
+
 		return true;
 	}
 	// End rulesFormBeforeSave
-	
-	
+
+
 	create() {
 
 		// Begin custom action.

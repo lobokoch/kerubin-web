@@ -288,8 +288,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
-        <div class="kb-dif-multiple" style="display: flex; align-items: center">
-          Diferença (valor total - total pago):<span style="margin-left: 5px; font-weight: bold;">{{ getContaPagarMultipleProgressBarDiff() | currency:'BRL':'symbol':'1.2-2':'pt' }}</span>
+        <div class="kb-dif-multiple" style="display: flex; justify-content: center;">
+          <div [innerHTML]="getContaPagarMultipleProgressBarDiffText()"></div>
         </div>
       </div>
 
@@ -539,7 +539,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro de conta a pagar."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro de conta a pagar."></button>
+        <a routerLink="/contapagar/novo" pButton  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro de conta a pagar."></a>
+				<!--button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro de conta a pagar."></button-->
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/contapagar" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de contas a pagar."></a>

@@ -864,7 +864,8 @@ hr {
 
 .kb-dif-multiple {
   background: #f4f4f4;
-  border: 1px solid #c8c8c8;
+  /*border: 1px solid #c8c8c8;*/
+  border: 1px solid #000;
   color: #000;
   border-radius: 3px;
   padding-left: 5px;
@@ -874,3 +875,12 @@ hr {
   align-items: center;
 }
 
+.kb-conta-multiple-diff-text-normal {
+  color: #227ad7;
+  font-weight: bold;
+}
+
+.kb-conta-multiple-diff-text-red {
+  color: red;
+  font-weight: bold;
+}

@@ -209,8 +209,11 @@ export class ContaPagarComponent implements OnInit {
       }
 
     // Validação para pagamentos múltiplos
-    if (String(this.contaPagar.tipoPagamento) === TIPO_PAGAMENTO_MULTIPLE) {
-      if (this.contaPagarMultipleList.contaPagarMultipleListItems.length === 0) {
+    const isMultiple = this.contaPagar.tipoPagamento === TIPO_PAGAMENTO_MULTIPLE;
+    const isPaga = this.contaPagar.contaPaga;
+    const hasMultipleItems = this.contaPagarMultipleList.contaPagarMultipleListItems.length > 0;
+    if (isMultiple) {
+      if (!hasMultipleItems && isPaga) {
         this.messageHandler.showError('Esta conta não pode ser marcada como \"Conta Paga\", porque ela não possui nenhum pagamento informado.');
         this.contaPagar.contaPaga = false;
         return;
@@ -702,7 +705,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleAgrupadorAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.maisOpcoes);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -711,7 +714,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleDataPagamentoAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -719,12 +722,8 @@ export class ContaPagarComponent implements OnInit {
 		}
   }
 
-  ruleHideTest() {
-    return !this.contaPagamento || String(this.contaPagar.tipoPagamento) === TIPO_PAGAMENTO_MULTIPLE;
-  }
-
-	ruleValorDescontoAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+ 	ruleValorDescontoAppyHiddeComponent() {
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -733,7 +732,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorMultaAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -742,7 +741,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorJurosAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -751,7 +750,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorAcrescimosAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -760,7 +759,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorPagoAppyHiddeComponent() {
-		const expression = this.ruleHideTest();
+		const expression = (!this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -829,7 +828,7 @@ export class ContaPagarComponent implements OnInit {
 
 	ruleContaPagarValorPagoOnAppyMathExpression(event) {
 		if (this.contaPagar) {
-			const whenExpression = this.contaPagar.dataPagamento;
+			const whenExpression = (this.contaPagar.contaPaga) && (String(this.contaPagar.tipoPagamento) === 'SINGLE');
 			if (whenExpression) {
 				this.contaPagar.valorPago = ((this.contaPagar.valor || 0) -
 				(this.contaPagar.valorDesconto || 0) +
@@ -857,7 +856,7 @@ export class ContaPagarComponent implements OnInit {
   }
 
   getContaPagarMultipleProgressBarStyleClass() {
-    const value = this.getContaPagarMultiplePercentualOrsadoVsPrevisto();
+    const value = this?.getContaPagarMultiplePercentualOrsadoVsPrevisto() ?? 0;
     if (value > 100) {
       return 'kb-progress-bar-red kb-progress-bar-label';
     } else {
@@ -870,7 +869,7 @@ export class ContaPagarComponent implements OnInit {
   }
 
   getContaPagarMultipleProgressBarValue() {
-    const value = this.getContaPagarMultiplePercentualOrsadoVsPrevisto();
+    const value = this?.getContaPagarMultiplePercentualOrsadoVsPrevisto() ?? 0;
     return value.toFixed(2);
     // return value.toLocaleString('pt');
   }
@@ -878,10 +877,13 @@ export class ContaPagarComponent implements OnInit {
   getContaPagarMultiplePercentualOrsadoVsPrevisto(): number {
     let result = 0;
     try {
-      const valor = this.contaPagar.valor;
-      const valotTotalPago = this.contaPagarMultipleList.contaPagarMultipleSumFields.sumValorPago;
-      result = valotTotalPago / valor * 100;
+      const valor = this.contaPagar?.valor ?? 0;
+      const valotTotalPago = this?.contaPagarMultipleList?.contaPagarMultipleSumFields?.sumValorPago ?? 0;
+      if (valor > 0 && valotTotalPago > 0 ) {
+        result = valotTotalPago / valor * 100;
+      }
     } catch (error) {
+      result = 0;
       console.log('Erro ao calcular o percentual pago da conta:' + error);
     }
 
@@ -891,14 +893,34 @@ export class ContaPagarComponent implements OnInit {
   getContaPagarMultipleProgressBarDiff() {
     let result = 0;
     try {
-      const valor = this.contaPagar.valor;
-      const valotTotalPago = this.contaPagarMultipleList.contaPagarMultipleSumFields.sumValorPago;
+      const valor = this.contaPagar?.valor ?? 0;
+      const valotTotalPago = this?.contaPagarMultipleList?.contaPagarMultipleSumFields?.sumValorPago ?? 0;
       result = valor - valotTotalPago;
     } catch (error) {
       console.log('Erro ao calcular o percentual pago da conta:' + error);
     }
 
     return result;
+  }
+
+  getContaPagarMultipleProgressBarDiffText(): string {
+    let text = 'Opps :(';
+    try {
+      const valor = this.contaPagar?.valor ?? 0;
+      const valotTotalPago = this?.contaPagarMultipleList?.contaPagarMultipleSumFields?.sumValorPago ?? 0;
+      const diff = valor - valotTotalPago;
+      const diffAbs = Math.abs(diff);
+      const valueStr = diffAbs.toLocaleString('pt', { style: 'currency', currency: 'BRL' });
+      text = '<span class="kb-conta-multiple-diff-text-normal">' + 'Falta pagar: ' + valueStr;
+      if (diff < 0) {
+        text = '<span class="kb-conta-multiple-diff-text-red">' + 'Pago a mais: ' + valueStr;
+      }
+      text += '</span>';
+    } catch (error) {
+      console.log('Erro ao calcular getContaPagarMultipleProgressBarDiffText:' + error);
+    }
+
+    return text;
   }
 
 	defaultElementSetFocus() {
@@ -910,26 +932,16 @@ export class ContaPagarComponent implements OnInit {
   }
 
   onContaPagarContaPagamentoChange(event) {
-    if (this.contaPagar.id) {
-      if (this.contaPagarMultipleList.contaPagarMultipleListItems.length > 0) {
-        this.contaPagar.tipoPagamento = TIPO_PAGAMENTO_MULTIPLE;
-      } else {
-        if (this.contaPagarMultipleList.itemsLoaded) {
-          this.contaPagar.tipoPagamento = TIPO_PAGAMENTO_SINGLE;
-        } else { // try to load
-          this.loadContaPagarMultipleItems();
-        }
+    if (this.contaPagar.id) { // Editando
+      const isMultiple = this.contaPagar.tipoPagamento === TIPO_PAGAMENTO_MULTIPLE;
+      if (isMultiple && !this.contaPagarMultipleList.itemsLoaded) {
+        this.loadContaPagarMultipleItems();
       }
     }
-
   }
 
   onContaPagarMultipleListLoaded(items: ContaPagarMultiple[]) {
-    if (items && items.length > 0) {
-      this.contaPagar.tipoPagamento = TIPO_PAGAMENTO_MULTIPLE;
-    } else {
-      this.contaPagar.tipoPagamento = TIPO_PAGAMENTO_SINGLE;
-    }
+    // Do nothing yet.
   }
 
   onTipoPagamentoClicked(event) {
