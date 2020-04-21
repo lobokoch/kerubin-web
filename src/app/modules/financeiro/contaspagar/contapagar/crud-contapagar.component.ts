@@ -137,7 +137,6 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
 		// Begin custom action.
 		if (!this.customContaPagarService.beforeOnInit()) {
 			return;

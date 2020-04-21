@@ -139,6 +139,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       conciliacaoTransacao.tituloConciliadoDesc = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDesc;
       conciliacaoTransacao.dataConciliacao = this.selectedConciliacaoTransacaoTitulo.dataConciliacao;
       conciliacaoTransacao.situacaoConciliacaoTrn = this.selectedConciliacaoTransacaoTitulo.situacaoConciliacaoTrn;
+      conciliacaoTransacao.tituloConciliadoMultiple = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoMultiple;
 
       // Update the titulos list.
       conciliacaoTransacao.conciliacaoTransacaoTitulos = this.titulosDialog;
@@ -230,6 +231,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       { field: 'tituloPlanoContas', header: 'Plano contas', width: '350px' },
       { field: 'dataConciliacao', header: 'Conciliação', width: '100px' },
       { field: 'situacaoConciliacaoTrn', header: 'Situação', width: '350px' },
+      { field: 'situacaoConciliacaoMultiple', header: 'P/R Múl.', width: '100px' },
       { field: 'actions', header: 'Ações', width: '100px' } // slice:0:6, pega da primeira posição, 6 elementos.
   ];
   }

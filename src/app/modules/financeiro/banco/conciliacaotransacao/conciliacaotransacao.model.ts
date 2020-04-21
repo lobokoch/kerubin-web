@@ -92,6 +92,7 @@ export class ConciliacaoTransacao {
 	tituloConciliadoDataVen: Date;
 	tituloConciliadoDataPag: Date;
 	tituloPlanoContas: PlanoContaAutoComplete;
+	tituloConciliadoMultiple: boolean = false;
 	dataConciliacao: Date;
 	conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[];
 	conciliadoComErro: boolean = false;

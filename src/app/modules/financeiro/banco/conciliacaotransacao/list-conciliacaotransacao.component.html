@@ -201,6 +201,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                   [field]="'dataConciliacao'"></p-sortIcon>
               </th>
 
+              <th style="width: 4em" [pSortableColumn]="'tituloConciliadoMultiple'">
+                P/R Múl.
+                <p-sortIcon [field]="'tituloConciliadoMultiple'"></p-sortIcon>
+              </th>
+
               <th style="width: 6.5em" [pSortableColumn]="'conciliadoMsg'">
                 {{ getTranslation('cadastros.banco.conciliacaoTransacao_conciliadoMsg_grid') }}<p-sortIcon
                   [field]="'conciliadoMsg'"></p-sortIcon>
@@ -279,6 +284,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 {{conciliacaoTransacao?.dataConciliacao | date:'dd/MM/yyyy' }}
               </td>
 
+			  <td>
+		      	<span class="ui-column-title">{{ getTranslation('cadastros.banco.conciliacaoTransacao_tituloConciliadoMultiple_grid') }}:</span>
+		        {{conciliacaoTransacao?.tituloConciliadoMultiple? 'Sim': 'Não' }}
+		      </td>
+
               <td style="text-align: center">
                 <i *ngIf="conciliacaoTransacao?.conciliadoMsg" class="pi pi-info-circle" style="font-size: 2em"
                   [pTooltip]=conciliacaoTransacao?.conciliadoMsg></i>
@@ -299,7 +309,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
           <ng-template pTemplate="emptymessage" let-columns>
             <tr>
-              <td [attr.colspan]="12">
+              <td [attr.colspan]="13">
                 Nenhum registro encontrado.
               </td>
             </tr>
@@ -325,7 +335,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <p-dialog header="Lista de títulos candidatos para conciliação" [(visible)]="displayDialog" [responsive]="true"
 showEffect="fade" [modal]="true" [style]="{width: '800px'}">
   <div class="ui-g ui-fluid" style="margin-bottom: 5px">
-    <strong>NOTA: Apenas o item marcado será considerado para conciliação. Você deve excluir os itens inválidos.</strong>
+    <strong>NOTA: Escolha apenas um item para a conciliação. Os demais itens devem ser excluídos.</strong>
   </div>
   <div class="ui-g ui-fluid">
     <p-table [style]="{width: '770px'}" [columns]="cols" [value]="titulosDialog" dataKey="id"
@@ -375,6 +385,9 @@ showEffect="fade" [modal]="true" [style]="{width: '800px'}">
           </td>
           <td>
             {{ getTranslation('cadastros.banco.conciliacaoTransacaoTitulo_situacaoConciliacaoTrn' + '_' + titulo?.situacaoConciliacaoTrn?.toLowerCase()) }}
+          </td>
+          <td>
+            {{titulo?.tituloConciliadoMultiple? 'Sim': 'Não' }}
           </td>
 
           <td class="kb-actions">
