@@ -8,6 +8,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************
 -->
 <app-navbar *ngIf="canShowMenu()"></app-navbar>
+
+<div class="ui-g kb-warn-saldo-baixo" *ngIf="mostrarAvisoReporCreditos">
+  <div class="ui-g-12 ui-fluid">
+    <i class="pi pi-exclamation-triangle"></i>&nbsp;Saldo de créditos baixo,
+    considere repor créditos para evitar o bloqueio do sistema.
+    <br>Acesse o menu <strong>Administração&nbsp;&rsaquo;&nbsp;Créditos</strong> para reposição e consulta de créditos.
+  </div>
+</div>
+
 <div class="ui-g" style="margin: 0px !important; padding: 0px !important;">
   <div class="ui-g-12 ui-fluid" style="margin: 0px !important; padding: 0px !important;">
     <div class="ui-g-12 ui-fluid ui-md-2" style="margin: 0px !important; padding: 0px !important;">
