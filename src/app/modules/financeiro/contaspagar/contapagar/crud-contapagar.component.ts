@@ -713,7 +713,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleDataPagamentoAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -722,7 +722,7 @@ export class ContaPagarComponent implements OnInit {
   }
 
  	ruleValorDescontoAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -731,7 +731,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorMultaAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -740,7 +740,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorJurosAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -749,7 +749,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorAcrescimosAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
@@ -758,7 +758,7 @@ export class ContaPagarComponent implements OnInit {
 	}
 
 	ruleValorPagoAppyHiddeComponent() {
-		const expression = (!this.contaPagar.contaPaga);
+		const expression = (!this.contaPagamento || !this.contaPagar.contaPaga);
 		if (expression) {
 			return 'none'; // Will hidde de component.
 		} else {
