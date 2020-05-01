@@ -7,6 +7,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 /* CSS heare */
+p-dropdown  {
+  min-width: 335px !important;
+}
+
+@media screen and (max-width: 399px) { /* < que 400*/
+  #newaccount-dropdown .ui-dropdown {
+    width: 285px !important;
+  }
+
+  p-dropdown  {
+    min-width: 285px !important;
+  }
+}
 
 .kb-container-newaccount {
   margin: 0px;

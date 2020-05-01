@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
 
 // Kerubin
 import { NewAccountComponent } from './newaccount/newaccount.component';
@@ -33,7 +34,8 @@ import { ChangePasswordForgottenComponent } from './changepasswordforgotten/chan
     InputTextModule,
     ButtonModule,
     DropdownModule,
-    RouterModule
+    RouterModule,
+    DialogModule
   ],
 
   declarations: [

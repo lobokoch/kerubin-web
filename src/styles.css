@@ -244,10 +244,16 @@ a, button {
   font-size: 1em;
   background-color: /*#1e94d2;*/  #4285f4;
   border: 1px solid black;
-  height: 50px;
-  line-height: 50px;
+  /*min-height: 50px;
+  line-height: 50px;*/
   color: white;
   text-align: center;
+  padding: 5px;
+}
+
+a.kb-link-termos-uso {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .newaccount-dropdown-icon {
@@ -255,14 +261,14 @@ a, button {
 }
 
 #newaccount-dropdown .ui-dropdown {
-  width: 335px !important;
+  width: 100px !important;
   height: 39px !important;
   left: -2px !important;
 }
 
 @media screen and (max-width: 399px) { /* < que 400*/
   #newaccount-dropdown .ui-dropdown {
-    width: 285px !important;
+    width: 250px !important;
    /* height: 39px !important;
     left: -2px !important;*/
   }
@@ -899,4 +905,9 @@ hr {
   justify-content: center !important;
   align-items: center !important;
   text-align: center;
+}
+
+.kb-termos-uso {
+  font-size: 13px;
+  color: #828282;
 }

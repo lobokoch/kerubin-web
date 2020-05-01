@@ -12,12 +12,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 <div class="kb-container-newaccount">
 
   <div class="ui-g ui-fluid">
+
+    <div class="ui-g-12 ui-fluid kerubin-logo">
+      <div class="ui-g-12 ui-fluid">
+        <div class="kerubin-logo" style="text-align: center;"><img src="assets/images/logo2.png"></div>
+      </div>
+    </div>
+
     <div class="ui-g-12">
       <form *ngIf="!accountCreated" #form1="ngForm" (ngSubmit)="createAccount(form1.form)">
       <div class="ui-g ui-fluid">
 
       <div class="ui-g-12">
-        <div class="primeiro-mes-gratis">Você ganha <strong>R$ 10,00</strong> em créditos para começar.</div>
+        <div class="primeiro-mes-gratis">Você <strong>ganha R$ 10,00</strong> em créditos para esperimentar (cerca de 1 mês).</div>
         <div class="criar-sua-conta">Crie sua conta.</div>
       </div>
 
@@ -54,6 +61,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
       <div class="ui-g-12">
           <div class="ui-inputgroup">
+              <!--span class="newaccount-dropdown-icon ui-inputgroup-addon"><i class="pi pi-share-alt"></i></span-->
               <span class="newaccount-dropdown-icon ui-inputgroup-addon"><i class="pi pi-share-alt"></i></span>
               <p-dropdown id="newaccount-dropdown" required #accountType="ngModel" ngModel
               optionLabel="label" name="accountType" #accountType
@@ -61,6 +69,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               placeholder="Selecione o tipo da conta"></p-dropdown>
             </div>
             <div class="invalid-message" *ngIf="accountType.invalid && accountType.dirty">Selecione o tipo da conta.</div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="kb-termos-uso">
+          Ao clicar no botão <strong>Criar conta</strong> abaixo,
+          você concorda com nossos <a class="kb-link-termos-uso" (click)="displayTermosUso=true"><strong>Termos de uso</strong></a>
+           e atesta que tem mais de <strong>18 anos</strong>.
+        </div>
       </div>
 
       <div class="ui-g-12">
@@ -86,3 +102,50 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 </div>
 </div>
 
+<p-dialog header="Termos de uso do Kerubin" [(visible)]="displayTermosUso"
+  [modal]="true"
+  [style]="{width: '50vw'}" [baseZIndex]="10000">
+  <h1>Termos de uso do Kerubin</h1>
+
+    <p>O Kerubin oferece software como um serviço (SaaS) para auxiliar pessoas e empresas na gestão de suas contas a pagar e contas a receber. O serviço é on-line, ou seja, pela internet. Isso quer dizer que qualquer pessoa maior de 18 anos pode ter uma conta no Kerubin a fim de utilizá-lo como ferramente auxiliar de gestão das suas contas.</p>
+
+	<h2>1. Assinatura</h2>
+     <p>1.1. Ao cadastrar a sua conta no Kerubin, o utilizador deve confirmar a criação da sua conta através do e-mail de confirmação que o Kerubin enviará para o endereço de e-mail fornecido no momento do cadastro da conta pelo utilizador do sistema. Após a confirmação, o utilizador já pode utilizar o sistema Kerubin.</p>
+     <br>
+     <p>1.2. Ao criar e confirmar uma nova conta no Kerubin, o utilizador receberá automaticamente sem nenhum custo R$ 10,00 em créditos para espirementar o sistema Kerubin.</p>
+	 <br>
+	 <p>1.3. O Kerubin funciona no sistema pré-pago, o utilizador paga um valor entre os valores de reposição de créditos especificados pelo Kerubin, e esse valor é colocado em créditos na conta do utilizador. Conforme o utilizador vai utilizando o sistema, os seus créditos vão sendo consumidos. Caso haja mais de um usuário cadastrado na mesma conta, todos os usuários irão consumir dos créditos da conta.</p>
+     <br>
+	 <p>1.4. Não há mensalidade e os créditos nunca expiram, a não ser que a conta seja cancelada.</p>
+     <br>
+	 <p>1.5. Quando os créditos baixarem de R$ 3,00 na conta do utilizador, o Kerubin passará a exibir na área superior da página um aviso para lembrar o utilizador de efetuar a reposição dos créditos.</p>
+     <br>
+	 <p>1.6. Consulta de crédito e pedido de novos créditos podem ser feitos a qualquer momento pelo utilizador através de recurso específico para este fim dentro do próprio Kerubin.</p>
+     <br>
+	 <p>1.7. Quando os créditos do utilizador atingirem o valor de R$ 0,00 (zero reais), ele não conseguirá mais acessar o sistema Kerubin. Neste caso para repor créditos, o utilizador deverá enviar e-mail para kerubin.suporte@gmail.com pedindo instruções de como proceder.</p>
+     <br>
+    <p>1.8. Após três meses de ausência na utilização do Kerubin, será enviado um e-mail para o administrador da conta (normalmente o e-mail utilizado na criação da conta) alertando que em 30 dias a partir da data do envio do e-mail a conta será desativada. E após 6 meses de ausência da utilização da conta, ela será totalmente excluída do sistema Kerubin, não sendo mais possível recuperar nenhum dado da conta excluída.</p>
+    <br>
+    <p>1.9. Para efetuar o cancelamento da conta, basta parar de usar o Kerubin, ou enviar um e-mail para kerubin.suporte@gmail.com, solicitando o cancelamento formalmente. No caso de cancelamento, o valor do saldo de créditos existente na conta cancelada, expirará imediatamente. Não haverá devolução de dinheiro nem transferência para outras contas.</p>
+
+    <h2>2. Segurança dos dados</h2>
+	<p>1.1. Somente o(s) usuário(s) da conta cadastrada tem acesso aos seus próprios dados. Todos os dados são armazenados separadamente por conta criada, sob altos critérios e padrões de segurança. Caso o utilizador precise de ajuda relacionada aos seus dados no sistema Kerubin, o utilizador deverá criar um usuário específico para que o time de suporte do Kerubin possa acessar sua conta e prestar-lhe auxílio. Após o auxílio prestado pelo time de suporte do Kerubin terminar, o utilizador deve bloquear ou excluir esse usuário específico para suporte.</p>
+
+	 <h2>3. Serviço de suporte</h2>
+	<p>1.1. Apesar do sistema ser de fácil utilização e possuir diversos mecanismos de ajuda ao utilizador, caso mesmo assim ainda precise de algum suporte especialziado pelo time do Kerubin, basta enviar e-mail para kerubin.suporte@gmail.com com as dúvidas. O serviço de suporte do Kerubin retornará o mais breve possível.</p>
+
+  <h2>4. Responsabilidade</h2>
+     <p>1.1. O Kerubin envia diariamente, por e-mail, notificações de aviso para lembrar seus utilizadores, apenas os que estiverem devidamente configurados, sobre seus compromissos financeiros, deste que estes estejam corretamente cadastrados no sistema. Porém, o Kerubin não se responsabiliza em hipótese alguma pelo atraso ou não pagamento de qualquer conta, seja a pagar ou a receber pelo seus utilizadores. Seja por esquecimento do utilizador, deficiência de recursos financeiros do utilizador, cadastramento ou configuração incorreta das contas no sistema pelo utilziador, ou por alguma falha no sistema, como estar fora do ar ou não entrega de notificações diárias. Recomendamos que o utilizador do sistema fique atento diariamente aos vencimentos dos seus compromissos financeiros, independente de receber notificações ou não do sistema. O Kerubin é feito sobre rigiroso controle de qualidade de suas funcionalidades, porém falhas de software, hardware, rede, podem acontecer e alguma mensagem pode não ser recebida pelo utilizador do Kerubin.</p>
+     <br>
+     <p>1.2. Apesar de ser raro, mas no caso do sistema ficar fora do ar, o Kerubin fará todos os esforços possíveis para voltar o sistema no ar o mais breve possível. Porém o Kerubin não se responsabiliza por qualquer não cumprimento de obrigações financeiras, como pagamento ou recebimento de algum conta do utilizador, no período em que o sistema estiver fora do ar.</p>
+     <br>
+     <p>1.3. O Kerubin não se responsabiliza por cálculos, ou totalizações incorretas das contas cadastradas. Por isso, recomendamos ao utilizador do sistema que consulte os documentos originais dos seus compromissos financeiros em caso de dúvidas. Caso algum cálculo do sistema esteja errado, o utilizador do sistema tem direito de enviar e-mail para kerubin.suporte@gmail.com solicitando a correção do sistema referente ao cálculo incorreto. A correção será feita pelo time de desenvolvimento do Kerubin o mais breve possível.</p>
+     <br>
+	 <p>1.4. O Kerubin não se responsabiliza pelo não cumprimento de qualquer compromisso financeiro do utilizador (o não pagamento ou recebimento de alguma de suas contas) causados por cadastros efetuados incorretamente no sistema Kerubin, seja de valores incorretos, prazos incorretos, não entendimento do correto funcinamento do sistema por parte do utilizador. É de total responsabilidade do utilizador o cumprimento dos seus compromissos financeiros (pagamento e/ou recebimento de contas), independetemente de utilizar o sistema Kerubin ou não. O Kerubin serve como uma ferramenta auxiliar para a gestão das contas a pagar e a receber do utilizador do sistema.</p>
+
+   <br><br>
+  <p>Última atualização: 01/05/2020.</p>
+  <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayTermosUso=false" label="OK"></button>
+  </p-footer>
+</p-dialog>
