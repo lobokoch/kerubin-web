@@ -28,6 +28,8 @@ import { LogoutService } from 'src/app/security/logout.service';
 })
 export class NewAccountComponent implements OnInit {
 
+  displayTermosUso = false;
+
   userAccount = new UserAccount();
   connected = false;
   createdAccountResult = '';
