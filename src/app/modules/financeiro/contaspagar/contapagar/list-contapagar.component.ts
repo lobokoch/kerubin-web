@@ -40,57 +40,57 @@ import { ContaPagarSumFields } from './contapagar.model';
 
 export class ContaPagarListComponent implements OnInit {
 	tableLoading = false;
-	
+
 	contaPagarListItems: ContaPagar[];
 	contaPagarListTotalElements = 0;
 	contaPagarListFilter = new ContaPagarListFilter();
-	
+
 	contaPagarDescricaoAutoCompleteSuggestions: ContaPagarDescricaoAutoComplete[];
-	
+
 	contaPagarDataVencimentoIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
-	
-	
-	
+
+
+
 	contaPagarFormaPagamentoOptions: FormaPagamento[];
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	contaPagarHistConcBancariaAutoCompleteSuggestions: ContaPagarHistConcBancariaAutoComplete[];
 	contaPagarAgrupadorAutoCompleteSuggestions: ContaPagarAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
-	
-	
+
+
 	contaPagarSumFields = new ContaPagarSumFields();
-	
+
 	constructor(
 	    private contaPagarService: ContaPagarService,
 	    private financeiroContasPagarTranslationService: FinanceiroContasPagarTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-	
+
 	ngOnInit() {
 		this.contaPagarDataVencimentoIsBetweenOptionsOnClick(null);
 		this.initializeDateFilterIntervalDropdownItems();
-		
-		
-		
-		
+
+
+
+
 		this.initializeContaPagarFormaPagamentoOptions();
-		
+
 		this.contaPagarListFilter.dataPagamentoIsNotNull = false;
-		
+
 		this.contaPagarListFilter.dataPagamentoIsNull = true;
-		
-		
+
+
 		this.contaPagarListFilter.idConcBancariaIsNotNull = false;
-		
-		
+
+
 	}
-	
+
 	contaPagarList(pageNumber = 0) {
 		this.tableLoading = true;
 	    this.contaPagarListFilter.pageNumber = pageNumber;
@@ -100,7 +100,7 @@ export class ContaPagarListComponent implements OnInit {
 	    	try {
 		      	this.contaPagarListItems = result.items;
 		      	this.contaPagarListTotalElements = result.totalElements;
-		      
+
 				this.getContaPagarSumFields();
 			} finally {
 				this.tableLoading = false;
@@ -109,9 +109,9 @@ export class ContaPagarListComponent implements OnInit {
 	    .catch(e => {
 	    	this.tableLoading = false;
 	    });
-		
+
 	}
-	
+
 	getContaPagarSumFields() {
 		this.tableLoading = true;
 	    this.contaPagarService.getContaPagarSumFields(this.contaPagarListFilter)
@@ -127,11 +127,11 @@ export class ContaPagarListComponent implements OnInit {
 			this.messageHandler.showError(e);
 		});
 	}
-	
+
 	contaPagarFilterSearch() {
 	    this.contaPagarList(0);
 	}
-	
+
 	deleteContaPagar(contaPagar: ContaPagar) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -147,7 +147,7 @@ export class ContaPagarListComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	contaPagarListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.multiSortMeta) {
 	      this.contaPagarListFilter.sortFields = new Array(event.multiSortMeta.length);
@@ -159,10 +159,11 @@ export class ContaPagarListComponent implements OnInit {
 	    	this.contaPagarListFilter.sortFields.push(new SortField('dataVencimento', 1));
 	    	this.contaPagarListFilter.sortFields.push(new SortField('valor', 0));
 	    }
-	    const pageNumber = event.first / event.rows;
+      const pageNumber = event.first / event.rows;
+      this.contaPagarListFilter.pageSize =  event.rows;
 	    this.contaPagarList(pageNumber);
 	}
-	
+
 	contaPagarDescricaoAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService.contaPagarDescricaoAutoComplete(query)
@@ -173,7 +174,7 @@ export class ContaPagarListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
+
 	contaPagarHistConcBancariaAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService.contaPagarHistConcBancariaAutoComplete(query)
@@ -184,7 +185,7 @@ export class ContaPagarListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
+
 	contaPagarAgrupadorAutoComplete(event) {
 	    const query = event.query;
 	    this.contaPagarService.contaPagarAgrupadorAutoComplete(query)
@@ -195,22 +196,22 @@ export class ContaPagarListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
-	
+
+
 	private initializeContaPagarFormaPagamentoOptions() {
 	    this.contaPagarFormaPagamentoOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_dinheiro'), value: 'DINHEIRO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' },
+	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_cheque'), value: 'CHEQUE' },
 	    	{ label: this.getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
 	}
-	  
-	
+
+
 	contaPagarPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
 			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
@@ -218,7 +219,7 @@ export class ContaPagarListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaPagarContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
 			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
@@ -226,7 +227,7 @@ export class ContaPagarListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaPagarCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
@@ -234,7 +235,7 @@ export class ContaPagarListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaPagarFornecedorAutoCompleteFieldConverter(fornecedor: FornecedorAutoComplete) {
 		if (fornecedor) {
 			return (fornecedor.nome || '<nulo>');
@@ -242,8 +243,8 @@ export class ContaPagarListComponent implements OnInit {
 			return null;
 		}
 	}
-	
-	
+
+
 	private initializeDateFilterIntervalDropdownItems() {
 		this.dateFilterIntervalDropdownItems = [
 		    {label: 'Minha competência', value: '12'},
@@ -262,15 +263,15 @@ export class ContaPagarListComponent implements OnInit {
 		    {label: 'Personalizado', value: '99'}
 		  ];
 	}
-	
-	
+
+
 	contaPagarDataVencimentoIsBetweenOptionsOnClick(dropdown: Dropdown) {
 		this.contaPagarListFilter.dataVencimentoFrom = null;
 		this.contaPagarListFilter.dataVencimentoTo = null;
-		
+
 		let dateFrom = null;
 		let dateTo = null;
-	
+
 		const valor = Number(this.contaPagarDataVencimentoIsBetweenOptionsSelected.value);
 		switch (valor) {
 			case 0: // Hoje
@@ -332,62 +333,62 @@ export class ContaPagarListComponent implements OnInit {
 				dateFrom = moment().add(-1, 'year').startOf('year');
 				dateTo = moment().add(-1, 'year').endOf('year');
 				break;
-				
+
 			case 12: // Minha competência
 				dateFrom = moment().startOf('month');
 				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
 				break;
-			
+
 			default:
 				break;
 		} // switch
-	
+
 		if (dateFrom != null) {
 		  this.contaPagarListFilter.dataVencimentoFrom = dateFrom.toDate();
 		}
-		
+
 		if (dateTo != null) {
 		  this.contaPagarListFilter.dataVencimentoTo = dateTo.toDate();
 		}
-		
+
 		if (dateFrom != null && dateTo != null) {
 		  // this.contaPagarList(0);
 		}
 	}
-	
+
 	applyAndGetRuleGridRowStyleClass(contaPagar: ContaPagar): String {
-		
+
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vencida';
 		}
-		
+
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vence-hoje';
 		}
-		
+
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
 			return 'kb-conta-vence-amanha';
 		}
-		
+
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(3, 'day'))) {
 			return 'kb-conta-vence-proximos-3-dias';
 		}
-		
+
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
 			return 'kb-conta-vence-esta-semana';
 		}
-		
+
 		if ((contaPagar.contaPaga)) {
 			return 'kb-conta-paga';
 		}
-	
+
 	    return null;
 	}
-	
+
 	actionBaixarContaComDataPagamentoHojeWhen(contaPagar: ContaPagar) {
 		return (contaPagar.contaPaga === false);
 	}
-	
+
 	actionBaixarContaComDataPagamentoHoje(contaPagar: ContaPagar) {
 		this.contaPagarService.actionBaixarContaComDataPagamentoHoje(contaPagar.id)
 			.then(() => {
@@ -399,11 +400,11 @@ export class ContaPagarListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaPagar: ContaPagar) {
 		return (contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
 	}
-	
+
 	actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar: ContaPagar) {
 		this.contaPagarService.actionBaixarContaComDataPagamentoIgualDataVenciento(contaPagar.id)
 			.then(() => {
@@ -415,11 +416,11 @@ export class ContaPagarListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	actionEstornarPagamentoContaComUmCliqueWhen(contaPagar: ContaPagar) {
 		return (contaPagar.contaPaga) && (String(contaPagar.tipoPagamento) === 'SINGLE');
 	}
-	
+
 	actionEstornarPagamentoContaComUmClique(contaPagar: ContaPagar) {
 		this.contaPagarService.actionEstornarPagamentoContaComUmClique(contaPagar.id)
 			.then(() => {
@@ -431,15 +432,15 @@ export class ContaPagarListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroContasPagarTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
+
+
 }

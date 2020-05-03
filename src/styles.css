@@ -911,3 +911,7 @@ hr {
   font-size: 13px;
   color: #828282;
 }
+
+.kb-main-menu .ui-menuitem-icon {
+  font-size: 2em !important;
+}

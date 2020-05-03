@@ -35,7 +35,7 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Gráficos',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-chart-bar',
         items: [
 
           {
@@ -51,7 +51,7 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Cadastros',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-id-card',
         items: [
 
           {
@@ -84,7 +84,7 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Financeiro',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-money-bill',
         items: [
 
           {
@@ -131,7 +131,7 @@ export class KerubinMenuComponent implements OnInit {
       },
       {
         label: 'Segurança',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-users',
         items: [
 
           {
@@ -146,7 +146,7 @@ export class KerubinMenuComponent implements OnInit {
       },
       {
         label: 'Administração',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-desktop',
         items: [
 
           {
@@ -165,7 +165,7 @@ export class KerubinMenuComponent implements OnInit {
 
 	  {
       	label: 'Kerubin',
-        icon: 'pi pi-pw',
+        icon: 'pi pi-pw pi-globe',
         visible: isSuperAdmin,
       	items: [
 
