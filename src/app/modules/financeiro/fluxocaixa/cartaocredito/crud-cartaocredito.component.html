@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formCartaoCredito="ngForm" (ngSubmit)="saveFormCartaoCredito(formCartaoCredito.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCartaoCredito(formCartaoCredito)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/cartaocredito" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de cartão de crédito."></a>
@@ -55,19 +55,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="cartaoCredito_id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="cartaoCredito.id" name="id">
+				<input type="hidden" pInputText readonly #cartaoCredito_id="ngModel" [(ngModel)]="cartaoCredito.id" name="cartaoCredito_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="banco">
+			<label for="cartaoCredito_banco">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_banco') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -81,60 +81,60 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBancoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBancoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBancoAutoCompleteFieldConverter"
-			 #bancoElementRef #banco="ngModel" [(ngModel)]="cartaoCredito.banco" name="banco" required>
-				<ng-template let-banco pTemplate="item">
-					<div class="ui-helper-clearfix">{{ cartaoCreditoBancoAutoCompleteFieldConverter(banco) }}</div>
+			 #cartaoCredito_banco_elementRef #cartaoCredito_banco="ngModel" [(ngModel)]="cartaoCredito.banco" name="cartaoCredito_banco" required>
+				<ng-template let-cartaoCredito_banco pTemplate="item">
+					<div class="ui-helper-clearfix">{{ cartaoCreditoBancoAutoCompleteFieldConverter(cartaoCredito_banco) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="banco.invalid && banco.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="cartaoCredito_banco.invalid && cartaoCredito_banco.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="nomeTitular">
+			<label for="cartaoCredito_nomeTitular">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_nomeTitular') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome do títular do cartão."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeTitular="ngModel" [(ngModel)]="cartaoCredito.nomeTitular" name="nomeTitular" required>
-			<div class="invalid-message" *ngIf="nomeTitular.invalid && nomeTitular.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #cartaoCredito_nomeTitular="ngModel" [(ngModel)]="cartaoCredito.nomeTitular" name="cartaoCredito_nomeTitular" required>
+			<div class="invalid-message" *ngIf="cartaoCredito_nomeTitular.invalid && cartaoCredito_nomeTitular.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="numeroCartao">
+			<label for="cartaoCredito_numeroCartao">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_numeroCartao') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número do cartão."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numeroCartao="ngModel" [(ngModel)]="cartaoCredito.numeroCartao" name="numeroCartao" required>
-			<div class="invalid-message" *ngIf="numeroCartao.invalid && numeroCartao.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #cartaoCredito_numeroCartao="ngModel" [(ngModel)]="cartaoCredito.numeroCartao" name="cartaoCredito_numeroCartao" required>
+			<div class="invalid-message" *ngIf="cartaoCredito_numeroCartao.invalid && cartaoCredito_numeroCartao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="validade">
+			<label for="cartaoCredito_validade">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_validade') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Validade."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #validade="ngModel" [(ngModel)]="cartaoCredito.validade" name="validade"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #cartaoCredito_validade="ngModel" [(ngModel)]="cartaoCredito.validade" name="cartaoCredito_validade"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="valorLimite">
+			<label for="cartaoCredito_valorLimite">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_valorLimite') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Limite de crédito."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #valorLimite="ngModel" [(ngModel)]="cartaoCredito.valorLimite" name="valorLimite">
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #cartaoCredito_valorLimite="ngModel" [(ngModel)]="cartaoCredito.valorLimite" name="cartaoCredito_valorLimite">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="bandeiraCartao">
+			<label for="cartaoCredito_bandeiraCartao">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_bandeiraCartao') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -148,34 +148,34 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="cartaoCreditoBandeiraCartaoAutoCompleteClear($event)"
 			 (onBlur)="cartaoCreditoBandeiraCartaoAutoCompleteOnBlur($event)"
 			 [field]="cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter"
-			 #bandeiraCartao="ngModel" [(ngModel)]="cartaoCredito.bandeiraCartao" name="bandeiraCartao" required>
-				<ng-template let-bandeiraCartao pTemplate="item">
-					<div class="ui-helper-clearfix">{{ cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(bandeiraCartao) }}</div>
+			 #cartaoCredito_bandeiraCartao="ngModel" [(ngModel)]="cartaoCredito.bandeiraCartao" name="cartaoCredito_bandeiraCartao" required>
+				<ng-template let-cartaoCredito_bandeiraCartao pTemplate="item">
+					<div class="ui-helper-clearfix">{{ cartaoCreditoBandeiraCartaoAutoCompleteFieldConverter(cartaoCredito_bandeiraCartao) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="bandeiraCartao.invalid && bandeiraCartao.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="cartaoCredito_bandeiraCartao.invalid && cartaoCredito_bandeiraCartao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">
+			<label style="display: block" for="cartaoCredito_ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_ativo') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Cartão ativo."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #ativo="ngModel" [(ngModel)]="cartaoCredito.ativo" name="ativo" required></p-inputSwitch>
-			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
+			<p-inputSwitch #cartaoCredito_ativo="ngModel" [(ngModel)]="cartaoCredito.ativo" name="cartaoCredito_ativo" required></p-inputSwitch>
+			<div class="invalid-message" *ngIf="cartaoCredito_ativo.invalid && cartaoCredito_ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">
+			<label style="display: block" for="cartaoCredito_deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.cartaoCredito_deleted') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #deleted="ngModel" [(ngModel)]="cartaoCredito.deleted" name="deleted"></p-inputSwitch>
+			<p-inputSwitch #cartaoCredito_deleted="ngModel" [(ngModel)]="cartaoCredito.deleted" name="cartaoCredito_deleted"></p-inputSwitch>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -184,7 +184,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCartaoCredito(formCartaoCredito)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/cartaocredito" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de cartão de crédito."></a>

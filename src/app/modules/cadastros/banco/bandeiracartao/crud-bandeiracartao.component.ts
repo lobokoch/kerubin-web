@@ -33,7 +33,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	bandeiraCartao = new BandeiraCartao();
 	
-	@ViewChild('nomeBandeiraElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('bandeiraCartao_nomeBandeira_elementRef', {static: true}) bandeiraCartaoDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private bandeiraCartaoService: BandeiraCartaoService,
@@ -49,18 +49,18 @@ export class BandeiraCartaoComponent implements OnInit {
 	    if (id) {
 	      this.getBandeiraCartaoById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.bandeiraCartaoDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormBandeiraCartao(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.bandeiraCartao = new BandeiraCartao();
-		  this.defaultElementSetFocus();
+		  this.bandeiraCartaoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -76,7 +76,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormBandeiraCartao(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -87,13 +87,14 @@ export class BandeiraCartaoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.bandeiraCartaoService.create(this.bandeiraCartao)
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.bandeiraCartaoDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -105,7 +106,7 @@ export class BandeiraCartaoComponent implements OnInit {
 	    .then((bandeiraCartao) => {
 	      this.bandeiraCartao = bandeiraCartao;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.bandeiraCartaoDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -152,11 +153,11 @@ export class BandeiraCartaoComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	bandeiraCartaoDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.bandeiraCartaoDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at bandeiraCartaoDefaultElementSetFocus:' + error);
 	    }
 	}
 }

@@ -98,6 +98,7 @@ export class AgenciaBancariaListComponent implements OnInit {
 	    	this.agenciaBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.agenciaBancariaListFilter.pageSize = event.rows;
 	    this.agenciaBancariaList(pageNumber);
 	}
 	

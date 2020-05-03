@@ -42,7 +42,7 @@ export class CaixaDiarioComponent implements OnInit {
 	caixaDiarioCaixaAutoCompleteSuggestions: CaixaAutoComplete[];
 	caixaDiarioCaixaDiarioSituacaoOptions: CaixaDiarioSituacao[];
 	
-	@ViewChild('caixaElementRef', {static: true}) defaultElementRef: AutoComplete;
+	@ViewChild('caixaDiario_caixa_elementRef', {static: true}) caixaDiarioDefaultElementRef: AutoComplete;
 	
 	constructor(
 	    private caixaDiarioService: CaixaDiarioService,
@@ -62,7 +62,7 @@ export class CaixaDiarioComponent implements OnInit {
 	      this.getCaixaDiarioById(id);
 	    }
 	    setTimeout(function() {
-	    	this.defaultElementSetFocus();
+	    	this.caixaDiarioDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -70,12 +70,12 @@ export class CaixaDiarioComponent implements OnInit {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCaixaDiario(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.caixaDiario = new CaixaDiario();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.caixaDiarioDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -91,7 +91,7 @@ export class CaixaDiarioComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCaixaDiario(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -102,13 +102,14 @@ export class CaixaDiarioComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.caixaDiarioService.create(this.caixaDiario)
 	    .then((caixaDiario) => {
 	      this.caixaDiario = caixaDiario;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.caixaDiarioDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -120,7 +121,7 @@ export class CaixaDiarioComponent implements OnInit {
 	    .then((caixaDiario) => {
 	      this.caixaDiario = caixaDiario;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.caixaDiarioDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -263,11 +264,11 @@ export class CaixaDiarioComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	caixaDiarioDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.focusInput();
+	    	this.caixaDiarioDefaultElementRef.focusInput();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at caixaDiarioDefaultElementSetFocus:' + error);
 	    }
 	}
 }

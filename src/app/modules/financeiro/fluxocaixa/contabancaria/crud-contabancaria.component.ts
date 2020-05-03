@@ -41,7 +41,7 @@ export class ContaBancariaComponent implements OnInit {
 	contaBancariaAgenciaAutoCompleteSuggestions: AgenciaBancariaAutoComplete[];
 	contaBancariaTipoContaBancariaOptions: TipoContaBancaria[];
 	
-	@ViewChild('nomeTitularElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('contaBancaria_nomeTitular_elementRef', {static: true}) contaBancariaDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private contaBancariaService: ContaBancariaService,
@@ -60,19 +60,19 @@ export class ContaBancariaComponent implements OnInit {
 	    if (id) {
 	      this.getContaBancariaById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.contaBancariaDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormContaBancaria(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.contaBancaria = new ContaBancaria();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.contaBancariaDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -88,7 +88,7 @@ export class ContaBancariaComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormContaBancaria(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -99,13 +99,14 @@ export class ContaBancariaComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.contaBancariaService.create(this.contaBancaria)
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.contaBancariaDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -117,7 +118,7 @@ export class ContaBancariaComponent implements OnInit {
 	    .then((contaBancaria) => {
 	      this.contaBancaria = contaBancaria;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.contaBancariaDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -233,11 +234,11 @@ export class ContaBancariaComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	contaBancariaDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.contaBancariaDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at contaBancariaDefaultElementSetFocus:' + error);
 	    }
 	}
 }

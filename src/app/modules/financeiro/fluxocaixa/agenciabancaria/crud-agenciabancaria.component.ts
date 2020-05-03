@@ -35,7 +35,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	agenciaBancaria = new AgenciaBancaria();
 	agenciaBancariaBancoAutoCompleteSuggestions: BancoAutoComplete[];
 	
-	@ViewChild('bancoElementRef', {static: true}) defaultElementRef: AutoComplete;
+	@ViewChild('agenciaBancaria_banco_elementRef', {static: true}) agenciaBancariaDefaultElementRef: AutoComplete;
 	
 	constructor(
 	    private agenciaBancariaService: AgenciaBancariaService,
@@ -52,7 +52,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	      this.getAgenciaBancariaById(id);
 	    }
 	    setTimeout(function() {
-	    	this.defaultElementSetFocus();
+	    	this.agenciaBancariaDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -60,11 +60,11 @@ export class AgenciaBancariaComponent implements OnInit {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormAgenciaBancaria(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.agenciaBancaria = new AgenciaBancaria();
-		  this.defaultElementSetFocus();
+		  this.agenciaBancariaDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -80,7 +80,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormAgenciaBancaria(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -91,13 +91,14 @@ export class AgenciaBancariaComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.agenciaBancariaService.create(this.agenciaBancaria)
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.agenciaBancariaDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -109,7 +110,7 @@ export class AgenciaBancariaComponent implements OnInit {
 	    .then((agenciaBancaria) => {
 	      this.agenciaBancaria = agenciaBancaria;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.agenciaBancariaDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -200,11 +201,11 @@ export class AgenciaBancariaComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	agenciaBancariaDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.focusInput();
+	    	this.agenciaBancariaDefaultElementRef.focusInput();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at agenciaBancariaDefaultElementSetFocus:' + error);
 	    }
 	}
 }

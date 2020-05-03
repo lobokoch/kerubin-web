@@ -42,7 +42,7 @@ export class ClienteComponent implements OnInit {
 	
 	clienteUfOptions: UF[];
 	
-	@ViewChild('nomeElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('cliente_nome_elementRef', {static: true}) clienteDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private clienteService: ClienteService,
@@ -63,19 +63,19 @@ export class ClienteComponent implements OnInit {
 	    if (id) {
 	      this.getClienteById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.clienteDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCliente(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.clienteDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -91,7 +91,7 @@ export class ClienteComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCliente(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -102,13 +102,14 @@ export class ClienteComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.clienteDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -120,7 +121,7 @@ export class ClienteComponent implements OnInit {
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.clienteDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -204,7 +205,7 @@ export class ClienteComponent implements OnInit {
 										
 	// Begin RuleWithSlotAppyHiddeComponent 
 	
-	ruleCnpjCPFAppyHiddeComponent() {
+	ruleCliente_CnpjCPFAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -213,7 +214,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleIeRGAppyHiddeComponent() {
+	ruleCliente_IeRGAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -222,7 +223,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleDataFundacaoNascimentoAppyHiddeComponent() {
+	ruleCliente_DataFundacaoNascimentoAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -231,7 +232,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleNomeContatoAppyHiddeComponent() {
+	ruleCliente_NomeContatoAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -240,7 +241,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleFoneAppyHiddeComponent() {
+	ruleCliente_FoneAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -249,7 +250,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleCelularAppyHiddeComponent() {
+	ruleCliente_CelularAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -258,7 +259,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleEmailAppyHiddeComponent() {
+	ruleCliente_EmailAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -267,7 +268,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleSiteAppyHiddeComponent() {
+	ruleCliente_SiteAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -276,7 +277,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleCepAppyHiddeComponent() {
+	ruleCliente_CepAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -285,7 +286,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleUfAppyHiddeComponent() {
+	ruleCliente_UfAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -294,7 +295,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleCidadeAppyHiddeComponent() {
+	ruleCliente_CidadeAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -303,7 +304,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleBairroAppyHiddeComponent() {
+	ruleCliente_BairroAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -312,7 +313,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleEnderecoAppyHiddeComponent() {
+	ruleCliente_EnderecoAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -321,7 +322,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleNumeroAppyHiddeComponent() {
+	ruleCliente_NumeroAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -330,7 +331,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleComplementoAppyHiddeComponent() {
+	ruleCliente_ComplementoAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -339,7 +340,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleObservacoesAppyHiddeComponent() {
+	ruleCliente_ObservacoesAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -348,7 +349,7 @@ export class ClienteComponent implements OnInit {
 		}
 	}
 	
-	ruleAtivoAppyHiddeComponent() {
+	ruleCliente_AtivoAppyHiddeComponent() {
 		const expression = (this.cliente.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -409,11 +410,11 @@ export class ClienteComponent implements OnInit {
 	  }
 	
 				
-	defaultElementSetFocus() {
+	clienteDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.clienteDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at clienteDefaultElementSetFocus:' + error);
 	    }
 	}
 }

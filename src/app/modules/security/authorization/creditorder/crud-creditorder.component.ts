@@ -46,7 +46,7 @@ export class CreditOrderComponent implements OnInit {
 	
 	creditOrderOrderStatusOptions: OrderStatus[];
 	
-	@ViewChild('orderUserNameElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('creditOrder_orderUserName_elementRef', {static: true}) creditOrderDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private creditOrderService: CreditOrderService,
@@ -67,19 +67,19 @@ export class CreditOrderComponent implements OnInit {
 	    if (id) {
 	      this.getCreditOrderById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.creditOrderDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCreditOrder(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.creditOrder = new CreditOrder();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.creditOrderDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -95,7 +95,7 @@ export class CreditOrderComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCreditOrder(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -106,13 +106,14 @@ export class CreditOrderComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.creditOrderService.create(this.creditOrder)
 	    .then((creditOrder) => {
 	      this.creditOrder = creditOrder;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.creditOrderDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -124,7 +125,7 @@ export class CreditOrderComponent implements OnInit {
 	    .then((creditOrder) => {
 	      this.creditOrder = creditOrder;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.creditOrderDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -251,11 +252,11 @@ export class CreditOrderComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	creditOrderDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.creditOrderDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at creditOrderDefaultElementSetFocus:' + error);
 	    }
 	}
 }

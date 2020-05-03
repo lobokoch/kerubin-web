@@ -134,6 +134,7 @@ export class CreditOrderListComponent implements OnInit {
 	    	this.creditOrderListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.creditOrderListFilter.pageSize = event.rows;
 	    this.creditOrderList(pageNumber);
 	}
 	

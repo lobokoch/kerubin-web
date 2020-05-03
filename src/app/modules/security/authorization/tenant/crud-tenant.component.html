@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formTenant="ngForm" (ngSubmit)="saveFormTenant(formTenant.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormTenant(formTenant)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/tenant" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de tenant."></a>
@@ -55,61 +55,61 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="tenant_id" class="hidden">
 				{{ getTranslation('security.authorization.tenant_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="tenant.id" name="id">
+				<input type="hidden" pInputText readonly #tenant_id="ngModel" [(ngModel)]="tenant.id" name="tenant_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="name">
+			<label for="tenant_name">
 				{{ getTranslation('security.authorization.tenant_name') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Nome."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nameElementRef #name="ngModel" [(ngModel)]="tenant.name" name="name" required>
-			<div class="invalid-message" *ngIf="name.invalid && name.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenant_name_elementRef #tenant_name="ngModel" [(ngModel)]="tenant.name" name="tenant_name" required>
+			<div class="invalid-message" *ngIf="tenant_name.invalid && tenant_name.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="maxUsers">
+			<label for="tenant_maxUsers">
 				{{ getTranslation('security.authorization.tenant_maxUsers') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade máxima de usuários que podem ser criados para o tenant."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #maxUsers="ngModel" [(ngModel)]="tenant.maxUsers" name="maxUsers" required>
-			<div class="invalid-message" *ngIf="maxUsers.invalid && maxUsers.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenant_maxUsers="ngModel" [(ngModel)]="tenant.maxUsers" name="tenant_maxUsers" required>
+			<div class="invalid-message" *ngIf="tenant_maxUsers.invalid && tenant_maxUsers.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="balance">
+			<label for="tenant_balance">
 				{{ getTranslation('security.authorization.tenant_balance') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Saldo de créditos que o tenant possui."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #balance="ngModel" [(ngModel)]="tenant.balance" name="balance" required>
-			<div class="invalid-message" *ngIf="balance.invalid && balance.dirty">Campo obrigatório.</div>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #tenant_balance="ngModel" [(ngModel)]="tenant.balance" name="tenant_balance" required>
+			<div class="invalid-message" *ngIf="tenant_balance.invalid && tenant_balance.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label style="display: block" for="active">
+			<label style="display: block" for="tenant_active">
 				{{ getTranslation('security.authorization.tenant_active') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se o tenant está ativo ou não. Apenas usuários com tenant Ativo podem acessar o sistema."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #active="ngModel" [(ngModel)]="tenant.active" name="active"></p-inputSwitch>
+			<p-inputSwitch #tenant_active="ngModel" [(ngModel)]="tenant.active" name="tenant_active"></p-inputSwitch>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -118,7 +118,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormTenant(formTenant)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/tenant" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de tenant."></a>

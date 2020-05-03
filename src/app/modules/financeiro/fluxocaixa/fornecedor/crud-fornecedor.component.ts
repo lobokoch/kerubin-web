@@ -32,7 +32,7 @@ export class FornecedorComponent implements OnInit {
 	fornecedor = new Fornecedor();
 	fornecedorTipoPessoaOptions: TipoPessoa[];
 	
-	@ViewChild('tipoPessoaElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('fornecedor_tipoPessoa_elementRef', {static: true}) fornecedorDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private fornecedorService: FornecedorService,
@@ -49,19 +49,19 @@ export class FornecedorComponent implements OnInit {
 	    if (id) {
 	      this.getFornecedorById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.fornecedorDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormFornecedor(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.fornecedor = new Fornecedor();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.fornecedorDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -77,7 +77,7 @@ export class FornecedorComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormFornecedor(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -88,13 +88,14 @@ export class FornecedorComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.fornecedorService.create(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.fornecedorDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -106,7 +107,7 @@ export class FornecedorComponent implements OnInit {
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.fornecedorDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -159,11 +160,11 @@ export class FornecedorComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	fornecedorDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.fornecedorDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at fornecedorDefaultElementSetFocus:' + error);
 	    }
 	}
 }

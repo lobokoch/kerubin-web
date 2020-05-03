@@ -42,7 +42,7 @@ export class FornecedorComponent implements OnInit {
 	
 	fornecedorUfOptions: UF[];
 	
-	@ViewChild('nomeElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('fornecedor_nome_elementRef', {static: true}) fornecedorDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private fornecedorService: FornecedorService,
@@ -63,19 +63,19 @@ export class FornecedorComponent implements OnInit {
 	    if (id) {
 	      this.getFornecedorById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.fornecedorDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormFornecedor(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.fornecedor = new Fornecedor();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.fornecedorDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -91,7 +91,7 @@ export class FornecedorComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormFornecedor(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -102,13 +102,14 @@ export class FornecedorComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.fornecedorService.create(this.fornecedor)
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.fornecedorDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -120,7 +121,7 @@ export class FornecedorComponent implements OnInit {
 	    .then((fornecedor) => {
 	      this.fornecedor = fornecedor;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.fornecedorDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -204,7 +205,7 @@ export class FornecedorComponent implements OnInit {
 										
 	// Begin RuleWithSlotAppyHiddeComponent 
 	
-	ruleCnpjCPFAppyHiddeComponent() {
+	ruleFornecedor_CnpjCPFAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -213,7 +214,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleIeRGAppyHiddeComponent() {
+	ruleFornecedor_IeRGAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -222,7 +223,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleDataFundacaoNascimentoAppyHiddeComponent() {
+	ruleFornecedor_DataFundacaoNascimentoAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -231,7 +232,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleNomeContatoAppyHiddeComponent() {
+	ruleFornecedor_NomeContatoAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -240,7 +241,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleFoneAppyHiddeComponent() {
+	ruleFornecedor_FoneAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -249,7 +250,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleCelularAppyHiddeComponent() {
+	ruleFornecedor_CelularAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -258,7 +259,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleEmailAppyHiddeComponent() {
+	ruleFornecedor_EmailAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -267,7 +268,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleSiteAppyHiddeComponent() {
+	ruleFornecedor_SiteAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -276,7 +277,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleCepAppyHiddeComponent() {
+	ruleFornecedor_CepAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -285,7 +286,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleUfAppyHiddeComponent() {
+	ruleFornecedor_UfAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -294,7 +295,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleCidadeAppyHiddeComponent() {
+	ruleFornecedor_CidadeAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -303,7 +304,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleBairroAppyHiddeComponent() {
+	ruleFornecedor_BairroAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -312,7 +313,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleEnderecoAppyHiddeComponent() {
+	ruleFornecedor_EnderecoAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -321,7 +322,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleNumeroAppyHiddeComponent() {
+	ruleFornecedor_NumeroAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -330,7 +331,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleComplementoAppyHiddeComponent() {
+	ruleFornecedor_ComplementoAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -339,7 +340,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleObservacoesAppyHiddeComponent() {
+	ruleFornecedor_ObservacoesAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -348,7 +349,7 @@ export class FornecedorComponent implements OnInit {
 		}
 	}
 	
-	ruleAtivoAppyHiddeComponent() {
+	ruleFornecedor_AtivoAppyHiddeComponent() {
 		const expression = (this.fornecedor.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -409,11 +410,11 @@ export class FornecedorComponent implements OnInit {
 	  }
 	
 				
-	defaultElementSetFocus() {
+	fornecedorDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.fornecedorDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at fornecedorDefaultElementSetFocus:' + error);
 	    }
 	}
 }

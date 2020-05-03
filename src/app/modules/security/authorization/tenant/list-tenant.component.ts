@@ -99,6 +99,7 @@ export class TenantListComponent implements OnInit {
 	    	this.tenantListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.tenantListFilter.pageSize = event.rows;
 	    this.tenantList(pageNumber);
 	}
 	

@@ -29,7 +29,7 @@ export class TenantComponent implements OnInit {
 	
 	tenant = new Tenant();
 	
-	@ViewChild('nameElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('tenant_name_elementRef', {static: true}) tenantDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private tenantService: TenantService,
@@ -44,18 +44,18 @@ export class TenantComponent implements OnInit {
 	    if (id) {
 	      this.getTenantById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.tenantDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormTenant(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.tenant = new Tenant();
-		  this.defaultElementSetFocus();
+		  this.tenantDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -71,7 +71,7 @@ export class TenantComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormTenant(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -82,13 +82,14 @@ export class TenantComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.tenantService.create(this.tenant)
 	    .then((tenant) => {
 	      this.tenant = tenant;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.tenantDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -100,7 +101,7 @@ export class TenantComponent implements OnInit {
 	    .then((tenant) => {
 	      this.tenant = tenant;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.tenantDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -142,11 +143,11 @@ export class TenantComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	tenantDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.tenantDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at tenantDefaultElementSetFocus:' + error);
 	    }
 	}
 }

@@ -46,7 +46,7 @@ export class CreditOrderAdminComponent implements OnInit {
 	
 	creditOrderAdminOrderStatusOptions: OrderStatus[];
 	
-	@ViewChild('orderUserNameElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('creditOrderAdmin_orderUserName_elementRef', {static: true}) creditOrderAdminDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private creditOrderAdminService: CreditOrderAdminService,
@@ -67,19 +67,19 @@ export class CreditOrderAdminComponent implements OnInit {
 	    if (id) {
 	      this.getCreditOrderAdminById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.creditOrderAdminDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCreditOrderAdmin(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.creditOrderAdmin = new CreditOrderAdmin();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.creditOrderAdminDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -95,7 +95,7 @@ export class CreditOrderAdminComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCreditOrderAdmin(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -106,13 +106,14 @@ export class CreditOrderAdminComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.creditOrderAdminService.create(this.creditOrderAdmin)
 	    .then((creditOrderAdmin) => {
 	      this.creditOrderAdmin = creditOrderAdmin;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.creditOrderAdminDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -124,7 +125,7 @@ export class CreditOrderAdminComponent implements OnInit {
 	    .then((creditOrderAdmin) => {
 	      this.creditOrderAdmin = creditOrderAdmin;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.creditOrderAdminDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -251,11 +252,11 @@ export class CreditOrderAdminComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	creditOrderAdminDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.creditOrderAdminDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at creditOrderAdminDefaultElementSetFocus:' + error);
 	    }
 	}
 }

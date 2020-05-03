@@ -98,6 +98,7 @@ export class ContaBancariaListComponent implements OnInit {
 	    	this.contaBancariaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.contaBancariaListFilter.pageSize = event.rows;
 	    this.contaBancariaList(pageNumber);
 	}
 	

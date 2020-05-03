@@ -40,7 +40,7 @@ export class PlanoContaComponent implements OnInit {
 	
 	planoContaTipoReceitaDespesaOptions: TipoReceitaDespesa[];
 	
-	@ViewChild('codigoElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('planoConta_codigo_elementRef', {static: true}) planoContaDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private planoContaService: PlanoContaService,
@@ -59,19 +59,19 @@ export class PlanoContaComponent implements OnInit {
 	    if (id) {
 	      this.getPlanoContaById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.planoContaDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormPlanoConta(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.planoConta = new PlanoConta();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.planoContaDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -87,7 +87,7 @@ export class PlanoContaComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormPlanoConta(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -98,13 +98,14 @@ export class PlanoContaComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.planoContaService.create(this.planoConta)
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.planoContaDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -116,7 +117,7 @@ export class PlanoContaComponent implements OnInit {
 	    .then((planoConta) => {
 	      this.planoConta = planoConta;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.planoContaDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -226,11 +227,11 @@ export class PlanoContaComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	planoContaDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.planoContaDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at planoContaDefaultElementSetFocus:' + error);
 	    }
 	}
 }

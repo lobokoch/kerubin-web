@@ -29,7 +29,7 @@ export class BancoComponent implements OnInit {
 	
 	banco = new Banco();
 	
-	@ViewChild('numeroElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('banco_numero_elementRef', {static: true}) bancoDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private bancoService: BancoService,
@@ -44,18 +44,18 @@ export class BancoComponent implements OnInit {
 	    if (id) {
 	      this.getBancoById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.bancoDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormBanco(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.banco = new Banco();
-		  this.defaultElementSetFocus();
+		  this.bancoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -71,7 +71,7 @@ export class BancoComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormBanco(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -82,13 +82,14 @@ export class BancoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.bancoService.create(this.banco)
 	    .then((banco) => {
 	      this.banco = banco;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.bancoDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -100,7 +101,7 @@ export class BancoComponent implements OnInit {
 	    .then((banco) => {
 	      this.banco = banco;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.bancoDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -142,11 +143,11 @@ export class BancoComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	bancoDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.bancoDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at bancoDefaultElementSetFocus:' + error);
 	    }
 	}
 }

@@ -99,6 +99,7 @@ export class FornecedorListComponent implements OnInit {
 	    	this.fornecedorListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.fornecedorListFilter.pageSize = event.rows;
 	    this.fornecedorList(pageNumber);
 	}
 	

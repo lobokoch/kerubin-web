@@ -170,6 +170,7 @@ export class CaixaLancamentoListComponent implements OnInit {
 	    	this.caixaLancamentoListFilter.sortFields.push(new SortField('dataLancamento', 0));
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.caixaLancamentoListFilter.pageSize = event.rows;
 	    this.caixaLancamentoList(pageNumber);
 	}
 	

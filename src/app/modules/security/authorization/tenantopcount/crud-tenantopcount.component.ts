@@ -34,7 +34,7 @@ export class TenantOpCountComponent implements OnInit {
 	tenantOpCount = new TenantOpCount();
 	tenantOpCountTenantAutoCompleteSuggestions: TenantAutoComplete[];
 	
-	@ViewChild('descriptionElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('tenantOpCount_description_elementRef', {static: true}) tenantOpCountDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private tenantOpCountService: TenantOpCountService,
@@ -50,18 +50,18 @@ export class TenantOpCountComponent implements OnInit {
 	    if (id) {
 	      this.getTenantOpCountById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.tenantOpCountDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormTenantOpCount(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.tenantOpCount = new TenantOpCount();
-		  this.defaultElementSetFocus();
+		  this.tenantOpCountDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -77,7 +77,7 @@ export class TenantOpCountComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormTenantOpCount(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -88,13 +88,14 @@ export class TenantOpCountComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.tenantOpCountService.create(this.tenantOpCount)
 	    .then((tenantOpCount) => {
 	      this.tenantOpCount = tenantOpCount;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.tenantOpCountDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -106,7 +107,7 @@ export class TenantOpCountComponent implements OnInit {
 	    .then((tenantOpCount) => {
 	      this.tenantOpCount = tenantOpCount;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.tenantOpCountDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -190,11 +191,11 @@ export class TenantOpCountComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	tenantOpCountDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.tenantOpCountDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at tenantOpCountDefaultElementSetFocus:' + error);
 	    }
 	}
 }

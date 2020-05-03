@@ -98,6 +98,7 @@ export class PlanoContaListComponent implements OnInit {
 	    	this.planoContaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.planoContaListFilter.pageSize = event.rows;
 	    this.planoContaList(pageNumber);
 	}
 	

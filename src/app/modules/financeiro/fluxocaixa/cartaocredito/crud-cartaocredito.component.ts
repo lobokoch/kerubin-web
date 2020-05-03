@@ -46,7 +46,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteSuggestions: BandeiraCartaoAutoComplete[];
 	
-	@ViewChild('bancoElementRef', {static: true}) defaultElementRef: AutoComplete;
+	@ViewChild('cartaoCredito_banco_elementRef', {static: true}) cartaoCreditoDefaultElementRef: AutoComplete;
 	
 	constructor(
 	    private cartaoCreditoService: CartaoCreditoService,
@@ -67,7 +67,7 @@ export class CartaoCreditoComponent implements OnInit {
 	      this.getCartaoCreditoById(id);
 	    }
 	    setTimeout(function() {
-	    	this.defaultElementSetFocus();
+	    	this.cartaoCreditoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -75,11 +75,11 @@ export class CartaoCreditoComponent implements OnInit {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCartaoCredito(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cartaoCredito = new CartaoCredito();
-		  this.defaultElementSetFocus();
+		  this.cartaoCreditoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -95,7 +95,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCartaoCredito(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -106,13 +106,14 @@ export class CartaoCreditoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.cartaoCreditoDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -124,7 +125,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.cartaoCreditoDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -264,11 +265,11 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	cartaoCreditoDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.focusInput();
+	    	this.cartaoCreditoDefaultElementRef.focusInput();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at cartaoCreditoDefaultElementSetFocus:' + error);
 	    }
 	}
 }

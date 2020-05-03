@@ -160,6 +160,7 @@ export class ContaReceberListComponent implements OnInit {
 	    	this.contaReceberListFilter.sortFields.push(new SortField('valor', 0));
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.contaReceberListFilter.pageSize = event.rows;
 	    this.contaReceberList(pageNumber);
 	}
 	
@@ -357,23 +358,23 @@ export class ContaReceberListComponent implements OnInit {
 	
 	applyAndGetRuleGridRowStyleClass(contaReceber: ContaReceber): String {
 		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment(), 'day')) {
+		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vencida';
 		}
 		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment(), 'day')) {
+		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
 			return 'kb-conta-vence-hoje';
 		}
 		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment().add(1, 'day'), 'day')) {
+		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
 			return 'kb-conta-vence-amanha';
 		}
 		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment(), moment().add(3, 'day'))) {
+		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(3, 'day'))) {
 			return 'kb-conta-vence-proximos-3-dias';
 		}
 		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment(), moment().endOf('week'))) {
+		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
 			return 'kb-conta-vence-esta-semana';
 		}
 		

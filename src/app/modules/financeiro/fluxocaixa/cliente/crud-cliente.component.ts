@@ -32,7 +32,7 @@ export class ClienteComponent implements OnInit {
 	cliente = new Cliente();
 	clienteTipoPessoaOptions: TipoPessoa[];
 	
-	@ViewChild('tipoPessoaElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('cliente_tipoPessoa_elementRef', {static: true}) clienteDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private clienteService: ClienteService,
@@ -49,19 +49,19 @@ export class ClienteComponent implements OnInit {
 	    if (id) {
 	      this.getClienteById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.clienteDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCliente(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cliente = new Cliente();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.clienteDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -77,7 +77,7 @@ export class ClienteComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCliente(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -88,13 +88,14 @@ export class ClienteComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.clienteService.create(this.cliente)
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.clienteDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -106,7 +107,7 @@ export class ClienteComponent implements OnInit {
 	    .then((cliente) => {
 	      this.cliente = cliente;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.clienteDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -159,11 +160,11 @@ export class ClienteComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	clienteDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.clienteDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at clienteDefaultElementSetFocus:' + error);
 	    }
 	}
 }

@@ -99,6 +99,7 @@ export class ClienteListComponent implements OnInit {
 	    	this.clienteListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.clienteListFilter.pageSize = event.rows;
 	    this.clienteList(pageNumber);
 	}
 	

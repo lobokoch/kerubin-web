@@ -98,6 +98,7 @@ export class TenantOpCountListComponent implements OnInit {
 	    	this.tenantOpCountListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.tenantOpCountListFilter.pageSize = event.rows;
 	    this.tenantOpCountList(pageNumber);
 	}
 	

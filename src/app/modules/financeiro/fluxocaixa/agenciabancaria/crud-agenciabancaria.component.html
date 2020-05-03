@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formAgenciaBancaria="ngForm" (ngSubmit)="saveFormAgenciaBancaria(formAgenciaBancaria.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormAgenciaBancaria(formAgenciaBancaria)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/agenciabancaria" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de agência bancária."></a>
@@ -55,19 +55,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="agenciaBancaria_id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="agenciaBancaria.id" name="id">
+				<input type="hidden" pInputText readonly #agenciaBancaria_id="ngModel" [(ngModel)]="agenciaBancaria.id" name="agenciaBancaria_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="banco">
+			<label for="agenciaBancaria_banco">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_banco') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -81,56 +81,56 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="agenciaBancariaBancoAutoCompleteClear($event)"
 			 (onBlur)="agenciaBancariaBancoAutoCompleteOnBlur($event)"
 			 [field]="agenciaBancariaBancoAutoCompleteFieldConverter"
-			 #bancoElementRef #banco="ngModel" [(ngModel)]="agenciaBancaria.banco" name="banco" required>
-				<ng-template let-banco pTemplate="item">
-					<div class="ui-helper-clearfix">{{ agenciaBancariaBancoAutoCompleteFieldConverter(banco) }}</div>
+			 #agenciaBancaria_banco_elementRef #agenciaBancaria_banco="ngModel" [(ngModel)]="agenciaBancaria.banco" name="agenciaBancaria_banco" required>
+				<ng-template let-agenciaBancaria_banco pTemplate="item">
+					<div class="ui-helper-clearfix">{{ agenciaBancariaBancoAutoCompleteFieldConverter(agenciaBancaria_banco) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="banco.invalid && banco.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="agenciaBancaria_banco.invalid && agenciaBancaria_banco.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="numeroAgencia">
+			<label for="agenciaBancaria_numeroAgencia">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_numeroAgencia') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Número da agência."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numeroAgencia="ngModel" [(ngModel)]="agenciaBancaria.numeroAgencia" name="numeroAgencia" required>
-			<div class="invalid-message" *ngIf="numeroAgencia.invalid && numeroAgencia.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #agenciaBancaria_numeroAgencia="ngModel" [(ngModel)]="agenciaBancaria.numeroAgencia" name="agenciaBancaria_numeroAgencia" required>
+			<div class="invalid-message" *ngIf="agenciaBancaria_numeroAgencia.invalid && agenciaBancaria_numeroAgencia.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="digitoAgencia">
+			<label for="agenciaBancaria_digitoAgencia">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_digitoAgencia') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Dígito."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #digitoAgencia="ngModel" [(ngModel)]="agenciaBancaria.digitoAgencia" name="digitoAgencia" required>
-			<div class="invalid-message" *ngIf="digitoAgencia.invalid && digitoAgencia.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #agenciaBancaria_digitoAgencia="ngModel" [(ngModel)]="agenciaBancaria.digitoAgencia" name="agenciaBancaria_digitoAgencia" required>
+			<div class="invalid-message" *ngIf="agenciaBancaria_digitoAgencia.invalid && agenciaBancaria_digitoAgencia.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="endereco">
+			<label for="agenciaBancaria_endereco">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_endereco') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Endereço/localização da agência."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #endereco="ngModel" [(ngModel)]="agenciaBancaria.endereco" name="endereco">
+			<input type="text" pInputText #agenciaBancaria_endereco="ngModel" [(ngModel)]="agenciaBancaria.endereco" name="agenciaBancaria_endereco">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">
+			<label style="display: block" for="agenciaBancaria_deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.agenciaBancaria_deleted') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #deleted="ngModel" [(ngModel)]="agenciaBancaria.deleted" name="deleted"></p-inputSwitch>
+			<p-inputSwitch #agenciaBancaria_deleted="ngModel" [(ngModel)]="agenciaBancaria.deleted" name="agenciaBancaria_deleted"></p-inputSwitch>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -139,7 +139,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormAgenciaBancaria(formAgenciaBancaria)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/agenciabancaria" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de agência bancária."></a>

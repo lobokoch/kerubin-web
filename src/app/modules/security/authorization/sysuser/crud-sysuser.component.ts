@@ -41,7 +41,7 @@ export class SysUserComponent implements OnInit {
 	sysUserTenantAutoCompleteSuggestions: TenantAutoComplete[];
 	sysUserAccountTypeOptions: AccountType[];
 	
-	@ViewChild('nameElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('sysUser_name_elementRef', {static: true}) sysUserDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private sysUserService: SysUserService,
@@ -60,19 +60,19 @@ export class SysUserComponent implements OnInit {
 	    if (id) {
 	      this.getSysUserById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.sysUserDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormSysUser(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.sysUser = new SysUser();
 	      this.initializeEnumFieldsWithDefault();
-		  this.defaultElementSetFocus();
+		  this.sysUserDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -88,7 +88,7 @@ export class SysUserComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormSysUser(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -99,13 +99,14 @@ export class SysUserComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.sysUserService.create(this.sysUser)
 	    .then((sysUser) => {
 	      this.sysUser = sysUser;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.sysUserDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -117,7 +118,7 @@ export class SysUserComponent implements OnInit {
 	    .then((sysUser) => {
 	      this.sysUser = sysUser;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.sysUserDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -217,11 +218,11 @@ export class SysUserComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	sysUserDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.sysUserDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at sysUserDefaultElementSetFocus:' + error);
 	    }
 	}
 }

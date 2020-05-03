@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formCaixaDiario="ngForm" (ngSubmit)="saveFormCaixaDiario(formCaixaDiario.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCaixaDiario(formCaixaDiario)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/caixadiario" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de abertura/fechamento de caixa."></a>
@@ -70,19 +70,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="caixaDiario_id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="caixaDiario.id" name="id">
+				<input type="hidden" pInputText readonly #caixaDiario_id="ngModel" [(ngModel)]="caixaDiario.id" name="caixaDiario_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="caixa">
+			<label for="caixaDiario_caixa">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixa') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -96,16 +96,16 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="caixaDiarioCaixaAutoCompleteClear($event)"
 			 (onBlur)="caixaDiarioCaixaAutoCompleteOnBlur($event)"
 			 [field]="caixaDiarioCaixaAutoCompleteFieldConverter"
-			 #caixaElementRef #caixa="ngModel" [(ngModel)]="caixaDiario.caixa" name="caixa" required>
-				<ng-template let-caixa pTemplate="item">
-					<div class="ui-helper-clearfix">{{ caixaDiarioCaixaAutoCompleteFieldConverter(caixa) }}</div>
+			 #caixaDiario_caixa_elementRef #caixaDiario_caixa="ngModel" [(ngModel)]="caixaDiario.caixa" name="caixaDiario_caixa" required>
+				<ng-template let-caixaDiario_caixa pTemplate="item">
+					<div class="ui-helper-clearfix">{{ caixaDiarioCaixaAutoCompleteFieldConverter(caixaDiario_caixa) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="caixa.invalid && caixa.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="caixaDiario_caixa.invalid && caixaDiario_caixa.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="caixaDiarioSituacao">
+			<label for="caixaDiario_caixaDiarioSituacao">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_caixaDiarioSituacao') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -113,10 +113,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<!-- help -->
 			</label>
 			<div class="dropdown-readonly">
-				<p-dropdown [readonly]="true" [options]="caixaDiarioCaixaDiarioSituacaoOptions" placeholder="Selecione um item..." #caixaDiarioSituacao="ngModel" [(ngModel)]="caixaDiario.caixaDiarioSituacao" name="caixaDiarioSituacao" required></p-dropdown>
+				<p-dropdown [readonly]="true" [options]="caixaDiarioCaixaDiarioSituacaoOptions" placeholder="Selecione um item..." #caixaDiario_caixaDiarioSituacao="ngModel" [(ngModel)]="caixaDiario.caixaDiarioSituacao" name="caixaDiario_caixaDiarioSituacao" required></p-dropdown>
 			</div>
 			
-			<div class="invalid-message" *ngIf="caixaDiarioSituacao.invalid && caixaDiarioSituacao.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="caixaDiario_caixaDiarioSituacao.invalid && caixaDiario_caixaDiarioSituacao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		
@@ -127,50 +127,50 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- separator -->
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="dataHoraAbertura">
+			<label for="caixaDiario_dataHoraAbertura">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraAbertura') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data e hora em que este caixa foi aberto."></i>
 				<!-- help -->
 			</label>
 			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataHoraAbertura="ngModel" [(ngModel)]="caixaDiario.dataHoraAbertura" name="dataHoraAbertura"></p-calendar>
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #caixaDiario_dataHoraAbertura="ngModel" [(ngModel)]="caixaDiario.dataHoraAbertura" name="caixaDiario_dataHoraAbertura"></p-calendar>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="saldoInicial">
+			<label for="caixaDiario_saldoInicial">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_saldoInicial') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Saldo inicial deste caixa. É o saldo final deste caixa desde a última vez em que ele foi fechado."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldoInicial="ngModel" [(ngModel)]="caixaDiario.saldoInicial" name="saldoInicial">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #caixaDiario_saldoInicial="ngModel" [(ngModel)]="caixaDiario.saldoInicial" name="caixaDiario_saldoInicial">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="dataHoraFechamento">
+			<label for="caixaDiario_dataHoraFechamento">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_dataHoraFechamento') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data e hora em que este caixa foi fechado."></i>
 				<!-- help -->
 			</label>
 			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #dataHoraFechamento="ngModel" [(ngModel)]="caixaDiario.dataHoraFechamento" name="dataHoraFechamento"></p-calendar>
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #caixaDiario_dataHoraFechamento="ngModel" [(ngModel)]="caixaDiario.dataHoraFechamento" name="caixaDiario_dataHoraFechamento"></p-calendar>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="saldoFinal">
+			<label for="caixaDiario_saldoFinal">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_saldoFinal') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Saldo final deste caixa. É o saldo inicial do caixa, mais o somatório dos lançamentos que esse caixa recebeu desde a última vez em que foi aberto."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldoFinal="ngModel" [(ngModel)]="caixaDiario.saldoFinal" name="saldoFinal">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #caixaDiario_saldoFinal="ngModel" [(ngModel)]="caixaDiario.saldoFinal" name="caixaDiario_saldoFinal">
 			</div>
 		</div>
 		
@@ -182,23 +182,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- separator -->
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="observacoes">
+			<label for="caixaDiario_observacoes">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_observacoes') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
 				<!-- help -->
 			</label>
-			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="caixaDiario.observacoes" name="observacoes"></textarea>
+			<textarea pInputTextarea rows="3" #caixaDiario_observacoes="ngModel" [(ngModel)]="caixaDiario.observacoes" name="caixaDiario_observacoes"></textarea>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="version" class="hidden">
+			<label for="caixaDiario_version" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixaDiario_version') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Versão."></i>
 				<!-- help -->
 			</label>
-			<input type="hidden" pInputText #version="ngModel" [(ngModel)]="caixaDiario.version" name="version">
+			<input type="hidden" pInputText #caixaDiario_version="ngModel" [(ngModel)]="caixaDiario.version" name="caixaDiario_version">
 		</div>
 		
 		<!-- Begin buttons -->
@@ -207,7 +207,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCaixaDiario(formCaixaDiario)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/caixadiario" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de abertura/fechamento de caixa."></a>

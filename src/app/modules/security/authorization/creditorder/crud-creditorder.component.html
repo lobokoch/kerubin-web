@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formCreditOrder="ngForm" (ngSubmit)="saveFormCreditOrder(formCreditOrder.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCreditOrder(formCreditOrder)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/creditorder" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de pedido de créditos."></a>
@@ -55,42 +55,42 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="creditOrder_id" class="hidden">
 				{{ getTranslation('security.authorization.creditOrder_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="creditOrder.id" name="id">
+				<input type="hidden" pInputText readonly #creditOrder_id="ngModel" [(ngModel)]="creditOrder.id" name="creditOrder_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="orderUserName">
+			<label for="creditOrder_orderUserName">
 				{{ getTranslation('security.authorization.creditOrder_orderUserName') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Usuário que fez o pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #orderUserNameElementRef #orderUserName="ngModel" [(ngModel)]="creditOrder.orderUserName" name="orderUserName" required>
-			<div class="invalid-message" *ngIf="orderUserName.invalid && orderUserName.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #creditOrder_orderUserName_elementRef #creditOrder_orderUserName="ngModel" [(ngModel)]="creditOrder.orderUserName" name="creditOrder_orderUserName" required>
+			<div class="invalid-message" *ngIf="creditOrder_orderUserName.invalid && creditOrder_orderUserName.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
-			<label for="orderTenantName" class="hidden">
+			<label for="creditOrder_orderTenantName" class="hidden">
 				{{ getTranslation('security.authorization.creditOrder_orderTenantName') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Tenant do usuário que fez o pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<input type="hidden" pInputText #orderTenantName="ngModel" [(ngModel)]="creditOrder.orderTenantName" name="orderTenantName" required>
-			<div class="invalid-message" *ngIf="orderTenantName.invalid && orderTenantName.dirty">Campo obrigatório.</div>
+			<input type="hidden" pInputText #creditOrder_orderTenantName="ngModel" [(ngModel)]="creditOrder.orderTenantName" name="creditOrder_orderTenantName" required>
+			<div class="invalid-message" *ngIf="creditOrder_orderTenantName.invalid && creditOrder_orderTenantName.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
-			<label for="orderUser" class="hidden">
+			<label for="creditOrder_orderUser" class="hidden">
 				{{ getTranslation('security.authorization.creditOrder_orderUser') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Usuário do Kerubin que autorizou o pedido de créditos."></i>
@@ -103,124 +103,124 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="creditOrderOrderUserAutoCompleteClear($event)"
 			 (onBlur)="creditOrderOrderUserAutoCompleteOnBlur($event)"
 			 [field]="creditOrderOrderUserAutoCompleteFieldConverter"
-			 #orderUser="ngModel" [(ngModel)]="creditOrder.orderUser" name="orderUser" required>
-				<ng-template let-orderUser pTemplate="item">
-					<div class="ui-helper-clearfix">{{ creditOrderOrderUserAutoCompleteFieldConverter(orderUser) }}</div>
+			 #creditOrder_orderUser="ngModel" [(ngModel)]="creditOrder.orderUser" name="creditOrder_orderUser" required>
+				<ng-template let-creditOrder_orderUser pTemplate="item">
+					<div class="ui-helper-clearfix">{{ creditOrderOrderUserAutoCompleteFieldConverter(creditOrder_orderUser) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="orderUser.invalid && orderUser.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="creditOrder_orderUser.invalid && creditOrder_orderUser.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="orderDate">
+			<label for="creditOrder_orderDate">
 				{{ getTranslation('security.authorization.creditOrder_orderDate') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data em que o pedido de créditos foi realizado."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderDate="ngModel" [(ngModel)]="creditOrder.orderDate" name="orderDate" required></p-calendar>
-			<div class="invalid-message" *ngIf="orderDate.invalid && orderDate.dirty">Campo obrigatório.</div>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #creditOrder_orderDate="ngModel" [(ngModel)]="creditOrder.orderDate" name="creditOrder_orderDate" required></p-calendar>
+			<div class="invalid-message" *ngIf="creditOrder_orderDate.invalid && creditOrder_orderDate.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-3">
-			<label for="orderValue">
+			<label for="creditOrder_orderValue">
 				{{ getTranslation('security.authorization.creditOrder_orderValue') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor em créditos solicitado."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderValue="ngModel" [(ngModel)]="creditOrder.orderValue" name="orderValue" required>
-			<div class="invalid-message" *ngIf="orderValue.invalid && orderValue.dirty">Campo obrigatório.</div>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #creditOrder_orderValue="ngModel" [(ngModel)]="creditOrder.orderValue" name="creditOrder_orderValue" required>
+			<div class="invalid-message" *ngIf="creditOrder_orderValue.invalid && creditOrder_orderValue.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="orderBonusValue">
+			<label for="creditOrder_orderBonusValue">
 				{{ getTranslation('security.authorization.creditOrder_orderBonusValue') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor do bônus concedido no pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderBonusValue="ngModel" [(ngModel)]="creditOrder.orderBonusValue" name="orderBonusValue" required>
-			<div class="invalid-message" *ngIf="orderBonusValue.invalid && orderBonusValue.dirty">Campo obrigatório.</div>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #creditOrder_orderBonusValue="ngModel" [(ngModel)]="creditOrder.orderBonusValue" name="creditOrder_orderBonusValue" required>
+			<div class="invalid-message" *ngIf="creditOrder_orderBonusValue.invalid && creditOrder_orderBonusValue.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="orderTotalCredits">
+			<label for="creditOrder_orderTotalCredits">
 				{{ getTranslation('security.authorization.creditOrder_orderTotalCredits') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total dos créditos. É a soma do valor solicitado com o bônus concedido no pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #orderTotalCredits="ngModel" [(ngModel)]="creditOrder.orderTotalCredits" name="orderTotalCredits" required>
-			<div class="invalid-message" *ngIf="orderTotalCredits.invalid && orderTotalCredits.dirty">Campo obrigatório.</div>
+			<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" #creditOrder_orderTotalCredits="ngModel" [(ngModel)]="creditOrder.orderTotalCredits" name="creditOrder_orderTotalCredits" required>
+			<div class="invalid-message" *ngIf="creditOrder_orderTotalCredits.invalid && creditOrder_orderTotalCredits.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="paymentMethod">
+			<label for="creditOrder_paymentMethod">
 				{{ getTranslation('security.authorization.creditOrder_paymentMethod') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Método de pagamento escolhido para fazer o pagamento dos créditos solicitados."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="creditOrderPaymentMethodOptions" placeholder="Selecione um item..." #paymentMethod="ngModel" [(ngModel)]="creditOrder.paymentMethod" name="paymentMethod" required></p-dropdown>
-			<div class="invalid-message" *ngIf="paymentMethod.invalid && paymentMethod.dirty">Campo obrigatório.</div>
+			<p-dropdown [options]="creditOrderPaymentMethodOptions" placeholder="Selecione um item..." #creditOrder_paymentMethod="ngModel" [(ngModel)]="creditOrder.paymentMethod" name="creditOrder_paymentMethod" required></p-dropdown>
+			<div class="invalid-message" *ngIf="creditOrder_paymentMethod.invalid && creditOrder_paymentMethod.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-10">
-			<label for="paymentMethodDescription">
+			<label for="creditOrder_paymentMethodDescription">
 				{{ getTranslation('security.authorization.creditOrder_paymentMethodDescription') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descrição do método de pagamento escolhido para fazer o pagamento dos créditos solicitados."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #paymentMethodDescription="ngModel" [(ngModel)]="creditOrder.paymentMethodDescription" name="paymentMethodDescription">
+			<input type="text" pInputText #creditOrder_paymentMethodDescription="ngModel" [(ngModel)]="creditOrder.paymentMethodDescription" name="creditOrder_paymentMethodDescription">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="orderStatus">
+			<label for="creditOrder_orderStatus">
 				{{ getTranslation('security.authorization.creditOrder_orderStatus') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Situação do pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="creditOrderOrderStatusOptions" placeholder="Selecione um item..." #orderStatus="ngModel" [(ngModel)]="creditOrder.orderStatus" name="orderStatus" required></p-dropdown>
-			<div class="invalid-message" *ngIf="orderStatus.invalid && orderStatus.dirty">Campo obrigatório.</div>
+			<p-dropdown [options]="creditOrderOrderStatusOptions" placeholder="Selecione um item..." #creditOrder_orderStatus="ngModel" [(ngModel)]="creditOrder.orderStatus" name="creditOrder_orderStatus" required></p-dropdown>
+			<div class="invalid-message" *ngIf="creditOrder_orderStatus.invalid && creditOrder_orderStatus.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="orderPaidDate">
+			<label for="creditOrder_orderPaidDate">
 				{{ getTranslation('security.authorization.creditOrder_orderPaidDate') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data de pagamento dos créditos solicitados."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderPaidDate="ngModel" [(ngModel)]="creditOrder.orderPaidDate" name="orderPaidDate"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #creditOrder_orderPaidDate="ngModel" [(ngModel)]="creditOrder.orderPaidDate" name="creditOrder_orderPaidDate"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="orderCanceledDate">
+			<label for="creditOrder_orderCanceledDate">
 				{{ getTranslation('security.authorization.creditOrder_orderCanceledDate') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data de cancelamento do pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #orderCanceledDate="ngModel" [(ngModel)]="creditOrder.orderCanceledDate" name="orderCanceledDate"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #creditOrder_orderCanceledDate="ngModel" [(ngModel)]="creditOrder.orderCanceledDate" name="creditOrder_orderCanceledDate"></p-calendar>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="orderHistory">
+			<label for="creditOrder_orderHistory">
 				{{ getTranslation('security.authorization.creditOrder_orderHistory') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Histórico do pedido de créditos."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #orderHistory="ngModel" [(ngModel)]="creditOrder.orderHistory" name="orderHistory">
+			<input type="text" pInputText #creditOrder_orderHistory="ngModel" [(ngModel)]="creditOrder.orderHistory" name="creditOrder_orderHistory">
 		</div>
 		
 		<!-- Begin buttons -->
@@ -229,7 +229,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCreditOrder(formCreditOrder)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/creditorder" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de pedido de créditos."></a>

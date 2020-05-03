@@ -96,6 +96,7 @@ export class CaixaListComponent implements OnInit {
 	    	this.caixaListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.caixaListFilter.pageSize = event.rows;
 	    this.caixaList(pageNumber);
 	}
 	

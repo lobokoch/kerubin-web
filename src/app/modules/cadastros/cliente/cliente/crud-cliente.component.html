@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formCliente="ngForm" (ngSubmit)="saveFormCliente(formCliente.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCliente(formCliente)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/cliente" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de clientes."></a>
@@ -55,39 +55,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="cliente_id" class="hidden">
 				{{ getTranslation('cadastros.cliente.cliente_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="cliente.id" name="id">
+				<input type="hidden" pInputText readonly #cliente_id="ngModel" [(ngModel)]="cliente.id" name="cliente_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="tipoPessoa">
+			<label for="cliente_tipoPessoa">
 				{{ getTranslation('cadastros.cliente.cliente_tipoPessoa') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha se o cliente é pessoa Física ou Jurídica."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="clienteTipoPessoaOptions" placeholder="Selecione um item..." #tipoPessoa="ngModel" [(ngModel)]="cliente.tipoPessoa" name="tipoPessoa" required></p-dropdown>
-			<div class="invalid-message" *ngIf="tipoPessoa.invalid && tipoPessoa.dirty">Campo obrigatório.</div>
+			<p-dropdown [options]="clienteTipoPessoaOptions" placeholder="Selecione um item..." #cliente_tipoPessoa="ngModel" [(ngModel)]="cliente.tipoPessoa" name="cliente_tipoPessoa" required></p-dropdown>
+			<div class="invalid-message" *ngIf="cliente_tipoPessoa.invalid && cliente_tipoPessoa.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="nome">
+			<label for="cliente_nome">
 				{{ getTranslation('cadastros.cliente.cliente_nome') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o nome ou a razão social do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeElementRef #nome="ngModel" [(ngModel)]="cliente.nome" name="nome" required>
-			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #cliente_nome_elementRef #cliente_nome="ngModel" [(ngModel)]="cliente.nome" name="cliente_nome" required>
+			<div class="invalid-message" *ngIf="cliente_nome.invalid && cliente_nome.dirty">Campo obrigatório.</div>
 		</div>
 		
 		
@@ -98,207 +98,207 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- separator -->
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label style="display: block" for="maisOpcoes">
+			<label style="display: block" for="cliente_maisOpcoes">
 				{{ getTranslation('cadastros.cliente.cliente_maisOpcoes') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mostra ou oculta opções extras para o cliente."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #maisOpcoes="ngModel" [(ngModel)]="cliente.maisOpcoes" name="maisOpcoes"></p-inputSwitch>
+			<p-inputSwitch #cliente_maisOpcoes="ngModel" [(ngModel)]="cliente.maisOpcoes" name="cliente_maisOpcoes"></p-inputSwitch>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-5" [style.display]="ruleCnpjCPFAppyHiddeComponent()">
-			<label for="cnpjCPF">
+		<div class="ui-g-12 ui-fluid ui-md-5" [style.display]="ruleCliente_CnpjCPFAppyHiddeComponent()">
+			<label for="cliente_cnpjCPF">
 				{{ getTranslation('cadastros.cliente.cliente_cnpjCPF') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o CPF/CNPJ do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #cnpjCPF="ngModel" [(ngModel)]="cliente.cnpjCPF" name="cnpjCPF">
+			<input type="text" pInputText #cliente_cnpjCPF="ngModel" [(ngModel)]="cliente.cnpjCPF" name="cliente_cnpjCPF">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleIeRGAppyHiddeComponent()">
-			<label for="ieRG">
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCliente_IeRGAppyHiddeComponent()">
+			<label for="cliente_ieRG">
 				{{ getTranslation('cadastros.cliente.cliente_ieRG') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o RG (Registro Geral) ou IE (Inscrição Estadual) do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #ieRG="ngModel" [(ngModel)]="cliente.ieRG" name="ieRG">
+			<input type="text" pInputText #cliente_ieRG="ngModel" [(ngModel)]="cliente.ieRG" name="cliente_ieRG">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleDataFundacaoNascimentoAppyHiddeComponent()">
-			<label for="dataFundacaoNascimento">
+		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleCliente_DataFundacaoNascimentoAppyHiddeComponent()">
+			<label for="cliente_dataFundacaoNascimento">
 				{{ getTranslation('cadastros.cliente.cliente_dataFundacaoNascimento') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe a data de nascimento/fundação do cliente."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #dataFundacaoNascimento="ngModel" [(ngModel)]="cliente.dataFundacaoNascimento" name="dataFundacaoNascimento"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #cliente_dataFundacaoNascimento="ngModel" [(ngModel)]="cliente.dataFundacaoNascimento" name="cliente_dataFundacaoNascimento"></p-calendar>
 		</div>
 		
 		
 		<!-- separator -->
-		<div class="ui-g-12" [style.display]="ruleNomeContatoAppyHiddeComponent()">
+		<div class="ui-g-12" [style.display]="ruleCliente_NomeContatoAppyHiddeComponent()">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
 		
-		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleNomeContatoAppyHiddeComponent()">
-			<label for="nomeContato">
+		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleCliente_NomeContatoAppyHiddeComponent()">
+			<label for="cliente_nomeContato">
 				{{ getTranslation('cadastros.cliente.cliente_nomeContato') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe um nome para contato com o cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeContato="ngModel" [(ngModel)]="cliente.nomeContato" name="nomeContato">
+			<input type="text" pInputText #cliente_nomeContato="ngModel" [(ngModel)]="cliente.nomeContato" name="cliente_nomeContato">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleFoneAppyHiddeComponent()">
-			<label for="fone">
+		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleCliente_FoneAppyHiddeComponent()">
+			<label for="cliente_fone">
 				{{ getTranslation('cadastros.cliente.cliente_fone') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o telefone do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #fone="ngModel" [(ngModel)]="cliente.fone" name="fone">
+			<input type="text" pInputText #cliente_fone="ngModel" [(ngModel)]="cliente.fone" name="cliente_fone">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleCelularAppyHiddeComponent()">
-			<label for="celular">
+		<div class="ui-g-12 ui-fluid ui-md-3" [style.display]="ruleCliente_CelularAppyHiddeComponent()">
+			<label for="cliente_celular">
 				{{ getTranslation('cadastros.cliente.cliente_celular') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o celular do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #celular="ngModel" [(ngModel)]="cliente.celular" name="celular">
+			<input type="text" pInputText #cliente_celular="ngModel" [(ngModel)]="cliente.celular" name="cliente_celular">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleEmailAppyHiddeComponent()">
-			<label for="email">
+		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleCliente_EmailAppyHiddeComponent()">
+			<label for="cliente_email">
 				{{ getTranslation('cadastros.cliente.cliente_email') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o e-mail do cliente. Exemplo: kerubin.platform@gmail.com."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #email="ngModel" [(ngModel)]="cliente.email" name="email">
+			<input type="text" pInputText #cliente_email="ngModel" [(ngModel)]="cliente.email" name="cliente_email">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleSiteAppyHiddeComponent()">
-			<label for="site">
+		<div class="ui-g-12 ui-fluid ui-md-6" [style.display]="ruleCliente_SiteAppyHiddeComponent()">
+			<label for="cliente_site">
 				{{ getTranslation('cadastros.cliente.cliente_site') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o site do cliente. Exemplo: https://www.kerubin.com.br."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #site="ngModel" [(ngModel)]="cliente.site" name="site">
+			<input type="text" pInputText #cliente_site="ngModel" [(ngModel)]="cliente.site" name="cliente_site">
 		</div>
 		
 		
 		<!-- separator -->
-		<div class="ui-g-12" [style.display]="ruleCepAppyHiddeComponent()">
+		<div class="ui-g-12" [style.display]="ruleCliente_CepAppyHiddeComponent()">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
 		
-		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleCepAppyHiddeComponent()">
-			<label for="cep">
+		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleCliente_CepAppyHiddeComponent()">
+			<label for="cliente_cep">
 				{{ getTranslation('cadastros.cliente.cliente_cep') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o CEP do cliente e clique em 'Buscar'. Vários campos relacionados ao endereço serão preenchidos automaticamente."></i>
 				<!-- help -->
 			</label>
 			<div class="ui-inputgroup">
-				<input type="text" pInputText #cep="ngModel" [(ngModel)]="cliente.cep" name="cep">
+				<input type="text" pInputText #cliente_cep="ngModel" [(ngModel)]="cliente.cep" name="cliente_cep">
 				<button pButton type="button" label="Buscar" (click)="searchCEP()"></button>
 			</div>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleUfAppyHiddeComponent()">
-			<label for="uf">
+		<div class="ui-g-12 ui-fluid ui-md-2" [style.display]="ruleCliente_UfAppyHiddeComponent()">
+			<label for="cliente_uf">
 				{{ getTranslation('cadastros.cliente.cliente_uf') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, escolha o estado do cliente."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="clienteUfOptions" placeholder="Selecione um item..." #uf="ngModel" [(ngModel)]="cliente.uf" name="uf"></p-dropdown>
+			<p-dropdown [options]="clienteUfOptions" placeholder="Selecione um item..." #cliente_uf="ngModel" [(ngModel)]="cliente.uf" name="cliente_uf"></p-dropdown>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCidadeAppyHiddeComponent()">
-			<label for="cidade">
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCliente_CidadeAppyHiddeComponent()">
+			<label for="cliente_cidade">
 				{{ getTranslation('cadastros.cliente.cliente_cidade') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe a cidade do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #cidade="ngModel" [(ngModel)]="cliente.cidade" name="cidade">
+			<input type="text" pInputText #cliente_cidade="ngModel" [(ngModel)]="cliente.cidade" name="cliente_cidade">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleBairroAppyHiddeComponent()">
-			<label for="bairro">
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCliente_BairroAppyHiddeComponent()">
+			<label for="cliente_bairro">
 				{{ getTranslation('cadastros.cliente.cliente_bairro') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o bairro do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #bairro="ngModel" [(ngModel)]="cliente.bairro" name="bairro">
+			<input type="text" pInputText #cliente_bairro="ngModel" [(ngModel)]="cliente.bairro" name="cliente_bairro">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-7" [style.display]="ruleEnderecoAppyHiddeComponent()">
-			<label for="endereco">
+		<div class="ui-g-12 ui-fluid ui-md-7" [style.display]="ruleCliente_EnderecoAppyHiddeComponent()">
+			<label for="cliente_endereco">
 				{{ getTranslation('cadastros.cliente.cliente_endereco') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o endereço do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #endereco="ngModel" [(ngModel)]="cliente.endereco" name="endereco">
+			<input type="text" pInputText #cliente_endereco="ngModel" [(ngModel)]="cliente.endereco" name="cliente_endereco">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-1" [style.display]="ruleNumeroAppyHiddeComponent()">
-			<label for="numero">
+		<div class="ui-g-12 ui-fluid ui-md-1" [style.display]="ruleCliente_NumeroAppyHiddeComponent()">
+			<label for="cliente_numero">
 				{{ getTranslation('cadastros.cliente.cliente_numero') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe o número do endereço do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numero="ngModel" [(ngModel)]="cliente.numero" name="numero">
+			<input type="text" pInputText #cliente_numero="ngModel" [(ngModel)]="cliente.numero" name="cliente_numero">
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleComplementoAppyHiddeComponent()">
-			<label for="complemento">
+		<div class="ui-g-12 ui-fluid ui-md-4" [style.display]="ruleCliente_ComplementoAppyHiddeComponent()">
+			<label for="cliente_complemento">
 				{{ getTranslation('cadastros.cliente.cliente_complemento') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Caso queira, informe um complemento para o endereço do cliente."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #complemento="ngModel" [(ngModel)]="cliente.complemento" name="complemento">
+			<input type="text" pInputText #cliente_complemento="ngModel" [(ngModel)]="cliente.complemento" name="cliente_complemento">
 		</div>
 		
 		
 		<!-- separator -->
-		<div class="ui-g-12" [style.display]="ruleObservacoesAppyHiddeComponent()">
+		<div class="ui-g-12" [style.display]="ruleCliente_ObservacoesAppyHiddeComponent()">
 			<hr class="separator-default">
 		</div>
 		<!-- separator -->
 		
-		<div class="ui-g-12 ui-fluid ui-md-11" [style.display]="ruleObservacoesAppyHiddeComponent()">
-			<label for="observacoes">
+		<div class="ui-g-12 ui-fluid ui-md-11" [style.display]="ruleCliente_ObservacoesAppyHiddeComponent()">
+			<label for="cliente_observacoes">
 				{{ getTranslation('cadastros.cliente.cliente_observacoes') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
 				<!-- help -->
 			</label>
-			<textarea pInputTextarea rows="3" #observacoes="ngModel" [(ngModel)]="cliente.observacoes" name="observacoes"></textarea>
+			<textarea pInputTextarea rows="3" #cliente_observacoes="ngModel" [(ngModel)]="cliente.observacoes" name="cliente_observacoes"></textarea>
 		</div>
 		
-		<div class="ui-g-12 ui-fluid ui-md-1" [style.display]="ruleAtivoAppyHiddeComponent()">
-			<label style="display: block" for="ativo">
+		<div class="ui-g-12 ui-fluid ui-md-1" [style.display]="ruleCliente_AtivoAppyHiddeComponent()">
+			<label style="display: block" for="cliente_ativo">
 				{{ getTranslation('cadastros.cliente.cliente_ativo') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Marca o cliente como Ativo ou Inativo. Apenas clientes Ativos podem ser usados."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #ativo="ngModel" [(ngModel)]="cliente.ativo" name="ativo"></p-inputSwitch>
+			<p-inputSwitch #cliente_ativo="ngModel" [(ngModel)]="cliente.ativo" name="cliente_ativo"></p-inputSwitch>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -307,7 +307,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCliente(formCliente)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/cliente" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de clientes."></a>

@@ -99,6 +99,7 @@ export class BancoListComponent implements OnInit {
 	    	this.bancoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.bancoListFilter.pageSize = event.rows;
 	    this.bancoList(pageNumber);
 	}
 	

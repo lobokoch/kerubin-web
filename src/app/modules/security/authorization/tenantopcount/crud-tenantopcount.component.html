@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formTenantOpCount="ngForm" (ngSubmit)="saveFormTenantOpCount(formTenantOpCount.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormTenantOpCount(formTenantOpCount)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/tenantopcount" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de contagem de operações por tenant."></a>
@@ -55,26 +55,26 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="tenantOpCount_id" class="hidden">
 				{{ getTranslation('security.authorization.tenantOpCount_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="tenantOpCount.id" name="id">
+				<input type="hidden" pInputText readonly #tenantOpCount_id="ngModel" [(ngModel)]="tenantOpCount.id" name="tenantOpCount_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="description">
+			<label for="tenantOpCount_description">
 				{{ getTranslation('security.authorization.tenantOpCount_description') }}
 			</label>
-			<input type="text" pInputText #descriptionElementRef #description="ngModel" [(ngModel)]="tenantOpCount.description" name="description">
+			<input type="text" pInputText #tenantOpCount_description_elementRef #tenantOpCount_description="ngModel" [(ngModel)]="tenantOpCount.description" name="tenantOpCount_description">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tenant">
+			<label for="tenantOpCount_tenant">
 				{{ getTranslation('security.authorization.tenantOpCount_tenant') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
@@ -88,144 +88,144 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="tenantOpCountTenantAutoCompleteClear($event)"
 			 (onBlur)="tenantOpCountTenantAutoCompleteOnBlur($event)"
 			 [field]="tenantOpCountTenantAutoCompleteFieldConverter"
-			 #tenant="ngModel" [(ngModel)]="tenantOpCount.tenant" name="tenant" required>
-				<ng-template let-tenant pTemplate="item">
-					<div class="ui-helper-clearfix">{{ tenantOpCountTenantAutoCompleteFieldConverter(tenant) }}</div>
+			 #tenantOpCount_tenant="ngModel" [(ngModel)]="tenantOpCount.tenant" name="tenantOpCount_tenant" required>
+				<ng-template let-tenantOpCount_tenant pTemplate="item">
+					<div class="ui-helper-clearfix">{{ tenantOpCountTenantAutoCompleteFieldConverter(tenantOpCount_tenant) }}</div>
 				</ng-template>
 			</p-autoComplete>
-			<div class="invalid-message" *ngIf="tenant.invalid && tenant.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="tenantOpCount_tenant.invalid && tenantOpCount_tenant.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="yearOp">
+			<label for="tenantOpCount_yearOp">
 				{{ getTranslation('security.authorization.tenantOpCount_yearOp') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ano da operação."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #yearOp="ngModel" [(ngModel)]="tenantOpCount.yearOp" name="yearOp" required>
-			<div class="invalid-message" *ngIf="yearOp.invalid && yearOp.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_yearOp="ngModel" [(ngModel)]="tenantOpCount.yearOp" name="tenantOpCount_yearOp" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_yearOp.invalid && tenantOpCount_yearOp.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="monthOp">
+			<label for="tenantOpCount_monthOp">
 				{{ getTranslation('security.authorization.tenantOpCount_monthOp') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Mês da operação."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #monthOp="ngModel" [(ngModel)]="tenantOpCount.monthOp" name="monthOp" required>
-			<div class="invalid-message" *ngIf="monthOp.invalid && monthOp.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_monthOp="ngModel" [(ngModel)]="tenantOpCount.monthOp" name="tenantOpCount_monthOp" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_monthOp.invalid && tenantOpCount_monthOp.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="dayOp">
+			<label for="tenantOpCount_dayOp">
 				{{ getTranslation('security.authorization.tenantOpCount_dayOp') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Dia da operação."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #dayOp="ngModel" [(ngModel)]="tenantOpCount.dayOp" name="dayOp" required>
-			<div class="invalid-message" *ngIf="dayOp.invalid && dayOp.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_dayOp="ngModel" [(ngModel)]="tenantOpCount.dayOp" name="tenantOpCount_dayOp" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_dayOp.invalid && tenantOpCount_dayOp.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="hourOp">
+			<label for="tenantOpCount_hourOp">
 				{{ getTranslation('security.authorization.tenantOpCount_hourOp') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Hora da operação."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #hourOp="ngModel" [(ngModel)]="tenantOpCount.hourOp" name="hourOp" required>
-			<div class="invalid-message" *ngIf="hourOp.invalid && hourOp.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_hourOp="ngModel" [(ngModel)]="tenantOpCount.hourOp" name="tenantOpCount_hourOp" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_hourOp.invalid && tenantOpCount_hourOp.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countGet">
+			<label for="tenantOpCount_countGet">
 				{{ getTranslation('security.authorization.tenantOpCount_countGet') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações GET simples."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countGet="ngModel" [(ngModel)]="tenantOpCount.countGet" name="countGet" required>
-			<div class="invalid-message" *ngIf="countGet.invalid && countGet.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countGet="ngModel" [(ngModel)]="tenantOpCount.countGet" name="tenantOpCount_countGet" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countGet.invalid && tenantOpCount_countGet.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countPost">
+			<label for="tenantOpCount_countPost">
 				{{ getTranslation('security.authorization.tenantOpCount_countPost') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações POST."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countPost="ngModel" [(ngModel)]="tenantOpCount.countPost" name="countPost" required>
-			<div class="invalid-message" *ngIf="countPost.invalid && countPost.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countPost="ngModel" [(ngModel)]="tenantOpCount.countPost" name="tenantOpCount_countPost" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countPost.invalid && tenantOpCount_countPost.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countPut">
+			<label for="tenantOpCount_countPut">
 				{{ getTranslation('security.authorization.tenantOpCount_countPut') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações PUT."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countPut="ngModel" [(ngModel)]="tenantOpCount.countPut" name="countPut" required>
-			<div class="invalid-message" *ngIf="countPut.invalid && countPut.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countPut="ngModel" [(ngModel)]="tenantOpCount.countPut" name="tenantOpCount_countPut" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countPut.invalid && tenantOpCount_countPut.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countDelete">
+			<label for="tenantOpCount_countDelete">
 				{{ getTranslation('security.authorization.tenantOpCount_countDelete') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações DELETE."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countDelete="ngModel" [(ngModel)]="tenantOpCount.countDelete" name="countDelete" required>
-			<div class="invalid-message" *ngIf="countDelete.invalid && countDelete.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countDelete="ngModel" [(ngModel)]="tenantOpCount.countDelete" name="tenantOpCount_countDelete" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countDelete.invalid && tenantOpCount_countDelete.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countList">
+			<label for="tenantOpCount_countList">
 				{{ getTranslation('security.authorization.tenantOpCount_countList') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações LIST."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countList="ngModel" [(ngModel)]="tenantOpCount.countList" name="countList" required>
-			<div class="invalid-message" *ngIf="countList.invalid && countList.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countList="ngModel" [(ngModel)]="tenantOpCount.countList" name="tenantOpCount_countList" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countList.invalid && tenantOpCount_countList.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countAutoComplete">
+			<label for="tenantOpCount_countAutoComplete">
 				{{ getTranslation('security.authorization.tenantOpCount_countAutoComplete') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de operações AUTO COMPLETE."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countAutoComplete="ngModel" [(ngModel)]="tenantOpCount.countAutoComplete" name="countAutoComplete" required>
-			<div class="invalid-message" *ngIf="countAutoComplete.invalid && countAutoComplete.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countAutoComplete="ngModel" [(ngModel)]="tenantOpCount.countAutoComplete" name="tenantOpCount_countAutoComplete" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countAutoComplete.invalid && tenantOpCount_countAutoComplete.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="countOp">
+			<label for="tenantOpCount_countOp">
 				{{ getTranslation('security.authorization.tenantOpCount_countOp') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Quantidade de outras operações."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #countOp="ngModel" [(ngModel)]="tenantOpCount.countOp" name="countOp" required>
-			<div class="invalid-message" *ngIf="countOp.invalid && countOp.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #tenantOpCount_countOp="ngModel" [(ngModel)]="tenantOpCount.countOp" name="tenantOpCount_countOp" required>
+			<div class="invalid-message" *ngIf="tenantOpCount_countOp.invalid && tenantOpCount_countOp.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -234,7 +234,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormTenantOpCount(formTenantOpCount)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/tenantopcount" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de contagem de operações por tenant."></a>

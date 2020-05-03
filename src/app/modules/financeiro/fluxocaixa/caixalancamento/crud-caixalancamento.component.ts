@@ -95,7 +95,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	
 	caixaLancamentoTipoFonteMovimentoOptions: TipoFonteMovimento[];
 	
-	@ViewChild('descricaoElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('caixaLancamento_descricao_elementRef', {static: true}) caixaLancamentoDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private caixaLancamentoService: CaixaLancamentoService,
@@ -135,14 +135,14 @@ export class CaixaLancamentoComponent implements OnInit {
 	    if (id) {
 	      this.getCaixaLancamentoById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.caixaLancamentoDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCaixaLancamento(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.caixaLancamento = new CaixaLancamento();
@@ -151,7 +151,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		  
 		  this.caixaLancamentoApplyRememberValues();
 		  
-		  this.defaultElementSetFocus();
+		  this.caixaLancamentoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -167,7 +167,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCaixaLancamento(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -181,13 +181,14 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.caixaLancamentoService.create(this.caixaLancamento)
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.caixaLancamentoDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -199,7 +200,7 @@ export class CaixaLancamentoComponent implements OnInit {
 	    .then((caixaLancamento) => {
 	      this.caixaLancamento = caixaLancamento;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.caixaLancamentoDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -622,7 +623,7 @@ export class CaixaLancamentoComponent implements OnInit {
 										
 	// Begin RuleWithSlotAppyHiddeComponent 
 	
-	ruleDocumentoAppyHiddeComponent() {
+	ruleCaixaLancamento_DocumentoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -631,7 +632,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleObservacoesAppyHiddeComponent() {
+	ruleCaixaLancamento_ObservacoesAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -640,7 +641,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleIdConcBancariaAppyHiddeComponent() {
+	ruleCaixaLancamento_IdConcBancariaAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -649,7 +650,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleHistConcBancariaAppyHiddeComponent() {
+	ruleCaixaLancamento_HistConcBancariaAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -658,7 +659,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleNumDocConcBancariaAppyHiddeComponent() {
+	ruleCaixaLancamento_NumDocConcBancariaAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.idConcBancaria || this.caixaLancamento.idConcBancaria.trim().length === 0);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -667,7 +668,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleEstornoAppyHiddeComponent() {
+	ruleCaixaLancamento_EstornoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -676,7 +677,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleEstornoLancamentoAppyHiddeComponent() {
+	ruleCaixaLancamento_EstornoLancamentoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -685,7 +686,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleEstornoHistoricoAppyHiddeComponent() {
+	ruleCaixaLancamento_EstornoHistoricoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (!this.caixaLancamento.estorno);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -694,7 +695,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleTipoFonteMovimentoAppyHiddeComponent() {
+	ruleCaixaLancamento_TipoFonteMovimentoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (String(this.caixaLancamento.tipoFonteMovimento) === 'LANCEMENTO_CAIXA');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -703,7 +704,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleIdFonteMovimentoAppyHiddeComponent() {
+	ruleCaixaLancamento_IdFonteMovimentoAppyHiddeComponent() {
 		const expression = (!this.caixaLancamento.maisOpcoes) || (String(this.caixaLancamento.tipoFonteMovimento) === 'LANCEMENTO_CAIXA');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -712,7 +713,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleContaBancariaAppyHiddeComponent() {
+	ruleCaixaLancamento_ContaBancariaAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CONTA_BANCARIA');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -721,7 +722,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleCartaoCreditoAppyHiddeComponent() {
+	ruleCaixaLancamento_CartaoCreditoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) !== 'CARTAO_CREDITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -730,7 +731,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleOutrosDescricaoAppyHiddeComponent() {
+	ruleCaixaLancamento_OutrosDescricaoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.formaPagamento) === 'CONTA_BANCARIA') || (String(this.caixaLancamento.formaPagamento) === 'CARTAO_CREDITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -739,7 +740,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleClienteAppyHiddeComponent() {
+	ruleCaixaLancamento_ClienteAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -748,7 +749,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleFornecedorAppyHiddeComponent() {
+	ruleCaixaLancamento_FornecedorAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -757,7 +758,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleValorCreditoAppyHiddeComponent() {
+	ruleCaixaLancamento_ValorCreditoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'CREDITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -766,7 +767,7 @@ export class CaixaLancamentoComponent implements OnInit {
 		}
 	}
 	
-	ruleValorDebitoAppyHiddeComponent() {
+	ruleCaixaLancamento_ValorDebitoAppyHiddeComponent() {
 		const expression = (String(this.caixaLancamento.tipoLancamentoFinanceiro) !== 'DEBITO');
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -816,11 +817,11 @@ export class CaixaLancamentoComponent implements OnInit {
 	}
 	
 				
-	defaultElementSetFocus() {
+	caixaLancamentoDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.caixaLancamentoDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at caixaLancamentoDefaultElementSetFocus:' + error);
 	    }
 	}
 }

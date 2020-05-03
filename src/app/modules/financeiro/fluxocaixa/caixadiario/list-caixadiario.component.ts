@@ -98,6 +98,7 @@ export class CaixaDiarioListComponent implements OnInit {
 	    	this.caixaDiarioListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.caixaDiarioListFilter.pageSize = event.rows;
 	    this.caixaDiarioList(pageNumber);
 	}
 	

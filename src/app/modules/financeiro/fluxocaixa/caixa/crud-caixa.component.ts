@@ -33,7 +33,7 @@ export class CaixaComponent implements OnInit {
 	
 	caixa = new Caixa();
 	
-	@ViewChild('nomeElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('caixa_nome_elementRef', {static: true}) caixaDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private caixaService: CaixaService,
@@ -51,18 +51,18 @@ export class CaixaComponent implements OnInit {
 	    if (id) {
 	      this.getCaixaById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.caixaDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCaixa(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.caixa = new Caixa();
-		  this.defaultElementSetFocus();
+		  this.caixaDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -78,7 +78,7 @@ export class CaixaComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCaixa(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -89,6 +89,7 @@ export class CaixaComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		this.rulesOnCreate();
 		
@@ -96,7 +97,7 @@ export class CaixaComponent implements OnInit {
 	    .then((caixa) => {
 	      this.caixa = caixa;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.caixaDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -108,7 +109,7 @@ export class CaixaComponent implements OnInit {
 	    .then((caixa) => {
 	      this.caixa = caixa;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.caixaDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -182,11 +183,11 @@ export class CaixaComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	caixaDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.caixaDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at caixaDefaultElementSetFocus:' + error);
 	    }
 	}
 }

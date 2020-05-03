@@ -45,7 +45,7 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	cartaoCreditoBandeiraCartaoAutoCompleteSuggestions: BandeiraCartaoAutoComplete[];
 	
-	@ViewChild('nomeTitularElementRef', {static: true}) defaultElementRef: ElementRef;
+	@ViewChild('cartaoCredito_nomeTitular_elementRef', {static: true}) cartaoCreditoDefaultElementRef: ElementRef;
 	
 	constructor(
 	    private cartaoCreditoService: CartaoCreditoService,
@@ -65,18 +65,18 @@ export class CartaoCreditoComponent implements OnInit {
 	    if (id) {
 	      this.getCartaoCreditoById(id);
 	    }
-	    this.defaultElementSetFocus();
+	    this.cartaoCreditoDefaultElementSetFocus();
 	}
 	
 	getShowHideHelpLabel(): string {
 		return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
 	}
 	
-	begin(form: FormControl) {
+	beginFormCartaoCredito(form: FormControl) {
 	    form.reset();
 	    setTimeout(function() {
 	      this.cartaoCredito = new CartaoCredito();
-		  this.defaultElementSetFocus();
+		  this.cartaoCreditoDefaultElementSetFocus();
 	    }.bind(this), 1);
 	}
 	
@@ -92,7 +92,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    });
 	}
 	
-	save(form: FormGroup) {
+	saveFormCartaoCredito(form: FormGroup) {
 		if (!form.valid) {
 	      this.validateAllFormFields(form);
 	      return;
@@ -103,13 +103,14 @@ export class CartaoCreditoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
 	create() {
 		
 	    this.cartaoCreditoService.create(this.cartaoCredito)
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro criado com sucesso!');
-	      this.defaultElementSetFocus();
+	      this.cartaoCreditoDefaultElementSetFocus();
 	    }).
 	    catch(error => {
 	      this.messageHandler.showError(error);
@@ -121,7 +122,7 @@ export class CartaoCreditoComponent implements OnInit {
 	    .then((cartaoCredito) => {
 	      this.cartaoCredito = cartaoCredito;
 	      this.messageHandler.showSuccess('Registro alterado!');
-	      this.defaultElementSetFocus();
+	      this.cartaoCreditoDefaultElementSetFocus();
 	    })
 	    .catch(error => {
 	      this.messageHandler.showError(error);
@@ -253,7 +254,7 @@ export class CartaoCreditoComponent implements OnInit {
 										
 	// Begin RuleWithSlotAppyHiddeComponent 
 	
-	ruleBandeiraCartaoAppyHiddeComponent() {
+	ruleCartaoCredito_BandeiraCartaoAppyHiddeComponent() {
 		const expression = (this.cartaoCredito.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -262,7 +263,7 @@ export class CartaoCreditoComponent implements OnInit {
 		}
 	}
 	
-	ruleAtivoAppyHiddeComponent() {
+	ruleCartaoCredito_AtivoAppyHiddeComponent() {
 		const expression = (this.cartaoCredito.maisOpcoes === false);
 		if (expression) {
 			return 'none'; // Will hidde de component.
@@ -282,11 +283,11 @@ export class CartaoCreditoComponent implements OnInit {
 	
 	
 				
-	defaultElementSetFocus() {
+	cartaoCreditoDefaultElementSetFocus() {
 		try {
-	    	this.defaultElementRef.nativeElement.focus();
+	    	this.cartaoCreditoDefaultElementRef.nativeElement.focus();
 	    } catch (error) {
-	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    	console.log('Error setting focus at cartaoCreditoDefaultElementSetFocus:' + error);
 	    }
 	}
 }

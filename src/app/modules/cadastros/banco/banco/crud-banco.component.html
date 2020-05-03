@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formBanco="ngForm" (ngSubmit)="saveFormBanco(formBanco.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormBanco(formBanco)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/banco" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de banco."></a>
@@ -55,39 +55,39 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="banco_id" class="hidden">
 				{{ getTranslation('cadastros.banco.banco_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="banco.id" name="id">
+				<input type="hidden" pInputText readonly #banco_id="ngModel" [(ngModel)]="banco.id" name="banco_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="numero">
+			<label for="banco_numero">
 				{{ getTranslation('cadastros.banco.banco_numero') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o código do banco. Por exemplo, o Banco do Brasil é código: 001."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #numeroElementRef #numero="ngModel" [(ngModel)]="banco.numero" name="numero" required>
-			<div class="invalid-message" *ngIf="numero.invalid && numero.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #banco_numero_elementRef #banco_numero="ngModel" [(ngModel)]="banco.numero" name="banco_numero" required>
+			<div class="invalid-message" *ngIf="banco_numero.invalid && banco_numero.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="nome">
+			<label for="banco_nome">
 				{{ getTranslation('cadastros.banco.banco_nome') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o nome do banco. Por exemplo, Banco do Brasil S.A."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nome="ngModel" [(ngModel)]="banco.nome" name="nome" required>
-			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #banco_nome="ngModel" [(ngModel)]="banco.nome" name="banco_nome" required>
+			<div class="invalid-message" *ngIf="banco_nome.invalid && banco_nome.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -96,7 +96,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormBanco(formBanco)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/banco" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de banco."></a>

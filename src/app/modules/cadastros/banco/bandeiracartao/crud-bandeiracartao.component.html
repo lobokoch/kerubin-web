@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formBandeiraCartao="ngForm" (ngSubmit)="saveFormBandeiraCartao(formBandeiraCartao.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormBandeiraCartao(formBandeiraCartao)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/bandeiracartao" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de bandeira de cartão."></a>
@@ -55,27 +55,27 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="bandeiraCartao_id" class="hidden">
 				{{ getTranslation('cadastros.banco.bandeiraCartao_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="bandeiraCartao.id" name="id">
+				<input type="hidden" pInputText readonly #bandeiraCartao_id="ngModel" [(ngModel)]="bandeiraCartao.id" name="bandeiraCartao_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="nomeBandeira">
+			<label for="bandeiraCartao_nomeBandeira">
 				{{ getTranslation('cadastros.banco.bandeiraCartao_nomeBandeira') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a bandeira do cartão. Por exemplo: Mastercad."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeBandeiraElementRef #nomeBandeira="ngModel" [(ngModel)]="bandeiraCartao.nomeBandeira" name="nomeBandeira" required>
-			<div class="invalid-message" *ngIf="nomeBandeira.invalid && nomeBandeira.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #bandeiraCartao_nomeBandeira_elementRef #bandeiraCartao_nomeBandeira="ngModel" [(ngModel)]="bandeiraCartao.nomeBandeira" name="bandeiraCartao_nomeBandeira" required>
+			<div class="invalid-message" *ngIf="bandeiraCartao_nomeBandeira.invalid && bandeiraCartao_nomeBandeira.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -84,7 +84,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormBandeiraCartao(formBandeiraCartao)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/bandeiracartao" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de bandeira de cartão."></a>

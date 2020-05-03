@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formCaixa="ngForm" (ngSubmit)="saveFormCaixa(formCaixa.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button [disabled]="caixaRuleDisableCUD()" pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCaixa(formCaixa)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/caixa" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de cadastro de caixa."></a>
@@ -55,71 +55,71 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="caixa_id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="caixa.id" name="id">
+				<input type="hidden" pInputText readonly #caixa_id="ngModel" [(ngModel)]="caixa.id" name="caixa_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="nome">
+			<label for="caixa_nome">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_nome') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe um nome para o caixa. Por exemplo: Caixa da Ana."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nomeElementRef #nome="ngModel" [(ngModel)]="caixa.nome" name="nome" required [disabled]="nomeRuleDisableComponent()">
-			<div class="invalid-message" *ngIf="nome.invalid && nome.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #caixa_nome_elementRef #caixa_nome="ngModel" [(ngModel)]="caixa.nome" name="caixa_nome" required [disabled]="nomeRuleDisableComponent()">
+			<div class="invalid-message" *ngIf="caixa_nome.invalid && caixa_nome.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label style="display: block" for="ativo">
+			<label style="display: block" for="caixa_ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_ativo') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se este caixa esta ativo ou não. Somente caixas ativos podem receber lançamentos."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #ativo="ngModel" [(ngModel)]="caixa.ativo" name="ativo" required [disabled]="ativoRuleDisableComponent()"></p-inputSwitch>
-			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
+			<p-inputSwitch #caixa_ativo="ngModel" [(ngModel)]="caixa.ativo" name="caixa_ativo" required [disabled]="ativoRuleDisableComponent()"></p-inputSwitch>
+			<div class="invalid-message" *ngIf="caixa_ativo.invalid && caixa_ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label for="saldo">
+			<label for="caixa_saldo">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_saldo') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Valor total que este caixa possui. É o somatório dos movimentos das entradas, substraído pelo somatório dos movimentos das saídas."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #saldo="ngModel" [(ngModel)]="caixa.saldo" name="saldo">
+				<input pInputText type="text" currencyMask [options]="{prefix: '', thousands: '.', decimal: ',', allowNegative: false}" placeholder="0,00" readonly #caixa_saldo="ngModel" [(ngModel)]="caixa.saldo" name="caixa_saldo">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="observacoes">
+			<label for="caixa_observacoes">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_observacoes') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Observações."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #observacoes="ngModel" [(ngModel)]="caixa.observacoes" name="observacoes" [disabled]="observacoesRuleDisableComponent()">
+			<input type="text" pInputText #caixa_observacoes="ngModel" [(ngModel)]="caixa.observacoes" name="caixa_observacoes" [disabled]="observacoesRuleDisableComponent()">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="version" class="hidden">
+			<label for="caixa_version" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.caixa_version') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Versão."></i>
 				<!-- help -->
 			</label>
-			<input type="hidden" pInputText #version="ngModel" [(ngModel)]="caixa.version" name="version">
+			<input type="hidden" pInputText #caixa_version="ngModel" [(ngModel)]="caixa.version" name="caixa_version">
 		</div>
 		
 		<!-- Begin buttons -->
@@ -128,7 +128,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button [disabled]="caixaRuleDisableCUD()" pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormCaixa(formCaixa)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/caixa" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de cadastro de caixa."></a>

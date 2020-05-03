@@ -100,6 +100,7 @@ export class CartaoCreditoListComponent implements OnInit {
 	    	this.cartaoCreditoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
+	    this.cartaoCreditoListFilter.pageSize = event.rows;
 	    this.cartaoCreditoList(pageNumber);
 	}
 	

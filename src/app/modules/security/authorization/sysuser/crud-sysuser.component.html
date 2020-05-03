@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formSysUser="ngForm" (ngSubmit)="saveFormSysUser(formSysUser.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormSysUser(formSysUser)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/sysuser" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de usuário."></a>
@@ -55,121 +55,121 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="sysUser_id" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="sysUser.id" name="id">
+				<input type="hidden" pInputText readonly #sysUser_id="ngModel" [(ngModel)]="sysUser.id" name="sysUser_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-8">
-			<label for="name">
+			<label for="sysUser_name">
 				{{ getTranslation('security.authorization.sysUser_name') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o nome do usuário."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #nameElementRef #name="ngModel" [(ngModel)]="sysUser.name" name="name" required>
-			<div class="invalid-message" *ngIf="name.invalid && name.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #sysUser_name_elementRef #sysUser_name="ngModel" [(ngModel)]="sysUser.name" name="sysUser_name" required>
+			<div class="invalid-message" *ngIf="sysUser_name.invalid && sysUser_name.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-4">
-			<label for="cnpjCPF">
+			<label for="sysUser_cnpjCPF">
 				{{ getTranslation('security.authorization.sysUser_cnpjCPF') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o CPF/CNPJ do usuário."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #cnpjCPF="ngModel" [(ngModel)]="sysUser.cnpjCPF" name="cnpjCPF">
+			<input type="text" pInputText #sysUser_cnpjCPF="ngModel" [(ngModel)]="sysUser.cnpjCPF" name="sysUser_cnpjCPF">
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12">
-			<label for="email">
+			<label for="sysUser_email">
 				{{ getTranslation('security.authorization.sysUser_email') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe o e-mail do usuário. O e-mail informado também será o login do usuário para acessar o Kerubin."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #email="ngModel" [(ngModel)]="sysUser.email" name="email" required>
-			<div class="invalid-message" *ngIf="email.invalid && email.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #sysUser_email="ngModel" [(ngModel)]="sysUser.email" name="sysUser_email" required>
+			<div class="invalid-message" *ngIf="sysUser_email.invalid && sysUser_email.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="password">
+			<label for="sysUser_password">
 				{{ getTranslation('security.authorization.sysUser_password') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a senha do usuário."></i>
 				<!-- help -->
 			</label>
-			<input type="password" pInputText  #password="ngModel" [(ngModel)]="sysUser.password" name="password" required>
-			<div class="invalid-message" *ngIf="password.invalid && password.dirty">Campo obrigatório.</div>
+			<input type="password" pInputText  #sysUser_password="ngModel" [(ngModel)]="sysUser.password" name="sysUser_password" required>
+			<div class="invalid-message" *ngIf="sysUser_password.invalid && sysUser_password.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-6">
-			<label for="confirmPassword">
+			<label for="sysUser_confirmPassword">
 				{{ getTranslation('security.authorization.sysUser_confirmPassword') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a confirmação da senha do usuário."></i>
 				<!-- help -->
 			</label>
-			<input type="password" pInputText  #confirmPassword="ngModel" [(ngModel)]="sysUser.confirmPassword" name="confirmPassword" required>
-			<div class="invalid-message" *ngIf="confirmPassword.invalid && confirmPassword.dirty">Campo obrigatório.</div>
+			<input type="password" pInputText  #sysUser_confirmPassword="ngModel" [(ngModel)]="sysUser.confirmPassword" name="sysUser_confirmPassword" required>
+			<div class="invalid-message" *ngIf="sysUser_confirmPassword.invalid && sysUser_confirmPassword.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label style="display: block" for="active">
+			<label style="display: block" for="sysUser_active">
 				{{ getTranslation('security.authorization.sysUser_active') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se o usuário está Ativo ou Inativo. Apenas usuários Ativos podem acessar o sistema."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #active="ngModel" [(ngModel)]="sysUser.active" name="active"></p-inputSwitch>
+			<p-inputSwitch #sysUser_active="ngModel" [(ngModel)]="sysUser.active" name="sysUser_active"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2">
-			<label style="display: block" for="administrator">
+			<label style="display: block" for="sysUser_administrator">
 				{{ getTranslation('security.authorization.sysUser_administrator') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se o usuário é administrador do tenant. Usuários administradores possuem acesso completo aos recursos do sistema e recebem alertas sobre o estado das contas registradas."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #administrator="ngModel" [(ngModel)]="sysUser.administrator" name="administrator"></p-inputSwitch>
+			<p-inputSwitch #sysUser_administrator="ngModel" [(ngModel)]="sysUser.administrator" name="sysUser_administrator"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
-			<label style="display: block" for="superAdministrator" class="hidden">
+			<label style="display: block" for="sysUser_superAdministrator" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_superAdministrator') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Apenas usuários internos do Kerubin podem ativar esse recurso."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #superAdministrator="ngModel" [(ngModel)]="sysUser.superAdministrator" name="superAdministrator"></p-inputSwitch>
+			<p-inputSwitch #sysUser_superAdministrator="ngModel" [(ngModel)]="sysUser.superAdministrator" name="sysUser_superAdministrator"></p-inputSwitch>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
-			<label for="accountType" class="hidden">
+			<label for="sysUser_accountType" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_accountType') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Escolha um tipo para a conta."></i>
 				<!-- help -->
 			</label>
 			<div class="dropdown-readonly">
-				<p-dropdown [readonly]="true" [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #accountType="ngModel" [(ngModel)]="sysUser.accountType" name="accountType" required></p-dropdown>
+				<p-dropdown [readonly]="true" [options]="sysUserAccountTypeOptions" placeholder="Selecione um item..." #sysUser_accountType="ngModel" [(ngModel)]="sysUser.accountType" name="sysUser_accountType" required></p-dropdown>
 			</div>
 			
-			<div class="invalid-message" *ngIf="accountType.invalid && accountType.dirty">Campo obrigatório.</div>
+			<div class="invalid-message" *ngIf="sysUser_accountType.invalid && sysUser_accountType.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-10 hidden">
-			<label for="tenant" class="hidden">
+			<label for="sysUser_tenant" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_tenant') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Tenant da conta."></i>
@@ -183,59 +183,59 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="sysUserTenantAutoCompleteClear($event)"
 			 (onBlur)="sysUserTenantAutoCompleteOnBlur($event)"
 			 [field]="sysUserTenantAutoCompleteFieldConverter"
-			 #tenant="ngModel" [(ngModel)]="sysUser.tenant" name="tenant">
-				<ng-template let-tenant pTemplate="item">
-					<div class="ui-helper-clearfix">{{ sysUserTenantAutoCompleteFieldConverter(tenant) }}</div>
+			 #sysUser_tenant="ngModel" [(ngModel)]="sysUser.tenant" name="sysUser_tenant">
+				<ng-template let-sysUser_tenant pTemplate="item">
+					<div class="ui-helper-clearfix">{{ sysUserTenantAutoCompleteFieldConverter(sysUser_tenant) }}</div>
 				</ng-template>
 			</p-autoComplete>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
-			<label for="activationDate" class="hidden">
+			<label for="sysUser_activationDate" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_activationDate') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data em que a conta foi ativada. A conta é ativada normalmente pela própria pessoa através do e-mail de confirmação da criação da conta."></i>
 				<!-- help -->
 			</label>
 			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #activationDate="ngModel" [(ngModel)]="sysUser.activationDate" name="activationDate"></p-calendar>
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #sysUser_activationDate="ngModel" [(ngModel)]="sysUser.activationDate" name="sysUser_activationDate"></p-calendar>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
-			<label style="display: block" for="confirmed" class="hidden">
+			<label style="display: block" for="sysUser_confirmed" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_confirmed') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Indica se a conta foi confirmada."></i>
 				<!-- help -->
 			</label>
 			<div class="inputswitch-readonly">
-				<p-inputSwitch [readonly]="true" #confirmed="ngModel" [(ngModel)]="sysUser.confirmed" name="confirmed"></p-inputSwitch>
+				<p-inputSwitch [readonly]="true" #sysUser_confirmed="ngModel" [(ngModel)]="sysUser.confirmed" name="sysUser_confirmed"></p-inputSwitch>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-2 hidden">
-			<label for="confirmationDate" class="hidden">
+			<label for="sysUser_confirmationDate" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_confirmationDate') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Data em que a conta foi confirmada."></i>
 				<!-- help -->
 			</label>
 			<div class="calendar-readonly">
-				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #confirmationDate="ngModel" [(ngModel)]="sysUser.confirmationDate" name="confirmationDate"></p-calendar>
+				<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showTime]="true" [disabledDays]="[0,1,2,3,4,5,6]" [readonlyInput]="true" #sysUser_confirmationDate="ngModel" [(ngModel)]="sysUser.confirmationDate" name="sysUser_confirmationDate"></p-calendar>
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid ui-md-12 hidden">
-			<label for="confirmationId" class="hidden">
+			<label for="sysUser_confirmationId" class="hidden">
 				{{ getTranslation('security.authorization.sysUser_confirmationId') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador úico da confirmação da conta."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #confirmationId="ngModel" [(ngModel)]="sysUser.confirmationId" name="confirmationId">
+				<input type="hidden" pInputText readonly #sysUser_confirmationId="ngModel" [(ngModel)]="sysUser.confirmationId" name="sysUser_confirmationId">
 			</div>
 		</div>
 		
@@ -245,7 +245,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormSysUser(formSysUser)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/sysuser" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de usuário."></a>

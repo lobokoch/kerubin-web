@@ -37,7 +37,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		</p-header>
 	
 
-  <form #form1="ngForm" (ngSubmit)="save(form1.form)">
+  <form #formPlanoConta="ngForm" (ngSubmit)="saveFormPlanoConta(formPlanoConta.form)">
   	<div class="ui-g">
 		
 		<!-- Begin buttons -->
@@ -46,7 +46,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormPlanoConta(formPlanoConta)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/planoconta" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de plano de contas."></a>
@@ -55,62 +55,62 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 		<!-- End buttons -->
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label for="id" class="hidden">
+			<label for="planoConta_id" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_id') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Identificador único."></i>
 				<!-- help -->
 			</label>
 			<div class="input-readonly">
-				<input type="hidden" pInputText readonly #id="ngModel" [(ngModel)]="planoConta.id" name="id">
+				<input type="hidden" pInputText readonly #planoConta_id="ngModel" [(ngModel)]="planoConta.id" name="planoConta_id">
 			</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="codigo">
+			<label for="planoConta_codigo">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_codigo') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Código."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #codigoElementRef #codigo="ngModel" [(ngModel)]="planoConta.codigo" name="codigo" required>
-			<div class="invalid-message" *ngIf="codigo.invalid && codigo.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #planoConta_codigo_elementRef #planoConta_codigo="ngModel" [(ngModel)]="planoConta.codigo" name="planoConta_codigo" required>
+			<div class="invalid-message" *ngIf="planoConta_codigo.invalid && planoConta_codigo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="descricao">
+			<label for="planoConta_descricao">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_descricao') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Descrição."></i>
 				<!-- help -->
 			</label>
-			<input type="text" pInputText #descricao="ngModel" [(ngModel)]="planoConta.descricao" name="descricao" required>
-			<div class="invalid-message" *ngIf="descricao.invalid && descricao.dirty">Campo obrigatório.</div>
+			<input type="text" pInputText #planoConta_descricao="ngModel" [(ngModel)]="planoConta.descricao" name="planoConta_descricao" required>
+			<div class="invalid-message" *ngIf="planoConta_descricao.invalid && planoConta_descricao.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoFinanceiro">
+			<label for="planoConta_tipoFinanceiro">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoFinanceiro') }}
 				<span class="kb-label-required">*</span>
 			</label>
-			<p-dropdown [options]="planoContaTipoFinanceiroOptions" placeholder="Selecione um item..." #tipoFinanceiro="ngModel" [(ngModel)]="planoConta.tipoFinanceiro" name="tipoFinanceiro" required></p-dropdown>
-			<div class="invalid-message" *ngIf="tipoFinanceiro.invalid && tipoFinanceiro.dirty">Campo obrigatório.</div>
+			<p-dropdown [options]="planoContaTipoFinanceiroOptions" placeholder="Selecione um item..." #planoConta_tipoFinanceiro="ngModel" [(ngModel)]="planoConta.tipoFinanceiro" name="planoConta_tipoFinanceiro" required></p-dropdown>
+			<div class="invalid-message" *ngIf="planoConta_tipoFinanceiro.invalid && planoConta_tipoFinanceiro.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="tipoReceitaDespesa">
+			<label for="planoConta_tipoReceitaDespesa">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_tipoReceitaDespesa') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Tipo receita/despesa."></i>
 				<!-- help -->
 			</label>
-			<p-dropdown [options]="planoContaTipoReceitaDespesaOptions" placeholder="Selecione um item..." #tipoReceitaDespesa="ngModel" [(ngModel)]="planoConta.tipoReceitaDespesa" name="tipoReceitaDespesa"></p-dropdown>
+			<p-dropdown [options]="planoContaTipoReceitaDespesaOptions" placeholder="Selecione um item..." #planoConta_tipoReceitaDespesa="ngModel" [(ngModel)]="planoConta.tipoReceitaDespesa" name="planoConta_tipoReceitaDespesa"></p-dropdown>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label for="planoContaPai">
+			<label for="planoConta_planoContaPai">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_planoContaPai') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Plano de conta pai."></i>
@@ -123,33 +123,33 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			 (onClear)="planoContaPlanoContaPaiAutoCompleteClear($event)"
 			 (onBlur)="planoContaPlanoContaPaiAutoCompleteOnBlur($event)"
 			 [field]="planoContaPlanoContaPaiAutoCompleteFieldConverter"
-			 #planoContaPai="ngModel" [(ngModel)]="planoConta.planoContaPai" name="planoContaPai">
-				<ng-template let-planoContaPai pTemplate="item">
-					<div class="ui-helper-clearfix">{{ planoContaPlanoContaPaiAutoCompleteFieldConverter(planoContaPai) }}</div>
+			 #planoConta_planoContaPai="ngModel" [(ngModel)]="planoConta.planoContaPai" name="planoConta_planoContaPai">
+				<ng-template let-planoConta_planoContaPai pTemplate="item">
+					<div class="ui-helper-clearfix">{{ planoContaPlanoContaPaiAutoCompleteFieldConverter(planoConta_planoContaPai) }}</div>
 				</ng-template>
 			</p-autoComplete>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid">
-			<label style="display: block" for="ativo">
+			<label style="display: block" for="planoConta_ativo">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_ativo') }}
 				<span class="kb-label-required">*</span>
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Ativo."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #ativo="ngModel" [(ngModel)]="planoConta.ativo" name="ativo" required></p-inputSwitch>
-			<div class="invalid-message" *ngIf="ativo.invalid && ativo.dirty">Campo obrigatório.</div>
+			<p-inputSwitch #planoConta_ativo="ngModel" [(ngModel)]="planoConta.ativo" name="planoConta_ativo" required></p-inputSwitch>
+			<div class="invalid-message" *ngIf="planoConta_ativo.invalid && planoConta_ativo.dirty">Campo obrigatório.</div>
 		</div>
 		
 		<div class="ui-g-12 ui-fluid hidden">
-			<label style="display: block" for="deleted" class="hidden">
+			<label style="display: block" for="planoConta_deleted" class="hidden">
 				{{ getTranslation('financeiro.fluxo_caixa.planoConta_deleted') }}
 				<!-- help -->
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="inativo."></i>
 				<!-- help -->
 			</label>
-			<p-inputSwitch #deleted="ngModel" [(ngModel)]="planoConta.deleted" name="deleted"></p-inputSwitch>
+			<p-inputSwitch #planoConta_deleted="ngModel" [(ngModel)]="planoConta.deleted" name="planoConta_deleted"></p-inputSwitch>
 		</div>
 		
 		<!-- Begin buttons -->
@@ -158,7 +158,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<button pButton type="submit"   class="botao-margem-direita" label="Salvar" tooltipPosition="top" pTooltip="Salvar registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
-				<button pButton (click)="begin(form1)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
+				<button pButton (click)="beginFormPlanoConta(formPlanoConta)" type="button"  label="Novo" tooltipPosition="top" pTooltip="Criar novo registro."></button>
 			</div>
 			<div class="ui-g-12 ui-md-2 ui-fluid">
 				<a routerLink="/planoconta" pButton  label="Voltar" tooltipPosition="top" pTooltip="Voltar para a listagem de plano de contas."></a>
