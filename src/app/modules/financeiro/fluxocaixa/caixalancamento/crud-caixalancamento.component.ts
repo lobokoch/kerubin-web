@@ -173,6 +173,11 @@ export class CaixaLancamentoComponent implements OnInit {
 	      return;
 	    }
 		
+		if (!this.doRulesFormBeforeSave()) {
+			return;
+		}
+		
+		
 		this.caixaLancamentoRememberValues();
 		
 	    if (this.isEditing) {
@@ -181,6 +186,25 @@ export class CaixaLancamentoComponent implements OnInit {
 	      this.create();
 	    }
 	}
+	
+	// Begin rulesFormBeforeSave
+	doRulesFormBeforeSave(): boolean {
+		
+		if ((String(this.caixaLancamento.tipoLancamentoFinanceiro) === 'CREDITO') && !this.caixaLancamento.valorCredito) {
+			this.messageHandler.showError('O valor recebido deve ser maior do que zero.');
+			return false;
+		}
+		
+		
+		if ((String(this.caixaLancamento.tipoLancamentoFinanceiro) === 'DEBITO') && !this.caixaLancamento.valorDebito) {
+			this.messageHandler.showError('O valor pago deve ser maior do que zero.');
+			return false;
+		}
+		
+		return true;
+	}
+	// End rulesFormBeforeSave
+	
 	
 	create() {
 		
