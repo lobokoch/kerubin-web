@@ -359,30 +359,70 @@ export class ContaPagarListComponent implements OnInit {
 	applyAndGetRuleGridRowStyleClass(contaPagar: ContaPagar): String {
 
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
-			return 'kb-conta-vencida';
+			return 'kb-conta-badge kb-conta-vencida';
 		}
 
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
-			return 'kb-conta-vence-hoje';
+			return 'kb-conta-badge kb-conta-vence-hoje';
 		}
 
 		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
-			return 'kb-conta-vence-amanha';
+			return 'kb-conta-badge kb-conta-vence-amanha';
 		}
 
-		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(3, 'day'))) {
-			return 'kb-conta-vence-proximos-3-dias';
+    if ((contaPagar.contaPaga === false) &&
+      moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(4, 'day'))) {
+			return 'kb-conta-badge kb-conta-vence-proximos-3-dias';
 		}
 
-		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
-			return 'kb-conta-vence-esta-semana';
+    if ((contaPagar.contaPaga === false) &&
+      moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
+			return 'kb-conta-badge kb-conta-vence-esta-semana';
 		}
 
 		if ((contaPagar.contaPaga)) {
-			return 'kb-conta-paga';
+			return 'kb-conta-badge kb-conta-paga';
 		}
 
-	    return null;
+	  return 'kb-conta-badge kb-conta-ok';
+  }
+
+	applyAndGetRuleGridRowStyleClassLabel(contaPagar: ContaPagar): String {
+
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+      const diff1 = Math.abs( moment({h: 0, m: 0, s: 0, ms: 0}).diff(moment(contaPagar.dataVencimento), 'days'));
+      let str = 'Vencida (' + diff1 + ' dia';
+      if (diff1 > 1) {
+        str += 's';
+      }
+      str += ')';
+      return str;
+		}
+
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+			return 'Vence hoje';
+		}
+
+		if ((contaPagar.contaPaga === false) && moment(contaPagar.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
+			return 'Vence amanhã';
+		}
+
+    if ((contaPagar.contaPaga === false) &&
+      moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(4, 'day'))) {
+			return 'Vence próximos 3 dias';
+		}
+
+    if ((contaPagar.contaPaga === false) &&
+      moment(contaPagar.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
+			return 'Vence esta semana';
+		}
+
+		if ((contaPagar.contaPaga)) {
+      return 'Paga';
+		}
+
+    const diff2 = moment(contaPagar.dataVencimento).diff(moment({h: 0, m: 0, s: 0, ms: 0}), 'days');
+	  return 'Vende em ' + diff2  + ' dias';
 	}
 
 	actionBaixarContaComDataPagamentoHojeWhen(contaPagar: ContaPagar) {

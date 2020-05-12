@@ -149,7 +149,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 		<!-- Begin GRID -->
 		<div class="ui-g-12" name="data-grid">
-      <p-table selectionMode="single" [loading]="tableLoading"
+      <p-table styleClass="ui-table-customers" selectionMode="single" [loading]="tableLoading"
       [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,50,100]"
       currentPageReportTemplate="Mostrando {first} até {last} de {totalRecords} registros."
 				[responsive]="true" sortMode="multiple" [paginator]="true" [resizableColumns]="true"
@@ -158,6 +158,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    [totalRecords]="contaPagarListTotalElements"
 			    [lazy]="true" (onLazyLoad)="contaPagarListOnLazyLoad($event)" >
 
+          <!--
 			    <ng-template pTemplate="caption">
 			    	Legenda:
 			    	<span class="kb-conta-vencida kb-conta-legenda">Conta vencida</span>
@@ -166,58 +167,70 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 			    	<span class="kb-conta-vence-proximos-3-dias kb-conta-legenda">Conta vence nos próximos 3 dias</span>
 			    	<span class="kb-conta-vence-esta-semana kb-conta-legenda">Conta vence esta semana</span>
 			    	<span class="kb-conta-paga kb-conta-legenda">Conta paga</span>
-			    </ng-template>
+          </ng-template>
+          -->
 
 			    <ng-template pTemplate="header">
 		            <tr>
-		            	<th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
+                  <th [pSortableColumn]="'descricao'">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao_grid') }}<p-sortIcon [field]="'descricao'"></p-sortIcon></th>
+                  <!--
+                    <th [pSortableColumn]="'planoContas'">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}<p-sortIcon [field]="'planoContas'"></p-sortIcon></th>
+                  -->
 		            	<th style="width: 7em" [pSortableColumn]="'dataVencimento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento_grid') }}<p-sortIcon [field]="'dataVencimento'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'valor'">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor_grid') }}<p-sortIcon [field]="'valor'"></p-sortIcon></th>
-		            	<th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
+		            	<th style="text-align: right; width: 8em" [pSortableColumn]="'valor'">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor_grid') }}<p-sortIcon [field]="'valor'"></p-sortIcon></th>
+                  <th>Situação</th>
+                  <th [pSortableColumn]="'formaPagamento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_grid') }}<p-sortIcon [field]="'formaPagamento'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'fornecedor'">{{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor_grid') }}<p-sortIcon [field]="'fornecedor'"></p-sortIcon></th>
-		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento_grid') }}<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
-		            	<th style="width: 8em" [pSortableColumn]="'valorPago'">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorPago_grid') }}<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
+		            	<th style="width: 7em" [pSortableColumn]="'dataPagamento'">Data pagamento<p-sortIcon [field]="'dataPagamento'"></p-sortIcon></th>
+		            	<th style="text-align: right; width: 8em" [pSortableColumn]="'valorPago'">Valor pago<p-sortIcon [field]="'valorPago'"></p-sortIcon></th>
 		            	<th [pSortableColumn]="'tipoPagamento'">{{ getTranslation('financeiro.contas_pagar.contaPagar_tipoPagamento_grid') }}<p-sortIcon [field]="'tipoPagamento'"></p-sortIcon></th>
 						<th style="width: 14em">Ações</th>
 		            </tr>
 		        </ng-template>
 
 			    <ng-template pTemplate="body" let-contaPagar>
-		            <tr [pSelectableRow]="contaPagar">
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
-		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao_grid') }}:</span>
-		            		{{ contaPagar?.descricao }}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+		            <tr class="ui-selectable-row" [pSelectableRow]="contaPagar">
+                  <td>
+                    <span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_descricao_grid') }}:</span>
+                    {{ contaPagar?.descricao }}
+                  </td>
+                  <!--
+		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_planoContas_grid') }}:</span>
 		            		{{contaPagarPlanoContasAutoCompleteFieldConverter(contaPagar?.planoContas)}}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                  </td>
+                -->
+		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataVencimento_grid') }}:</span>
 		            		{{contaPagar?.dataVencimento | date:'dd/MM/yyyy' }}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
+		            	<td class="kb-field-money">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_valor_grid') }}:</span>
 		            		{{contaPagar?.valor | currency:'BRL':'symbol':'1.2-2':'pt' }}
-		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                  </td>
+                  <td>
+                    <span style="float: left !important;" class="ui-column-title">Situação:</span>
+                    <div [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+                    {{applyAndGetRuleGridRowStyleClassLabel(contaPagar)}}
+                    </div>
+                  </td>
+                  <td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento_grid') }}:</span>
 		            		{{ getTranslation('financeiro.contas_pagar.contaPagar_formaPagamento' + '_' + contaPagar?.formaPagamento?.toLowerCase()) }}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_fornecedor_grid') }}:</span>
 		            		{{contaPagarFornecedorAutoCompleteFieldConverter(contaPagar?.fornecedor)}}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_dataPagamento_grid') }}:</span>
 		            		{{contaPagar?.dataPagamento | date:'dd/MM/yyyy' }}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)" class="kb-field-money">
+		            	<td class="kb-field-money">
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_valorPago_grid') }}:</span>
 		            		{{contaPagar?.valorPago | currency:'BRL':'symbol':'1.2-2':'pt' }}
 		            	</td>
-		            	<td [ngClass]="applyAndGetRuleGridRowStyleClass(contaPagar)">
+		            	<td>
 		            		<span class="ui-column-title">{{ getTranslation('financeiro.contas_pagar.contaPagar_tipoPagamento_grid') }}:</span>
 		            		{{ getTranslation('financeiro.contas_pagar.contaPagar_tipoPagamento' + '_' + contaPagar?.tipoPagamento?.toLowerCase()) }}
 		            	</td>
@@ -257,10 +270,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 				<ng-template pTemplate="footer">
 					<tr>
-						<td class="kb-sum-footer">Totais</td>
-						<td class="kb-sum-footer"></td>
+            <td class="kb-sum-footer">Totais</td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer sumField kb-conta-valor-apagar">(A): {{ contaPagarSumFields.sumValor | currency:'BRL':'symbol':'1.2-2':'pt' }}</td>
+						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>
 						<td class="kb-sum-footer"></td>

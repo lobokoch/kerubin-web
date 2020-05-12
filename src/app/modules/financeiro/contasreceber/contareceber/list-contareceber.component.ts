@@ -40,57 +40,57 @@ import { ContaReceberSumFields } from './contareceber.model';
 
 export class ContaReceberListComponent implements OnInit {
 	tableLoading = false;
-	
+
 	contaReceberListItems: ContaReceber[];
 	contaReceberListTotalElements = 0;
 	contaReceberListFilter = new ContaReceberListFilter();
-	
+
 	contaReceberDescricaoAutoCompleteSuggestions: ContaReceberDescricaoAutoComplete[];
-	
+
 	contaReceberDataVencimentoIsBetweenOptionsSelected: SelectItem = {label: 'Minha competência', value: '12'};
-	
-	
-	
+
+
+
 	contaReceberFormaPagamentoOptions: FormaPagamento[];
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	contaReceberHistConcBancariaAutoCompleteSuggestions: ContaReceberHistConcBancariaAutoComplete[];
 	contaReceberAgrupadorAutoCompleteSuggestions: ContaReceberAgrupadorAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
-	
-	
+
+
 	contaReceberSumFields = new ContaReceberSumFields();
-	
+
 	constructor(
 	    private contaReceberService: ContaReceberService,
 	    private financeiroContasReceberTranslationService: FinanceiroContasReceberTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
 	) { }
-	
+
 	ngOnInit() {
 		this.contaReceberDataVencimentoIsBetweenOptionsOnClick(null);
 		this.initializeDateFilterIntervalDropdownItems();
-		
-		
-		
-		
+
+
+
+
 		this.initializeContaReceberFormaPagamentoOptions();
-		
+
 		this.contaReceberListFilter.dataPagamentoIsNotNull = false;
-		
+
 		this.contaReceberListFilter.dataPagamentoIsNull = true;
-		
-		
+
+
 		this.contaReceberListFilter.idConcBancariaIsNotNull = false;
-		
-		
+
+
 	}
-	
+
 	contaReceberList(pageNumber = 0) {
 		this.tableLoading = true;
 	    this.contaReceberListFilter.pageNumber = pageNumber;
@@ -100,7 +100,7 @@ export class ContaReceberListComponent implements OnInit {
 	    	try {
 		      	this.contaReceberListItems = result.items;
 		      	this.contaReceberListTotalElements = result.totalElements;
-		      
+
 				this.getContaReceberSumFields();
 			} finally {
 				this.tableLoading = false;
@@ -109,9 +109,9 @@ export class ContaReceberListComponent implements OnInit {
 	    .catch(e => {
 	    	this.tableLoading = false;
 	    });
-		
+
 	}
-	
+
 	getContaReceberSumFields() {
 		this.tableLoading = true;
 	    this.contaReceberService.getContaReceberSumFields(this.contaReceberListFilter)
@@ -127,11 +127,11 @@ export class ContaReceberListComponent implements OnInit {
 			this.messageHandler.showError(e);
 		});
 	}
-	
+
 	contaReceberFilterSearch() {
 	    this.contaReceberList(0);
 	}
-	
+
 	deleteContaReceber(contaReceber: ContaReceber) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
@@ -147,7 +147,7 @@ export class ContaReceberListComponent implements OnInit {
 	      }
 	    });
 	}
-	
+
 	contaReceberListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.multiSortMeta) {
 	      this.contaReceberListFilter.sortFields = new Array(event.multiSortMeta.length);
@@ -163,7 +163,7 @@ export class ContaReceberListComponent implements OnInit {
 	    this.contaReceberListFilter.pageSize = event.rows;
 	    this.contaReceberList(pageNumber);
 	}
-	
+
 	contaReceberDescricaoAutoComplete(event) {
 	    const query = event.query;
 	    this.contaReceberService.contaReceberDescricaoAutoComplete(query)
@@ -174,7 +174,7 @@ export class ContaReceberListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
+
 	contaReceberHistConcBancariaAutoComplete(event) {
 	    const query = event.query;
 	    this.contaReceberService.contaReceberHistConcBancariaAutoComplete(query)
@@ -185,7 +185,7 @@ export class ContaReceberListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
+
 	contaReceberAgrupadorAutoComplete(event) {
 	    const query = event.query;
 	    this.contaReceberService.contaReceberAgrupadorAutoComplete(query)
@@ -196,22 +196,22 @@ export class ContaReceberListComponent implements OnInit {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);
 	    });
 	}
-	
-	
+
+
 	private initializeContaReceberFormaPagamentoOptions() {
 	    this.contaReceberFormaPagamentoOptions = [
 	    	{ label: 'Selecione um item', value: null },
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_dinheiro'), value: 'DINHEIRO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' }, 
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' }, 
-	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cheque'), value: 'CHEQUE' }, 
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_dinheiro'), value: 'DINHEIRO' },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_conta_bancaria'), value: 'CONTA_BANCARIA' },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cartao_credito'), value: 'CARTAO_CREDITO' },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_refeicao'), value: 'VALE_REFEICAO' },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_vale_alimentacao'), value: 'VALE_ALIMENTACAO' },
+	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_cheque'), value: 'CHEQUE' },
 	    	{ label: this.getTranslation('financeiro.contas_receber.contaReceber_formaPagamento_outros'), value: 'OUTROS' }
 	    ];
 	}
-	  
-	
+
+
 	contaReceberPlanoContasAutoCompleteFieldConverter(planoContas: PlanoContaAutoComplete) {
 		if (planoContas) {
 			return (planoContas.codigo || '<nulo>') + ' - ' + (planoContas.descricao || '<nulo>');
@@ -219,7 +219,7 @@ export class ContaReceberListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaReceberContaBancariaAutoCompleteFieldConverter(contaBancaria: ContaBancariaAutoComplete) {
 		if (contaBancaria) {
 			return (contaBancaria.nomeTitular || '<nulo>') + ' - ' + (contaBancaria.numeroConta || '<nulo>');
@@ -227,7 +227,7 @@ export class ContaReceberListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaReceberCartaoCreditoAutoCompleteFieldConverter(cartaoCredito: CartaoCreditoAutoComplete) {
 		if (cartaoCredito) {
 			return (cartaoCredito.nomeTitular || '<nulo>') + ' - ' + (cartaoCredito.numeroCartao || '<nulo>');
@@ -235,7 +235,7 @@ export class ContaReceberListComponent implements OnInit {
 			return null;
 		}
 	}
-	
+
 	contaReceberClienteAutoCompleteFieldConverter(cliente: ClienteAutoComplete) {
 		if (cliente) {
 			return (cliente.nome || '<nulo>');
@@ -243,8 +243,8 @@ export class ContaReceberListComponent implements OnInit {
 			return null;
 		}
 	}
-	
-	
+
+
 	private initializeDateFilterIntervalDropdownItems() {
 		this.dateFilterIntervalDropdownItems = [
 		    {label: 'Minha competência', value: '12'},
@@ -263,15 +263,15 @@ export class ContaReceberListComponent implements OnInit {
 		    {label: 'Personalizado', value: '99'}
 		  ];
 	}
-	
-	
+
+
 	contaReceberDataVencimentoIsBetweenOptionsOnClick(dropdown: Dropdown) {
 		this.contaReceberListFilter.dataVencimentoFrom = null;
 		this.contaReceberListFilter.dataVencimentoTo = null;
-		
+
 		let dateFrom = null;
 		let dateTo = null;
-	
+
 		const valor = Number(this.contaReceberDataVencimentoIsBetweenOptionsSelected.value);
 		switch (valor) {
 			case 0: // Hoje
@@ -333,62 +333,102 @@ export class ContaReceberListComponent implements OnInit {
 				dateFrom = moment().add(-1, 'year').startOf('year');
 				dateTo = moment().add(-1, 'year').endOf('year');
 				break;
-				
+
 			case 12: // Minha competência
 				dateFrom = moment().startOf('month');
 				dateTo = moment().endOf('month').add(5, 'day'); // Five days after and of the month
 				break;
-			
+
 			default:
 				break;
 		} // switch
-	
+
 		if (dateFrom != null) {
 		  this.contaReceberListFilter.dataVencimentoFrom = dateFrom.toDate();
 		}
-		
+
 		if (dateTo != null) {
 		  this.contaReceberListFilter.dataVencimentoTo = dateTo.toDate();
 		}
-		
+
 		if (dateFrom != null && dateTo != null) {
 		  // this.contaReceberList(0);
 		}
 	}
-	
+
 	applyAndGetRuleGridRowStyleClass(contaReceber: ContaReceber): String {
-		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
-			return 'kb-conta-vencida';
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+			return 'kb-conta-badge kb-conta-vencida';
 		}
-		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
-			return 'kb-conta-vence-hoje';
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+			return 'kb-conta-badge kb-conta-vence-hoje';
 		}
-		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
-			return 'kb-conta-vence-amanha';
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
+			return 'kb-conta-badge kb-conta-vence-amanha';
 		}
-		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(3, 'day'))) {
-			return 'kb-conta-vence-proximos-3-dias';
+
+    if ((contaReceber.contaPaga === false) &&
+      moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(4, 'day'))) {
+			return 'kb-conta-badge kb-conta-vence-proximos-3-dias';
 		}
-		
-		if (!contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
-			return 'kb-conta-vence-esta-semana';
+
+    if ((contaReceber.contaPaga === false) &&
+      moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
+			return 'kb-conta-badge kb-conta-vence-esta-semana';
 		}
-		
-		if (contaReceber.dataPagamento) {
-			return 'kb-conta-paga';
+
+		if ((contaReceber.contaPaga)) {
+			return 'kb-conta-badge kb-conta-paga';
 		}
-	
-	    return null;
+
+	  return 'kb-conta-badge kb-conta-ok';
+  }
+
+	applyAndGetRuleGridRowStyleClassLabel(contaReceber: ContaReceber): String {
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+      const diff1 = Math.abs( moment({h: 0, m: 0, s: 0, ms: 0}).diff(moment(contaReceber.dataVencimento), 'days'));
+      let str = 'Vencida (' + diff1 + ' dia';
+      if (diff1 > 1) {
+        str += 's';
+      }
+      str += ')';
+      return str;
+		}
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}), 'day')) {
+			return 'Vence hoje';
+		}
+
+		if ((contaReceber.contaPaga === false) && moment(contaReceber.dataVencimento).isSame(moment({h: 0, m: 0, s: 0, ms: 0}).add(1, 'day'), 'day')) {
+			return 'Vence amanhã';
+		}
+
+    if ((contaReceber.contaPaga === false) &&
+      moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).add(4, 'day'))) {
+			return 'Vence próximos 3 dias';
+		}
+
+    if ((contaReceber.contaPaga === false) &&
+      moment(contaReceber.dataVencimento).isBetween(moment({h: 0, m: 0, s: 0, ms: 0}), moment({h: 0, m: 0, s: 0, ms: 0}).endOf('week'))) {
+			return 'Vence esta semana';
+		}
+
+		if ((contaReceber.contaPaga)) {
+      return 'Recebida';
+		}
+
+    const diff2 = moment(contaReceber.dataVencimento).diff(moment({h: 0, m: 0, s: 0, ms: 0}), 'days');
+	  return 'Vende em ' + diff2  + ' dias';
 	}
-	
+
 	actionBaixarContaComDataPagamentoHojeWhen(contaReceber: ContaReceber) {
 		return !contaReceber.dataPagamento;
 	}
-	
+
 	actionBaixarContaComDataPagamentoHoje(contaReceber: ContaReceber) {
 		this.contaReceberService.actionBaixarContaComDataPagamentoHoje(contaReceber.id)
 			.then(() => {
@@ -400,11 +440,11 @@ export class ContaReceberListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	actionBaixarContaComDataPagamentoIgualDataVencientoWhen(contaReceber: ContaReceber) {
 		return !contaReceber.dataPagamento && moment(contaReceber.dataVencimento).isBefore(moment({h: 0, m: 0, s: 0, ms: 0}), 'day');
 	}
-	
+
 	actionBaixarContaComDataPagamentoIgualDataVenciento(contaReceber: ContaReceber) {
 		this.contaReceberService.actionBaixarContaComDataPagamentoIgualDataVenciento(contaReceber.id)
 			.then(() => {
@@ -416,11 +456,11 @@ export class ContaReceberListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	actionEstornarRecebimentoContaComUmCliqueWhen(contaReceber: ContaReceber) {
 		return contaReceber.dataPagamento;
 	}
-	
+
 	actionEstornarRecebimentoContaComUmClique(contaReceber: ContaReceber) {
 		this.contaReceberService.actionEstornarRecebimentoContaComUmClique(contaReceber.id)
 			.then(() => {
@@ -432,15 +472,15 @@ export class ContaReceberListComponent implements OnInit {
 			  	this.messageHandler.showError('Não foi possível executar a ação.');
 			});
 	}
-	
+
 	// TODO: temporário, só para testes.
 	getTranslation(key: string): string {
 		const value = this.financeiroContasReceberTranslationService.getTranslation(key);
 		return value;
-		
+
 		// const result = key.substring(key.lastIndexOf('_') + 1);
 		// return result;
 	}
-	
-	
+
+
 }

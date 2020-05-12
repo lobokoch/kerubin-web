@@ -150,6 +150,26 @@ a, button {
   text-align: right;
 }
 
+.kb-conta-badge {
+  border-radius: 12px;
+  padding: .25em .5em;
+  /*text-transform: uppercase;*/
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+  text-align: center;
+
+  /*Faz a div à direia ocupar a largura
+  disponível da linha,
+  (no caso de ter elemento à
+  esquerda com float: left).
+  Caso não tenha nada a esquerda,
+  ocupa toda a largura da linha.
+  104: https://stackoverflow.com/questions/1032914/how-to-make-a-div-fill-a-remaining-horizontal-space
+  */
+  overflow: auto;
+}
+
 .kb-conta-valor-apagar {
   font-weight: bold;
   color: red !important;
@@ -161,37 +181,45 @@ a, button {
 }
 
 .kb-conta-paga {
-  /*text-decoration: line-through;*/
-  color: blue !important;
+  /*color: blue !important;*/
+  background-color: #C8E6C9;
+  color: #256029;
 }
 
 .kb-conta-vencida {
-  background-color:darkred !important;
-  color: white !important;
-  /*font-weight: bold;*/
-  /*text-decoration: overline;*/
+  /*background-color: #ECCFFF;
+  color: #694382;*/
+ /* background-color: #d55152;*/
+  background-color: #e1948a;
+  color: #fff;
 }
 
 .kb-conta-vence-hoje /*:not(:last-child)*/ {
-  background-color: red !important;
-  /*color:white !important;*/
-  /*font-weight: bold;*/
+  background-color: #FFCDD2;
+  color: #C63737;
 }
 
 .kb-conta-vence-amanha {
-  background-color: orange !important;
-  /*color: white !important;*/
-  /*font-weight: bold;*/
+  background-color: #FFD8B2;
+  color: #805B36;
 }
 
 .kb-conta-vence-proximos-3-dias {
-  background-color: rgb(254, 253, 194) !important;
-  color: #000 !important;
+  background-color: #FEEDAF;
+  color: #8A5340;
+
+  /*background-color: rgb(254, 253, 194) !important;
+  color: brown !important;*/
 }
 
 .kb-conta-vence-esta-semana {
-  background-color: rgb(224, 252, 160) !important;
-  color: #000 !important;
+  background-color: #B3E5FC;
+  color: #23547B;
+}
+
+.kb-conta-ok {
+  background-color: silver;
+  color: #fff;
 }
 
 .kb-conta-legenda {
@@ -280,7 +308,9 @@ a.kb-link-termos-uso {
 }
 
 .kb-sum-footer {
-  background-color: rgb(219, 232, 239) !important;
+  /*background-color: rgb(219, 232, 239) !important;*/
+  background-color: #eaeaea !important;
+  border: 0 none !important;
 }
 
 /* Diminui os tamanho dos ícones */
@@ -914,4 +944,35 @@ hr {
 
 .kb-main-menu .ui-menuitem-icon {
   font-size: 2em !important;
+}
+
+.ui-table {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+/*.ui-table-customers*/ .ui-table-thead > tr > th {
+  border: 0 none !important;
+  text-align: left;
+}
+
+/*.ui-table-customers*/ .ui-table-tbody > tr > td {
+  border: 0 none !important;
+  cursor: auto !important;
+
+}
+
+.ui-table .ui-table-caption {
+  border: 0 none;
+}
+
+.ui-table .ui-paginator {
+  border: 0 none;
+}
+
+.ui-table .ui-table-summary {
+  border: 0 none !important;
+}
+
+.ui-table .ui-table-footer {
+  border: 0 none;
 }
