@@ -1,3 +1,5 @@
+import { CustomContaPagarListServiceImpl } from './custom-list-contapagar-impl.service';
+import { CustomContaPagarListService } from './../../financeiro/contaspagar/contapagar/custom-list-contapagar.service';
 import { CustomContaPagarMultipleServiceImpl } from './custom-contapagarmultiple-impl.service';
 import { CustomContaPagarMultipleService } from './../../financeiro/contaspagar/contapagarmultiple/custom-contapagarmultiple.service';
 import { NgModule } from '@angular/core';
@@ -19,6 +21,10 @@ import { CustomContaReceberServiceImpl } from './custom-contareceber-impl.servic
     {
       provide: CustomContaPagarService,
       useClass: CustomContaPagarServiceImpl
+    },
+    {
+      provide: CustomContaPagarListService,
+      useClass: CustomContaPagarListServiceImpl
     },
 	{
       provide: CustomContaReceberService,

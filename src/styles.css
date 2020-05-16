@@ -950,14 +950,14 @@ hr {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
-/*.ui-table-customers*/ .ui-table-thead > tr > th {
+/*.kb-table*/ .ui-table-thead > tr > th {
   border: 0 none !important;
   text-align: left;
 }
 
-/*.ui-table-customers*/ .ui-table-tbody > tr > td {
+/*.kb-table*/ .ui-table-tbody > tr > td {
   border: 0 none !important;
-  cursor: auto !important;
+  /*cursor: auto !important;*/
 
 }
 
