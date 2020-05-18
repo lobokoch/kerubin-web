@@ -12,6 +12,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 const ANONYMOUS_USERNAME = 'anonymous@kerubin.com.br';
+const VERGAMOTA = 'a2Itd2ViLWZlOlQ5OEBBbUsyMzc0';
+const JAGUAR = 'Kerubin_Anonymous@!1'
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +45,7 @@ export class AuthService {
   refreshAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
-      // .append('Authorization', 'Basic a2VydWJpbi1mZTpBbmdlbCE4MQ==');
-      .append('Authorization', 'Basic a2VydWJpbi1mZToxMjM=');
+      .append('Authorization', 'Basic ' + VERGAMOTA);
 
     const body = 'grant_type=refresh_token';
 
@@ -64,8 +65,7 @@ export class AuthService {
   login(username: string, password: string): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
-      // .append('Authorization', 'Basic a2VydWJpbi1mZTpBbmdlbCE4MQ=='); // Dev da API passa isso.
-      .append('Authorization', 'Basic a2VydWJpbi1mZToxMjM='); // Dev da API passa isso.
+      .append('Authorization', 'Basic ' + VERGAMOTA);
 
     const body = `username=${username}&password=${password}&grant_type=password`;
 
@@ -105,15 +105,15 @@ export class AuthService {
   }
 
   public doLoginAnonymous(): Promise<boolean> {
-    const username = ANONYMOUS_USERNAME;
-    const password = 'Kerubin_Anonymous@!1';
-    return this.login(username, password)
+    const u = ANONYMOUS_USERNAME;
+    const p = JAGUAR;
+    return this.login(u, p)
       .then(() => {
-        // console.log('Anonymous login success!');
+        console.log('Anonymous login success!');
         return true;
       })
       .catch(e => {
-        // console.log('Anonymous login failed: ' + e);
+        console.log('Anonymous login failed: ' + e);
         return false;
       });
   }

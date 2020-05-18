@@ -55,6 +55,8 @@
 	"financeiro.contas_receber.contaReceber_observacoes_grid": "Observações",
 	"financeiro.contas_receber.contaReceber_agrupador": "Identificador para agrupamento da conta",
 	"financeiro.contas_receber.contaReceber_agrupador_grid": "Identificador para agrupamento da conta",
+	"financeiro.contas_receber.contaReceber_situacaoConta": "Situação",
+	"financeiro.contas_receber.contaReceber_situacaoConta_grid": "Situação",
 	"financeiro.contas_receber.cliente": "Cliente",
 	"financeiro.contas_receber.cliente_id": "Identificador único",
 	"financeiro.contas_receber.cliente_id_grid": "Identificador único",

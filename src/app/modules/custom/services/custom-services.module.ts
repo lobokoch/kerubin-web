@@ -1,3 +1,5 @@
+import { CustomContaReceberListServiceImpl } from './custom-list-contareceber-impl.service';
+import { CustomContaReceberListService } from './../../financeiro/contasreceber/contareceber/custom-list-contareceber.service';
 import { CustomContaPagarListServiceImpl } from './custom-list-contapagar-impl.service';
 import { CustomContaPagarListService } from './../../financeiro/contaspagar/contapagar/custom-list-contapagar.service';
 import { CustomContaPagarMultipleServiceImpl } from './custom-contapagarmultiple-impl.service';
@@ -26,11 +28,15 @@ import { CustomContaReceberServiceImpl } from './custom-contareceber-impl.servic
       provide: CustomContaPagarListService,
       useClass: CustomContaPagarListServiceImpl
     },
-	{
+	  {
       provide: CustomContaReceberService,
       useClass: CustomContaReceberServiceImpl
     },
-	{
+	  {
+      provide: CustomContaReceberListService,
+      useClass: CustomContaReceberListServiceImpl
+    },
+	  {
       provide: CustomContaPagarMultipleService,
       useClass: CustomContaPagarMultipleServiceImpl
     }
