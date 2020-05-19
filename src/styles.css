@@ -977,3 +977,12 @@ hr {
 .ui-table .ui-table-footer {
   border: 0 none;
 }
+
+.ui-panelmenu-icon.pi-chevron-right {
+  display: none !important;
+}
+
+.ui-panelmenu-icon.pi-chevron-down {
+  display: none !important;
+}
+
