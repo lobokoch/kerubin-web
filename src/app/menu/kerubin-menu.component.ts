@@ -7,7 +7,7 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -19,10 +19,41 @@ export class KerubinMenuComponent implements OnInit {
 
   items: MenuItem[];
 
+  sidebarClass = 'kb-side-menu menu-bar';
 
+  @Input() menuBarVisible = true;
   constructor(
     private authService: AuthService
   ) { }
+
+  goHome() {
+
+  }
+
+  doMenuBarEnter() {
+    this.menuBarVisible = false;
+    this.sidebarClass = 'kb-side-menu menu-full';
+
+    // setTimeout(function() {
+      this.menuBarVisible = true;
+    // }.bind(this), 100);
+
+
+  }
+
+  doMenuFullLeave() {
+    this.menuBarVisible = false;
+    this.sidebarClass = 'kb-side-menu menu-bar';
+
+    // setTimeout(function() {
+      this.menuBarVisible = true;
+    // }.bind(this), 100);
+
+  }
+
+  getMenuClass() {
+    return this.sidebarClass;
+  }
 
   ngOnInit() {
     this.loadMenu();
@@ -35,14 +66,14 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Gráficos',
-        icon: 'pi pi-pw pi-chart-bar',
+        icon: 'fas fa-chart-bar fa-lg',
         items: [
 
           {
             label: 'Financeiro',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-money-bill',
             items: [
-              { label: 'Situação do financeiro', icon: 'pi pi-fw', routerLink: '/dashboard' },
+              { label: 'Situação', icon: 'fas fa-chart-line', routerLink: '/dashboard' },
             ]
           }
 
@@ -51,32 +82,32 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Cadastros',
-        icon: 'pi pi-pw pi-id-card',
+        icon: 'fas fa-id-card fa-lg',
         items: [
 
           {
             label: 'Banco',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-hand-holding-usd',
             items: [
-              { label: 'Banco', icon: 'pi pi-fw', routerLink: '/banco' },
-              { label: 'Agência bancária', icon: 'pi pi-fw', routerLink: '/agenciabancaria' },
-              { label: 'Bandeira de cartão', icon: 'pi pi-fw', routerLink: '/bandeiracartao' },
-              { label: 'Conta bancária', icon: 'pi pi-fw', routerLink: '/contabancaria' },
-              { label: 'Cartão de crédito', icon: 'pi pi-fw', routerLink: '/cartaocredito' }
+              { label: 'Banco', icon: 'fas fa-dollar-sign', routerLink: '/banco' },
+              { label: 'Agência bancária', icon: 'fas fa-hotel', routerLink: '/agenciabancaria' },
+              { label: 'Bandeira de cartão', icon: 'fab fa-cc-visa', routerLink: '/bandeiracartao' },
+              { label: 'Conta bancária', icon: 'fas fa-credit-card', routerLink: '/contabancaria' },
+              { label: 'Cartão de crédito', icon: 'fab fa-cc-mastercard', routerLink: '/cartaocredito' }
             ]
           },
           {
             label: 'Fornecedor',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-truck',
             items: [
-              { label: 'Fornecedor', icon: 'pi pi-fw', routerLink: '/fornecedor' }
+              { label: 'Fornecedor', icon: 'fas fa-address-card', routerLink: '/fornecedor' }
             ]
           },
           {
             label: 'Cliente',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-handshake ',
             items: [
-              { label: 'Cliente', icon: 'pi pi-fw', routerLink: '/cliente' }
+              { label: 'Cliente', icon: 'fas fa-address-book', routerLink: '/cliente' }
             ]
           }
         ]
@@ -84,46 +115,46 @@ export class KerubinMenuComponent implements OnInit {
 
       {
         label: 'Financeiro',
-        icon: 'pi pi-pw pi-money-bill',
+        icon: 'fas fa-money-bill fa-lg',
         items: [
 
           {
             label: 'Plano de contas',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-book ',
             items: [
-              { label: 'Plano de contas', icon: 'pi pi-fw', routerLink: '/planoconta' }
+              { label: 'Plano de contas', icon: 'fas fa-sitemap', routerLink: '/planoconta' }
             ]
           },
 
           {
             label: 'Fluxo de caixa',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-money-bill-wave',
             items: [
-              { label: 'Cadastro de caixa', icon: 'pi pi-fw', routerLink: '/caixa' },
-              { label: 'Caixa diário', icon: 'pi pi-fw', routerLink: '/caixadiario' },
-              { label: 'Lançamentos no caixa', icon: 'pi pi-fw', routerLink: '/caixalancamento' }
+              { label: 'Cadastro de caixa', icon: 'fas fa-money-check-alt', routerLink: '/caixa' },
+              { label: 'Caixa diário', icon: 'fas fa-calendar-alt', routerLink: '/caixadiario' },
+              { label: 'Lançamentos', icon: 'fas fa-coins', routerLink: '/caixalancamento' }
             ]
           },
 
           {
             label: 'Contas a pagar',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-sign-out-alt',
             items: [
-              { label: 'Contas a pagar', icon: 'pi pi-fw', routerLink: '/contapagar' }
+              { label: 'Contas a pagar', icon: 'fas fa-file-export', routerLink: '/contapagar' }
             ]
           },
           {
             label: 'Contas a receber',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-cart-plus',
             items: [
-              { label: 'Contas a receber', icon: 'pi pi-fw', routerLink: '/contareceber' }
+              { label: 'Contas a receber', icon: 'fas fa-file-medical', routerLink: '/contareceber' }
             ]
           },
           {
             label: 'Banco',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-dollar-sign',
             items: [
-              { label: 'Importar extrato', icon: 'pi pi-fw', routerLink: '/conciliacaobancaria' }
+              { label: 'Importar extrato', icon: 'fas fa-file-download', routerLink: '/conciliacaobancaria' }
             ]
           }
 
@@ -131,14 +162,14 @@ export class KerubinMenuComponent implements OnInit {
       },
       {
         label: 'Segurança',
-        icon: 'pi pi-pw pi-users',
+        icon: 'fas fa-user-shield fa-lg',
         items: [
 
           {
             label: 'Autorização',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-key',
             items: [
-              { label: 'Usuário', icon: 'pi pi-fw', routerLink: '/sysuser' }
+              { label: 'Usuário', icon: 'fas fa-user', routerLink: '/sysuser' }
             ]
           }
 
@@ -146,16 +177,16 @@ export class KerubinMenuComponent implements OnInit {
       },
       {
         label: 'Administração',
-        icon: 'pi pi-pw pi-desktop',
+        icon: 'fas fa-tools fa-lg',
         items: [
 
           {
             label: 'Créditos',
-            icon: 'pi pi-fw ',
+            icon: 'fas fa-money-check-alt',
             items: [
-              { label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/paymentplan' },
-              { label: 'Consultar pedidos', icon: 'pi pi-fw', routerLink: '/paymentCreditOrder' },
-              { label: 'Consultar saldo', icon: 'pi pi-fw', routerLink: '/creditBalance' }
+              { label: 'Pedido de créditos', icon: 'fas fa-cart-plus', routerLink: '/paymentplan' },
+              { label: 'Consultar pedidos', icon: 'fas fa-search', routerLink: '/paymentCreditOrder' },
+              { label: 'Consultar saldo', icon: 'fas fa-search-dollar', routerLink: '/creditBalance' }
             ]
           }
 
@@ -165,16 +196,16 @@ export class KerubinMenuComponent implements OnInit {
 
 	  {
       	label: 'Kerubin',
-        icon: 'pi pi-pw pi-globe',
+        icon: 'fab fa-korvue fa-lg',
         visible: isSuperAdmin,
       	items: [
 
       		{
       			label: 'Administração',
-      			icon: 'pi pi-fw ',
+      			icon: 'fas fa-tools',
       			items: [
-      				{ label: 'Pedido de créditos', icon: 'pi pi-fw', routerLink: '/creditorderadmin' },
-      				{ label: 'Notificações', icon: 'pi pi-fw', routerLink: '/notificacoesadmin' }
+      				{ label: 'Pedido de créditos', icon: 'fas fa-shopping-cart', routerLink: '/creditorderadmin' },
+      				{ label: 'Notificações', icon: 'fas fa-envelope', routerLink: '/notificacoesadmin' }
       			]
       		}
 

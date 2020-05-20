@@ -1,3 +1,4 @@
+import { EventEmitter, Output } from '@angular/core';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -20,7 +21,13 @@ import { Router } from '@angular/router';
 
 export class NavbarComponent implements OnInit {
 
+  //////////////////////
+  menuBarVisible = true;
+  //////////////////////
+
   isMenuShowing = false;
+
+  @Output() menuBarChangeVisibility = new EventEmitter();
 
   constructor(
 	private authService: AuthService,
@@ -32,6 +39,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
 
+  }
+
+  showMobileMenu() {
+    this.menuBarVisible = !this.menuBarVisible;
+    this.menuBarChangeVisibility.emit(this.menuBarVisible);
   }
 
   getCurrentUserName() {

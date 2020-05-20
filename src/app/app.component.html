@@ -7,7 +7,7 @@ Copyright: Kerubin - logokoch@gmail.com
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************
 -->
-<app-navbar *ngIf="canShowMenu()"></app-navbar>
+<app-navbar (menuBarChangeVisibility)="onMenuBarChangeVisibility($event)" *ngIf="canShowMenu()"></app-navbar>
 
 <div class="ui-g kb-warn-saldo-baixo" *ngIf="mostrarAvisoReporCreditos">
   <div class="ui-g-12 ui-fluid">
@@ -17,12 +17,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   </div>
 </div>
 
-<div class="ui-g" style="margin: 0px !important; padding: 0px !important;">
-  <div class="ui-g-12 ui-fluid" style="margin: 0px !important; padding: 0px !important;">
-    <div class="ui-g-12 ui-fluid ui-md-2" style="margin: 0px !important; padding: 0px !important;">
-      <app-kerubin-menu *ngIf="canShowMenu()"></app-kerubin-menu>
-    </div>
+<app-kerubin-menu [menuBarVisible]="menuBarVisible" *ngIf="canShowMenu()"></app-kerubin-menu>
 
+<div class="ui-g kb-workspace">
+  <div class="ui-g-12 ui-fluid" style="margin: 0px !important; padding: 0px !important;">
     <div class="spinner-animation" [hidden]="!loading">
     </div>
     <div [ngClass]="getRouterOutletCssClass()" [hidden]="loading"

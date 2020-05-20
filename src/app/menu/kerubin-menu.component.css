@@ -8,3 +8,23 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 /* Your CSS heare */
 
+.kb-logo-asas {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: #1e94d2;
+  margin-bottom: 5px;
+  height: 49px;
+  border-bottom: 1px solid #000;
+}
+
+.kb-side-menu {
+  display: initial;
+}
+
+@media screen and (max-width: 399px) { /* < que 400*/
+  .kb-side-menu {
+    /*display: none;*/
+  }
+
+}

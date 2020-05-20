@@ -10,12 +10,14 @@ import { MenuModule } from 'primeng/menu';
 import { KerubinMenuComponent } from './kerubin-menu.component';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { NgModule } from '@angular/core';
+import {SidebarModule} from 'primeng/sidebar';
 
 @NgModule({
 
   imports: [
     PanelMenuModule,
-    MenuModule
+    MenuModule,
+    SidebarModule
   ],
 
   declarations: [
@@ -25,7 +27,8 @@ import { NgModule } from '@angular/core';
   exports: [
     KerubinMenuComponent,
     PanelMenuModule,
-    MenuModule
+    MenuModule,
+    SidebarModule
   ]
 
 })

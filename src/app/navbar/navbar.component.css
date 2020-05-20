@@ -14,13 +14,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 }
 
 .kb-logo {
-  margin-left: 10px;
+  margin-left: 70px;
   margin-top: -10px;
   padding: 0px;
   float: left;
   color: #fff;
   font-size: 2em;
   font-weight: bolder;
+}
+
+.kb-bars-show-menu {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .kb-navebar-container {
@@ -43,11 +49,11 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   list-style: none;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 500px) { /* <= que 500*/
 
   .navbar-menu {
     top: 80px;
-    left: 25px;
+    left: 70px;
   }
 
   .navbar {
@@ -63,18 +69,22 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   }
 
   .kb-user-profile {
+    margin: 0;
     color: white;
-    margin: 0px;
+    margin-left: 70px;
     padding: 0px;
     margin-top: -40px;
-    width: auto;
+    /*width: auto;*/
     overflow: auto !important;
-    line-height: 10px;
-    text-align: center;
+    /*line-height: 10px;*/
+    /*text-align: left;*/
   }
 }
 
-@media (min-width: 501px) {
+@media (min-width: 501px) { /* > que 500*/
+  .kb-bars-show-menu {
+    display: none !important;
+  }
 
   .navbar-menu {
     top: 50px;
@@ -82,7 +92,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
   .kb-user-profile {
     color: white;
-    margin: 0px;
+    margin:0;
     padding: 0px;
     margin-right: 10px;
     margin-top: -10px;

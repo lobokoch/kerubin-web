@@ -23,6 +23,10 @@ export class AppComponent implements AfterViewInit {
   mostrarAvisoReporCreditos = false;
   mostrarAvisoReporCreditosCount = MAX_COUNT + 1;
 
+  ////////////////
+  menuBarVisible = true;
+  ////////////////
+
   loading = true;
   title = 'Kerubin';
   urls = ['/home', '/login', '/newaccount', '/confirmaccount', '/forgotpassword', '/changepasswordforgotten'];
@@ -42,13 +46,18 @@ export class AppComponent implements AfterViewInit {
 		});
   }
 
+  onMenuBarChangeVisibility(event: boolean) {
+    console.log('app.component:onMenuBarChangeVisibility:' + event);
+    this.menuBarVisible = event;
+  }
+
   canShowMenu() {
     const isAnonymousUrl = this.isAnonymousUrl();
     return !isAnonymousUrl && this.auth.isLoggedIn();
   }
 
   getRouterOutletCssClass(): string {
-    let result = 'ui-g-12 ui-fluid ui-md-10';
+    let result = 'ui-g-12 ui-fluid ui-md-12';
     if (!this.canShowMenu()) {
       result = 'ui-g-12 ui-fluid ui-md-12';
     }

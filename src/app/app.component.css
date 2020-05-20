@@ -15,3 +15,15 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   transform: translateX(-100%);
 }
 /* end -  hack to fix issue with dropdown caret position */
+
+.kb-workspace {
+  margin-left: 62px !important;
+  padding: 0px !important;
+}
+
+@media screen and (max-width: 399px) { /* < que 400*/
+  .kb-workspace {
+    margin-left: 0px !important;
+  }
+
+}
