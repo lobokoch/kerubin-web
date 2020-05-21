@@ -19,7 +19,7 @@ export class KerubinMenuComponent implements OnInit {
 
   items: MenuItem[];
 
-  sidebarClass = 'kb-side-menu menu-bar';
+  sidebarClass = 'menu-bar';
 
   @Input() menuBarVisible = true;
   constructor(
@@ -138,16 +138,16 @@ export class KerubinMenuComponent implements OnInit {
 
           {
             label: 'Contas a pagar',
-            icon: 'fas fa-sign-out-alt',
+            icon: 'fas fa-minus-circle',
             items: [
-              { label: 'Contas a pagar', icon: 'fas fa-file-export', routerLink: '/contapagar' }
+              { label: 'Contas a pagar', icon: 'pi pi-calendar-minus', routerLink: '/contapagar' }
             ]
           },
           {
             label: 'Contas a receber',
-            icon: 'fas fa-cart-plus',
+            icon: 'fas fa-plus-circle',
             items: [
-              { label: 'Contas a receber', icon: 'fas fa-file-medical', routerLink: '/contareceber' }
+              { label: 'Contas a receber', icon: 'pi pi-calendar-plus', routerLink: '/contareceber' }
             ]
           },
           {

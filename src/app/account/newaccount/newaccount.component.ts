@@ -1,15 +1,16 @@
 /**********************************************************************************************
-Code generated with MKL Plug-in version: 3.6.2
-Code generated at time stamp: 2019-06-05T06:41:33.812
-Copyright: Kerubin - logokoch@gmail.com
+ Code generated with MKL Plug-in version: 3.6.2
+ Code generated at time stamp: 2019-06-05T06:41:33.812
+ Copyright: Kerubin - logokoch@gmail.com
 
-WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
-***********************************************************************************************/
+ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
+ ***********************************************************************************************/
 
 // Angular
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewChild, ElementRef } from '@angular/core';
 
 // PrimeNG
 import { SelectItem } from 'primeng/api';
@@ -41,6 +42,7 @@ export class NewAccountComponent implements OnInit {
   accountTypeSelected: SelectItem;
   accountTypeFieldOptions: SelectItem[];
 
+  @ViewChild('nomeElementRef', {static: false}) defaultElementRef: ElementRef;
   constructor(
     private userAccountService: UserAccountService,
     private messageHandler: MessageHandlerService,
@@ -55,6 +57,7 @@ export class NewAccountComponent implements OnInit {
       { label: 'Conta pessoal, sou pessoa física', value: 'PERSONAL' },
       { label: 'Conta organizacional, sou pessoa jurídica', value: 'CORPORATE' }
     ];
+    this.defaultElementSetFocus();
   }
 
   validateAllFormFields(form: FormGroup) {
@@ -126,6 +129,19 @@ export class NewAccountComponent implements OnInit {
       .catch(() => {
         this.router.navigate(['/login']);
       });
+  }
+
+  defaultElementSetFocus() {
+
+    setTimeout(function() {
+      try {
+        this.defaultElementRef.nativeElement.focus();
+      } catch (error) {
+        console.log('Error setting focus at defaultElementSetFocus:' + error);
+      }
+    }.bind(this), 1);
+
+
   }
 
 }

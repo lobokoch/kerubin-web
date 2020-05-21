@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 
 const ANONYMOUS_USERNAME = 'anonymous@kerubin.com.br';
 const VERGAMOTA = 'a2Itd2ViLWZlOlQ5OEBBbUsyMzc0';
-const JAGUAR = 'Kerubin_Anonymous@!1'
+const JAGUAR = 'Kerubin_Anonymous@!1';
 
 @Injectable({
   providedIn: 'root'

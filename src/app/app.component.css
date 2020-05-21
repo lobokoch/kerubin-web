@@ -21,9 +21,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   padding: 0px !important;
 }
 
-@media screen and (max-width: 399px) { /* < que 400*/
+@media screen and (max-width: 420px) { /* < que 420*/
   .kb-workspace {
-    margin-left: 0px !important;
+    margin: 0px !important;
   }
 
 }

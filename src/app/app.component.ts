@@ -47,7 +47,6 @@ export class AppComponent implements AfterViewInit {
   }
 
   onMenuBarChangeVisibility(event: boolean) {
-    console.log('app.component:onMenuBarChangeVisibility:' + event);
     this.menuBarVisible = event;
   }
 

@@ -1,5 +1,5 @@
 import { FormGroup, FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   password = '';
   autenticando = false;
 
-
+  @ViewChild('emailElementRef', {static: true}) defaultElementRef: ElementRef;
   constructor(
     private auth: AuthService,
     private messageHandler: MessageHandlerService,
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.defaultElementSetFocus();
   }
 
   login(form: FormGroup) {
@@ -65,6 +66,14 @@ export class LoginComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  defaultElementSetFocus() {
+		try {
+	    	this.defaultElementRef.nativeElement.focus();
+	    } catch (error) {
+	    	console.log('Error setting focus at defaultElementSetFocus:' + error);
+	    }
   }
 
 }

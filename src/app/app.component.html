@@ -19,7 +19,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
 <app-kerubin-menu [menuBarVisible]="menuBarVisible" *ngIf="canShowMenu()"></app-kerubin-menu>
 
-<div class="ui-g kb-workspace">
+<div class="ui-g" [ngClass]="{'kb-workspace': canShowMenu()}">
   <div class="ui-g-12 ui-fluid" style="margin: 0px !important; padding: 0px !important;">
     <div class="spinner-animation" [hidden]="!loading">
     </div>

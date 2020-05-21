@@ -8,8 +8,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 .navbar {
   background-color: #1e94d2;
   border-bottom: 1px solid #2d487c;
-  /*border-bottom: 1px solid #4682B4;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);*/
   margin-bottom: 3px !important;
 }
 
@@ -38,7 +36,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 .navbar-menu {
   position: fixed;
   top: 50px;
- /* bottom: 0px;*/
   right: 10px;
   width: 210px;
   margin: 0px;
@@ -74,10 +71,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     margin-left: 70px;
     padding: 0px;
     margin-top: -40px;
-    /*width: auto;*/
     overflow: auto !important;
-    /*line-height: 10px;*/
-    /*text-align: left;*/
   }
 }
 
@@ -124,7 +118,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   padding-top: 5px;
   padding-bottom: 5px;
   width: 100%;
-  /*border: 1px solid red;*/
 }
 
 .navbar-menuitem a {
@@ -158,9 +151,6 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 #navbar ul {
   list-style:none;
   text-align: right;
-
-  /*border: 1px solid red;*/
-
 }
 
 #navbar ul li {
