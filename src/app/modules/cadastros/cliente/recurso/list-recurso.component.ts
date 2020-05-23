@@ -12,33 +12,33 @@ import { Dropdown } from 'primeng/dropdown';
 import * as moment from 'moment';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
 
-import { ClienteService } from './cliente.service';
+import { RecursoService } from './recurso.service';
 import { CadastrosClienteTranslationService } from './../i18n/cadastros-cliente-translation.service';
-import { Cliente } from './cliente.model';
-import { ClienteListFilter } from './cliente.model';
-import { SortField } from './cliente.model';
-import { ClienteNomeAutoComplete } from './cliente.model';
+import { Recurso } from './recurso.model';
+import { RecursoListFilter } from './recurso.model';
+import { SortField } from './recurso.model';
+import { RecursoNomeAutoComplete } from './recurso.model';
 
 @Component({
-  selector: 'app-list-cliente',
-  templateUrl: './list-cliente.component.html',
-  styleUrls: ['./list-cliente.component.css']
+  selector: 'app-list-recurso',
+  templateUrl: './list-recurso.component.html',
+  styleUrls: ['./list-recurso.component.css']
 })
 
-export class ClienteListComponent implements OnInit {
+export class RecursoListComponent implements OnInit {
 	tableLoading = false;
 	
-	clienteListItems: Cliente[];
-	clienteListTotalElements = 0;
-	clienteListFilter = new ClienteListFilter();
+	recursoListItems: Recurso[];
+	recursoListTotalElements = 0;
+	recursoListFilter = new RecursoListFilter();
 	
-	clienteNomeAutoCompleteSuggestions: ClienteNomeAutoComplete[];
+	recursoNomeAutoCompleteSuggestions: RecursoNomeAutoComplete[];
 	dateFilterIntervalDropdownItems: SelectItem[];
 	
 	
 	
 	constructor(
-	    private clienteService: ClienteService,
+	    private recursoService: RecursoService,
 	    private cadastrosClienteTranslationService: CadastrosClienteTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
@@ -48,15 +48,15 @@ export class ClienteListComponent implements OnInit {
 	ngOnInit() {
 	}
 	
-	clienteList(pageNumber = 0) {
+	recursoList(pageNumber = 0) {
 		this.tableLoading = true;
-	    this.clienteListFilter.pageNumber = pageNumber;
-	    this.clienteService
-	    .clienteList(this.clienteListFilter)
+	    this.recursoListFilter.pageNumber = pageNumber;
+	    this.recursoService
+	    .recursoList(this.recursoListFilter)
 	    .then(result => {
 	    	try {
-		      	this.clienteListItems = result.items;
-		      	this.clienteListTotalElements = result.totalElements;
+		      	this.recursoListItems = result.items;
+		      	this.recursoListTotalElements = result.totalElements;
 		      
 			} finally {
 				this.tableLoading = false;
@@ -69,18 +69,18 @@ export class ClienteListComponent implements OnInit {
 	}
 	
 	
-	clienteFilterSearch() {
-	    this.clienteList(0);
+	recursoFilterSearch() {
+	    this.recursoList(0);
 	}
 	
-	deleteCliente(cliente: Cliente) {
+	deleteRecurso(recurso: Recurso) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
 	      accept: () => {
-	        this.clienteService.delete(cliente.id)
+	        this.recursoService.delete(recurso.id)
 	        .then(() => {
 	          this.messageHandler.showSuccess('Registro excluído!');
-	          this.clienteList(0);
+	          this.recursoList(0);
 	        })
 	        .catch((e) => {
 	          this.messageHandler.showError(e);
@@ -89,26 +89,26 @@ export class ClienteListComponent implements OnInit {
 	    });
 	}
 	
-	clienteListOnLazyLoad(event: LazyLoadEvent) {
+	recursoListOnLazyLoad(event: LazyLoadEvent) {
 	    if (event.multiSortMeta) {
-	      this.clienteListFilter.sortFields = new Array(event.multiSortMeta.length);
+	      this.recursoListFilter.sortFields = new Array(event.multiSortMeta.length);
 	      event.multiSortMeta.forEach(sortField => {
-	      	this.clienteListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
+	      	this.recursoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
 	      });
 	    } else {
-	    	this.clienteListFilter.sortFields = new Array(1);
-	    	this.clienteListFilter.sortFields.push(new SortField('id', 1)); // asc
+	    	this.recursoListFilter.sortFields = new Array(1);
+	    	this.recursoListFilter.sortFields.push(new SortField('id', 1)); // asc
 	    }
 	    const pageNumber = event.first / event.rows;
-	    this.clienteListFilter.pageSize = event.rows;
-	    this.clienteList(pageNumber);
+	    this.recursoListFilter.pageSize = event.rows;
+	    this.recursoList(pageNumber);
 	}
 	
-	clienteNomeAutoComplete(event) {
+	recursoNomeAutoComplete(event) {
 	    const query = event.query;
-	    this.clienteService.clienteNomeAutoComplete(query)
+	    this.recursoService.recursoNomeAutoComplete(query)
 	    .then((result) => {
-	      this.clienteNomeAutoCompleteSuggestions = result;
+	      this.recursoNomeAutoCompleteSuggestions = result;
 	    })
 	    .catch(erro => {
 	      this.messageHandler.showError('Erro ao buscar registros com o termo: ' + query);

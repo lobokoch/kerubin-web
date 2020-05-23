@@ -112,6 +112,22 @@ export class KerubinMenuComponent implements OnInit {
           }
         ]
       },
+      {
+        label: 'Agenda',
+        icon: 'fas fa-calendar-alt fa-lg',
+        items: [
+          {
+            label: 'Recurso',
+            icon: 'fas fa-user-clock',
+            routerLink: '/recurso'
+          },
+          {
+            label: 'Compromisso',
+            icon: 'fas fa-calendar-check',
+            routerLink: '/compromisso'
+          }
+        ]
+      },
 
       {
         label: 'Financeiro',

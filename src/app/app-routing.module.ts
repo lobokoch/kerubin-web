@@ -32,6 +32,11 @@ const routes: Routes = [
   { path: 'cliente', loadChildren: () => import('./modules/cadastros/cliente/cliente/cliente.module').then(m => m.ClienteModule) },
   // END ENTITIES FOR SERVICE: cadastros.cliente
 
+  // BEGIN ENTITIES FOR SERVICE: cadastros.cliente/AGENDA
+  { path: 'recurso', loadChildren: () => import('./modules/cadastros/cliente/recurso/recurso.module').then(m => m.RecursoModule) },
+  { path: 'compromisso', loadChildren: () => import('./modules/cadastros/cliente/compromisso/compromisso.module').then(m => m.CompromissoModule) },
+  // END ENTITIES FOR SERVICE: cadastros.cliente/AGENDA
+
   // BEGIN ENTITIES FOR SERVICE: financeiro.plano_contas
   { path: 'planoconta', loadChildren: () => import('./modules/financeiro/planocontas/planocontas-tree/planocontas-tree.module').then(m => m.PlanoContasTreeModule) },
   // END ENTITIES FOR SERVICE: financeiro.plano_contas

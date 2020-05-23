@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { LogoutService } from '../security/logout.service';
 import { MessageHandlerService } from '../core/message-handler.service';
 import { Router } from '@angular/router';
+import {Md5} from 'md5-typescript';
 
 @Component({
   selector: 'app-navbar',
@@ -38,6 +39,16 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  getAvatarURL() {
+    let email = 'unknowuser@kerubin.com.br';
+    if (this.authService.getCurrentUser()) {
+      email = this.authService.getCurrentUser();
+    }
+    const hash = Md5.init(email);
+    // 95807855049d8f2066d8c36b4951b3ea
+    return `https://www.gravatar.com/avatar/${hash}?d=mp&s=30"`;
   }
 
   showMobileMenu() {

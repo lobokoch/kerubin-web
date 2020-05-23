@@ -68,10 +68,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   .kb-user-profile {
     margin: 0;
     color: white;
-    margin-left: 70px;
+    margin-left: 80px;
     padding: 0px;
-    margin-top: -40px;
+    margin-top: -28px;
     overflow: auto !important;
+
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
   }
 }
 
@@ -89,11 +93,19 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     margin:0;
     padding: 0px;
     margin-right: 10px;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
     width: auto;
     overflow: auto !important;
-    line-height: 30px;
+    /*line-height: 30px;*/
     text-align: center;
+
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .kb-user-profile {
+    float: right;
   }
 
   .navbar {
@@ -105,9 +117,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     height: 50px;
   }
 
-  .kb-user-profile {
-    float: right;
-  }
+
 }
 
 .navbar-toggle {
