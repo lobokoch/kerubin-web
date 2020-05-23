@@ -34,9 +34,9 @@ export class CompromissoTituloAutoComplete {
 }
 
 export class CompromissoListFilter extends PaginationFilter {
-	
+
 	titulo: CompromissoTituloAutoComplete[];
-	
+
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
@@ -46,9 +46,9 @@ export class Compromisso {
 	titulo: string;
 	cliente: Cliente;
 	dataIni: Date;
-	horaIni: Date;
+	horaIni: any;
 	dataFim: Date;
-	horaFim: Date;
+	horaFim: any;
 	diaTodo: boolean = false;
 	descricao: string;
 	local: string;

@@ -121,7 +121,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data de início desse compromisso."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showIcon]="true" #compromisso_dataIni="ngModel" [(ngModel)]="compromisso.dataIni" name="compromisso_dataIni" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #compromisso_dataIni="ngModel" [(ngModel)]="compromisso.dataIni" name="compromisso_dataIni" required></p-calendar>
 			<div class="invalid-message" *ngIf="compromisso_dataIni.invalid && compromisso_dataIni.dirty">Campo obrigatório.</div>
 		</div>
 
@@ -133,7 +133,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a hora de início desse compromisso."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" [timeOnly]="true" [showIcon]="true" #compromisso_horaIni="ngModel" [(ngModel)]="compromisso.horaIni" name="compromisso_horaIni" required></p-calendar>
+			<p-calendar [locale]="calendarLocale" dataType="string" [timeOnly]="true" #compromisso_horaIni="ngModel" [(ngModel)]="compromisso.horaIni" name="compromisso_horaIni" required></p-calendar>
 			<div class="invalid-message" *ngIf="compromisso_horaIni.invalid && compromisso_horaIni.dirty">Campo obrigatório.</div>
 		</div>
 
@@ -144,7 +144,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a data de término desse compromisso."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" [showIcon]="true" #compromisso_dataFim="ngModel" [(ngModel)]="compromisso.dataFim" name="compromisso_dataFim"></p-calendar>
+			<p-calendar [locale]="calendarLocale" dateFormat="dd/mm/yy" #compromisso_dataFim="ngModel" [(ngModel)]="compromisso.dataFim" name="compromisso_dataFim"></p-calendar>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-2">
@@ -154,7 +154,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 				<i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id" pTooltip="Informe a hora de término desse compromisso."></i>
 				<!-- help -->
 			</label>
-			<p-calendar [locale]="calendarLocale" [timeOnly]="true" [showIcon]="true" #compromisso_horaFim="ngModel" [(ngModel)]="compromisso.horaFim" name="compromisso_horaFim"></p-calendar>
+			<p-calendar [locale]="calendarLocale" [timeOnly]="true" dataType="string" #compromisso_horaFim="ngModel" [(ngModel)]="compromisso.horaFim" name="compromisso_horaFim"></p-calendar>
 		</div>
 
 		<div class="ui-g-12 ui-fluid ui-md-1">
