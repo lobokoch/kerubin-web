@@ -26,6 +26,12 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
     <div class="ui-g-12 ui-md-4">
       <div>
         <ul class="kb-user-profile">
+          <li *ngIf="compromissosBadgeVisible" style="margin-right: 10px;" tooltipPosition="top" pTooltip="Compromissos de hoje.">
+            <a href="javascript:;" (click)="goToAgenda()" class="navbar-toggle kb-display-inline">
+              <i class="fas fa-calendar-alt fa-lg"></i>
+            </a>
+            <span class="topbar-badge animated rubberBand">{{compromissosBadgeValue}}</span>
+          </li>
           <li><img style="border-radius: 50%;" alt="X" [src]="getAvatarURL()" /></li>
           <li>{{ getCurrentUserName() }}</li>
           <li>

@@ -1,4 +1,6 @@
-import { EventEmitter, Output } from '@angular/core';
+import { ParametrosAgenda } from './../modules/custom/agenda/agenda.model';
+import { AgendaService } from './../modules/custom/agenda/agenda.service';
+import { EventEmitter, Output, OnDestroy } from '@angular/core';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 3.6.2
 Code generated at time stamp: 2019-06-05T06:41:33.812
@@ -13,6 +15,8 @@ import { LogoutService } from '../security/logout.service';
 import { MessageHandlerService } from '../core/message-handler.service';
 import { Router } from '@angular/router';
 import {Md5} from 'md5-typescript';
+import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +24,14 @@ import {Md5} from 'md5-typescript';
   styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
+
+  /////////////////
+  compromissosBadgeVisible = false;
+  compromissosBadgeValue = 0;
+
+  subscription: Subscription;
+  /////////////////
 
   //////////////////////
   menuBarVisible = true;
@@ -28,16 +39,50 @@ export class NavbarComponent implements OnInit {
 
   isMenuShowing = false;
 
+
   @Output() menuBarChangeVisibility = new EventEmitter();
 
   constructor(
-	private authService: AuthService,
-	private logoutService: LogoutService,
-	private messageHandler: MessageHandlerService,
-	private router: Router
-  ) { }
+    private authService: AuthService,
+    private logoutService: LogoutService,
+    private messageHandler: MessageHandlerService,
+    private router: Router,
+    private agendaService: AgendaService
+  ) {
+    // Nothing yet.
+  }
 
   ngOnInit() {
+    this.countCompromissosDoRecurso();
+
+    setInterval(function() {
+      this.countCompromissosDoRecurso();
+    }.bind(this), 1000 * 60); // call each 1 minute
+
+    this.subscription = this.agendaService.subject.subscribe((valor) => {
+      this.compromissosBadgeValue = valor;
+      this.compromissosBadgeVisible = this?.compromissosBadgeValue > 0 ?? false;
+    });
+  }
+
+  countCompromissosDoRecurso() {
+    const hoje = moment().toDate();
+    const params = new ParametrosAgenda();
+    params.data = hoje;
+
+    let email = 'unknowuser@kerubin.com.br';
+    if (this.authService.getCurrentUser()) {
+      email = this.authService.getCurrentUser();
+    }
+
+    params.recursoEmails = [email];
+    this.agendaService.countCompromissosDoRecurso(params)
+      .then((agendaResumoDTO) => {
+        this.compromissosBadgeValue = agendaResumoDTO?.compromissosCount ?? 0;
+        this.compromissosBadgeVisible = this.compromissosBadgeValue > 0;
+      }).catch((e) => {
+        console.log('Erro em getAgendaDoMes:' + e);
+      });
 
   }
 
@@ -71,6 +116,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  goToAgenda() {
+    this.router.navigate(['/agenda']);
+  }
+
   logout() {
       this.logoutService.logout()
       .then(() => {
@@ -83,6 +132,11 @@ export class NavbarComponent implements OnInit {
 
   goHome() {
     this.router.navigate(['/home']);
+  }
+
+  ngOnDestroy() {
+    console.log('navbar ngOnDestroy');
+    this.subscription.unsubscribe();
   }
 
 }

@@ -65,7 +65,7 @@ export class KerubinMenuComponent implements OnInit {
     this.items = [
 
       {
-        label: 'Gráficos',
+        label: 'Gráfico',
         icon: 'fas fa-chart-bar fa-lg',
         items: [
 
@@ -81,7 +81,7 @@ export class KerubinMenuComponent implements OnInit {
       },
 
       {
-        label: 'Cadastros',
+        label: 'Cadastro',
         icon: 'fas fa-id-card fa-lg',
         items: [
 
@@ -123,8 +123,13 @@ export class KerubinMenuComponent implements OnInit {
           },
           {
             label: 'Compromisso',
-            icon: 'fas fa-calendar-check',
+            icon: 'fas fa-calendar-plus',
             routerLink: '/compromisso'
+          },
+          {
+            label: 'Agenda de compromissos',
+            icon: 'fas fa-calendar-alt',
+            routerLink: '/agenda'
           }
         ]
       },

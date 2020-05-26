@@ -39,7 +39,7 @@ export class ClienteService {
 	}
 	
 	create(cliente: Cliente): Promise<Cliente> {
-		const headers = this.getHeaders();    
+		const headers = this.getHeaders();
 		this.analitycs.sendEvent('cadastros.cliente.Cliente', 'create', 'create Cliente');
 	    return this.http.post(this.url, cliente, { headers })
 	    .toPromise()
@@ -90,6 +90,7 @@ export class ClienteService {
 		      	
 		});
 	}
+	
 	
 	
 	autoComplete(query: string): Promise<ClienteAutoComplete[]> {

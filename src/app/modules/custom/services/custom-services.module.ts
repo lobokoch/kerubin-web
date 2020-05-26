@@ -1,3 +1,4 @@
+import { AgendaService } from './../agenda/agenda.service';
 import { CustomContaReceberListServiceImpl } from './custom-list-contareceber-impl.service';
 import { CustomContaReceberListService } from './../../financeiro/contasreceber/contareceber/custom-list-contareceber.service';
 import { CustomContaPagarListServiceImpl } from './custom-list-contapagar-impl.service';
@@ -39,7 +40,8 @@ import { CustomContaReceberServiceImpl } from './custom-contareceber-impl.servic
 	  {
       provide: CustomContaPagarMultipleService,
       useClass: CustomContaPagarMultipleServiceImpl
-    }
+    },
+    AgendaService
 
   ]
 })

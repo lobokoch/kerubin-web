@@ -39,7 +39,7 @@ export class RecursoService {
 	}
 	
 	create(recurso: Recurso): Promise<Recurso> {
-		const headers = this.getHeaders();    
+		const headers = this.getHeaders();
 		this.analitycs.sendEvent('cadastros.cliente.recurso', 'create', 'create recurso');
 	    return this.http.post(this.url, recurso, { headers })
 	    .toPromise()
@@ -86,6 +86,7 @@ export class RecursoService {
 		entityList.forEach(recurso => {
 		});
 	}
+	
 	
 	
 	autoComplete(query: string): Promise<RecursoAutoComplete[]> {

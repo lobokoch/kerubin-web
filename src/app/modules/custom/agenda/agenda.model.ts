@@ -4,6 +4,49 @@ Copyright: Kerubin - kerubin.platform@gmail.com
 
 WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CODE GENERATION.
 ***********************************************************************************************/
+export class AgendaDTO {
+
+  compromissos: CompromissoDTO[];
+  recursos: RecursoDTO[];
+
+}
+
+
+export class CompromissoDTO {
+
+  id: string;
+	titulo: string;
+	cliente: string;
+	dataIni: Date;
+	horaIni: any;
+	dataFim: Date;
+	horaFim: any;
+	diaTodo: boolean;
+	situacao: string; /*CompromissoSituacao*/
+	descricao: string;
+	local: string;
+	recursos: RecursoDTO[];
+}
+
+export class RecursoDTO {
+  id: string;
+	nome: string;
+  email: string;
+  compromissosCount: number;
+}
+
+export class ParametrosAgenda {
+
+  ano: number;
+  mes: number ;
+  data: Date;
+	recursoEmails: string[];
+
+}
+
+export class AgendaResumoDTO {
+  compromissosCount: number;
+}
 
 
 export class SortField {
@@ -27,30 +70,22 @@ export class PaginationFilter {
   }
 }
 
-export class RecursoNomeAutoComplete {
-	nome: string;
-}
+export class AgendaListFilter extends PaginationFilter {
 
-export class RecursoListFilter extends PaginationFilter {
-	
-	nome: RecursoNomeAutoComplete[];
-	
+
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
 
-export class Recurso {
+export class Agenda {
 	id: string;
 	nome: string;
-	email: string;
-	ativo: boolean = true;
 }
 
-export class RecursoAutoComplete {
+export class AgendaAutoComplete {
 	id: string;
 	nome: string;
-	email: string;
 }
 
-export class RecursoSumFields {
+export class AgendaSumFields {
 }

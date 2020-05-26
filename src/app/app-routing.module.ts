@@ -35,6 +35,7 @@ const routes: Routes = [
   // BEGIN ENTITIES FOR SERVICE: cadastros.cliente/AGENDA
   { path: 'recurso', loadChildren: () => import('./modules/cadastros/cliente/recurso/recurso.module').then(m => m.RecursoModule) },
   { path: 'compromisso', loadChildren: () => import('./modules/cadastros/cliente/compromisso/compromisso.module').then(m => m.CompromissoModule) },
+  { path: 'agenda', loadChildren: () => import('./modules/custom/agenda/agenda.module').then(m => m.AgendaModule) },
   // END ENTITIES FOR SERVICE: cadastros.cliente/AGENDA
 
   // BEGIN ENTITIES FOR SERVICE: financeiro.plano_contas

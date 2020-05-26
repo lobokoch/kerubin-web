@@ -1031,3 +1031,57 @@ hr {
 }
 
 
+.kb-autocomplete-recursos {
+  /*border-bottom:1px solid #D5D5D5;*/
+  display: flex;
+  align-items: center !important;
+}
+
+
+.agenda-recursos-buttons .ui-buttonset:not(.ui-splitbutton) .ui-button {
+  /*border-radius: 0.5em;
+  border-left: solid #cccccc .07em;
+  border-right: solid #cccccc .07em;*/
+  border-radius: 0.3em;
+  border: 1px solid #cccccc;
+  width: auto;
+  margin-right: 3px;
+}
+
+/* Exibe ícone de calendário com quantidade de ompromissos */
+.topbar-badge {
+  position: relative;
+  left: -8px;
+  top: -10px;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 4px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.kb-calendar-event-executando {
+  /*background-color: #FEEDAF !important;
+  color: #8A5340 !important;
+  border: 1px solid #8A5340 !important;*/
+
+  background-color: #FFCDD2!important;
+  color: #C63737!important;
+  border: 1px solid #C63737 !important;
+}
+
+.kb-calendar-event-finalizado {
+  background-color: #C8E6C9 !important;
+  color: #256029 !important;
+  border: 1px solid #256029 !important;
+  text-decoration: line-through !important;
+}
+
+.kb-calendar-event-cancelado {
+  background-color: #f2f2f2 !important;
+  border: 1px solid #dddddd !important;
+  color: gray !important;
+  font-style: italic !important;
+  text-decoration: line-through !important;
+}

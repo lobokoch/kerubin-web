@@ -100,12 +100,11 @@ export class CompromissoListComponent implements OnInit {
 	      	this.compromissoListFilter.sortFields.push(new SortField(sortField.field, sortField.order));
 	      });
 	    } else {
-	    	this.compromissoListFilter.sortFields = new Array(5);
+	    	this.compromissoListFilter.sortFields = new Array(4);
 	    	this.compromissoListFilter.sortFields.push(new SortField('dataIni', 1));
 	    	this.compromissoListFilter.sortFields.push(new SortField('horaIni', 1));
 	    	this.compromissoListFilter.sortFields.push(new SortField('dataFim', 1));
 	    	this.compromissoListFilter.sortFields.push(new SortField('horaFim', 1));
-	    	this.compromissoListFilter.sortFields.push(new SortField('diaTodo', 1));
 	    }
 	    const pageNumber = event.first / event.rows;
 	    this.compromissoListFilter.pageSize = event.rows;
@@ -135,7 +134,7 @@ export class CompromissoListComponent implements OnInit {
 	
 	compromissoRecursosAutoCompleteFieldConverter(recursos: RecursoAutoComplete) {
 		if (recursos) {
-			return (recursos.nome || '<nulo>');
+			return (recursos.nome || '<nulo>') + ' - ' + (recursos.email || '<nulo>');
 		} else {
 			return null;
 		}

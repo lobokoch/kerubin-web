@@ -40,6 +40,7 @@ import { KerubinAccountModule } from './../account/kerubin-account.module';
 import { CreditBalanceModule } from './../modules/custom/creditbalance/creditbalance.module';
 import { PaymentModule } from './../payment/payment.module';
 import { AnalyticsModule } from './../analitycs/analytics.module';
+import {TooltipModule} from 'primeng/tooltip';
 // Kerubin - END
 
 
@@ -68,7 +69,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     HomeModule,
     PaymentModule,
     CreditBalanceModule,
-    AnalyticsModule
+    AnalyticsModule,
+    TooltipModule
   ],
 
   declarations: [
@@ -81,7 +83,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     NavbarComponent,
     ToastModule,
     KerubinMenuModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TooltipModule
   ],
 
   providers: [

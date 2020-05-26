@@ -6,6 +6,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 ***********************************************************************************************/
 
 import { Cliente } from './../cliente/cliente.model';
+import { CompromissoSituacao } from './../enums/cadastros-cliente-enums.model';
 import { Recurso } from './../recurso/recurso.model';
 
 export class SortField {
@@ -34,9 +35,9 @@ export class CompromissoTituloAutoComplete {
 }
 
 export class CompromissoListFilter extends PaginationFilter {
-
+	
 	titulo: CompromissoTituloAutoComplete[];
-
+	
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
@@ -50,6 +51,7 @@ export class Compromisso {
 	dataFim: Date;
 	horaFim: any;
 	diaTodo: boolean = false;
+	situacao: CompromissoSituacao;
 	descricao: string;
 	local: string;
 	recursos: Recurso[];
