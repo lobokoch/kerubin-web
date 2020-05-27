@@ -113,7 +113,13 @@ export class AgendaComponent implements OnInit, AfterViewInit, OnDestroy {
     const params = new ParametrosAgenda();
     params.ano = this.competencia.year();
     params.mes = this.competencia.month() + 1;
-    params.recursoEmails = this.recursosSelecionados;
+    const lenRecursosSel = this?.recursosSelecionados?.length ?? 0;
+    const lenRecursos = this.recursos?.length ?? 0;
+    if (lenRecursosSel !== lenRecursos) {
+      params.recursoEmails = this.recursosSelecionados;
+    } else {
+      params.recursoEmails = null; // traz todos
+    }
     this.agendaService.getAgendaDoMes(params)
       .then((agenda) => {
         this.events = this.compromissosToAgendaEvents(agenda?.compromissos);
@@ -133,8 +139,9 @@ export class AgendaComponent implements OnInit, AfterViewInit, OnDestroy {
     this.recursosSelecionados = new Array();
     if (recursos) {
       data = recursos.map(it => {
+        const nome = it.nome.split(' ')[0];
         this.recursosSelecionados.push(it.email);
-        return { label: it.nome, value: it.email };
+        return { label: nome, value: it.email };
       });
     }
 
@@ -167,8 +174,24 @@ export class AgendaComponent implements OnInit, AfterViewInit, OnDestroy {
         const end = moment(compromisso.dataFim).format('YYYY-MM-DD') + 'T' + compromisso.horaFim;
 
         const situacao = compromisso?.situacao?.toLowerCase() ?? 'nao_iniciado';
-        const className = situacao !== 'nao_iniciado' ?
-         `kb-calendar-event-${situacao}` : null;
+
+        let className: string = null;
+        if (situacao === 'nao_iniciado' ||  situacao === 'executando') {
+          try {
+            const now = moment();
+            const dataIni = moment(start);
+            const dataFim = moment(end);
+            if (now.isBetween(dataIni, dataFim)) {
+              className = 'kb-calendar-event-running-now';
+            }
+          } catch (e) {
+            console.log('Erro calculando kb-calendar-event-running-now:' + e);
+          }
+        }
+
+        if (!className) {
+          className = situacao !== 'nao_iniciado' ? `kb-calendar-event-${situacao}` : null;
+        }
 
         return {
           id: compromisso.id,
@@ -191,6 +214,18 @@ export class AgendaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getShowHideHelpLabel(): string {
     return this.showHideHelp ? 'Ocultar ajuda' : 'Mostrar ajuda';
+  }
+
+  getRecursoLabelClass(email: string): string {
+    let user: string = null;
+    if (this.authService.getCurrentUser()) {
+      user = this.authService.getCurrentUser();
+    }
+
+    if (user && user === email) {
+      return 'kb-recurso-button-logado';
+    }
+    return null;
   }
 
 

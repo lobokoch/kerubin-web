@@ -14,7 +14,7 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
         <div class="ui-g-12 ui-md-10 kb-no-margins1">
           <div class="kb-form-panel-header">
-            Agenda de comprimissos
+            Agenda de compromissos
             <!-- help -->
             <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id"
               pTooltip="Nesta tela, cadastre novos agendamentos de compromissos."></i>
@@ -47,10 +47,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
       <div class="ui-g-12 ui-md-11" class="agenda-recursos-buttons">
         <p-selectButton (onChange)="onRecursoChanged($event)" [options]="recursos" [(ngModel)]="recursosSelecionados" multiple="multiple">
           <ng-template let-item>
-            <div class="kb-autocomplete-recursos" style="padding: 3px; padding-right: 5px;">
+            <div class="kb-autocomplete-recursos" [ngClass]="getRecursoLabelClass(item?.value)">
               <img style="display:inline-block; border-radius: 50%; margin:5px 0 2px 5px"
                 src="{{getAvatarURL(item?.value)}}" />
-              <span style="margin-left: 3px;">{{item.label}}</span>
+              <span style="margin-left: 3px">{{item.label}}</span>
             </div>
           </ng-template>
         </p-selectButton>

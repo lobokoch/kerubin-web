@@ -1035,6 +1035,12 @@ hr {
   /*border-bottom:1px solid #D5D5D5;*/
   display: flex;
   align-items: center !important;
+  padding: 3px; padding-right: 5px;
+}
+
+.kb-recurso-button-logado span {
+  font-weight: bold;
+  text-shadow: 2px 2px #000
 }
 
 
@@ -1085,3 +1091,33 @@ hr {
   font-style: italic !important;
   text-decoration: line-through !important;
 }
+
+.kb-calendar-event-running-now {
+  background-color: red !important;
+  border: 1px solid #000 !important;
+  color: #fff !important;
+}
+
+@media (min-width: 600px) { /* > que 600*/
+  .kb-calendar-event-running-now {
+    background-image: url(assets/images/run.png);
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: 12px 12px;
+  }
+
+  .kb-calendar-event-running-now span.fc-time {
+    margin-left: 15px !important;
+  }
+}
+
+@media (max-width: 600px) { /* < que 600*/
+  .fc-toolbar h2 {
+    font-size: 12px;
+  }
+}
+
+/*.kb-recurso-button-label {
+  margin-left: 3px;
+}*/
+
