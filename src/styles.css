@@ -1040,7 +1040,6 @@ hr {
 
 .kb-recurso-button-logado span {
   font-weight: bold;
-  text-shadow: 2px 2px #000
 }
 
 
@@ -1098,7 +1097,19 @@ hr {
   color: #fff !important;
 }
 
-@media (min-width: 600px) { /* > que 600*/
+.kb-calendar-event-run-in-30 {
+  background-color: yellow !important;
+  border: 1px solid #000 !important;
+  color: #000 !important;
+}
+
+.kb-calendar-event-run-in-5 {
+  background-color: orange !important;
+  border: 1px solid #000 !important;
+  color: #000 !important;
+}
+
+/*@media (min-width: 600px) {
   .kb-calendar-event-running-now {
     background-image: url(assets/images/run.png);
     background-repeat: no-repeat;
@@ -1109,7 +1120,7 @@ hr {
   .kb-calendar-event-running-now span.fc-time {
     margin-left: 15px !important;
   }
-}
+}*/
 
 @media (max-width: 600px) { /* < que 600*/
   .fc-toolbar h2 {

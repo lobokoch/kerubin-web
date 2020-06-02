@@ -181,9 +181,25 @@ export class AgendaComponent implements OnInit, AfterViewInit, OnDestroy {
             const now = moment();
             const dataIni = moment(start);
             const dataFim = moment(end);
-            if (now.isBetween(dataIni, dataFim)) {
+
+            const diffTime = dataIni.diff(now);
+            const duration = moment.duration(diffTime);
+            const minutos = duration.minutes();
+            const dias = duration.days();
+            const horas = duration.hours();
+            const diasHorasZero = dias === 0 && horas === 0;
+            if (diasHorasZero && minutos >= 0) {
+              if (minutos <= 5)  {
+                className = 'kb-calendar-event-run-in-5';
+              } else if (minutos <= 30)  {
+                className = 'kb-calendar-event-run-in-30';
+              }
+            }
+
+            if ( ( !className || (diasHorasZero && minutos <= 0) ) && now.isBetween(dataIni, dataFim)) {
               className = 'kb-calendar-event-running-now';
             }
+            console.log(`dias:${dias}, horas:${horas}, minutos:${minutos}, className:${className}`);
           } catch (e) {
             console.log('Erro calculando kb-calendar-event-running-now:' + e);
           }
