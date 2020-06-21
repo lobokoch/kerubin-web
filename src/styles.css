@@ -218,7 +218,8 @@ a, button {
 }
 
 .kb-conta-ok {
-  background-color: silver;
+  /*background-color: silver;*/
+  background-color: #999;
   color: #fff;
 }
 

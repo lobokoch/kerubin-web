@@ -299,6 +299,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
                 <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="onRowSelect(conciliacaoTransacao)"
                 pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
 
+                <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="reprocessarConciliacaoTransacao(conciliacaoTransacao)"
+                pButton icon="pi pi-replay" pTooltip="Reprocessar" tooltipPosition="top"></button>
+
                 <button *ngIf="!loadingSituacaoForPolling(conciliacaoTransacao)" (click)="deleteConciliacaoTransacao(conciliacaoTransacao)"
                 pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
 

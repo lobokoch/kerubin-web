@@ -1,4 +1,4 @@
-import { CountConciliacaoTransacaoComMaisDeUmTituloDTO, CountDTO } from './conciliacaobancaria.model';
+import { CountConciliacaoTransacaoComMaisDeUmTituloDTO, CountDTO, ParametrosReprocessarDTO } from './conciliacaobancaria.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 26.0.4
 Code generated at time stamp: 2019-10-18T05:55:37.138
@@ -36,7 +36,20 @@ export class ConciliacaoBancariaService {
 
 	    headers.append('Content-Type', 'application/json');
 	    return headers;
-	}
+  }
+
+  reprocessar(ids: string[]): Promise<void> {
+    const headers = this.getHeaders();
+
+    const parametros = new ParametrosReprocessarDTO();
+    parametros.ids = ids;
+
+    return this.http.put(`${this.url}/reprocessar`, parametros, { headers })
+    .toPromise()
+    .then(() => {
+      return null;
+    });
+}
 
 	create(conciliacaoBancaria: ConciliacaoBancaria): Promise<ConciliacaoBancaria> {
 		const headers = this.getHeaders();
@@ -182,7 +195,7 @@ export class ConciliacaoBancariaService {
 	    // Sort
 	    if (filter.sortFields) {
 	      // search/nameStartsWith?name=K&sort=name,asc&sort=value,desc
-	      
+
 			filter.sortFields.forEach(sortField => {
 				const sortValue = `${sortField.field},${sortField.order > 0 ? 'asc' : 'desc'}`;
 				params = params.append('sort', sortValue);

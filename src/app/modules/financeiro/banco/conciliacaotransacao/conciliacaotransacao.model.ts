@@ -96,7 +96,11 @@ export class ConciliacaoTransacao {
 	dataConciliacao: Date;
 	conciliacaoTransacaoTitulos: ConciliacaoTransacaoTitulo[];
 	conciliadoComErro: boolean = false;
-	conciliadoMsg: string;
+  conciliadoMsg: string;
+
+  // ******************************
+	reprocessando = false;
+  // ******************************
 }
 
 export class ConciliacaoTransacaoAutoComplete {
@@ -106,3 +110,4 @@ export class ConciliacaoTransacaoAutoComplete {
 
 export class ConciliacaoTransacaoSumFields {
 }
+

@@ -30,8 +30,8 @@ export class PaginationFilter {
 }
 
 export class ConciliacaoBancariaListFilter extends PaginationFilter {
-	
-	
+
+
 	// Map key=value for developer custom fields parameters. The final parameters map must be a JSON object.
 	customParams = new Map<any, any>();
 }
@@ -60,4 +60,8 @@ export class CountConciliacaoTransacaoComMaisDeUmTituloDTO {
 
 export class CountDTO {
   count: number;
+}
+
+export class ParametrosReprocessarDTO {
+  ids: string[];
 }

@@ -1,3 +1,5 @@
+import { ConciliacaoReprocessamentoService } from './../../../custom/conciliacaobancaria/conciliacao-reprocessamento.service';
+import { ConciliacaoBancariaService } from './../conciliacaobancaria/conciliacaobancaria.service';
 import { PlanoContaAutoComplete } from './conciliacaotransacao.model';
 /**********************************************************************************************
 Code generated with MKL Plug-in version: 27.0.12
@@ -41,6 +43,8 @@ import { AutoComplete } from 'primeng/autocomplete';
 })
 
 export class ConciliacaoTransacaoListComponent implements OnInit {
+
+
 	tableLoading = false;
   // Begin planoContasDialog
   displayDialogPlanoContas = false;
@@ -96,8 +100,13 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    private conciliacaoTransacaoService: ConciliacaoTransacaoService,
 	    private cadastrosBancoTranslationService: CadastrosBancoTranslationService,
 	    private confirmation: ConfirmationService,
-	    private messageHandler: MessageHandlerService
-  ) { }
+      private messageHandler: MessageHandlerService,
+      private conciliacaoBancariaService: ConciliacaoBancariaService,
+      private conciliacaoReprocessamentoService: ConciliacaoReprocessamentoService
+  ) {
+    this.conciliacaoReprocessamentoService.setComponent(this);
+    this.conciliacaoReprocessamentoService.setConciliacaoTransacaoService(conciliacaoTransacaoService);
+  }
 
   onEditTransactionCellComplete(event) {
     if (event.field === '\'planoContas\'') {
@@ -150,6 +159,21 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       this.displayDialog = false;
     }
   }
+
+reprocessarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
+  const ids = new Array();
+  ids.push(conciliacaoTransacao.id);
+
+  this.conciliacaoBancariaService.reprocessar(ids)
+  .then((response) => {
+    console.log('Reprocessando...');
+    conciliacaoTransacao.reprocessando = true;
+    this.conciliacaoReprocessamentoService.track(ids);
+  })
+  .catch(error => {
+    this.messageHandler.showError(error);
+  });
+}
 
   atualizarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
       this.conciliacaoTransacaoService.update(conciliacaoTransacao)
@@ -305,7 +329,7 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
 	    this.conciliacaoTransacaoList(0);
 	}
 
-	deleteConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
+  deleteConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
 	    this.confirmation.confirm({
 	      message: 'Confirma a exclusão do registro?',
 	      accept: () => {
@@ -370,13 +394,14 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
   }
 
   loadingSituacaoForPolling(conciliacaoTransacao: ConciliacaoTransacao): boolean {
-    const result = this.pollingRecarregarTransacoesRef &&
+    const result = conciliacaoTransacao.reprocessando || (
+    this.pollingRecarregarTransacoesRef &&
       conciliacaoTransacao && conciliacaoTransacao.situacaoConciliacaoTrn &&
       (String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'NAO_CONCILIADO' ||
       // Aplicando conciliação
       (String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CONTAS_PAGAR' ||
       String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CONTAS_RECEBER' ||
-      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CAIXA'));
+      String(conciliacaoTransacao.situacaoConciliacaoTrn) === 'CONCILIAR_CAIXA')));
 
     return result;
   }

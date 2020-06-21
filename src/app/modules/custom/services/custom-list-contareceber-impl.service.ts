@@ -55,7 +55,7 @@ export class CustomContaReceberListServiceImpl {
 		}
 
     const diff2 = moment(contaReceber.dataVencimento).diff(moment({h: 0, m: 0, s: 0, ms: 0}), 'days');
-	  return 'Vende em ' + diff2  + ' dias';
+	  return 'Vence em ' + diff2  + ' dias';
 	}
 
 }
