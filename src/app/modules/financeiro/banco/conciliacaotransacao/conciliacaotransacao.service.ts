@@ -311,8 +311,8 @@ export class ConciliacaoTransacaoService {
     }
 
     // situacaoConciliacaoTrn
-    if (filter.situacaoConciliacaoTrn) {
-      const value = String(filter.situacaoConciliacaoTrn);
+    if (filter.situacaoConciliacaoTrn && filter.situacaoConciliacaoTrn.length > 0) {
+      const value = filter.situacaoConciliacaoTrn.join(',');
       params = params.set('situacaoConciliacaoTrn', value);
     }
 

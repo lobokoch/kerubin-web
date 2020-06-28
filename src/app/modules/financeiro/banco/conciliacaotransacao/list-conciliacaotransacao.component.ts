@@ -408,7 +408,6 @@ reprocessarConciliacaoTransacao(conciliacaoTransacao: ConciliacaoTransacao) {
 
 	private initializeConciliacaoTransacaoSituacaoConciliacaoTrnOptions() {
 	    this.conciliacaoTransacaoSituacaoConciliacaoTrnOptions = [
-	    	{ label: 'Selecione um item', value: null },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_nao_conciliado'), value: 'NAO_CONCILIADO' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliar_contas_pagar'), value: 'CONCILIAR_CONTAS_PAGAR' },
 	    	{ label: this.getTranslation('cadastros.banco.conciliacaoTransacao_situacaoConciliacaoTrn_conciliado_contas_pagar'), value: 'CONCILIADO_CONTAS_PAGAR' },

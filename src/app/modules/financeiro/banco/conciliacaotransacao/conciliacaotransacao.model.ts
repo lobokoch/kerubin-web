@@ -56,7 +56,7 @@ export class ConciliacaoTransacaoListFilter extends PaginationFilter {
 
 	conciliacaoBancariaId: string;
 
-	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
+	situacaoConciliacaoTrn: SituacaoConciliacaoTrn[];
 
 	conciliadoComErroIsNotNull: boolean;
 

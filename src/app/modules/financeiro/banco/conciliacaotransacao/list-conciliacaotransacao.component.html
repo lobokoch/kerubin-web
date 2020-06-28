@@ -103,9 +103,10 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
 
               <div class="ui-g-12 ui-md-4 ui-fluid">
                 <label class="label-r">Situação</label>
-                <p-dropdown [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions"
-                  placeholder="Selecione um item..."
-                  [(ngModel)]="conciliacaoTransacaoListFilter.situacaoConciliacaoTrn"></p-dropdown>
+                <p-multiSelect  [options]="conciliacaoTransacaoSituacaoConciliacaoTrnOptions"
+                  filterPlaceHolder="Digite para filtrar..."
+                  defaultLabel="Selecione itens"
+                  [(ngModel)]="conciliacaoTransacaoListFilter.situacaoConciliacaoTrn"></p-multiSelect >
               </div>
 
 
