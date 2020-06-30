@@ -39,6 +39,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isMenuShowing = false;
 
+  pollingRef: any;
+
 
   @Output() menuBarChangeVisibility = new EventEmitter();
 
@@ -55,7 +57,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countCompromissosDoRecurso();
 
-    setInterval(function() {
+    this.pollingRef = setInterval(function() {
       this.countCompromissosDoRecurso();
     }.bind(this), 1000 * 60); // call each 1 minute
 
@@ -65,7 +67,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
   }
 
+  stopPolling() {
+    console.log('Parando countCompromissosDoRecurso...');
+    clearInterval(this.pollingRef);
+  }
+
   countCompromissosDoRecurso() {
+    if (!this.authService.isLoggedIn()) {
+      this.stopPolling();
+      return;
+    }
+
     const hoje = moment().toDate();
     const params = new ParametrosAgenda();
     params.data = hoje;
@@ -137,6 +149,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log('navbar ngOnDestroy');
     this.subscription.unsubscribe();
+    this.stopPolling();
   }
 
 }
