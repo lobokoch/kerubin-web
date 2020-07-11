@@ -61,6 +61,7 @@ const routes: Routes = [
 
   // BEGIN ENTITIES FOR SERVICE: cadastros.fornecedor
   { path: 'fornecedor', loadChildren: () => import('./modules/cadastros/fornecedor/fornecedor/fornecedor.module').then(m => m.FornecedorModule) },
+  { path: 'produto',  loadChildren: () => import('./modules/cadastros/fornecedor/produto/produto.module').then(m => m.ProdutoModule) },
   // END ENTITIES FOR SERVICE: cadastros.fornecedor
 
   // BEGIN ENTITIES FOR SERVICE: security.authorization

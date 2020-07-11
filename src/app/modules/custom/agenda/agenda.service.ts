@@ -17,6 +17,8 @@ import { HttpClientWithToken } from './../../../security/http-client-token';
 import { AnalyticsService } from './../../../analitycs/analytics.service';
 import { BehaviorSubject } from 'rxjs';
 
+const CAN_EXECUTE = environment.production;
+
 @Injectable({ providedIn: 'root' })
 export class AgendaService {
 
@@ -44,6 +46,10 @@ export class AgendaService {
   }
 
   getAgendaDoMes(parametrosAgenda: ParametrosAgenda): Promise<AgendaDTO> {
+    if (!CAN_EXECUTE) {
+      return;
+    }
+
     const headers = this.getHeaders();
 
     const params = this.mountAndGetSearchParams(parametrosAgenda);
@@ -56,6 +62,10 @@ export class AgendaService {
   }
 
   countCompromissosDoRecurso(parametrosAgenda: ParametrosAgenda): Promise<AgendaResumoDTO> {
+    if (!CAN_EXECUTE) {
+      return;
+    }
+
     const headers = this.getHeaders();
 
     const params = this.mountAndGetSearchParams(parametrosAgenda);

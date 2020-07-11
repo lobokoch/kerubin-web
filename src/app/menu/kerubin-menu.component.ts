@@ -100,7 +100,8 @@ export class KerubinMenuComponent implements OnInit {
             label: 'Fornecedor',
             icon: 'fas fa-truck',
             items: [
-              { label: 'Fornecedor', icon: 'fas fa-address-card', routerLink: '/fornecedor' }
+              { label: 'Fornecedor', icon: 'fas fa-address-card', routerLink: '/fornecedor' },
+              { label: 'Produto', icon: 'fas fa-address-card', routerLink: '/produto' }
             ]
           },
           {

@@ -42,7 +42,8 @@ export class FornecedorListComponent implements OnInit {
 	    private cadastrosFornecedorTranslationService: CadastrosFornecedorTranslationService,
 	    private confirmation: ConfirmationService,
 	    private messageHandler: MessageHandlerService
-	) { }
+	) { 
+	}
 	
 	ngOnInit() {
 	}

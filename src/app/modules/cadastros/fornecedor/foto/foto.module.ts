@@ -29,11 +29,11 @@ import {MultiSelectModule} from 'primeng/multiselect';
 
 // Kerubin - BEGIN
 import { CadastrosFornecedorTranslationService } from './../i18n/./../i18n/cadastros-fornecedor-translation.service';
-import { FornecedorService } from './fornecedor.service';
-import { FornecedorListComponent } from './list-fornecedor.component';
-import { FornecedorComponent } from './crud-fornecedor.component';
-import { FornecedorRoutingModule } from './fornecedor-routing.module';
-import { SearchCEPService } from './../../../../searchcep/searchcep.service';
+import { FotoService } from './foto.service';
+import { FotoListComponent } from './list-foto.component';
+import { FotoComponent } from './crud-foto.component';
+import { FotoRoutingModule } from './foto-routing.module';
+// import { ProdutoModule } from '../produto/produto.module';
 // Kerubin - END
 
 @NgModule({
@@ -62,13 +62,14 @@ import { SearchCEPService } from './../../../../searchcep/searchcep.service';
 	MultiSelectModule,
 
     // Kerubin
-    FornecedorRoutingModule
+    FotoRoutingModule
+	// ProdutoModule
 
   ],
 
   declarations: [
-    FornecedorComponent,
-    FornecedorListComponent
+    FotoComponent,
+    FotoListComponent
   ],
 
   exports: [
@@ -76,11 +77,10 @@ import { SearchCEPService } from './../../../../searchcep/searchcep.service';
   ],
 
   providers: [
-    FornecedorService,
-    SearchCEPService,
+    FotoService,
     CadastrosFornecedorTranslationService
   ]
 
 })
 
-export class FornecedorModule { }
+export class FotoModule { }

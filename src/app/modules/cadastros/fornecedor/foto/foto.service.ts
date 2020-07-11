@@ -12,17 +12,18 @@ import * as moment from 'moment';
 
 import { HttpClientWithToken } from '../../../../security/http-client-token';
 
-import { Fornecedor } from './fornecedor.model';
-import { FornecedorAutoComplete } from './fornecedor.model';
-import { FornecedorListFilter } from './fornecedor.model';
-import { FornecedorNomeAutoComplete } from './fornecedor.model';
+import { Foto } from './foto.model';
+import { FotoAutoComplete } from './foto.model';
+import { Produto } from './../produto/produto.model';
+import { FotoListFilter } from './foto.model';
 import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
+import { ProdutoAutoComplete } from './../produto/produto.model';
 
 @Injectable()
-export class FornecedorService {
+export class FotoService {
 	
-	url = environment.apiUrl + '/cadastros/fornecedor/entities/fornecedor';
+	url = environment.apiUrl + '/cadastros/fornecedor/entities/foto';
 	
 	constructor(
 		private analitycs: AnalyticsService,
@@ -38,106 +39,111 @@ export class FornecedorService {
 	    return headers;
 	}
 	
-	create(fornecedor: Fornecedor): Promise<Fornecedor> {
+	create(foto: Foto): Promise<Foto> {
 		const headers = this.getHeaders();
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'create', 'create Fornecedor');
-	    return this.http.post(this.url, fornecedor, { headers })
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'create', 'create Foto');
+	    return this.http.post(this.url, foto, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const created = response as Fornecedor;
-	      this.adjustEntityDates([created]);
+	      const created = response as Foto;
+	      this.adjustNullEntitySlots([created]);
 	      return created;
 	    });
 	}
 	
-	update(fornecedor: Fornecedor): Promise<Fornecedor> {
+	update(foto: Foto): Promise<Foto> {
 	    const headers = this.getHeaders();
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'update', 'update Fornecedor');
-	    return this.http.put(`${this.url}/${fornecedor.id}`, fornecedor, { headers })
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'update', 'update Foto');
+	    return this.http.put(`${this.url}/${foto.id}`, foto, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const updated = response as Fornecedor;
-	      this.adjustEntityDates([updated]);
+	      const updated = response as Foto;
+	      this.adjustNullEntitySlots([updated]);
 	      return updated;
 	    });
 	}
 	
 	delete(id: string): Promise<void> {
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'delete', 'delete Fornecedor');
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'delete', 'delete Foto');
 	    return this.http.delete(`${this.url}/${id}`)
 	    .toPromise()
 	    .then(() => null);
 	}
 	
-	retrieve(id: string): Promise<Fornecedor> {
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'retrieve', 'retrieve Fornecedor');
+	retrieve(id: string): Promise<Foto> {
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'retrieve', 'retrieve Foto');
 	    const headers = this.getHeaders();
-	    return this.http.get<Fornecedor>(`${this.url}/${id}`, { headers })
+	    return this.http.get<Foto>(`${this.url}/${id}`, { headers })
 	    .toPromise()
 	    .then(response => {
-	      const fornecedor = response as Fornecedor;
-	      this.adjustEntityDates([fornecedor]);
-	      return fornecedor;
+	      const foto = response as Foto;
+	      this.adjustNullEntitySlots([foto]);
+	      return foto;
 	    });
 	}
 	
 	
-	private adjustEntityDates(entityList: Fornecedor[]) {
-		entityList.forEach(fornecedor => {
-		      if (fornecedor.dataFundacaoNascimento) {
-		        fornecedor.dataFundacaoNascimento = moment(fornecedor.dataFundacaoNascimento, 'YYYY-MM-DD').toDate();
+	
+	
+	private adjustNullEntitySlots(entityList: Foto[]) {
+		/*entityList.forEach(foto => {
+		      if (!foto.produto) {
+		        foto.produto = new Produto();
 		      }
 		      	
-		});
+		});*/
 	}
 	
-	
-	
-	autoComplete(query: string): Promise<FornecedorAutoComplete[]> {
+	autoComplete(query: string): Promise<FotoAutoComplete[]> {
 	    const headers = this.getHeaders();
 	
 	    let params = new HttpParams();
 	    params = params.set('query', query);
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'autoComplete', JSON.stringify(params));
-	    return this.http.get<FornecedorAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'autoComplete', JSON.stringify(params));
+	    return this.http.get<FotoAutoComplete[]>(`${this.url}/autoComplete`, { headers, params })
 	      .toPromise()
 	      .then(response => {
-	        const result = response as FornecedorAutoComplete[];
+	        const result = response as FotoAutoComplete[];
 	        return result;
 	      });
 	
 	}
+	
+							
+	// Begin relationships autoComplete 
+	
+	produtoProdutoAutoComplete(query: string): Promise<ProdutoAutoComplete[]> {
+	    const headers = this.getHeaders();
+	
+	    let params = new HttpParams();
+	    params = params.set('query', query);
+		this.analitycs.sendEvent('cadastros.fornecedor.Produto', 'produtoProdutoAutoComplete', JSON.stringify(params));
+	    return this.http.get<ProdutoAutoComplete[]>(`${this.url}/produtoProdutoAutoComplete`, { headers, params })
+	      .toPromise()
+	      .then(response => {
+	        const result = response as ProdutoAutoComplete[];
+	        return result;
+	      });
+	
+	}
+	
+	// End relationships autoComplete
 	
 				
 	
-	fornecedorNomeAutoComplete(query: string): Promise<any> {
+	fotoList(fotoListFilter: FotoListFilter): Promise<any> {
 	    const headers = this.getHeaders();
 	
-	    let params = new HttpParams();
-	    params = params.set('query', query);
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'fornecedorNomeAutoComplete', JSON.stringify(params));
-	    return this.http.get<any>(`${this.url}/fornecedorNomeAutoComplete`, { headers, params })
-	      .toPromise()
-	      .then(response => {
-	        const result = response as FornecedorNomeAutoComplete[];
-	        return result;
-	      });
-	
-	}
-	
-	fornecedorList(fornecedorListFilter: FornecedorListFilter): Promise<any> {
-	    const headers = this.getHeaders();
-	
-	    const params = this.mountAndGetSearchParams(fornecedorListFilter);
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'fornecedorList', JSON.stringify(params));
+	    const params = this.mountAndGetSearchParams(fotoListFilter);
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'fotoList', JSON.stringify(params));
 	    return this.http.get<any>(this.url, { headers, params })
 	      .toPromise()
 	      .then(response => {
 	        const data = response;
-	        const items = data.content; /* array of Fornecedor */
+	        const items = data.content; /* array of Foto */
 	        const totalElements = data.totalElements;
 	
-	        this.adjustEntityDates(items);
+	        this.adjustNullEntitySlots(items);
 	
 	        const result = {
 	          items,
@@ -149,7 +155,7 @@ export class FornecedorService {
 	}
 	
 	
-	mountAndGetSearchParams(filter: FornecedorListFilter): HttpParams {
+	mountAndGetSearchParams(filter: FotoListFilter): HttpParams {
 	    let params = new HttpParams();
 	    if (filter.pageNumber) {
 	      params = params.set('page', filter.pageNumber.toString());
@@ -159,11 +165,6 @@ export class FornecedorService {
 	      params = params.set('size', filter.pageSize.toString());
 	    }
 		
-		// nome
-		if (filter.nome) {
-			const nome = filter.nome.map(item => item.nome).join(',');
-			params = params.set('nome', nome);
-		}
 		
 		// customParams
 		if (filter.customParams && filter.customParams.size > 0) {
@@ -201,26 +202,26 @@ export class FornecedorService {
 	}
 	
 	/*** TODO: avaliar se vai ser feito isso.
-	replicateFornecedor(id: string, groupId: string, quantity: number): Promise<boolean> {
+	replicateFoto(id: string, groupId: string, quantity: number): Promise<boolean> {
 	    const headers = this.getHeaders();
 	
-	    const payload = new ReplicateFornecedorPayload(id, quantity, groupId);
-	    return this.http.post(`${this.url}/replicateFornecedor`, payload, { headers } )
+	    const payload = new ReplicateFotoPayload(id, quantity, groupId);
+	    return this.http.post(`${this.url}/replicateFoto`, payload, { headers } )
 	    .toPromise()
 	    .then(response => {
 	      return response === true;
 	    });
 	}
 		
-	getTotaisfilterFornecedor(filter: FornecedorrListFilter): Promise<TotaisfilterFornecedor> {
+	getTotaisfilterFoto(filter: FotorListFilter): Promise<TotaisfilterFoto> {
 	    const headers = this.getHeaders();
 		
 	    const params = this.mountAndGetSearchParams(filter);
-		this.analitycs.sendEvent('cadastros.fornecedor.Fornecedor', 'getTotaisfilterFornecedor', JSON.stringify(params));
-	    return this.http.get<TotaisfilterFornecedor>(`${this.url}/getTotaisfilterFornecedor`, { headers, params })
+		this.analitycs.sendEvent('cadastros.fornecedor.Foto', 'getTotaisfilterFoto', JSON.stringify(params));
+	    return this.http.get<TotaisfilterFoto>(`${this.url}/getTotaisfilterFoto`, { headers, params })
 	    .toPromise()
 	    .then(response => {
-	      const result = response as TotaisfilterFornecedor;
+	      const result = response as TotaisfilterFoto;
 	      return result;
 	    });
 	}

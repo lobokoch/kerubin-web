@@ -26,14 +26,17 @@ import {CalendarModule} from 'primeng/calendar';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {CardModule} from 'primeng/card';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {FileUploadModule} from 'primeng/fileupload';
+import {DragDropModule} from 'primeng/dragdrop';
+import {GalleriaModule} from 'primeng/galleria';
 
 // Kerubin - BEGIN
 import { CadastrosFornecedorTranslationService } from './../i18n/./../i18n/cadastros-fornecedor-translation.service';
-import { FornecedorService } from './fornecedor.service';
-import { FornecedorListComponent } from './list-fornecedor.component';
-import { FornecedorComponent } from './crud-fornecedor.component';
-import { FornecedorRoutingModule } from './fornecedor-routing.module';
-import { SearchCEPService } from './../../../../searchcep/searchcep.service';
+import { ProdutoService } from './produto.service';
+import { ProdutoListComponent } from './list-produto.component';
+import { ProdutoComponent } from './crud-produto.component';
+import { ProdutoRoutingModule } from './produto-routing.module';
+// import { FotoModule } from '../foto/foto.module';
 // Kerubin - END
 
 @NgModule({
@@ -59,16 +62,20 @@ import { SearchCEPService } from './../../../../searchcep/searchcep.service';
 	CalendarModule,
 	CurrencyMaskModule,
 	CardModule,
-	MultiSelectModule,
+  MultiSelectModule,
+  FileUploadModule,
+  DragDropModule,
+  GalleriaModule,
 
     // Kerubin
-    FornecedorRoutingModule
+    ProdutoRoutingModule
+	// FotoModule
 
   ],
 
   declarations: [
-    FornecedorComponent,
-    FornecedorListComponent
+    ProdutoComponent,
+    ProdutoListComponent
   ],
 
   exports: [
@@ -76,11 +83,10 @@ import { SearchCEPService } from './../../../../searchcep/searchcep.service';
   ],
 
   providers: [
-    FornecedorService,
-    SearchCEPService,
+    ProdutoService,
     CadastrosFornecedorTranslationService
   ]
 
 })
 
-export class FornecedorModule { }
+export class ProdutoModule { }
