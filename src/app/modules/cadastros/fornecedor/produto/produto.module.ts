@@ -29,6 +29,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {FileUploadModule} from 'primeng/fileupload';
 import {DragDropModule} from 'primeng/dragdrop';
 import {GalleriaModule} from 'primeng/galleria';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 // Kerubin - BEGIN
 import { CadastrosFornecedorTranslationService } from './../i18n/./../i18n/cadastros-fornecedor-translation.service';
@@ -66,6 +67,7 @@ import { ProdutoRoutingModule } from './produto-routing.module';
   FileUploadModule,
   DragDropModule,
   GalleriaModule,
+  ProgressBarModule,
 
     // Kerubin
     ProdutoRoutingModule

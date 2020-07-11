@@ -108,6 +108,9 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
             -->
 
             <div class="ui-g-12 ui-fluid">
+              <p-progressBar *ngIf="produtoFotosUploadProgressShow" [value]="produtoFotosUploadProgressValue"></p-progressBar>
+            </div>
+            <div class="ui-g-12 ui-fluid">
               <p-fileUpload name="produtoFotosUpload" customUpload="true" (uploadHandler)="handleProdutoFotosUpload($event)"
                 accept="image/*" multiple="multiple" chooseLabel="Escolher fotos"
                 uploadLabel="Enviar fotos" cancelLabel="Cancelar" maxFileSize="3000000">
@@ -122,16 +125,32 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
             <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid p-grid">
               <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
                 <ul style="margin:0;padding:0">
-                  <li *ngFor="let foto of fotos" class="ui-helper-clearfix" pDraggable="fotos" pDroppable="fotos"
-                    (onDragStart)="dragStart($event, foto)" (onDragEnd)="dragEnd($event)" (onDrop)="drop($event)">
-                    <img [src]="foto.miniatura" style="float:left" draggable="false">
+                  <li *ngFor="let foto of fotos" class="ui-helper-clearfix">
+                    <img [src]="foto.miniatura" style="float:left">
                     <div style="margin:8px 0 0 8px;float:left">{{foto.nome}} - {{foto.tamanho}}</div>
-                    <button style="float:right;margin-left: 5px;" (click)="deleteProdutoFoto(foto)" pButton
+                    <button pButton type="button" style="float:right;margin-left: 5px;"
+                      (click)="deleteProdutoFotosItem(foto)"
                       icon="pi pi-times" pTooltip="Excluir" tooltipPosition="top"></button>
                   </li>
                 </ul>
               </div>
             </div>
+
+            <!--
+            <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid p-grid">
+              <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
+                <ul style="margin:0;padding:0">
+                  <li *ngFor="let foto of fotos" class="ui-helper-clearfix" pDraggable="fotos" pDroppable="fotos"
+                    (onDragStart)="dragStart($event, foto)" (onDragEnd)="dragEnd($event)" (onDrop)="drop($event)">
+                    <img [src]="foto.miniatura" style="float:left" draggable="false">
+                    <div style="margin:8px 0 0 8px;float:left">{{foto.nome}} - {{foto.tamanho}}</div>
+                    <p-button style="float:right;margin-left: 5px;" (onClick)="deleteProdutoFotosItem(foto)"
+                      icon="pi pi-times" pTooltip="Excluir" tooltipPosition="top"></p-button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            -->
 
             <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid">
               <p-galleria [(value)]="fotos" [responsiveOptions]="responsiveOptions"

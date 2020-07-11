@@ -99,6 +99,13 @@ export class ProdutoService {
       });
   }
 
+  deleteProdutoFotosItem(fotoId: string): Promise<void> {
+    this.analitycs.sendEvent('cadastros.fornecedor.Produto.fotos', 'delete', 'delete fotos item from Produto');
+    return this.http.delete(`${this.url2}/deleteProdutoFotosItem/${fotoId}`)
+      .toPromise()
+      .then(() => null);
+  }
+
   uploadProdutoFotoAndGet(produtoId: string, foto: File): Promise<FotoDTO> {
     const formData: FormData = new FormData();
     formData.append('foto', foto, foto.name);

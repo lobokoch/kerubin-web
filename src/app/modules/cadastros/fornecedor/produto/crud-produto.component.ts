@@ -32,6 +32,9 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 export class ProdutoComponent implements OnInit {
   /////////////////////////
   produtoFotosToUpload: File[];
+  produtoFotosUploadProgressValue = 0;
+  produtoFotosUploadProgressRatio = 0;
+  produtoFotosUploadProgressShow = false;
   /////////////////////////
   produtoFotosUpload: any[] = [];
 
@@ -229,26 +232,41 @@ export class ProdutoComponent implements OnInit {
     console.log('Erro no upload:' + event);
   }
 
-deleteProdutoFoto(foto: FotoDTO) {
-    console.log('deleteProdutoFoto:' + foto);
+  deleteProdutoFotosItem(foto: FotoDTO) {
+    console.log('deleteProdutoFotosItem:' + foto);
+
     if (foto && foto.id) {
-      const index = this.fotos.findIndex(it => it.id === foto.id);
-      if (index !== -1) {
-        this.fotos.splice(index, 1);
-      } else {
-        this.messageHandler.showError(`Imagem id: ${foto.id} não encontrada na lista para exclusão.`);
-      }
+      this.produtoService.deleteProdutoFotosItem(foto.id)
+      .then(() => {
+        const index = this.fotos.findIndex(it => it.id === foto.id);
+        if (index !== -1) {
+          this.fotos.splice(index, 1);
+        } else {
+          this.messageHandler.showError(`Foto id: ${foto.id} não encontrada na lista para exclusão.`);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.messageHandler.showError(`Erro ao excluir foto id: ${foto.id}.`);
+      });
     }
   }
 
   handleProdutoFotosUpload(event) {
     this.produtoFotosToUpload = event.files;
+    this.produtoFotosUploadProgressValue = 0;
+    this.produtoFotosUploadProgressRatio = 100 / this.produtoFotosToUpload.length;
     this.uploadProdutoFotos();
   }
 
   uploadProdutoFotos() {
     if (this.produtoFotosToUpload && this.produtoFotosToUpload.length > 0) {
+      this.produtoFotosUploadProgressShow = true;
       this.uploadProdutoFoto(this.produtoFotosToUpload.splice(0, 1)[0]);
+    } else {
+      this.produtoFotosUploadProgressShow = false;
+      this.produtoFotosUploadProgressValue = 0;
+      this.produtoFotosUploadProgressRatio = 0;
     }
   }
 
@@ -260,6 +278,11 @@ deleteProdutoFoto(foto: FotoDTO) {
       fotoDTO.miniatura = `data:${mimeType};base64,${fotoDTO.miniatura}`;
       this.fotos.push(fotoDTO);
 
+      if (this.produtoFotosToUpload.length > 0) {
+        this.produtoFotosUploadProgressValue += Math.round(this.produtoFotosUploadProgressRatio);
+      } else {
+        this.produtoFotosUploadProgressValue = 100;
+      }
       this.uploadProdutoFotos();
 
     })
