@@ -25,3 +25,29 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   background-color: #ffffff;
 }
 
+/*:host ::ng-deep .ui-galleria {
+  border: 10px solid green !important;
+  width: 500px !important;
+  height: 500px !important;
+}
+
+:host ::ng-deep .ui-galleria-content {
+  border: 6px solid yellow !important;
+  width: 400px !important;
+  height: 400px !important;
+}
+
+:host ::ng-deep .ui-galleria-item-wrapper {
+  border: 4px solid orange !important;
+  width: 450px !important;
+  height: 450px !important;
+}
+
+:host ::ng-deep .ui-galleria-item-container {
+  border: 2px solid blue !important;
+  width: 400px !important;
+  height: 400px !important;
+}*/
+
+
+
