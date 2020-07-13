@@ -95,7 +95,16 @@ export class ProdutoService {
     return this.http.get<FotoDTO>(`${this.url2}/getProdutoFoto/${fotoId}`, { headers })
       .toPromise()
       .then(response => {
-        return response as FotoDTO;
+        const foto = response as FotoDTO;
+        if (foto) {
+          if (foto.imagem) {
+            foto.imagem = this.getImageData64(foto.tipo, foto.imagem);
+          }
+          if (foto.miniatura) {
+            foto.miniatura = this.getImageData64(foto.tipo, foto.miniatura);
+          }
+        }
+        return foto;
       });
   }
 
@@ -106,19 +115,40 @@ export class ProdutoService {
       .then(() => null);
   }
 
-  uploadProdutoFotoAndGet(produtoId: string, foto: File): Promise<FotoDTO> {
+  updateProdutoFotosDescricao(fotoId: string, descricao: string): Promise<void> {
+    const headers = this.getHeaders();
+    this.analitycs.sendEvent('cadastros.fornecedor.Produto.fotos', 'update', 'update descrição for fotos item from Produto');
+    // const payload = descricao;
+    return this.http.put<void>(`${this.url2}/updateProdutoFotosDescricao/${fotoId}`, descricao, { headers })
+      .toPromise()
+      .then(() => null);
+  }
+
+  uploadProdutoFotoAndGet(produtoId: string, fotoFile: File): Promise<FotoDTO> {
     const formData: FormData = new FormData();
-    formData.append('foto', foto, foto.name);
+    formData.append('foto', fotoFile, fotoFile.name);
 
     const headers = this.getHeaders();
     this.analitycs.sendEvent('cadastros.fornecedor.Produto', 'uploadProdutoFoto', 'upload Produto Fotos');
     return this.http.post<FotoDTO>(`${this.url2}/uploadProdutoFotoAndGet/${produtoId}`, formData/*, { headers }*/)
       .toPromise()
       .then(response => {
-        return response as FotoDTO;
+        const foto = response as FotoDTO;
+        if (foto) {
+          if (foto.imagem) {
+            foto.imagem = this.getImageData64(foto.tipo, foto.imagem);
+          }
+          if (foto.miniatura) {
+            foto.miniatura = this.getImageData64(foto.tipo, foto.miniatura);
+          }
+        }
+        return foto;
       });
   }
 
+  private getImageData64(mimeType: string, base64Data: string) {
+    return `data:${mimeType};base64,${base64Data}`;
+  }
 
   private adjustNullEntitySlots(entityList: Produto[]) {
 		/*entityList.forEach(produto => {

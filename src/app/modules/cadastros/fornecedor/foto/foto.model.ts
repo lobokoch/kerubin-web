@@ -44,16 +44,27 @@ export class FotoDTO {
 	descricao: string;
   tamanho: number;
   tipo: string;
-	produto: Produto;
+  produto: Produto;
+
+  constructor(id: string, descricao: string) {
+    this.id = id;
+    this.descricao = descricao;
+
+  }
 }
 ////////////////////////
 
 export class Foto {
 	id: string;
-	imagem: any;
 	nome: string;
+	descricao: string;
 	tamanho: number;
-	produto: Produto;
+	tipo: string;
+  produto: Produto;
+
+  constructor(id: string) {
+    this.id = id;
+  }
 }
 
 export class FotoAutoComplete {

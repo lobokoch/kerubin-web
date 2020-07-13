@@ -21,6 +21,7 @@ import { CadastrosFornecedorTranslationService } from './../i18n/cadastros-forne
 import { Foto } from './../foto/foto.model';
 import { FotoAutoComplete } from './../foto/foto.model';
 import { MessageHandlerService } from 'src/app/core/message-handler.service';
+import { NumberFormatStyle } from '@angular/common';
 
 
 @Component({
@@ -32,13 +33,19 @@ import { MessageHandlerService } from 'src/app/core/message-handler.service';
 export class ProdutoComponent implements OnInit {
   /////////////////////////
   produtoFotosToUpload: File[];
-  produtoFotosUploadProgressValue = 0;
-  produtoFotosUploadProgressRatio = 0;
-  produtoFotosUploadProgressShow = false;
+  produtoFotosToLoad: string[];
+  fotos: FotoDTO[] = [];
+  produtoFotosProgressValue = 0;
+  produtoFotosProgressRatio = 0;
+  produtoFotosProgressShow = false;
+
+  showProdutoFotoEditor = false;
+  showProdutoFotos = false;
+  produtoFotosLoaded = false;
   /////////////////////////
   produtoFotosUpload: any[] = [];
 
-  fotos: FotoDTO[] = [];
+  fotoSelected: FotoDTO;
 
   showHideHelp = false; // for show/hide help.
 
@@ -62,6 +69,7 @@ export class ProdutoComponent implements OnInit {
         numVisible: 1
     }
 ];
+
 
   constructor(
     private produtoService: ProdutoService,
@@ -88,6 +96,13 @@ export class ProdutoComponent implements OnInit {
     form.reset();
     setTimeout(function () {
       this.produto = new Produto();
+
+      ////////////////////
+      this.produtoFotosToUpload = [];
+      this.produtoFotosToLoad = [];
+      this.fotos = [];
+      ////////////////////
+
       this.produtoDefaultElementSetFocus();
     }.bind(this), 1);
   }
@@ -238,11 +253,18 @@ export class ProdutoComponent implements OnInit {
     if (foto && foto.id) {
       this.produtoService.deleteProdutoFotosItem(foto.id)
       .then(() => {
-        const index = this.fotos.findIndex(it => it.id === foto.id);
+        let index = this.fotos.findIndex(it => it.id === foto.id);
         if (index !== -1) {
           this.fotos.splice(index, 1);
         } else {
-          this.messageHandler.showError(`Foto id: ${foto.id} não encontrada na lista para exclusão.`);
+          this.messageHandler.showError(`Foto id: ${foto.id} não encontrada na lista de fotosImage para exclusão.`);
+        }
+
+        index = this.produto.fotos.findIndex(it => it.id === foto.id);
+        if (index !== -1) {
+          this.produto.fotos.splice(index, 1);
+        } else {
+          this.messageHandler.showError(`Foto id: ${foto.id} não encontrada na lista de fotos para exclusão.`);
         }
       })
       .catch(error => {
@@ -252,44 +274,116 @@ export class ProdutoComponent implements OnInit {
     }
   }
 
+  editProdutoFotosItem(foto: FotoDTO) {
+    if (foto && foto.id) {
+      this.fotoSelected = new FotoDTO(foto.id, foto.descricao);
+      this.showProdutoFotoEditor = true;
+    }
+  }
+
+  saveProdutoFotoEditor() {
+    this.showProdutoFotoEditor = false;
+    const foto = this.fotos.find(it => it.id === this.fotoSelected.id);
+    if (foto) {
+      this.produtoService.updateProdutoFotosDescricao(foto.id, this.fotoSelected.descricao)
+      .then(() => {
+        foto.descricao = this.fotoSelected.descricao;
+        this.fotoSelected = null;
+        this.messageHandler.showSuccess('Descrição da foto foi alterada com sucesso.');
+      })
+      .catch(error => {
+        console.log(error);
+        this.messageHandler.showError(`Erro ao atualizar descrição da foto id: ${foto.id}.`);
+      });
+    }
+  }
+
+  cancelProdutoFotoEditor() {
+    this.showProdutoFotoEditor = false;
+    this.fotoSelected = null;
+  }
+
+  /////////////////////////
   handleProdutoFotosUpload(event) {
     this.produtoFotosToUpload = event.files;
-    this.produtoFotosUploadProgressValue = 0;
-    this.produtoFotosUploadProgressRatio = 100 / this.produtoFotosToUpload.length;
+    this.startProdutoFotosProgress(this.produtoFotosToUpload.length);
     this.uploadProdutoFotos();
   }
 
   uploadProdutoFotos() {
     if (this.produtoFotosToUpload && this.produtoFotosToUpload.length > 0) {
-      this.produtoFotosUploadProgressShow = true;
       this.uploadProdutoFoto(this.produtoFotosToUpload.splice(0, 1)[0]);
     } else {
-      this.produtoFotosUploadProgressShow = false;
-      this.produtoFotosUploadProgressValue = 0;
-      this.produtoFotosUploadProgressRatio = 0;
+      this.finishProdutoFotosProgress();
     }
   }
 
-  uploadProdutoFoto(foto: File) {
-    this.produtoService.uploadProdutoFotoAndGet(this.produto.id, foto)
+  private startProdutoFotosProgress(numberOfElements: number) {
+    this.produtoFotosProgressValue = 0;
+    this.produtoFotosProgressRatio = numberOfElements > 0 ? 100 / numberOfElements : 100;
+    this.produtoFotosProgressShow = true;
+  }
+
+  private finishProdutoFotosProgress() {
+    this.produtoFotosProgressShow = false;
+    this.produtoFotosProgressValue = 0;
+    this.produtoFotosProgressRatio = 0;
+  }
+
+  private stepProdutoFotosProgress(numberOfElements: number) {
+    this.produtoFotosProgressValue = numberOfElements > 0
+    ? this.produtoFotosProgressValue += Math.round(this.produtoFotosProgressRatio)
+    : 100;
+  }
+
+  uploadProdutoFoto(fotoFile: File) {
+    this.produtoService.uploadProdutoFotoAndGet(this.produto.id, fotoFile)
     .then((fotoDTO) => {
-      const mimeType = fotoDTO.tipo;
-      fotoDTO.imagem = `data:${mimeType};base64,${fotoDTO.imagem}`;
-      fotoDTO.miniatura = `data:${mimeType};base64,${fotoDTO.miniatura}`;
       this.fotos.push(fotoDTO);
-
-      if (this.produtoFotosToUpload.length > 0) {
-        this.produtoFotosUploadProgressValue += Math.round(this.produtoFotosUploadProgressRatio);
-      } else {
-        this.produtoFotosUploadProgressValue = 100;
+      if (!this.produto.fotos) {
+        this.produto.fotos = [];
       }
+      this.produto.fotos.push(new Foto(fotoDTO.id));
+      this.stepProdutoFotosProgress(this.produtoFotosToUpload.length);
       this.uploadProdutoFotos();
-
     })
     .catch(error => {
       this.messageHandler.showError(error);
     });
   }
+  ///////////////////////////////
+
+  ///////////////////////////////
+  handleShowProdutoFotos(event) {
+    if (!this.produtoFotosLoaded && event.checked) {
+      this.produtoFotosToLoad = this.produto.fotos.map(foto => foto.id);
+      this.startProdutoFotosProgress(this.produtoFotosToLoad.length);
+      this.produtoFotosLoaded = true;
+      this.fotos = [];
+      this.loadProdutoFotos();
+    }
+  }
+
+  loadProdutoFotos() {
+    if (this.produtoFotosToLoad && this.produtoFotosToLoad.length > 0) {
+      this.loadProdutoFoto(this.produtoFotosToLoad.splice(0, 1)[0]);
+    } else {
+      this.finishProdutoFotosProgress();
+    }
+  }
+
+  loadProdutoFoto(fotoId: string) {
+      this.produtoService.getProdutoFoto(fotoId)
+        .then((fotoDTO) => {
+          this.fotos.push(fotoDTO);
+          this.stepProdutoFotosProgress(this.produtoFotosToLoad.length);
+          this.loadProdutoFotos();
+        })
+        .catch(error => {
+          this.messageHandler.showError(error);
+        });
+  }
+  ///////////////////////////////
 
   onUploadCompleted(event) {
     if (event && event.originalEvent && event.originalEvent.body && event.originalEvent.body) {
@@ -301,9 +395,6 @@ export class ProdutoComponent implements OnInit {
         fotoIdList.forEach(fotoId => {
           this.produtoService.getProdutoFoto(fotoId)
             .then((fotoDTO) => {
-              const mimeType = fotoDTO.tipo;
-              fotoDTO.imagem = `data:${mimeType};base64,${fotoDTO.imagem}`;
-              fotoDTO.miniatura = `data:${mimeType};base64,${fotoDTO.miniatura}`;
               this.fotos.push(fotoDTO);
             })
             .catch(error => {

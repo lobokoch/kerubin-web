@@ -82,7 +82,26 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           <div class="invalid-message" *ngIf="produto_nome.invalid && produto_nome.dirty">Campo obrigatório.</div>
         </div>
 
-        <div class="ui-g-12 ui-fluid">
+        <!-- BEGIN fotos field -->
+
+        <!-- separator -->
+        <div class="ui-g-12">
+          <hr class="separator-default">
+        </div>
+        <!-- separator -->
+
+        <div class="ui-g-12 ui-fluid ui-md-12">
+          <label style="display: block" for="fornecedor_maisOpcoes">
+            Cadastro de fotos
+            <!-- help -->
+            <i *ngIf="showHideHelp" class="pi pi-question-circle" tooltipStyleClass="kb-help-class-id"
+              pTooltip="Mostra ou oculta as fotos."></i>
+            <!-- help -->
+          </label>
+          <p-inputSwitch (onChange)="handleShowProdutoFotos($event)" #fornecedor_maisOpcoes="ngModel" [(ngModel)]="showProdutoFotos" name="fornecedor_maisOpcoes"></p-inputSwitch>
+        </div>
+
+        <div *ngIf="showProdutoFotos" class="ui-g-12 ui-fluid">
           <label for="produto_fotos">
             Fotos
             <!-- help -->
@@ -92,23 +111,8 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           </label>
           <div class="ui-g">
 
-            <!--
             <div class="ui-g-12 ui-fluid">
-              <p-fileUpload name="produtoFotosUpload" [url]="getUrlProdutoFotosUpload"
-                (onUpload)="onUploadCompleted($event)" (onBeforeSend)="antesUploadAnexo($event)"
-                (onError)="onUploadError($event)" accept="image/*" multiple="multiple" chooseLabel="Escolher fotos"
-                uploadLabel="Enviar fotos" cancelLabel="Cancelar" maxFileSize="3000000">
-                <ng-template pTemplate="content">
-                  <ul *ngIf="produtoFotosUpload.length">
-                    <li *ngFor="let file of produtoFotosUpload">{{file.name}} - {{file.size}} bytes</li>
-                  </ul>
-                </ng-template>
-              </p-fileUpload>
-            </div>
-            -->
-
-            <div class="ui-g-12 ui-fluid">
-              <p-progressBar *ngIf="produtoFotosUploadProgressShow" [value]="produtoFotosUploadProgressValue"></p-progressBar>
+              <p-progressBar *ngIf="produtoFotosProgressShow" [value]="produtoFotosProgressValue"></p-progressBar>
             </div>
             <div class="ui-g-12 ui-fluid">
               <p-fileUpload name="produtoFotosUpload" customUpload="true" (uploadHandler)="handleProdutoFotosUpload($event)"
@@ -122,48 +126,41 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
               </p-fileUpload>
             </div>
 
-            <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid p-grid">
+            <div class="ui-g-12 ui-md-6 ui-fluid p-grid">
               <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
                 <ul style="margin:0;padding:0">
                   <li *ngFor="let foto of fotos" class="ui-helper-clearfix">
                     <img [src]="foto.miniatura" style="float:left">
-                    <div style="margin:8px 0 0 8px;float:left">{{foto.nome}} - {{foto.tamanho}}</div>
+                    <div style="margin:8px 0 0 8px;float:left">
+                      <div><strong>Imagem:</strong> {{foto.nome}} - {{foto.tamanho/(1024*1024) | number:'1.2-2'}} MB</div>
+                      <div><strong>Descrição:</strong> {{foto.descricao}}</div>
+                    </div>
                     <button pButton type="button" style="float:right;margin-left: 5px;"
-                      (click)="deleteProdutoFotosItem(foto)"
-                      icon="pi pi-times" pTooltip="Excluir" tooltipPosition="top"></button>
+                    (click)="deleteProdutoFotosItem(foto)"
+                    icon="pi pi-times" pTooltip="Excluir" tooltipPosition="top"></button>
+                    <button pButton type="button" style="float:right;margin-left: 5px;"
+                      (click)="editProdutoFotosItem(foto)"
+                      icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <!--
-            <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid p-grid">
-              <div class="p-col-12 p-md-6 p-col-nogutter drag-column">
-                <ul style="margin:0;padding:0">
-                  <li *ngFor="let foto of fotos" class="ui-helper-clearfix" pDraggable="fotos" pDroppable="fotos"
-                    (onDragStart)="dragStart($event, foto)" (onDragEnd)="dragEnd($event)" (onDrop)="drop($event)">
-                    <img [src]="foto.miniatura" style="float:left" draggable="false">
-                    <div style="margin:8px 0 0 8px;float:left">{{foto.nome}} - {{foto.tamanho}}</div>
-                    <p-button style="float:right;margin-left: 5px;" (onClick)="deleteProdutoFotosItem(foto)"
-                      icon="pi pi-times" pTooltip="Excluir" tooltipPosition="top"></p-button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            -->
-
-            <div style="border: 1px solid red;" class="ui-g-12 ui-md-6 ui-fluid">
+            <div class="ui-g-12 ui-md-6 ui-fluid">
               <p-galleria [(value)]="fotos" [responsiveOptions]="responsiveOptions"
-                [containerStyle]="{'max-width': '400px'}"
+                [containerStyle]="{'max-width': '600px'}"
                 [numVisible]="5" [circular]="true"
                 [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
-                  <img [src]="item.imagem" style="width: 100%; display: block; max-height: 400px;" />
+                  <img [src]="item.imagem" style="width: 100%; height: 100%; display: block; max-height: 600px;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
                   <div class="p-grid p-nogutter p-justify-center">
                     <img [src]="item.miniatura" style="display: block;" />
                   </div>
+                </ng-template>
+                <ng-template pTemplate="caption" let-item>
+                  <p>{{item.descricao}}</p>
                 </ng-template>
               </p-galleria>
             </div>
@@ -171,6 +168,14 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
           </div>
 
         </div>
+
+        <!-- separator -->
+        <div class="ui-g-12">
+          <hr class="separator-default">
+        </div>
+        <!-- separator -->
+
+        <!-- END fotos field -->
 
         <!-- Begin buttons -->
         <div class="ui-g-12 crud-buttons-bottom">
@@ -196,3 +201,24 @@ WARNING: DO NOT CHANGE THIS CODE BECAUSE THE CHANGES WILL BE LOST IN THE NEXT CO
   </p-panel>
 
 </div>
+
+<p-dialog header="Editar Foto" [(visible)]="showProdutoFotoEditor"
+  [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"
+  [style]="{width: '300px'}">
+
+  <div class="p-grid ui-fluid" *ngIf="showProdutoFotoEditor">
+      <div class="p-col-4">
+          <label for="vin">Descrição</label>
+      </div>
+      <div class="p-col-8">
+          <input pInputText id="produto_foto_descricao" [(ngModel)]="fotoSelected.descricao" autofocus />
+      </div>
+
+  </div>
+  <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="pi pi-check" (click)="saveProdutoFotoEditor()" label="Salvar"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="cancelProdutoFotoEditor()" label="Cancelar"></button>
+      </div>
+  </p-footer>
+</p-dialog>
