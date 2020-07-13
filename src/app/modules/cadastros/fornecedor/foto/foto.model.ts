@@ -36,24 +36,6 @@ export class FotoListFilter extends PaginationFilter {
 }
 
 ////////////////////////
-export class FotoDTO {
-  id: string;
-  imagem: string;
-  miniatura: string;
-  nome: string;
-	descricao: string;
-  tamanho: number;
-  tipo: string;
-  produto: Produto;
-
-  constructor(id: string, descricao: string) {
-    this.id = id;
-    this.descricao = descricao;
-
-  }
-}
-////////////////////////
-
 export class Foto {
 	id: string;
 	nome: string;
@@ -62,10 +44,18 @@ export class Foto {
 	tipo: string;
   produto: Produto;
 
-  constructor(id: string) {
+  constructor(id: string, descricao: string) {
     this.id = id;
+    this.descricao = descricao;
+
   }
 }
+
+export class FotoImage extends Foto {
+  imagem: string;
+  miniatura: string;
+}
+////////////////////////
 
 export class FotoAutoComplete {
 	id: string;

@@ -14,7 +14,7 @@ import { HttpClientWithToken } from '../../../../security/http-client-token';
 
 import { Produto } from './produto.model';
 import { ProdutoAutoComplete } from './produto.model';
-import { Foto, FotoDTO } from './../foto/foto.model';
+import { Foto, FotoImage } from './../foto/foto.model';
 import { ProdutoListFilter } from './produto.model';
 import { AnalyticsService } from './../../../../analitycs/analytics.service';
 import { environment } from 'src/environments/environment';
@@ -89,13 +89,13 @@ export class ProdutoService {
       });
   }
 
-  getProdutoFoto(fotoId: string): Promise<FotoDTO> {
+  getProdutoFoto(fotoId: string): Promise<FotoImage> {
     this.analitycs.sendEvent('cadastros.fornecedor.getProdutoFoto', 'retrieve', 'retrieve Produto');
     const headers = this.getHeaders();
-    return this.http.get<FotoDTO>(`${this.url2}/getProdutoFoto/${fotoId}`, { headers })
+    return this.http.get<FotoImage>(`${this.url2}/getProdutoFoto/${fotoId}`, { headers })
       .toPromise()
       .then(response => {
-        const foto = response as FotoDTO;
+        const foto = response as FotoImage;
         if (foto) {
           if (foto.imagem) {
             foto.imagem = this.getImageData64(foto.tipo, foto.imagem);
@@ -124,16 +124,16 @@ export class ProdutoService {
       .then(() => null);
   }
 
-  uploadProdutoFotoAndGet(produtoId: string, fotoFile: File): Promise<FotoDTO> {
+  uploadProdutoFotoAndGet(produtoId: string, fotoFile: File): Promise<FotoImage> {
     const formData: FormData = new FormData();
     formData.append('foto', fotoFile, fotoFile.name);
 
     const headers = this.getHeaders();
     this.analitycs.sendEvent('cadastros.fornecedor.Produto', 'uploadProdutoFoto', 'upload Produto Fotos');
-    return this.http.post<FotoDTO>(`${this.url2}/uploadProdutoFotoAndGet/${produtoId}`, formData/*, { headers }*/)
+    return this.http.post<FotoImage>(`${this.url2}/uploadProdutoFotoAndGet/${produtoId}`, formData/*, { headers }*/)
       .toPromise()
       .then(response => {
-        const foto = response as FotoDTO;
+        const foto = response as FotoImage;
         if (foto) {
           if (foto.imagem) {
             foto.imagem = this.getImageData64(foto.tipo, foto.imagem);
