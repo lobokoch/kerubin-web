@@ -47,10 +47,10 @@ export class ConciliacaoTransacaoTitulo {
 	tituloConciliadoId: string;
 	tituloConciliadoDesc: string;
 	tituloConciliadoDataVen: Date;
-        tituloConciliadoDataPag: Date;
-        tituloConciliadoValor: number;
-        tituloPlanoContas: PlanoContaTituloAutoComplete;
-  	tituloConciliadoMultiple: boolean = false;
+  tituloConciliadoDataPag: Date;
+  tituloConciliadoValor: number;
+  tituloPlanoContas: PlanoContaTituloAutoComplete;
+  tituloConciliadoMultiple: boolean = false;
 	dataConciliacao: Date;
 	situacaoConciliacaoTrn: SituacaoConciliacaoTrn;
 }

@@ -146,9 +146,15 @@ export class ConciliacaoTransacaoListComponent implements OnInit {
       // Update with data in the dialog
       conciliacaoTransacao.tituloConciliadoId = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoId;
       conciliacaoTransacao.tituloConciliadoDesc = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDesc;
+      conciliacaoTransacao.tituloConciliadoValor = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoValor;
+      conciliacaoTransacao.tituloConciliadoDataVen = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDataVen;
+      conciliacaoTransacao.tituloConciliadoDataPag = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoDataPag;
       conciliacaoTransacao.dataConciliacao = this.selectedConciliacaoTransacaoTitulo.dataConciliacao;
       conciliacaoTransacao.situacaoConciliacaoTrn = this.selectedConciliacaoTransacaoTitulo.situacaoConciliacaoTrn;
-      conciliacaoTransacao.tituloConciliadoMultiple = this.selectedConciliacaoTransacaoTitulo.tituloConciliadoMultiple;
+      conciliacaoTransacao.tituloPlanoContas = this.selectedConciliacaoTransacaoTitulo.tituloPlanoContas;
+      conciliacaoTransacao.conciliadoComErro = false;
+      conciliacaoTransacao.conciliadoMsg = null;
+
 
       // Update the titulos list.
       conciliacaoTransacao.conciliacaoTransacaoTitulos = this.titulosDialog;
