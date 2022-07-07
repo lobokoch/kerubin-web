@@ -29,7 +29,7 @@
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
     "md5-typescript": "^1.0.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "ng2-currency-mask": "^9.0.2",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0",
